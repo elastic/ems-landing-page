@@ -2,7 +2,6 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  // context: path.resolve(__dirname, 'public/'),
   entry: {
     main: ['babel-polyfill', path.resolve(__dirname, 'public/js/main.js')]
   },
@@ -15,6 +14,10 @@ module.exports = {
       {
         test: /\.(png|jpg|gif)$/,
         loaders: ['file-loader']
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       },
       {
         test: /\.css$/,

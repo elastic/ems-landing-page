@@ -1,0 +1,17 @@
+{
+  "SUPPORTED_EMS": [
+    {
+      "version": "v1",
+      "manifests": [
+        "https://tiles.maps.elastic.co/v2/manifest"
+      ]
+    },
+    {
+      "version": "v2",
+      "manifests": [
+        "https://staging-dot-catalogue-dot-elastic-layer.appspot.com/v2/manifest",
+        "https://catalogue.maps.elastic.co/v2/manifest"
+      ]
+    }
+  ]
+}
