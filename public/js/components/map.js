@@ -12,11 +12,26 @@ export class Map extends Component {
   }
 
   componentDidMount(){
-    mapboxgl.accessToken = 'pk.eyJ1IjoidGhvbWFzbmVpcnluY2siLCJhIjoiY2o4bzMxOHpiMWVxYjJxbXo3eWdiNHRqbSJ9.6ojCKqS6rGX4N2dBK7ojsA';
     const mapboxMap = new mapboxgl.Map({
-      // container: '<your HTML element id>',
       container: this.refs.mapContainer,
-      style: 'mapbox://styles/mapbox/streets-v9'
+      style: {
+        "version": 8,
+        "sources": {
+          "raster-tiles": {
+            "type": "raster",
+            "tiles": ["https://tiles-stage.elastic.co/v2/default/{z}/{x}/{y}.png?elastic_tile_service_tos=agree"],
+            "tileSize": 256,
+            "scheme": "xyz"
+          }
+        },
+        "layers": [{
+          "id": "simple-tiles",
+          "type": "raster",
+          "source": "raster-tiles",
+          "minzoom": 0,
+          "maxzoom": 22
+        }]
+      }
     });
   }
 
