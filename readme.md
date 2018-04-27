@@ -1,8 +1,25 @@
 ## Elastic Maps Landing Page
 
 
+### Preqrequisite
 
-todo.
+> yarn install
+
+### Development
+
+#### Start the compilation task
+
+> yarn dev
+
+#### Open the page
+
+`public/index.html`
+
+You can run it either from the file-system or any dev-server.
+
+### Build
+
+todo
 
 
-http://localhost:63342/ems_landing_page/public/index.html?manifest=https://catalogue.maps.elastic.co/v2/manifest
+
