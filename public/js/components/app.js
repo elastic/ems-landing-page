@@ -18,6 +18,7 @@ EuiBasicTable
 
 import {TableOfContents} from './table_of_contents';
 import {FeatureTable} from './feature_table';
+import {Map} from './map';
 
 export class App extends Component {
 
@@ -56,9 +57,9 @@ export class App extends Component {
     <EuiPage>
       <EuiPageBody>
         <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer}></TableOfContents>
-        <div>
+        <div className="mainContent">
           <EuiPanel paddingSize="none">
-            Ma preview...
+            <Map></Map>
           </EuiPanel>
           <EuiSpacer size="xl" />
           <EuiPageContent>

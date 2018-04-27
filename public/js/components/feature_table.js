@@ -19,11 +19,10 @@ EuiBasicTable
 
 export class FeatureTable extends Component {
 
-
   constructor(props) {
     super(props);
   }
-  
+
   _getRows() {
     return this.props.jsonFeatures.features.map((feature) => feature.properties);
   }

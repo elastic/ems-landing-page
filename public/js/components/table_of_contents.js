@@ -11,10 +11,8 @@ EuiSideNav,
 
 export class TableOfContents extends Component {
 
-
   constructor(props) {
     super(props);
-
     this.state = {
       selectedItemId: null
     };
@@ -30,7 +28,6 @@ export class TableOfContents extends Component {
     );
   }
 
-
   _createItem(id, name, config, data = {}) {
     return Object.assign(data, {
       id: id,
@@ -41,9 +38,6 @@ export class TableOfContents extends Component {
   }
 
   _selectItem(id, config) {
-
-
-
 
     this.setState({
       selectedItemId: id,
@@ -56,6 +50,7 @@ export class TableOfContents extends Component {
   };
 
   _getSidebarItems() {
+
     const tmsItems = this.props.layers.tms.manifest.services.map((service) => {
       const id = "tms/" + service.id;
       const name = service.human_readable ? service.human_readable : service.id;
