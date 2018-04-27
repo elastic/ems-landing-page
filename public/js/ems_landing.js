@@ -17,6 +17,7 @@ EuiBasicTable
 } from '@elastic/eui';
 
 import _ from 'lodash';
+import {TableOfContents} from './components/table_of_contents';
 
 
 export class EMSLanding extends Component {
@@ -41,61 +42,46 @@ export class EMSLanding extends Component {
       tableData: tableData
     };
 
+    console.log(this.props.layers);
 
-    this.toggleOpenOnMobile = () => {
-      this.setState({
-        isSideNavOpenOnMobile: !this.state.isSideNavOpenOnMobile,
-      });
-    };
-
-    this.selectItem = name => {
-      this.setState({
-        selectedItemName: name,
-      });
-    };
-
-    this.createItem = (name, data = {}) => {
-      return _.assign({},data,{
-        id: name,
-        name,
-        isSelected: this.state.selectedItemName === name,
-        onClick: () => this.selectItem(name),
-      });
-    };
+    //
+    // this.toggleOpenOnMobile = () => {
+    //   this.setState({
+    //     isSideNavOpenOnMobile: !this.state.isSideNavOpenOnMobile,
+    //   });
+    // };
+    //
+    // this.selectItem = name => {
+    //   this.setState({
+    //     selectedItemName: name,
+    //   });
+    // };
+    //
+    // this.createItem = (name, data = {}) => {
+    //   return _.assign({},data,{
+    //     id: name,
+    //     name,
+    //     isSelected: this.state.selectedItemName === name,
+    //     onClick: () => this.selectItem(name),
+    //   });
+    // };
 
   }
 
   renderPage() {
-    const sideNav = [
-      this.createItem('Elastic Map Service', {
-        icon: <EuiIcon type="logoElastic" />,
-        items: [
-          this.createItem('Vector layers', {
-            items: [
-              this.createItem('U.S. cities'),
-              this.createItem('U.S. states'),
-              this.createItem('World countries'),
-            ]
-          }),
-        ],
-      })
-    ];
+
 
     return (
     <EuiPage>
       <EuiPageBody>
-        <EuiPageSideBar>
-          <EuiSideNav
-          mobileTitle="Navigate within $APP_NAME"
-          toggleOpenOnMobile={this.toggleOpenOnMobile}
-          isOpenOnMobile={this.state.isSideNavOpenOnMobile}
-          items={sideNav}
-          />
-        </EuiPageSideBar>
+
+
+        <TableOfContents layers={this.props.layers}></TableOfContents>
+
 
         <div>
           <EuiPanel paddingSize="none">
-            <EuiImage url="https://source.unsplash.com/1600x900/?map" alt={this.state.selectedItemName} style={{ width: '100%' }} />
+            Ma preview...
           </EuiPanel>
 
           <EuiSpacer size="xl" />

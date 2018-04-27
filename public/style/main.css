@@ -10,3 +10,7 @@ body {
 #wrapper {
     width: 100%;
 }
+
+.mainImage {
+    width: 1200px;
+}
