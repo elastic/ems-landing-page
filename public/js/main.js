@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import URL from 'url-parse';
-
 import CONFIG from './config.json';
-import {EMSLanding} from './ems_landing';
+import {App} from './components/app';
 import {ManifestParserV2} from './manifest_parser_v2';
+
+
+start();
 
 async function start() {
 
@@ -17,11 +19,10 @@ async function start() {
 
   const emsLayers = await manifestParser.getAllEMSLayers();
 
-  const emsLanding = ReactDOM.render(<EMSLanding layers={emsLayers}/>, document.getElementById('wrapper'));
+  const emsLanding = ReactDOM.render(<App layers={emsLayers}/>, document.getElementById('wrapper'));
 
 
 }
-start();
 
 
 function getManifestParser(url) {

@@ -17,10 +17,9 @@ EuiBasicTable
 } from '@elastic/eui';
 
 import _ from 'lodash';
-import {TableOfContents} from './components/table_of_contents';
+import {TableOfContents} from './table_of_contents';
 
-
-export class EMSLanding extends Component {
+export class App extends Component {
 
   constructor(props) {
     super(props);
@@ -42,29 +41,11 @@ export class EMSLanding extends Component {
       tableData: tableData
     };
 
-    console.log(this.props.layers);
+    this._selectLayer = (layer) => {
+      //todo
+    };
 
-    //
-    // this.toggleOpenOnMobile = () => {
-    //   this.setState({
-    //     isSideNavOpenOnMobile: !this.state.isSideNavOpenOnMobile,
-    //   });
-    // };
-    //
-    // this.selectItem = name => {
-    //   this.setState({
-    //     selectedItemName: name,
-    //   });
-    // };
-    //
-    // this.createItem = (name, data = {}) => {
-    //   return _.assign({},data,{
-    //     id: name,
-    //     name,
-    //     isSelected: this.state.selectedItemName === name,
-    //     onClick: () => this.selectItem(name),
-    //   });
-    // };
+
 
   }
 
@@ -75,9 +56,7 @@ export class EMSLanding extends Component {
     <EuiPage>
       <EuiPageBody>
 
-
-        <TableOfContents layers={this.props.layers}></TableOfContents>
-
+        <TableOfContents layers={this.props.layers} onLayerSelect={this._selectLayer}></TableOfContents>
 
         <div>
           <EuiPanel paddingSize="none">

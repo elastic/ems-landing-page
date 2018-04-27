@@ -34,11 +34,11 @@ export class ManifestParserV2 {
     const filesManifest = await filesResponse.json();
 
     return {
-      tiles: {
+      tms: {
         meta: tilesMeta,
         manifest: tilesManifest,
       },
-      files: {
+      file: {
         meta: filesMeta,
         manifest: filesManifest
       }
