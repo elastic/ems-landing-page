@@ -48,35 +48,39 @@ export class App extends Component {
         jsonFeatures: jsonFeatures
       });
 
+      this._map.setOverlayLayer(jsonFeatures);
     };
-  }
 
-  renderPage() {
 
-    return (
-    <EuiPage>
-      <EuiPageBody>
-        <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer}></TableOfContents>
-        <div className="mainContent">
-          <EuiPanel paddingSize="none">
-            <Map></Map>
-          </EuiPanel>
-          <EuiSpacer size="xl" />
-          <EuiPageContent>
-            <EuiPageContentBody>
-              <FeatureTable jsonFeatures={this.state.jsonFeatures} config={this.state.selectedFileLayer} />
-            </EuiPageContentBody>
-          </EuiPageContent>
-        </div>
-      </EuiPageBody>
-    </EuiPage>
-    );
+    this._map = null;
   }
 
   render() {
+
+    const setMap = (map) => {
+      if (this._map === null) {
+        this._map = map
+      }
+    };
+
     return (
     <div>
-      {this.renderPage()}
+      <EuiPage>
+        <EuiPageBody>
+          <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer}></TableOfContents>
+          <div className="mainContent">
+            <EuiPanel paddingSize="none">
+              <Map ref={setMap}></Map>
+            </EuiPanel>
+            <EuiSpacer size="xl"/>
+            <EuiPageContent>
+              <EuiPageContentBody>
+                <FeatureTable jsonFeatures={this.state.jsonFeatures} config={this.state.selectedFileLayer}/>
+              </EuiPageContentBody>
+            </EuiPageContent>
+          </div>
+        </EuiPageBody>
+      </EuiPage>
     </div>
     );
   }

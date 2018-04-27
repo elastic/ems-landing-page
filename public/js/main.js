@@ -16,12 +16,9 @@ async function start() {
   if (!manifestParser) {
     return;
   }
-
   const emsLayers = await manifestParser.getAllEMSLayers();
 
   const emsLanding = ReactDOM.render(<App layers={emsLayers}/>, document.getElementById('wrapper'));
-
-
 }
 
 
