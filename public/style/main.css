@@ -17,3 +17,12 @@ body {
     width: 100%;
     height: 512px;
 }
+
+.banner {
+    width: 100%;
+    height: 100px;
+}
+
+.dl {
+    width: 200px;
+}

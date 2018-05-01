@@ -66,6 +66,9 @@ export class App extends Component {
     return (
     <div>
       <EuiPage>
+        <div className="banner">
+          Here be banner...
+        </div>
         <EuiPageBody>
           <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer}></TableOfContents>
           <div className="mainContent">

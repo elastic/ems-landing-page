@@ -37,6 +37,37 @@ export class Map extends Component {
         }]
       }
     });
+
+
+    // When a click event occurs on a feature in the places layer, open a popup at the
+    // location of the feature, with description HTML from its properties.
+    this._mapboxMap.on('click', this._overlayFillLayerId,  (e) => {
+
+      const keys = Object.keys(e.features[0].properties);
+      let rows = '';
+      keys.forEach((key) => {
+        const fieldname = key;
+        rows += `<dt>${fieldname}</dt><dd>${e.features[0].properties[key]}</dd>`
+      });
+      const html = `<dl>${rows}</dl>`;
+
+      new mapboxgl.Popup()
+      .setLngLat(e.lngLat)
+      .setHTML(html)
+      .addTo(this._mapboxMap);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the places layer.
+    this._mapboxMap.on('mouseenter', this._overlayFillLayerId,  () => {
+      this._mapboxMap.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    this._mapboxMap.on('mouseleave', this._overlayFillLayerId, () => {
+      this._mapboxMap.getCanvas().style.cursor = '';
+    });
+
+
   }
 
   _removeOverlayLayer() {
