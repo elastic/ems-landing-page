@@ -14,16 +14,36 @@ export class TableOfContents extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedItemId: null
+      selectedItemId: null,
+      selectedConfig: null
     };
   }
 
   render() {
+
     const sidebarItems = this._getSidebarItems();
+
+
+    const keys = Object.keys(this.state.selectedConfig || {});
+
+    const list = keys.map((key, index) => {
+      const string = `${key}: ${this.state.selectedConfig[key]}`;
+      return (<div key={index}>{string}</div>);
+    });
+
+
     return (
     <EuiPageSideBar>
       <EuiSideNav items={sidebarItems}>
       </EuiSideNav>
+
+      <div>
+        <h3>Layer Details</h3>:
+        <dl>
+          {list}
+        </dl>
+      </div>
+
     </EuiPageSideBar>
     );
   }
@@ -41,6 +61,7 @@ export class TableOfContents extends Component {
 
     this.setState({
       selectedItemId: id,
+      selectedConfig: config
     });
 
     if (id.startsWith('file')) {
