@@ -36,7 +36,6 @@ export class FeatureTable extends Component {
     });
   }
 
-
   render() {
 
     if (this.props.jsonFeatures === null) {

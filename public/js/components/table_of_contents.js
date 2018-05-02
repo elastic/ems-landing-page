@@ -1,5 +1,5 @@
 import React, {
-Component,
+Component
 } from 'react';
 
 import {
@@ -20,30 +20,11 @@ export class TableOfContents extends Component {
   }
 
   render() {
-
     const sidebarItems = this._getSidebarItems();
-
-
-    const keys = Object.keys(this.state.selectedConfig || {});
-
-    const list = keys.map((key, index) => {
-      const string = `${key}: ${this.state.selectedConfig[key]}`;
-      return (<div key={index}>{string}</div>);
-    });
-
-
     return (
     <EuiPageSideBar>
       <EuiSideNav items={sidebarItems}>
       </EuiSideNav>
-
-      <div>
-        <h3>Layer Details</h3>:
-        <dl>
-          {list}
-        </dl>
-      </div>
-
     </EuiPageSideBar>
     );
   }

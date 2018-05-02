@@ -37,6 +37,8 @@ export class Map extends Component {
         }]
       }
     });
+    this._mapboxMap.dragRotate.disable();
+    this._mapboxMap.touchZoomRotate.disableRotation();
 
 
     // When a click event occurs on a feature in the places layer, open a popup at the

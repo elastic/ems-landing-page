@@ -1,38 +1,42 @@
 import React, {
-Component,
+Component, Fragment
 } from 'react';
 
 import {
+EuiPage,
+EuiPageBody,
+EuiPageContent,
+EuiPageContentBody,
+EuiPanel,
 EuiPageSideBar,
+EuiSpacer,
 EuiIcon,
 EuiSideNav,
+EuiImage,
+EuiBasicTable
 } from '@elastic/eui';
 
-
-export class TableOfContents extends Component {
+export class LayerDetails extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      selectedItemId: null
-    };
   }
 
   render() {
-    const sidebarItems = this._getSidebarItems();
-
-    const lists = [];
-
-
+    if (!this.props.layerConfig){
+      return null;
+    }
     return (
-    <EuiPageSideBar>
-      <EuiSideNav items={sidebarItems}>
-      </EuiSideNav>
-
+    <div>
       <dl>
-
+        <dt>Name</dt>
+        <dd>{this.props.layerConfig.name}</dd>
+        <dt>Attribution</dt>
+        <dd>{this.props.layerConfig.attribution}</dd>
+        <dt>Link</dt>
+        <dd><a href={this.props.layerConfig.url}>geojson</a></dd>
       </dl>
-    </EuiPageSideBar>
+    </div>
     );
   }
 

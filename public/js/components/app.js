@@ -19,6 +19,7 @@ EuiBasicTable
 import {TableOfContents} from './table_of_contents';
 import {FeatureTable} from './feature_table';
 import {Map} from './map';
+import {LayerDetails} from './layer_details';
 
 export class App extends Component {
 
@@ -78,6 +79,7 @@ export class App extends Component {
             <EuiSpacer size="xl"/>
             <EuiPageContent>
               <EuiPageContentBody>
+                <LayerDetails layerConfig={this.state.selectedFileLayer}/>
                 <FeatureTable jsonFeatures={this.state.jsonFeatures} config={this.state.selectedFileLayer}/>
               </EuiPageContentBody>
             </EuiPageContent>
