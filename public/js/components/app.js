@@ -21,6 +21,8 @@ import {FeatureTable} from './feature_table';
 import {Map} from './map';
 import {LayerDetails} from './layer_details';
 
+import * as topojson from 'topojson-client';
+
 export class App extends Component {
 
   constructor(props) {
@@ -34,22 +36,22 @@ export class App extends Component {
     this._selectFileLayer = async(fileLayerConfig) => {
 
       const response = await fetch(fileLayerConfig.url);
-      const jsonFeatures = await response.json();
+      const json = await response.json();
 
+      let featureCollection;
       if (fileLayerConfig.format === 'topojson') {
-        this.setState({
-          selectedFileLayer: null,
-          jsonFeatures: null
-        });
-        return;
+        const features = json['objects'][fileLayerConfig.meta.feature_collection_path];
+        featureCollection = topojson.feature(json, features);//conversion to geojson
+      } else {
+        featureCollection = json;
       }
 
       this.setState({
         selectedFileLayer: fileLayerConfig,
-        jsonFeatures: jsonFeatures
+        jsonFeatures: featureCollection
       });
 
-      this._map.setOverlayLayer(jsonFeatures);
+      this._map.setOverlayLayer(featureCollection);
     };
 
 

@@ -33,7 +33,7 @@ export class LayerDetails extends Component {
         <dd>{this.props.layerConfig.name}</dd>
         <dt>Attribution</dt>
         <dd>{this.props.layerConfig.attribution}</dd>
-        <dt>Link</dt>
+        <dt>Download</dt>
         <dd><a href={this.props.layerConfig.url}>geojson</a></dd>
       </dl>
     </div>
