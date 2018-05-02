@@ -53,15 +53,16 @@ export class TableOfContents extends Component {
 
   _getSidebarItems() {
 
-    const tmsItems = this.props.layers.tms.manifest.services.map((service) => {
-      const id = "tms/" + service.id;
-      const name = service.human_readable ? service.human_readable : service.id;
-      return this._createItem(id, name, service);
-    });
-    const tiles = this._createItem("tms", "Tile Layers", this.props.layers.tms.meta, {
-      icon: <EuiIcon type="logoElasticSearch"/>,
-      items: tmsItems
-    });
+    // todo: remove for now. We don't have multiple tile layers
+    // const tmsItems = this.props.layers.tms.manifest.services.map((service) => {
+    //   const id = "tms/" + service.id;
+    //   const name = service.human_readable ? service.human_readable : service.id;
+    //   return this._createItem(id, name, service);
+    // });
+    // const tiles = this._createItem("tms", "Tile Layers", this.props.layers.tms.meta, {
+    //   icon: <EuiIcon type="logoElasticSearch"/>,
+    //   items: tmsItems
+    // });
 
     const fileItems = this.props.layers.file.manifest.layers.map((service) => {
       const id = "file/" + service.id;
@@ -73,6 +74,6 @@ export class TableOfContents extends Component {
       items: fileItems
     });
 
-    return [tiles, files];
+    return [files];
   }
 }
