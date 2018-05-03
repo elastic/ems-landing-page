@@ -1,4 +1,5 @@
 import mapboxgl from 'mapbox-gl';
+import turf from 'turf';
 
 import React, {
 Component,
@@ -15,7 +16,7 @@ export class Map extends Component {
     this._overlayLineLayerId = "overlay-line-layer";
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this._mapboxMap = new mapboxgl.Map({
       container: this.refs.mapContainer,
       style: {
@@ -40,24 +41,12 @@ export class Map extends Component {
     this._mapboxMap.dragRotate.disable();
     this._mapboxMap.touchZoomRotate.disableRotation();
 
-    this._mapboxMap.on('click', this._overlayFillLayerId,  (e) => {
-
-      const keys = Object.keys(e.features[0].properties);
-      let rows = '';
-      keys.forEach((key) => {
-        const fieldname = key;
-        rows += `<dt>${fieldname}</dt><dd>${e.features[0].properties[key]}</dd>`
-      });
-      const html = `<dl>${rows}</dl>`;
-
-      new mapboxgl.Popup()
-      .setLngLat(e.lngLat)
-      .setHTML(html)
-      .addTo(this._mapboxMap);
+    this._mapboxMap.on('click', this._overlayFillLayerId, (e) => {
+      this._highlightFeature(e.features[0], e.lngLat);
     });
 
     // Change the cursor to a pointer when the mouse is over the places layer.
-    this._mapboxMap.on('mouseenter', this._overlayFillLayerId,  () => {
+    this._mapboxMap.on('mouseenter', this._overlayFillLayerId, () => {
       this._mapboxMap.getCanvas().style.cursor = 'pointer';
     });
 
@@ -66,6 +55,27 @@ export class Map extends Component {
       this._mapboxMap.getCanvas().style.cursor = '';
     });
 
+  }
+
+  _highlightFeature(feature, lngLat) {
+    this._removePopup();
+    const keys = Object.keys(feature.properties);
+    let rows = '';
+    keys.forEach((key) => {
+      const fieldname = key;
+      rows += `<dt>${fieldname}</dt><dd>${feature.properties[key]}</dd>`
+    });
+    const html = `<dl>${rows}</dl>`;
+
+    this._currentPopup = new mapboxgl.Popup()
+    .setLngLat(lngLat)
+    .setHTML(html)
+    .addTo(this._mapboxMap);
+  }
+
+  highlightFeature(feature) {
+    const center = turf.center(feature);
+    this._highlightFeature(feature, new mapboxgl.LngLat(center.geometry.coordinates[0], center.geometry.coordinates[1]));
   }
 
   _removeOverlayLayer() {
@@ -78,12 +88,21 @@ export class Map extends Component {
     if (this._mapboxMap.getSource(this._overlaySourceId)) {
       this._mapboxMap.removeSource(this._overlaySourceId);
     }
+
+    this._removePopup();
+
+  }
+
+  _removePopup(){
+    if (this._currentPopup) {
+      this._currentPopup.remove();
+      this._currentPopup = null;
+    }
   }
 
   setOverlayLayer(featureCollection) {
 
     this._removeOverlayLayer();
-
 
     this._mapboxMap.addSource(this._overlaySourceId, {
       type: "geojson",

@@ -54,6 +54,10 @@ export class App extends Component {
       this._map.setOverlayLayer(featureCollection);
     };
 
+    this._showFeature = (feature) => {
+      console.log('onshow', feature);
+      this._map.highlightFeature(feature);
+    };
 
     this._map = null;
   }
@@ -65,6 +69,7 @@ export class App extends Component {
         this._map = map
       }
     };
+
 
     return (
     <div>
@@ -82,7 +87,7 @@ export class App extends Component {
             <EuiPageContent>
               <EuiPageContentBody>
                 <LayerDetails layerConfig={this.state.selectedFileLayer}/>
-                <FeatureTable jsonFeatures={this.state.jsonFeatures} config={this.state.selectedFileLayer}/>
+                <FeatureTable jsonFeatures={this.state.jsonFeatures} config={this.state.selectedFileLayer} onShow={this._showFeature}/>
               </EuiPageContentBody>
             </EuiPageContent>
           </div>
