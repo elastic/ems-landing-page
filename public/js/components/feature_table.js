@@ -46,7 +46,6 @@ export class FeatureTable extends Component {
       description: 'show on layer',
       icon: 'bullseye',
       onClick: (c) => {
-        console.log('click', c);
         const feature = this.props.jsonFeatures.features[c.__id__];
         this.props.onShow(feature);
       }
@@ -75,18 +74,6 @@ export class FeatureTable extends Component {
       initialPageSize: 50,
       pageSizeOptions: [50]
     };
-
-
-    // const selection = {
-    //   itemId: '__id__',
-    //   onSelectionChange: (e) => {
-    //     console.log('sel change', e);
-    //   },
-    //   // selectable: (e) => {
-    //   //   console.log('sel?', e);
-    //   //   return true;
-    //   // }
-    // };
 
     return (
     <EuiInMemoryTable

@@ -55,7 +55,6 @@ export class App extends Component {
     };
 
     this._showFeature = (feature) => {
-      console.log('onshow', feature);
       this._map.highlightFeature(feature);
     };
 
