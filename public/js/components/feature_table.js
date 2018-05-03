@@ -9,11 +9,11 @@ EuiPageContent,
 EuiPageContentBody,
 EuiPanel,
 EuiPageSideBar,
-EuiSpacer,
 EuiIcon,
 EuiSideNav,
 EuiImage,
-EuiBasicTable
+EuiBasicTable,
+EuiInMemoryTable
 } from '@elastic/eui';
 
 
@@ -45,10 +45,19 @@ export class FeatureTable extends Component {
     const rows = this._getRows();
     const columns = this._getColumns();
 
+    const search = {};
+
+    const pagination = {
+      initialPageSize: 50,
+      pageSizeOptions: [50]
+    };
+
     return (
-    <EuiBasicTable
+    <EuiInMemoryTable
     items={rows}
     columns={columns}
+    search={search}
+    pagination={pagination}
     />
     );
   }

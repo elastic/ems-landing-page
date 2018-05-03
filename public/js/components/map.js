@@ -66,7 +66,6 @@ export class Map extends Component {
       this._mapboxMap.getCanvas().style.cursor = '';
     });
 
-
   }
 
   _removeOverlayLayer() {
@@ -120,7 +119,6 @@ export class Map extends Component {
   render() {
     return (<div className="mapContainer" ref="mapContainer"></div>);
   }
-
 
 }
 
