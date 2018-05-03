@@ -31,7 +31,8 @@ export class FeatureTable extends Component {
     return this.props.config.fields.map(field => {
       return {
         field: field.name,
-        name: field.description + " (" + field.name + ")"
+        name: field.description + " (" + field.name + ")",
+        sortable: true
       }
     });
   }
@@ -58,6 +59,7 @@ export class FeatureTable extends Component {
     columns={columns}
     search={search}
     pagination={pagination}
+    sorting={true}
     />
     );
   }
