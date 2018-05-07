@@ -13,13 +13,15 @@ EuiSpacer,
 EuiIcon,
 EuiSideNav,
 EuiImage,
-EuiBasicTable
+EuiBasicTable,
+EuiText
 } from '@elastic/eui';
 
 import {TableOfContents} from './table_of_contents';
 import {FeatureTable} from './feature_table';
 import {Map} from './map';
 import {LayerDetails} from './layer_details';
+import URL from 'url-parse';
 
 import * as topojson from 'topojson-client';
 
@@ -33,6 +35,7 @@ export class App extends Component {
       selectedFileLayer: null,
       jsonFeatures: null
     };
+
     this._selectFileLayer = async(fileLayerConfig) => {
 
       const response = await fetch(fileLayerConfig.url);
@@ -51,6 +54,7 @@ export class App extends Component {
         jsonFeatures: featureCollection
       });
 
+      this._setFileRoute(fileLayerConfig);
       this._map.setOverlayLayer(featureCollection);
     };
 
@@ -61,6 +65,37 @@ export class App extends Component {
     this._map = null;
   }
 
+
+  componentDidMount(){
+    const fileLayerConfig = this._readFileRoute();
+    if (!fileLayerConfig){
+      window.location.hash = "";
+      return;
+    }
+    this._selectFileLayer(fileLayerConfig);
+  }
+
+  _readFileRoute() {
+
+    const urlTokens = URL(window.location, true);
+
+    //uses hash as ID. This is more human readable, and seems more transferable than the machine GCP cloud storage ids.
+    const path = urlTokens.hash.substr(1);//cut off #
+    const tokens = path.split('/');
+
+    //this version only supports files for now
+    if (tokens[0] !== 'file') {
+      return;
+    }
+
+    const name = decodeURIComponent(tokens[1]);
+    return this.props.layers.file.manifest.layers.find((layer) => layer.name === name);
+  }
+
+  _setFileRoute(layerConfig) {
+    window.location.hash = "file/" + layerConfig.name;
+  }
+
   render() {
 
     const setMap = (map) => {
@@ -69,12 +104,13 @@ export class App extends Component {
       }
     };
 
-
     return (
     <div>
       <EuiPage>
         <div className="banner">
-          <h2>TO DO BANNER</h2>
+          <EuiText>
+            <h2>TO DO BANNER</h2>
+          </EuiText>
         </div>
         <EuiPageBody>
           <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer}></TableOfContents>
@@ -86,7 +122,8 @@ export class App extends Component {
             <EuiPageContent>
               <EuiPageContentBody>
                 <LayerDetails layerConfig={this.state.selectedFileLayer}/>
-                <FeatureTable jsonFeatures={this.state.jsonFeatures} config={this.state.selectedFileLayer} onShow={this._showFeature}/>
+                <FeatureTable jsonFeatures={this.state.jsonFeatures} config={this.state.selectedFileLayer}
+                              onShow={this._showFeature}/>
               </EuiPageContentBody>
             </EuiPageContent>
           </div>

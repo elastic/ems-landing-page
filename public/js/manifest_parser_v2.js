@@ -26,7 +26,6 @@ export class ManifestParserV2 {
     const tilesResponse = await fetch(tilesMeta.manifest);
     const tilesManifest = await tilesResponse.json();
 
-
     const filesMeta = catalogue.services.find((service) => {
       return service.type === 'file';
     });

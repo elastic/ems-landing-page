@@ -18,20 +18,20 @@ async function start() {
   }
   const emsLayers = await manifestParser.getAllEMSLayers();
 
-  const emsLanding = ReactDOM.render(<App layers={emsLayers}/>, document.getElementById('wrapper'));
+  ReactDOM.render(<App layers={emsLayers}/>, document.getElementById('wrapper'));
 }
-
 
 function getManifestParser(url) {
 
   let manifestConfig;
 
   if (url) {
+    //tbh not sure if we want to do this, but it may make sense to
     manifestConfig = CONFIG.SUPPORTED_EMS.find((manifestConfig) => {
       return manifestConfig.manifests.indexOf(url) !== -1;
     });
   } else {
-    //just get first one to test
+    //just get the first one to test
     manifestConfig = CONFIG.SUPPORTED_EMS.find(manifestConfig => {
       return manifestConfig.version === 'v2';
     });
