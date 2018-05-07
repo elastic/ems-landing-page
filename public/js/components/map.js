@@ -124,7 +124,7 @@ export class Map extends Component {
       source: this._overlaySourceId,
       "type": "line",
       "paint": {
-        "line-color": "rgb(255,10,10)",
+        "line-color": "rgb(0,0,0)",
         "line-width": 1
       }
     });

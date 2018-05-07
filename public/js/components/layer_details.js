@@ -13,6 +13,7 @@ EuiSpacer,
 EuiIcon,
 EuiSideNav,
 EuiImage,
+EuiText,
 EuiBasicTable
 } from '@elastic/eui';
 
@@ -27,7 +28,9 @@ export class LayerDetails extends Component {
       return null;
     }
     return (
+
     <div>
+      <EuiText>
       <dl>
         <dt>Name</dt>
         <dd>{this.props.layerConfig.name}</dd>
@@ -36,6 +39,7 @@ export class LayerDetails extends Component {
         <dt>Download</dt>
         <dd><a href={this.props.layerConfig.url}>geojson</a></dd>
       </dl>
+      </EuiText>
     </div>
     );
   }
