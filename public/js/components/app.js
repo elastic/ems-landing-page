@@ -49,6 +49,10 @@ export class App extends Component {
         featureCollection = json;
       }
 
+      featureCollection.features.forEach((feature, index) => {
+        feature.properties.__id__ = index;
+      });
+
       this.setState({
         selectedFileLayer: fileLayerConfig,
         jsonFeatures: featureCollection

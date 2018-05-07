@@ -14,6 +14,7 @@ export class Map extends Component {
     this._overlaySourceId = "overlay-source";
     this._overlayFillLayerId = "overlay-fill-layer";
     this._overlayLineLayerId = "overlay-line-layer";
+    this._overlayFillHighlightId = "overlay-fill-highlight-layer";
   }
 
   componentDidMount() {
@@ -71,11 +72,17 @@ export class Map extends Component {
     .setLngLat(lngLat)
     .setHTML(html)
     .addTo(this._mapboxMap);
+
+    this._mapboxMap.setFilter(this._overlayFillHighlightId, ["==", "__id__", feature.properties.__id__]);
+
   }
 
   highlightFeature(feature) {
     const center = turf.center(feature);
     this._highlightFeature(feature, new mapboxgl.LngLat(center.geometry.coordinates[0], center.geometry.coordinates[1]));
+
+    const bbox = turf.bbox(feature);
+    this._mapboxMap.fitBounds(bbox);
   }
 
   _removeOverlayLayer() {
@@ -85,6 +92,12 @@ export class Map extends Component {
     if (this._mapboxMap.getLayer(this._overlayLineLayerId)) {
       this._mapboxMap.removeLayer(this._overlayLineLayerId);
     }
+
+    if (this._mapboxMap.getLayer(this._overlayFillHighlightId)) {
+      this._mapboxMap.removeLayer(this._overlayFillHighlightId);
+    }
+
+
     if (this._mapboxMap.getSource(this._overlaySourceId)) {
       this._mapboxMap.removeSource(this._overlaySourceId);
     }
@@ -127,6 +140,18 @@ export class Map extends Component {
         "line-color": "rgb(0,0,0)",
         "line-width": 1
       }
+    });
+
+    this._mapboxMap.addLayer({
+      "id": this._overlayFillHighlightId,
+      "source": this._overlaySourceId,
+      "type": "fill",
+      "layout": {},
+      "paint": {
+        "fill-color": "#627BC1",
+        "fill-opacity": 1
+      },
+      "filter": ["==", "name", ""]
     });
 
 

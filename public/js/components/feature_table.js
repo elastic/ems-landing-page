@@ -25,9 +25,7 @@ export class FeatureTable extends Component {
 
   _getRows() {
     return this.props.jsonFeatures.features.map((feature, index) => {
-      return Object.assign({
-        __id__: index
-      }, feature.properties);
+      return feature.properties;
     });
   }
 
