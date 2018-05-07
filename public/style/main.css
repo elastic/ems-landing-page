@@ -26,3 +26,7 @@ body {
 .dl {
     width: 200px;
 }
+
+.attribution  p {
+    display: inline;
+}

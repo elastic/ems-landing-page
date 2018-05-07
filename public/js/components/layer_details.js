@@ -17,6 +17,12 @@ EuiText,
 EuiBasicTable
 } from '@elastic/eui';
 
+import MarkdownIt from 'markdown-it';
+const markdownIt = new MarkdownIt({
+  html: false,
+  linkify: true
+});
+
 export class LayerDetails extends Component {
 
   constructor(props) {
@@ -27,6 +33,14 @@ export class LayerDetails extends Component {
     if (!this.props.layerConfig){
       return null;
     }
+
+    const attributions = this.props.layerConfig.attribution.split('|');
+    const htmlAttributions = attributions.map((attribution) => {
+      attribution = attribution.trim();
+      return markdownIt.render(attribution);
+    });
+    const attributionsHtmlString = htmlAttributions.join();
+
     return (
 
     <div>
@@ -35,7 +49,7 @@ export class LayerDetails extends Component {
         <dt>Name</dt>
         <dd>{this.props.layerConfig.name}</dd>
         <dt>Attribution</dt>
-        <dd>{this.props.layerConfig.attribution}</dd>
+        <dd dangerouslySetInnerHTML={{__html: attributionsHtmlString}} className="attribution"></dd>
         <dt>Download</dt>
         <dd><a href={this.props.layerConfig.url}>geojson</a></dd>
       </dl>
@@ -45,3 +59,4 @@ export class LayerDetails extends Component {
   }
 
 }
+

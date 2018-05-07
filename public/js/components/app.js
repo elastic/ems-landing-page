@@ -74,7 +74,7 @@ export class App extends Component {
     <div>
       <EuiPage>
         <div className="banner">
-          Elastic Maps Service header? links to disclaimer, reporting button, ...
+          <h2>TO DO BANNER</h2>
         </div>
         <EuiPageBody>
           <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer}></TableOfContents>
