@@ -114,8 +114,6 @@ export class App extends Component {
       }
     };
 
-    console.log('rerender!');
-
     return (
       <div>
         <EuiPage>

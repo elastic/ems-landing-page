@@ -1,5 +1,6 @@
 import mapboxgl from 'mapbox-gl';
-import turf from 'turf';
+import turfBbox from '@turf/bbox';
+import turfCenter from '@turf/center';
 
 import React, { Component } from 'react';
 
@@ -75,10 +76,10 @@ export class Map extends Component {
   }
 
   highlightFeature(feature) {
-    const center = turf.center(feature);
+    const center = turfCenter(feature);
     this._highlightFeature(feature, new mapboxgl.LngLat(center.geometry.coordinates[0], center.geometry.coordinates[1]));
 
-    const bbox = turf.bbox(feature);
+    const bbox = turfBbox(feature);
     this._mapboxMap.fitBounds(bbox);
   }
 
@@ -146,41 +147,12 @@ export class Map extends Component {
     });
 
 
-    const bbox = getBoundingBox(featureCollection);
+    // const bbox = getBoundingBox(featureCollection);
+    const bbox = turfBbox(featureCollection);
     this._mapboxMap.fitBounds(bbox);
   }
 
   render() {
     return (<div className="mapContainer" ref="mapContainer" />);
-  }
-}
-
-
-// MapboxGL doesn't have bounding-box functionality
-function getBoundingBox(featureCollection) {
-  const mapboxBB = new mapboxgl.LngLatBounds();
-  for (let i = 0; i < featureCollection.features.length; i++) {
-    extendBoundingBoxWidthCoordinates(mapboxBB, featureCollection.features[i].geometry);
-  }
-  return mapboxBB;
-}
-
-
-function extendBoundingBoxWidthCoordinates(bbox, geometryOrCoordinates) {
-  if (geometryOrCoordinates.type === 'GeometryCollection') {
-    for (let i = 0; i < geometryOrCoordinates.geometries.length; i++) {
-      extendBoundingBoxWidthCoordinates(bbox, geometryOrCoordinates.geometries[i]);
-    }
-    return;
-  }
-
-  const coordinates = typeof geometryOrCoordinates.coordinates === 'object' ? geometryOrCoordinates.coordinates : geometryOrCoordinates;
-  if (typeof coordinates[0] === 'number' && typeof coordinates[1] === 'number') {
-    // relies on the fact that all geojson coordinates are just nested arrays of numbers
-    bbox.extend(coordinates);
-  } else {
-    for (let i = 0; i < coordinates.length; i++) {
-      extendBoundingBoxWidthCoordinates(bbox, coordinates[i]);
-    }
   }
 }

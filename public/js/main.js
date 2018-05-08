@@ -5,7 +5,6 @@ import CONFIG from './config.json';
 import { App } from './components/app';
 import { ManifestParserV2 } from './manifest_parser_v2';
 
-
 start();
 
 async function start() {
