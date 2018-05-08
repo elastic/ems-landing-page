@@ -20,8 +20,6 @@ export class FeatureTable extends Component {
       name: `${field.description} (${field.name})`,
       sortable: true,
     }));
-
-
     const actions = [{
       name: 'Show',
       description: 'show on layer',

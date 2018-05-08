@@ -12,7 +12,7 @@ export class TableOfContents extends Component {
     super(props);
     this.state = {
       selectedItemId: null,
-      selectedConfig: null,
+      selectedConfig: null
     };
   }
 
@@ -29,15 +29,19 @@ export class TableOfContents extends Component {
     return Object.assign(data, {
       id,
       name,
-      isSelected: this.state.selectedItemName === name,
+      isSelected: this.state.selectedItemId === id,
       onClick: () => this._selectItem(id, config),
     });
+  }
+
+  selectItem(id, config) {
+    this._selectItem(id, config);
   }
 
   _selectItem(id, config) {
     this.setState({
       selectedItemId: id,
-      selectedConfig: config,
+      selectedConfig: config
     });
 
     if (id.startsWith('file')) {
@@ -47,11 +51,11 @@ export class TableOfContents extends Component {
 
   _getSidebarItems() {
     const fileItems = this.props.layers.file.manifest.layers.map((service) => {
-      const id = `file/${service.id}`;
+      const id = `file/${service.name}`;
       const name = service.name;
       return this._createItem(id, name, service);
     });
-    const files = this._createItem('file', 'File Layers', this.props.layers.file.meta, {
+    const files = this._createItem('file', 'Vector Layers', this.props.layers.file.meta, {
       icon: <EuiIcon type="logoKibana" />,
       items: fileItems,
     });

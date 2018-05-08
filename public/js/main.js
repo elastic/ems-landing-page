@@ -9,7 +9,7 @@ import { ManifestParserV2 } from './manifest_parser_v2';
 start();
 
 async function start() {
-  const urlTokens = URL(window.location, true);
+  const urlTokens = new URL(window.location, true);
   const manifestParser = getManifestParser(urlTokens.query.manifest);
 
   if (!manifestParser) {

@@ -25,6 +25,7 @@ export class App extends Component {
     this.state = {
       selectedFileLayer: null,
       jsonFeatures: null,
+      initialSelection: null
     };
 
     this._selectFileLayer = async (fileLayerConfig) => {
@@ -56,24 +57,24 @@ export class App extends Component {
       this._map.highlightFeature(feature);
     };
 
-    this._map = null;
-
-
     //find the road map layer
     this._baseLayer = this.props.layers.tms.manifest.services.find((service) => {
-      return service.id === "road_map";
+      return service.id === 'road_map';
     });
 
+    this._map = null;
+    this._toc = null;
   }
 
 
   componentDidMount() {
-    const fileLayerConfig = this._readFileRoute();
-    if (!fileLayerConfig) {
+    const fileLayer = this._readFileRoute();
+    if (!fileLayer) {
       window.location.hash = '';
       return;
     }
-    this._selectFileLayer(fileLayerConfig);
+    this._selectFileLayer(fileLayer.config);
+    this._toc.selectItem(fileLayer.path, fileLayer.config);
   }
 
   _readFileRoute() {
@@ -90,7 +91,10 @@ export class App extends Component {
     }
 
     const name = decodeURIComponent(tokens[1]);
-    return this.props.layers.file.manifest.layers.find(layer => layer.name === name);
+    return {
+      path: `file/${name}`,
+      config: this.props.layers.file.manifest.layers.find(layer => layer.name === name)
+    };
   }
 
   _setFileRoute(layerConfig) {
@@ -104,6 +108,14 @@ export class App extends Component {
       }
     };
 
+    const setToc = (toc) => {
+      if (this._toc === null) {
+        this._toc = toc;
+      }
+    };
+
+    console.log('rerender!');
+
     return (
       <div>
         <EuiPage>
@@ -113,7 +125,7 @@ export class App extends Component {
             </EuiText>
           </div>
           <EuiPageBody>
-            <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} />
+            <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
             <div className="mainContent">
               <EuiPanel paddingSize="none">
                 <Map ref={setMap}  baseLayer={this._baseLayer} />
