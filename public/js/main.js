@@ -20,14 +20,15 @@ async function start() {
   ReactDOM.render(<App layers={emsLayers} />, document.getElementById('wrapper'));
 }
 
+
 function getManifestParser(url) {
+
+  //todo: not 100% if we should hardcode manifests or allow dynamic configuration
   let manifestConfig;
 
   if (url) {
-    // tbh not sure if we want to do this, but it may make sense to
     manifestConfig = CONFIG.SUPPORTED_EMS.find(manifestConfig => manifestConfig.manifests.indexOf(url) !== -1);
   } else {
-    // just get the first one to test
     manifestConfig = CONFIG.SUPPORTED_EMS.find(manifestConfig => manifestConfig.version === 'v2');
     url = manifestConfig.manifests[0];
   }

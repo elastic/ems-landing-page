@@ -57,6 +57,13 @@ export class App extends Component {
     };
 
     this._map = null;
+
+
+    //find the road map layer
+    this._baseLayer = this.props.layers.tms.manifest.services.find((service) => {
+      return service.id === "road_map";
+    });
+
   }
 
 
@@ -72,7 +79,8 @@ export class App extends Component {
   _readFileRoute() {
     const urlTokens = new URL(window.location, true);
 
-    // uses hash as ID. This is more human readable, and seems more transferable than the machine GCP cloud storage ids.
+    // uses layername as ID.
+    // This is more human readable, and seems more transferable than the machine GCP cloud storage ids.
     const path = urlTokens.hash.substr(1);// cut off #
     const tokens = path.split('/');
 
@@ -108,7 +116,7 @@ export class App extends Component {
             <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} />
             <div className="mainContent">
               <EuiPanel paddingSize="none">
-                <Map ref={setMap} />
+                <Map ref={setMap}  baseLayer={this._baseLayer} />
               </EuiPanel>
               <EuiSpacer size="xl" />
               <EuiPageContent>

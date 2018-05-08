@@ -22,7 +22,7 @@ export class Map extends Component {
         sources: {
           'raster-tiles': {
             type: 'raster',
-            tiles: ['https://tiles-stage.elastic.co/v2/default/{z}/{x}/{y}.png?elastic_tile_service_tos=agree'],
+            tiles: [this.props.baseLayer.url],
             tileSize: 256,
             scheme: 'xyz',
           },
