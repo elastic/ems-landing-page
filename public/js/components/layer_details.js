@@ -1,36 +1,23 @@
-import React, {
-Component, Fragment
-} from 'react';
+import React, { Component } from 'react';
 
 import {
-EuiPage,
-EuiPageBody,
-EuiPageContent,
-EuiPageContentBody,
-EuiPanel,
-EuiPageSideBar,
-EuiSpacer,
-EuiIcon,
-EuiSideNav,
-EuiImage,
-EuiText,
-EuiBasicTable
+  EuiText
 } from '@elastic/eui';
 
 import MarkdownIt from 'markdown-it';
+
 const markdownIt = new MarkdownIt({
   html: false,
-  linkify: true
+  linkify: true,
 });
 
 export class LayerDetails extends Component {
-
   constructor(props) {
     super(props);
   }
 
   render() {
-    if (!this.props.layerConfig){
+    if (!this.props.layerConfig) {
       return null;
     }
 
@@ -43,20 +30,19 @@ export class LayerDetails extends Component {
 
     return (
 
-    <div>
-      <EuiText>
-      <dl>
-        <dt>Name</dt>
-        <dd>{this.props.layerConfig.name}</dd>
-        <dt>Attribution</dt>
-        <dd dangerouslySetInnerHTML={{__html: attributionsHtmlString}} className="attribution"></dd>
-        <dt>Download</dt>
-        <dd><a href={this.props.layerConfig.url}>geojson</a></dd>
-      </dl>
-      </EuiText>
-    </div>
+      <div>
+        <EuiText>
+          <dl>
+            <dt>Name</dt>
+            <dd>{this.props.layerConfig.name}</dd>
+            <dt>Attribution</dt>
+            <dd dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution" />
+            <dt>Download</dt>
+            <dd><a href={this.props.layerConfig.url}>geojson</a></dd>
+          </dl>
+        </EuiText>
+      </div>
     );
   }
-
 }
 

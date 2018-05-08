@@ -1,42 +1,25 @@
-import React, {
-Component,
-} from 'react';
+import React, { Component } from 'react';
 
 import {
-EuiPage,
-EuiPageBody,
-EuiPageContent,
-EuiPageContentBody,
-EuiPanel,
-EuiPageSideBar,
-EuiIcon,
-EuiSideNav,
-EuiImage,
-EuiBasicTable,
-EuiInMemoryTable
+  EuiInMemoryTable,
 } from '@elastic/eui';
 
 
 export class FeatureTable extends Component {
-
   constructor(props) {
     super(props);
   }
 
   _getRows() {
-    return this.props.jsonFeatures.features.map((feature, index) => {
-      return feature.properties;
-    });
+    return this.props.jsonFeatures.features.map((feature) => feature.properties);
   }
 
   _getColumns() {
-    const cols =  this.props.config.fields.map(field => {
-      return {
-        field: field.name,
-        name: field.description + " (" + field.name + ")",
-        sortable: true
-      }
-    });
+    const cols = this.props.config.fields.map(field => ({
+      field: field.name,
+      name: `${field.description} (${field.name})`,
+      sortable: true,
+    }));
 
 
     const actions = [{
@@ -46,19 +29,18 @@ export class FeatureTable extends Component {
       onClick: (c) => {
         const feature = this.props.jsonFeatures.features[c.__id__];
         this.props.onShow(feature);
-      }
+      },
     }];
 
     cols.push({
       name: '',
-      actions
+      actions,
     });
 
     return cols;
   }
 
   render() {
-
     if (this.props.jsonFeatures === null) {
       return null;
     }
@@ -70,19 +52,18 @@ export class FeatureTable extends Component {
 
     const pagination = {
       initialPageSize: 50,
-      pageSizeOptions: [50]
+      pageSizeOptions: [50],
     };
 
     return (
-    <EuiInMemoryTable
-    items={rows}
-    columns={columns}
-    search={search}
-    pagination={pagination}
-    sorting={true}
-    hasActions={true}
-    />
+      <EuiInMemoryTable
+        items={rows}
+        columns={columns}
+        search={search}
+        pagination={pagination}
+        sorting
+        hasActions
+      />
     );
   }
-
 }

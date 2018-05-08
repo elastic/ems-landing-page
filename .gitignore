@@ -3,5 +3,6 @@ node_modules/
 dist/
 public/dist/
 *.iml
+npm-debug.log
 
 
