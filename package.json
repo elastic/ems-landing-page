@@ -31,6 +31,7 @@
     "eslint-plugin-prefer-object-spread": "^1.2.1",
     "eslint-plugin-react": "^7.7.0",
     "file-loader": "^1.1.9",
+    "husky": "^1.0.0-rc.4",
     "json-loader": "^0.5.7",
     "node-libs-browser": "^0.5.3",
     "node-sass": "^4.7.2",
@@ -56,6 +57,11 @@
   "scripts": {
     "dev": "webpack --watch",
     "lint": "eslint ./public/js --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   },
   "author": "",
   "license": "ISC"
