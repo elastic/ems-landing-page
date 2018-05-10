@@ -21,6 +21,7 @@ export class FeatureTable extends Component {
   }
 
   getFilteredFeatures(filter) {
+    const filterNormalized = filter.toLowerCase();
     const passes = [];
     for (let i = 0; i < this.props.jsonFeatures.features.length; i++) {
       const feature = this.props.jsonFeatures.features[i];
@@ -28,7 +29,7 @@ export class FeatureTable extends Component {
         const field = this.props.config.fields[j];
         const fieldValue = feature.properties[field.name];
         const fieldValueNormalized = JSON.stringify(fieldValue).toLowerCase();
-        if (fieldValueNormalized.indexOf(filter) > -1) {
+        if (fieldValueNormalized.indexOf(filterNormalized) > -1) {
           passes.push(feature);
           break;
         }

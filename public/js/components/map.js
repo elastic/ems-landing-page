@@ -87,7 +87,7 @@ export class Map extends Component {
   filterFeatures(features) {
 
     const idFilterPrefix = ['in', '__id__'];
-    const filterArgs = features.map((f) => f.properties['__id__']);
+    const filterArgs = features.map((f) => f.properties.__id__);
     const filter = idFilterPrefix.concat(filterArgs);
 
     this._mapboxMap.setFilter(this._overlayFillLayerId, filter);
