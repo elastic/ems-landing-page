@@ -46,7 +46,11 @@ export class FeatureTable extends Component {
     const rows = this._getRows();
     const columns = this._getColumns();
 
-    const search = {};
+    const search = {
+      box: {
+        incremental: true
+      }
+    };
 
     const pagination = {
       initialPageSize: 50,
