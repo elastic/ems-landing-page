@@ -147,7 +147,6 @@ export class Map extends Component {
     });
 
 
-    // const bbox = getBoundingBox(featureCollection);
     const bbox = turfBbox(featureCollection);
     this._mapboxMap.fitBounds(bbox);
   }

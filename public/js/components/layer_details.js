@@ -29,7 +29,6 @@ export class LayerDetails extends Component {
     const attributionsHtmlString = htmlAttributions.join();
 
     return (
-
       <div>
         <EuiText>
           <dl>

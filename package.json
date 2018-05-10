@@ -43,7 +43,7 @@
     "webpack": "^1.15.0"
   },
   "dependencies": {
-    "@elastic/eui": "^0.0.23",
+    "@elastic/eui": "^0.0.46",
     "@turf/bbox": "^6.0.1",
     "@turf/center": "^6.0.1",
     "mapbox-gl": "^0.45.0-beta.1",
