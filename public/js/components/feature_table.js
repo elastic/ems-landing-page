@@ -8,11 +8,40 @@ import {
 export class FeatureTable extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentFilter: ''
+    };
+
+    this._changeFilter = (query) => {
+      this.setState({
+        currentFilter: query.text
+      });
+      this.props.onFilterChange(this.getFilteredFeatures());
+    };
+  }
+
+  getFilteredFeatures() {
+    const passes = [];
+    for (let i = 0; i < this.props.jsonFeatures.features.length; i++) {
+      const feature = this.props.jsonFeatures.features[i];
+      for (let j = 0; j < this.props.config.fields.length; j++) {
+        const field = this.props.config.fields[j];
+        const fieldValue = feature.properties[field.name];
+        const fieldValueNormalized = JSON.stringify(fieldValue).toLowerCase();
+        if (fieldValueNormalized.indexOf(this.state.currentFilter) > -1) {
+          passes.push(feature);
+          break;
+        }
+      }
+    }
+    return passes;
   }
 
   _getRows() {
-    return this.props.jsonFeatures.features.map((feature) => feature.properties);
+    const passes = this.getFilteredFeatures();
+    return passes.map((feature) => feature.properties);
   }
+
 
   _getColumns() {
     const cols = this.props.config.fields.map(field => ({
@@ -39,6 +68,7 @@ export class FeatureTable extends Component {
   }
 
   render() {
+
     if (this.props.jsonFeatures === null) {
       return null;
     }
@@ -49,7 +79,8 @@ export class FeatureTable extends Component {
     const search = {
       box: {
         incremental: true
-      }
+      },
+      onChange: this._changeFilter
     };
 
     const pagination = {

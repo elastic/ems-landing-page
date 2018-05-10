@@ -57,6 +57,11 @@ export class App extends Component {
       this._map.highlightFeature(feature);
     };
 
+    this._filterFeatures = ()=>{
+      //todo
+    };
+
+
     //find the road map layer
     this._baseLayer = this.props.layers.tms.manifest.services.find((service) => {
       return service.id === 'road_map';
@@ -136,6 +141,7 @@ export class App extends Component {
                     jsonFeatures={this.state.jsonFeatures}
                     config={this.state.selectedFileLayer}
                     onShow={this._showFeature}
+                    onFilterChange={this._filterFeatures}
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
