@@ -160,6 +160,16 @@ export class Map extends Component {
 
 
     const bbox = turfBbox(featureCollection);
+
+    //bug in mapbox-gl dealing with wrapping bounds
+    //without normalization, mapboxgl will throw on the world layer
+    //seems to be fixed when cropping the bounds slightly.
+    if (bbox[2] - bbox[0] > 360) {
+      bbox[0] = -175;
+      bbox[1] = -85;
+      bbox[2] = 175;
+      bbox[3] = 85;
+    }
     this._mapboxMap.fitBounds(bbox);
   }
 
