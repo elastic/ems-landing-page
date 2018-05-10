@@ -83,6 +83,18 @@ export class Map extends Component {
     this._mapboxMap.fitBounds(bbox);
   }
 
+
+  filterFeatures(features) {
+
+    const idFilterPrefix = ['in', '__id__'];
+    const filterArgs = features.map((f) => f.properties['__id__']);
+    const filter = idFilterPrefix.concat(filterArgs);
+
+    this._mapboxMap.setFilter(this._overlayFillLayerId, filter);
+    this._mapboxMap.setFilter(this._overlayLineLayerId, filter);
+
+  }
+
   _removeOverlayLayer() {
     if (this._mapboxMap.getLayer(this._overlayFillLayerId)) {
       this._mapboxMap.removeLayer(this._overlayFillLayerId);

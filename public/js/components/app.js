@@ -57,8 +57,8 @@ export class App extends Component {
       this._map.highlightFeature(feature);
     };
 
-    this._filterFeatures = ()=>{
-      //todo
+    this._filterFeatures = (features) => {
+      this._map.filterFeatures(features);
     };
 
 

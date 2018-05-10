@@ -16,11 +16,11 @@ export class FeatureTable extends Component {
       this.setState({
         currentFilter: query.text
       });
-      this.props.onFilterChange(this.getFilteredFeatures());
+      this.props.onFilterChange(this.getFilteredFeatures(query.text));
     };
   }
 
-  getFilteredFeatures() {
+  getFilteredFeatures(filter) {
     const passes = [];
     for (let i = 0; i < this.props.jsonFeatures.features.length; i++) {
       const feature = this.props.jsonFeatures.features[i];
@@ -28,7 +28,7 @@ export class FeatureTable extends Component {
         const field = this.props.config.fields[j];
         const fieldValue = feature.properties[field.name];
         const fieldValueNormalized = JSON.stringify(fieldValue).toLowerCase();
-        if (fieldValueNormalized.indexOf(this.state.currentFilter) > -1) {
+        if (fieldValueNormalized.indexOf(filter) > -1) {
           passes.push(feature);
           break;
         }
@@ -38,7 +38,7 @@ export class FeatureTable extends Component {
   }
 
   _getRows() {
-    const passes = this.getFilteredFeatures();
+    const passes = this.getFilteredFeatures(this.state.currentFilter);
     return passes.map((feature) => feature.properties);
   }
 
