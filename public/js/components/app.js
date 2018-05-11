@@ -157,11 +157,11 @@ export class App extends Component {
                 <EuiPageContentBody>
                   <LayerDetails layerConfig={this.state.selectedFileLayer} />
                   <FeatureTable
-                  ref={setFeatureTable}
-                  jsonFeatures={this.state.jsonFeatures}
-                  config={this.state.selectedFileLayer}
-                  onShow={this._showFeature}
-                  onFilterChange={this._filterFeatures}
+                    ref={setFeatureTable}
+                    jsonFeatures={this.state.jsonFeatures}
+                    config={this.state.selectedFileLayer}
+                    onShow={this._showFeature}
+                    onFilterChange={this._filterFeatures}
                   />
                 </EuiPageContentBody>
               </EuiPageContent>

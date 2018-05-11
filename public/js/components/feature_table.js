@@ -33,7 +33,11 @@ export class FeatureTable extends Component {
       for (let j = 0; j < this.props.config.fields.length; j++) {
         const field = this.props.config.fields[j];
         const fieldValue = feature.properties[field.name];
-        const fieldValueNormalized = JSON.stringify(fieldValue).toLowerCase();
+        const stringifiedFieldValue = JSON.stringify(fieldValue);
+        if (!stringifiedFieldValue) {
+          continue;
+        }
+        const fieldValueNormalized = stringifiedFieldValue.toLowerCase();
         if (fieldValueNormalized.indexOf(filterNormalized) > -1) {
           passes.push(feature);
           break;
