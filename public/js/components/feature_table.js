@@ -21,6 +21,11 @@ export class FeatureTable extends Component {
   }
 
   getFilteredFeatures(filter) {
+
+    if (!this.props.jsonFeatures) {
+      return [];
+    }
+
     const filterNormalized = filter.toLowerCase();
     const passes = [];
     for (let i = 0; i < this.props.jsonFeatures.features.length; i++) {
@@ -68,10 +73,29 @@ export class FeatureTable extends Component {
     return cols;
   }
 
+
+  startLoading() {
+    this.setState({
+      loading: true
+    });
+  }
+
+  stopLoading() {
+    this.setState({
+      loading: false
+    });
+  }
+
   render() {
 
-    if (this.props.jsonFeatures === null) {
-      return null;
+    if (!this.props.jsonFeatures) {
+      return (<EuiInMemoryTable
+        loading={this.state.loading}
+        items={[]}
+        columns={[]}
+        pagination={{}}
+        hasActions
+      />);
     }
 
     const rows = this._getRows();
@@ -91,6 +115,7 @@ export class FeatureTable extends Component {
 
     return (
       <EuiInMemoryTable
+        loading={this.state.loading}
         items={rows}
         columns={columns}
         search={search}

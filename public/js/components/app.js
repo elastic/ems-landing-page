@@ -29,8 +29,11 @@ export class App extends Component {
     };
 
     this._selectFileLayer = async (fileLayerConfig) => {
+
+      this._featuretable.startLoading();
       const response = await fetch(fileLayerConfig.url);
       const json = await response.json();
+
 
       let featureCollection;
       if (fileLayerConfig.format === 'topojson') {
@@ -49,8 +52,10 @@ export class App extends Component {
         jsonFeatures: featureCollection,
       });
 
+
       this._setFileRoute(fileLayerConfig);
       this._map.setOverlayLayer(featureCollection);
+      this._featuretable.stopLoading();
     };
 
     this._showFeature = (feature) => {
@@ -61,7 +66,6 @@ export class App extends Component {
       this._map.filterFeatures(features);
     };
 
-
     //find the road map layer
     this._baseLayer = this.props.layers.tms.manifest.services.find((service) => {
       return service.id === 'road_map';
@@ -69,6 +73,7 @@ export class App extends Component {
 
     this._map = null;
     this._toc = null;
+    this._featuretable = null;
   }
 
 
@@ -119,6 +124,12 @@ export class App extends Component {
       }
     };
 
+    const setFeatureTable = (featuretable) => {
+      if (this._featuretable === null) {
+        this._featuretable = featuretable;
+      }
+    };
+
     return (
       <div>
         <EuiPage>
@@ -138,10 +149,11 @@ export class App extends Component {
                 <EuiPageContentBody>
                   <LayerDetails layerConfig={this.state.selectedFileLayer} />
                   <FeatureTable
-                    jsonFeatures={this.state.jsonFeatures}
-                    config={this.state.selectedFileLayer}
-                    onShow={this._showFeature}
-                    onFilterChange={this._filterFeatures}
+                  ref={setFeatureTable}
+                  jsonFeatures={this.state.jsonFeatures}
+                  config={this.state.selectedFileLayer}
+                  onShow={this._showFeature}
+                  onFilterChange={this._filterFeatures}
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
