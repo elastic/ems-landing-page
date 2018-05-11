@@ -78,13 +78,21 @@ export class App extends Component {
 
 
   componentDidMount() {
-    const fileLayer = this._readFileRoute();
-    if (!fileLayer) {
-      window.location.hash = '';
-      return;
+    let vectorLayerSelection = this._readFileRoute();
+    if (!vectorLayerSelection) {
+      //fallback to the first layer from the manifest
+      const firstLayer = this.props.layers.file.manifest.layers[0];
+      if (!firstLayer) {
+        window.location.hash = '';
+        return;
+      }
+      vectorLayerSelection = {
+        config: firstLayer,
+        path: `file/${firstLayer.name}`
+      };
     }
-    this._selectFileLayer(fileLayer.config);
-    this._toc.selectItem(fileLayer.path, fileLayer.config);
+    this._selectFileLayer(vectorLayerSelection.config);
+    this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
   }
 
   _readFileRoute() {
