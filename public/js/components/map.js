@@ -65,7 +65,7 @@ export class Map extends Component {
       }
       rows += `<dt>${key}</dt><dd>${feature.properties[key]}</dd>`;
     });
-    const html = `<dl>${rows}</dl>`;
+    const html = `<div class="euiText"><dl>${rows}</dl></div>`;
 
     this._currentPopup = new mapboxgl.Popup();
     this._currentPopup.setLngLat(lngLat);
