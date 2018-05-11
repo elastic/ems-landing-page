@@ -36,6 +36,8 @@ export class LayerDetails extends Component {
             <dd>{this.props.layerConfig.name}</dd>
             <dt>Attribution</dt>
             <dd dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution" />
+            <dt>Report</dt>
+            <dd>placeholder for some blurb and link to repo with source data and instructions to report issues.</dd>
           </dl>
         </EuiText>
       </div>
