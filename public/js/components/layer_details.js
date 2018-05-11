@@ -36,8 +36,6 @@ export class LayerDetails extends Component {
             <dd>{this.props.layerConfig.name}</dd>
             <dt>Attribution</dt>
             <dd dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution" />
-            <dt>Download</dt>
-            <dd><a href={this.props.layerConfig.url}>geojson</a></dd>
           </dl>
         </EuiText>
       </div>

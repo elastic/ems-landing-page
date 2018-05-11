@@ -30,3 +30,7 @@ body {
 .attribution  p {
     display: inline;
 }
+
+.download {
+    font-weight: bold;
+}

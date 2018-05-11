@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import {
   EuiInMemoryTable,
+  EuiText
 } from '@elastic/eui';
 
 
@@ -90,6 +91,17 @@ export class FeatureTable extends Component {
     });
   }
 
+  _renderToolsRight() {
+    return (
+      <EuiText>
+        <div>
+          <span className="download">Download </span>
+          <a href={this.props.config.url} target="_">{this.props.config.format}</a>
+        </div>
+      </EuiText>
+    );
+  }
+
   render() {
 
     if (!this.props.jsonFeatures) {
@@ -106,6 +118,7 @@ export class FeatureTable extends Component {
     const columns = this._getColumns();
 
     const search = {
+      toolsRight: this._renderToolsRight(),
       box: {
         incremental: true
       },
