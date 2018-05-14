@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import URL from 'url-parse';
 import CONFIG from './config.json';
-import { App } from './components/app';
-import { ManifestParserV2 } from './manifest_parser_v2';
+import {App} from './components/app';
+import {ManifestParserV2} from './manifest_parser_v2';
 
 start();
 
@@ -12,29 +12,20 @@ async function start() {
   const manifestParser = getManifestParser(urlTokens.query.manifest);
 
   if (!manifestParser) {
+    console.error(`Cannot load the required manifest for "${urlTokens.query.manifest}"`);
     return;
   }
   const emsLayers = await manifestParser.getAllEMSLayers();
 
-  ReactDOM.render(<App layers={emsLayers} />, document.getElementById('wrapper'));
+  ReactDOM.render(<App layers={emsLayers}/>, document.getElementById('wrapper'));
 }
 
 
-function getManifestParser(url) {
-
-  //todo: not 100% if we should hardcode manifests or allow dynamic configuration
-  let manifestConfig;
-
-  if (url) {
-    manifestConfig = CONFIG.SUPPORTED_EMS.find(manifestConfig => manifestConfig.manifests.indexOf(url) !== -1);
-  } else {
-    manifestConfig = CONFIG.SUPPORTED_EMS.find(manifestConfig => manifestConfig.version === 'v2');
-    url = manifestConfig.manifests[0];
+function getManifestParser(deployment) {
+  if (!deployment) {
+    deployment = "production";
   }
-
-
-  if (manifestConfig && manifestConfig.version === 'v2') {
-    return new ManifestParserV2(url);
-  }
+  const url = CONFIG.SUPPORTED_EMS.manifest[deployment];
+  return (url) ? new ManifestParserV2(url) : null;
 }
 
