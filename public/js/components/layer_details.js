@@ -24,9 +24,10 @@ export class LayerDetails extends Component {
     const attributions = this.props.layerConfig.attribution.split('|');
     const htmlAttributions = attributions.map((attribution) => {
       attribution = attribution.trim();
-      return markdownIt.render(attribution);
+      const html = markdownIt.render(attribution);
+      return html.trim();
     });
-    const attributionsHtmlString = htmlAttributions.join();
+    const attributionsHtmlString = htmlAttributions.join(', ');
 
     return (
       <div>
