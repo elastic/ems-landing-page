@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import URL from 'url-parse';
 import CONFIG from './config.json';
-import {App} from './components/app';
-import {ManifestParserV2} from './manifest_parser_v2';
+import { App } from './components/app';
+import { ManifestParserV2 } from './manifest_parser_v2';
 
 start();
 
@@ -23,7 +23,7 @@ async function start() {
 
 function getManifestParser(deployment) {
   if (!deployment) {
-    deployment = "production";
+    deployment = 'production';
   }
   const url = CONFIG.SUPPORTED_EMS.manifest[deployment];
   return (url) ? new ManifestParserV2(url) : null;
