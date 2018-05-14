@@ -56,7 +56,7 @@ export class TableOfContents extends Component {
       return this._createItem(id, name, service);
     });
     const files = this._createItem('file', 'Vector Layers', this.props.layers.file.meta, {
-      icon: <EuiIcon type="logoKibana" />,
+      icon: <EuiIcon type="vector" />,
       items: fileItems,
     });
 
