@@ -61,10 +61,11 @@ export class FeatureTable extends Component {
       name: `${field.description} (${field.name})`,
       sortable: true,
     }));
+
+    const text = 'Show on map';
     const actions = [{
-      name: 'Show',
-      description: 'show on layer',
-      icon: 'bullseye',
+      name: text,
+      description: text,
       onClick: (c) => {
         const feature = this.props.jsonFeatures.features[c.__id__];
         this.props.onShow(feature);
