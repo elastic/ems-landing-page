@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
-  EuiText
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiText,
 } from '@elastic/eui';
 
 import MarkdownIt from 'markdown-it';
@@ -30,18 +32,34 @@ export class LayerDetails extends Component {
     const attributionsHtmlString = htmlAttributions.join(', ');
 
     return (
-      <div>
-        <EuiText>
-          <dl>
-            <dt>Name</dt>
-            <dd>{this.props.layerConfig.name}</dd>
-            <dt>Attribution</dt>
-            <dd dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution" />
-            <dt>Report</dt>
-            <dd>placeholder for some blurb and link to repo with source data and instructions to report issues.</dd>
-          </dl>
-        </EuiText>
-      </div>
+    <div>
+      <EuiFlexGroup wrap>
+        <EuiFlexItem>
+          <EuiText>
+            <dl>
+              <dt>Name</dt>
+              <dd>{this.props.layerConfig.name}</dd>
+            </dl>
+          </EuiText>
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <EuiText>
+            <dl>
+              <dt>Attribution</dt>
+              <dd dangerouslySetInnerHTML={{__html: attributionsHtmlString}} className="attribution"/>
+            </dl>
+          </EuiText>
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <EuiText>
+            <dl>
+              <dt>Report</dt>
+              <dd>placeholder for some blurb and link to repo with source data and instructions to report issues.</dd>
+            </dl>
+          </EuiText>
+        </EuiFlexItem>
+      </EuiFlexGroup>
+    </div>
     );
   }
 }
