@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {
+  EuiButton,
   EuiInMemoryTable,
   EuiText
 } from '@elastic/eui';
@@ -95,8 +96,9 @@ export class FeatureTable extends Component {
     return (
       <EuiText>
         <div>
-          <span className="download">Download </span>
-          <a href={this.props.config.url} target="_">{this.props.config.format}</a>
+          <EuiButton href={this.props.config.url} target="_">
+            Download {this.props.config.format}
+          </EuiButton>
         </div>
       </EuiText>
     );

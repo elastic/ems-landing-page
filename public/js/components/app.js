@@ -143,18 +143,14 @@ export class App extends Component {
 
     return (
       <div>
+        <EuiHeader>
+          <EuiHeaderSection>
+            <EuiHeaderSectionItem border="right">
+              <EuiHeaderLogo href="#" aria-label="Go to home page" />
+            </EuiHeaderSectionItem>
+          </EuiHeaderSection>
+        </EuiHeader>
         <EuiPage>
-          <div>
-
-            <EuiHeader>
-              <EuiHeaderSection>
-                <EuiHeaderSectionItem border="right">
-                  <EuiHeaderLogo href="#" aria-label="Go to home page" />
-                </EuiHeaderSectionItem>
-              </EuiHeaderSection>
-            </EuiHeader>
-
-          </div>
           <EuiPageBody>
             <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
             <div className="mainContent">

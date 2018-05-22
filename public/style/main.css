@@ -34,3 +34,8 @@ body {
 .download {
     font-weight: bold;
 }
+
+
+.mapboxgl-popup-content dd {
+    margin-bottom: 0;
+}
