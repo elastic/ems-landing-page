@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import {
   EuiFlexGroup,
@@ -32,34 +32,34 @@ export class LayerDetails extends Component {
     const attributionsHtmlString = htmlAttributions.join(', ');
 
     return (
-    <div>
-      <EuiFlexGroup wrap>
-        <EuiFlexItem>
-          <EuiText>
-            <dl>
-              <dt>Name</dt>
-              <dd>{this.props.layerConfig.name}</dd>
-            </dl>
-          </EuiText>
-        </EuiFlexItem>
-        <EuiFlexItem>
-          <EuiText>
-            <dl>
-              <dt>Attribution</dt>
-              <dd dangerouslySetInnerHTML={{__html: attributionsHtmlString}} className="attribution"/>
-            </dl>
-          </EuiText>
-        </EuiFlexItem>
-        <EuiFlexItem>
-          <EuiText>
-            <dl>
-              <dt>Report</dt>
-              <dd>placeholder for some blurb and link to repo with source data and instructions to report issues.</dd>
-            </dl>
-          </EuiText>
-        </EuiFlexItem>
-      </EuiFlexGroup>
-    </div>
+      <div>
+        <EuiFlexGroup wrap>
+          <EuiFlexItem>
+            <EuiText>
+              <dl>
+                <dt>Name</dt>
+                <dd>{this.props.layerConfig.name}</dd>
+              </dl>
+            </EuiText>
+          </EuiFlexItem>
+          <EuiFlexItem>
+            <EuiText>
+              <dl>
+                <dt>Attribution</dt>
+                <dd dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution"/>
+              </dl>
+            </EuiText>
+          </EuiFlexItem>
+          <EuiFlexItem>
+            <EuiText>
+              <dl>
+                <dt>Report</dt>
+                <dd>placeholder for some blurb and link to repo with source data and instructions to report issues.</dd>
+              </dl>
+            </EuiText>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      </div>
     );
   }
 }
