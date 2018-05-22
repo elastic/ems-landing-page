@@ -7,7 +7,10 @@ import {
   EuiPageContentBody,
   EuiPanel,
   EuiSpacer,
-  EuiText
+  EuiHeader,
+  EuiHeaderSection,
+  EuiHeaderSectionItem,
+  EuiHeaderLogo,
 } from '@elastic/eui';
 
 import { TableOfContents } from './table_of_contents';
@@ -141,10 +144,16 @@ export class App extends Component {
     return (
       <div>
         <EuiPage>
-          <div className="banner">
-            <EuiText>
-              <h2>TO DO BANNER</h2>
-            </EuiText>
+          <div>
+
+            <EuiHeader>
+              <EuiHeaderSection>
+                <EuiHeaderSectionItem border="right">
+                  <EuiHeaderLogo href="#" aria-label="Go to home page" />
+                </EuiHeaderSectionItem>
+              </EuiHeaderSection>
+            </EuiHeader>
+
           </div>
           <EuiPageBody>
             <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
