@@ -54,7 +54,7 @@ export class LayerDetails extends Component {
             <EuiText>
               <dl>
                 <dt>Report</dt>
-                <dd>placeholder for some blurb and link to repo with source data and instructions to report issues.</dd>
+                <dd>Please submit any issues with this layer or suggestions for improving this layer in the <a href="https://github.com/elastic/kibana/issues/new" target="_blank">Kibana repo</a>.</dd>
               </dl>
             </EuiText>
           </EuiFlexItem>
