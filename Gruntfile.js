@@ -5,6 +5,8 @@ module.exports = function (grunt) {
   const COMPILE_DIR = './public/dist/';
   const RELEASE_DIR_SITE = BUILD_DIR + 'release/';
 
+  const exec = require('child_process').exec;
+
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -48,7 +50,24 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('default', ['clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site', 'compress:release']);
+  grunt.registerTask('git-check-clean-dir', function ()  {
+    const done = this.async();
+    exec('git status --porcelain', (err, stdout, sterr) => {
+      if (err || sterr) {
+        throw new Error(err);
+      }
+      if (stdout.length > 0) {
+        const error = `Git working directory not clean: ${stdout}`;
+        console.error(error);
+        throw new Error(error);
+      } else {
+        done();
+      }
+    });
+  });
+
+
+  grunt.registerTask('default', ['git-check-clean-dir', 'clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site', 'compress:release']);
 
   grunt.loadNpmTasks('grunt-run');
   grunt.loadNpmTasks('grunt-eslint');
