@@ -5,5 +5,5 @@ public/dist/
 *.iml
 npm-debug.log
 yarn-error.log
-
+build/
 

@@ -31,6 +31,14 @@
     "eslint-plugin-prefer-object-spread": "^1.2.1",
     "eslint-plugin-react": "^7.7.0",
     "file-loader": "^1.1.9",
+    "grunt": "^1.0.3",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-compress": "^1.4.3",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-eslint": "^20.1.0",
+    "grunt-run": "^0.8.1",
+    "grunt-webpack": "^3.1.2",
     "husky": "^1.0.0-rc.4",
     "json-loader": "^0.5.7",
     "node-libs-browser": "^0.5.3",
@@ -56,7 +64,8 @@
   },
   "scripts": {
     "dev": "webpack --watch",
-    "lint": "eslint ./public/js --fix"
+    "lint": "eslint ./public/js --fix",
+    "compile": "webpack"
   },
   "husky": {
     "hooks": {

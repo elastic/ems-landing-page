@@ -5,6 +5,9 @@ import turfCenter from '@turf/center';
 import React, { Component } from 'react';
 
 
+
+// const argh = "foobar";
+
 export class Map extends Component {
   constructor(props) {
     super(props);
