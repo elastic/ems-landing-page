@@ -1,12 +1,41 @@
 @import "../../node_modules/@elastic/eui/dist/eui_theme_k6_light.css";
-
-
+@import "../../node_modules/mapbox-gl/dist/mapbox-gl.css";
 
 body {
     margin: 0 auto;
 }
 
-
 #wrapper {
     width: 100%;
+}
+
+.mainContent {
+    width: 100%;
+}
+
+.mapContainer {
+    width: 100%;
+    height: 512px;
+}
+
+.banner {
+    width: 100%;
+    height: 100px;
+}
+
+.dl {
+    width: 200px;
+}
+
+.attribution  p {
+    display: inline;
+}
+
+.download {
+    font-weight: bold;
+}
+
+
+.mapboxgl-popup-content dd {
+    margin-bottom: 0;
 }
