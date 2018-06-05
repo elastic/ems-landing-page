@@ -34,7 +34,6 @@ module.exports = function (grunt) {
         ]
       }
     },
-
     compress: {
       release: {
         options: {
