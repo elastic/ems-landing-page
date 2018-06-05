@@ -65,7 +65,8 @@
   "scripts": {
     "dev": "webpack --watch",
     "lint": "eslint ./public/js --fix",
-    "compile": "webpack"
+    "compile": "webpack",
+    "build": "grunt"
   },
   "husky": {
     "hooks": {

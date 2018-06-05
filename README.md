@@ -1,15 +1,21 @@
 # Elastic Maps Landing Page
 
 
-The Elastic Maps Landing Page is a previewer of the data of the Elastic Maps Service.
+The Elastic Maps Landing Page is a previewer of the data of the Elastic Maps Service. It allows users to browse the data
+that is available within EMS.
 
 ## Development
 
-The page is designed as a single-page application. It loads the root manifest from EMS using a cross-domain call.
+The page is designed as a single-page application. It loads the root manifest from EMS using a cross-domain call. This 
+is similar to how Kibana retrieves the manifest from EMS.
 
 ### Prerequisites
 
-`Yarn` is used as the package manager for this project. Ensure both `node` and `yarn` are installed on your system.
+`yarn` is used as the dependency manager and script runner for this project. Ensure both `node` and `yarn` are installed on your system.
+
+`webpack` is used for Javascript transpilation.
+
+`grunt` is used for creating a distributable package of the app.
 
 ### Running the page locally
 
@@ -25,13 +31,23 @@ Keep this running. The javascript/css will be automatically recompiled when file
 
 #### Open the page
 
-`public/index.html`
+Open `public/index.html`
 
-You can run the page either from the file-system or any dev-server.
+You can run the page either from the file-system or any web-server.
 
-## Package the app.
+## Packaging
 
-todo
+To package the app, run the build script.
+
+> yarn build
+
+This script will put the relevant resources of the app in the `./build/release/**` folder. It will also zip up the app in the same directory.  
+
+If any intermediate tasks break before packaging, such as a javascript linting or compilation failure, the build-script will error out. 
+Fix the errors, and redeploy.
+
+
+
 
 
 

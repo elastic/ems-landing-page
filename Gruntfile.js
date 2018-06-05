@@ -49,8 +49,8 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('default', ['clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site']);
-
+  grunt.registerTask('default', ['clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site', 'compress:release']);
+git
   grunt.loadNpmTasks('grunt-run');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-contrib-copy');
