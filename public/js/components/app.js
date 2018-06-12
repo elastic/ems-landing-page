@@ -8,9 +8,11 @@ import {
   EuiPanel,
   EuiSpacer,
   EuiHeader,
+  EuiHeaderLink,
+  EuiHeaderLinks,
   EuiHeaderSection,
   EuiHeaderSectionItem,
-  EuiHeaderLogo,
+  EuiHeaderLogo
 } from '@elastic/eui';
 
 import { TableOfContents } from './table_of_contents';
@@ -145,9 +147,14 @@ export class App extends Component {
       <div>
         <EuiHeader>
           <EuiHeaderSection>
-            <EuiHeaderSectionItem border="right">
-              <EuiHeaderLogo href="#" aria-label="Go to home page" />
+            <EuiHeaderSectionItem>
+              <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
             </EuiHeaderSectionItem>
+          </EuiHeaderSection>
+          <EuiHeaderSection side="right">
+            <EuiHeaderLinks>
+              <EuiHeaderLink>elastic.co</EuiHeaderLink>
+            </EuiHeaderLinks>
           </EuiHeaderSection>
         </EuiHeader>
         <EuiPage>
