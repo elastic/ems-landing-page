@@ -1,12 +1,12 @@
+const UglifyJS = require('uglify-js');
+const exec = require('child_process').exec;
+
 module.exports = function (grunt) {
 
 
   const BUILD_DIR = './build/';
   const COMPILE_DIR = './public/dist/';
   const RELEASE_DIR_SITE = BUILD_DIR + 'release/';
-
-  const exec = require('child_process').exec;
-
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -28,12 +28,27 @@ module.exports = function (grunt) {
       compile: [COMPILE_DIR]
     },
     copy: {
-      site: {
+      'site-htmlcss': {
         files: [
           { expand: true, cwd: './public', src: 'index.html', dest: RELEASE_DIR_SITE },
-          { expand: true, cwd: './public', src: 'style/**', dest: RELEASE_DIR_SITE },
-          { expand: true, cwd: './public', src: 'dist/**', dest: RELEASE_DIR_SITE }
+          { expand: true, cwd: './public', src: 'style/**', dest: RELEASE_DIR_SITE }
         ]
+      },
+      'site-js': {
+        src: COMPILE_DIR + 'main.bundle.js',
+        dest: RELEASE_DIR_SITE + 'dist/main.bundle.js',
+        options: {
+          process: function (content) {
+            const minified = UglifyJS.minify(content, { mangle: false, compress: false });
+            if (minified.error) {
+              throw new Error(minified.error);
+            }
+            if (minified.warnings) {
+              console.warn(minified.warnings);
+            }
+            return minified.code;
+          }
+        }
       }
     },
     compress: {
@@ -49,6 +64,7 @@ module.exports = function (grunt) {
       }
     }
   });
+
 
   grunt.registerTask('git-check-clean-dir', function ()  {
     const done = this.async();
@@ -66,13 +82,15 @@ module.exports = function (grunt) {
     });
   });
 
+  grunt.registerTask('build-unsafe', ['clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site-htmlcss', 'copy:site-js', 'compress:release']);
+  grunt.registerTask('default', ['git-check-clean-dir', 'build-unsafe']);
 
-  grunt.registerTask('default', ['git-check-clean-dir', 'clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site', 'compress:release']);
 
   grunt.loadNpmTasks('grunt-run');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-compress');
+
 
 };
