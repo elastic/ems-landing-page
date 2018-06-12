@@ -16,9 +16,9 @@ export class FeatureTable extends Component {
 
     this._changeFilter = (query) => {
       this.setState({
-        currentFilter: query.text
+        currentFilter: query.queryText
       });
-      this.props.onFilterChange(this.getFilteredFeatures(query.text));
+      this.props.onFilterChange(this.getFilteredFeatures(query.queryText));
     };
   }
 
@@ -28,6 +28,7 @@ export class FeatureTable extends Component {
       return [];
     }
 
+    filter = filter ? filter : '';
     const filterNormalized = filter.toLowerCase();
     const passes = [];
     for (let i = 0; i < this.props.jsonFeatures.features.length; i++) {

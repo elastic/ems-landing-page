@@ -82,11 +82,10 @@
   version "0.15.0"
   resolved "https://registry.yarnpkg.com/@elastic/eslint-config-kibana/-/eslint-config-kibana-0.15.0.tgz#a552793497cdfc1829c2f9b7cd7018eb008f1606"
 
-"@elastic/eui@0.0.49":
-  version "0.0.49"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-0.0.49.tgz#583b3c1526df352b99a6cf13bd750d6d5adfb949"
+"@elastic/eui@0.0.52":
+  version "0.0.52"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-0.0.52.tgz#c34c6cd482b458015e0d2b410f98652053994138"
   dependencies:
-    brace "^0.10.0"
     classnames "^2.2.5"
     core-js "^2.5.1"
     focus-trap-react "^3.0.4"
@@ -1187,12 +1186,6 @@ brace-expansion@^1.1.7:
   dependencies:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
-
-brace@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/brace/-/brace-0.10.0.tgz#edef4eb9b0928ba1ee5f717ffc157749a6dd5d76"
-  dependencies:
-    w3c-blob "0.0.1"
 
 brace@^0.11.0:
   version "0.11.1"
@@ -4803,9 +4796,9 @@ react-datepicker@v1.4.1:
     react-onclickoutside "^6.7.1"
     react-popper "^0.9.1"
 
-react-dom@16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
+react-dom@16.3.0:
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.0.tgz#b318e52184188ecb5c3e81117420cca40618643e"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -4844,9 +4837,9 @@ react-virtualized@^9.18.5:
     prop-types "^15.6.0"
     react-lifecycles-compat "^3.0.4"
 
-react@16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
+react@16.3.0:
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.0.tgz#fc5a01c68f91e9b38e92cf83f7b795ebdca8ddff"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -5985,10 +5978,6 @@ vt-pbf@^3.0.1:
     "@mapbox/point-geometry" "0.1.0"
     "@mapbox/vector-tile" "^1.3.1"
     pbf "^3.0.5"
-
-w3c-blob@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/w3c-blob/-/w3c-blob-0.0.1.tgz#b0cd352a1a50f515563420ffd5861f950f1d85b8"
 
 walkdir@^0.0.11:
   version "0.0.11"
