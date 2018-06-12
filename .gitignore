@@ -6,4 +6,4 @@ public/dist/
 npm-debug.log
 yarn-error.log
 build/
-
+.output.log
