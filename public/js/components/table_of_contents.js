@@ -30,15 +30,11 @@ export class TableOfContents extends Component {
       id,
       name,
       isSelected: this.state.selectedItemId === id,
-      onClick: () => this._selectItem(id, config),
+      onClick: () => this.selectItem(id, config),
     });
   }
 
   selectItem(id, config) {
-    this._selectItem(id, config);
-  }
-
-  _selectItem(id, config) {
     this.setState({
       selectedItemId: id,
       selectedConfig: config
