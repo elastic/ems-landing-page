@@ -25,7 +25,7 @@ async function start() {
 
 function getManifestParser(deployment) {
   if (!deployment) {
-    deployment = 'production';
+    deployment = CONFIG.default;
   }
   const url = CONFIG.SUPPORTED_EMS.manifest[deployment];
   return (url) ? new ManifestParserV2(url) : null;

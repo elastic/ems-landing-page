@@ -1,4 +1,5 @@
 {
+  "default": "production",
   "SUPPORTED_EMS": {
     "version": "v2",
     "manifest": {
