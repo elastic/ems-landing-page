@@ -12,7 +12,8 @@ import {
   EuiHeaderLinks,
   EuiHeaderSection,
   EuiHeaderSectionItem,
-  EuiHeaderLogo
+  EuiHeaderLogo,
+  EuiText,
 } from '@elastic/eui';
 
 import { TableOfContents } from './table_of_contents';
@@ -147,7 +148,7 @@ export class App extends Component {
       <div>
         <EuiHeader>
           <EuiHeaderSection>
-            <EuiHeaderSectionItem>
+            <EuiHeaderSectionItem border="none">
               <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
             </EuiHeaderSectionItem>
           </EuiHeaderSection>
@@ -168,6 +169,7 @@ export class App extends Component {
               <EuiPageContent>
                 <EuiPageContentBody>
                   <LayerDetails layerConfig={this.state.selectedFileLayer} />
+                  <EuiSpacer size="l" />
                   <FeatureTable
                     ref={setFeatureTable}
                     jsonFeatures={this.state.jsonFeatures}
@@ -177,6 +179,10 @@ export class App extends Component {
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
+              <EuiSpacer />
+              <EuiText size="xs" textAlign="center">
+                <p>Please submit any issues with this layer or suggestions for improving this layer in the <a href="https://github.com/elastic/kibana/issues/new" target="_blank">Kibana repo</a>.</p>
+              </EuiText>
             </div>
           </EuiPageBody>
         </EuiPage>

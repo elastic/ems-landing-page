@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import {
   EuiButton,
   EuiInMemoryTable,
-  EuiText
 } from '@elastic/eui';
 
 
@@ -92,13 +91,9 @@ export class FeatureTable extends Component {
 
   _renderToolsRight() {
     return (
-      <EuiText>
-        <div>
-          <EuiButton href={this.props.config.url} target="_">
-            Download {this.props.config.format}
-          </EuiButton>
-        </div>
-      </EuiText>
+      <EuiButton href={this.props.config.url} target="_">
+        Download {this.props.config.format}
+      </EuiButton>
     );
   }
 
@@ -115,6 +110,7 @@ export class FeatureTable extends Component {
     }
 
     const rows = this._getRows();
+    console.table(rows);
     const columns = this._getColumns();
 
     const search = {
@@ -138,7 +134,6 @@ export class FeatureTable extends Component {
         search={search}
         pagination={pagination}
         sorting
-        hasActions
       />
     );
   }

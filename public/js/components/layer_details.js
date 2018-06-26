@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
 import {
-  EuiFlexGroup,
-  EuiFlexItem,
   EuiText,
+  EuiTitle,
 } from '@elastic/eui';
 
 import MarkdownIt from 'markdown-it';
@@ -33,32 +32,12 @@ export class LayerDetails extends Component {
 
     return (
       <div>
-        <EuiFlexGroup wrap>
-          <EuiFlexItem>
-            <EuiText>
-              <dl>
-                <dt>Name</dt>
-                <dd>{this.props.layerConfig.name}</dd>
-              </dl>
-            </EuiText>
-          </EuiFlexItem>
-          <EuiFlexItem>
-            <EuiText>
-              <dl>
-                <dt>Attribution</dt>
-                <dd dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution"/>
-              </dl>
-            </EuiText>
-          </EuiFlexItem>
-          <EuiFlexItem>
-            <EuiText>
-              <dl>
-                <dt>Report</dt>
-                <dd>Please submit any issues with this layer or suggestions for improving this layer in the <a href="https://github.com/elastic/kibana/issues/new" target="_blank">Kibana repo</a>.</dd>
-              </dl>
-            </EuiText>
-          </EuiFlexItem>
-        </EuiFlexGroup>
+        <EuiTitle size="s">
+          <h2>{this.props.layerConfig.name}</h2>
+        </EuiTitle>
+        <EuiText size="s">
+          <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution"/>
+        </EuiText>
       </div>
     );
   }
