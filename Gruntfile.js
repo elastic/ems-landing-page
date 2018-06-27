@@ -50,18 +50,6 @@ module.exports = function (grunt) {
           }
         }
       }
-    },
-    compress: {
-      release: {
-        options: {
-          archive: function () {
-            return BUILD_DIR + 'release.zip';
-          }
-        },
-        files: [
-          { cwd: RELEASE_DIR_SITE, src: ['**'], dest: '.', filter: 'isFile', expand: true }
-        ]
-      }
     }
   });
 
@@ -82,15 +70,11 @@ module.exports = function (grunt) {
     });
   });
 
-  grunt.registerTask('build-unsafe', ['clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site-htmlcss', 'copy:site-js', 'compress:release']);
+  grunt.registerTask('build-unsafe', ['clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site-htmlcss', 'copy:site-js']);
   grunt.registerTask('default', ['git-check-clean-dir', 'build-unsafe']);
-
 
   grunt.loadNpmTasks('grunt-run');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-compress');
-
-
 };
