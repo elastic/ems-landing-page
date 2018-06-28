@@ -1,7 +1,7 @@
 node_modules/
 .idea/
-dist/
-public/dist/
+public/main.bundle.js
+public/main.bundle.js.map
 *.iml
 npm-debug.log
 yarn-error.log
