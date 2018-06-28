@@ -12,17 +12,31 @@ export class TableOfContents extends Component {
     super(props);
     this.state = {
       selectedItemId: null,
-      selectedConfig: null
+      selectedConfig: null,
+      isSideNavOpenOnMobile: false,
     };
+
+    this.toggleSideNavOpenOnMobile = this.toggleSideNavOpenOnMobile.bind(this);
   }
 
   render() {
     const sidebarItems = this._getSidebarItems();
     return (
       <EuiPageSideBar>
-        <EuiSideNav items={sidebarItems} />
+        <EuiSideNav
+          items={sidebarItems}
+          mobileTitle="Layers"
+          toggleOpenOnMobile={this.toggleSideNavOpenOnMobile}
+          isOpenOnMobile={this.state.isSideNavOpenOnMobile}
+        />
       </EuiPageSideBar>
     );
+  }
+
+  toggleSideNavOpenOnMobile() {
+    this.setState({
+      isSideNavOpenOnMobile: !this.state.isSideNavOpenOnMobile,
+    });
   }
 
   _createItem(id, name, config, data = {}) {
