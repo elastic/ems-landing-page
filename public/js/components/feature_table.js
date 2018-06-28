@@ -110,7 +110,6 @@ export class FeatureTable extends Component {
     }
 
     const rows = this._getRows();
-    console.table(rows);
     const columns = this._getColumns();
 
     const search = {

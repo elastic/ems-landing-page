@@ -154,7 +154,7 @@ export class App extends Component {
           </EuiHeaderSection>
           <EuiHeaderSection side="right">
             <EuiHeaderLinks>
-              <EuiHeaderLink>elastic.co</EuiHeaderLink>
+              <EuiHeaderLink href="//elastic.co">elastic.co</EuiHeaderLink>
             </EuiHeaderLinks>
           </EuiHeaderSection>
         </EuiHeader>
