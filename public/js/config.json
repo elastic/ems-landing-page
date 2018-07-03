@@ -1,5 +1,5 @@
 {
-  "default": "production",
+  "default": "staging",
   "SUPPORTED_EMS": {
     "version": "v2",
     "manifest": {
