@@ -37,3 +37,8 @@ body {
 .euiHeaderSectionItem:hover {
     background: transparent;
 }
+
+.mapboxgl-popup-close-button {
+    padding-left: 7px;
+    padding-right: 7px;
+}
