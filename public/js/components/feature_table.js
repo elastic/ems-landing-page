@@ -54,28 +54,13 @@ export class FeatureTable extends Component {
     return passes.map((feature) => feature.properties);
   }
 
-
   _getColumns() {
-    const cols = this.props.config.fields.map(field => ({
+    return this.props.config.fields.map(field => ({
       field: field.name,
       name: `${field.description} (${field.name})`,
       sortable: true,
     }));
-
-    cols.push({
-      name: '',
-      render: (properties) => {
-        const showOnMap = () => {
-          const feature = this.props.jsonFeatures.features[properties.__id__];
-          this.props.onShow(feature);
-        };
-        return (<a onClick={showOnMap}>Show on map</a>);
-      }
-    });
-
-    return cols;
   }
-
 
   startLoading() {
     this.setState({
@@ -125,8 +110,17 @@ export class FeatureTable extends Component {
       pageSizeOptions: [50],
     };
 
+    const rowProps = (row) => {
+      return {
+        onClick: () => {
+          const feature = this.props.jsonFeatures.features[row.__id__];
+          this.props.onShow(feature);
+        }
+      };
+    };
     return (
       <EuiInMemoryTable
+        rowProps={rowProps}
         loading={this.state.loading}
         items={rows}
         columns={columns}
