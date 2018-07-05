@@ -5,7 +5,8 @@ module.exports = function (grunt) {
 
 
   const BUILD_DIR = './build/';
-  const COMPILE_DIR = './public/dist/';
+  const COMPILED_FILE = './public/main.bundle.js';
+  const COMPILED_FILE_SOURCE_MAP = './public/main.bundle.js.map';
   const RELEASE_DIR_SITE = BUILD_DIR + 'release/';
 
   grunt.initConfig({
@@ -25,18 +26,17 @@ module.exports = function (grunt) {
     },
     clean: {
       release: [BUILD_DIR],
-      compile: [COMPILE_DIR]
+      compile: [COMPILED_FILE, COMPILED_FILE_SOURCE_MAP]
     },
     copy: {
-      'site-htmlcss': {
+      'site-html': {
         files: [
           { expand: true, cwd: './public', src: 'index.html', dest: RELEASE_DIR_SITE },
-          { expand: true, cwd: './public', src: 'style/**', dest: RELEASE_DIR_SITE }
         ]
       },
       'site-js': {
-        src: COMPILE_DIR + 'main.bundle.js',
-        dest: RELEASE_DIR_SITE + 'dist/main.bundle.js',
+        src: COMPILED_FILE,
+        dest: RELEASE_DIR_SITE + 'main.bundle.js',
         options: {
           process: function (content) {
             const minified = UglifyJS.minify(content, { mangle: false, compress: false });
@@ -70,7 +70,7 @@ module.exports = function (grunt) {
     });
   });
 
-  grunt.registerTask('build-unsafe', ['clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site-htmlcss', 'copy:site-js']);
+  grunt.registerTask('build-unsafe', ['clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site-html', 'copy:site-js']);
   grunt.registerTask('default', ['git-check-clean-dir', 'build-unsafe']);
 
   grunt.loadNpmTasks('grunt-run');
