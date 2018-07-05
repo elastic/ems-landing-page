@@ -29,9 +29,10 @@ module.exports = function (grunt) {
       compile: [COMPILED_FILE, COMPILED_FILE_SOURCE_MAP]
     },
     copy: {
-      'site-html': {
+      'site-html-png': {
         files: [
           { expand: true, cwd: './public', src: 'index.html', dest: RELEASE_DIR_SITE },
+          { expand: true, cwd: './public', src: 'ems.png', dest: RELEASE_DIR_SITE },
         ]
       },
       'site-js': {
@@ -70,7 +71,7 @@ module.exports = function (grunt) {
     });
   });
 
-  grunt.registerTask('build-unsafe', ['clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site-html', 'copy:site-js']);
+  grunt.registerTask('build-unsafe', ['clean:release', 'clean:compile', 'eslint', 'run:compile', 'copy:site-html-png', 'copy:site-js']);
   grunt.registerTask('default', ['git-check-clean-dir', 'build-unsafe']);
 
   grunt.loadNpmTasks('grunt-run');
