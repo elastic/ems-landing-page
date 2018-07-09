@@ -51,9 +51,10 @@ else
 
 
     # all buckets must be different
-    STAGING_BUCKET=${GPROJECT}-landing-page-staging
-    PRODUCTION_BUCKET=${GPROJECT}-landing-page-live
-    ARCHIVE_BUCKET=${GPROJECT}-landing-page-archive
+    EMS_PROJECT=landing-page
+    STAGING_BUCKET=${GPROJECT}-${EMS_PROJECT}-staging
+    PRODUCTION_BUCKET=${GPROJECT}-${EMS_PROJECT}-live
+    ARCHIVE_BUCKET=${GPROJECT}-${EMS_PROJECT}-archive
 
     TIMESTAMP=`date +"%Y-%m-%d_%H-%M-%S"`
     SNAPSHOT_DIR=$PWD/${TIMESTAMP}_snapshot

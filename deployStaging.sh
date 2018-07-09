@@ -67,7 +67,8 @@ else
 
 
     # Copy files
-    STAGING_BUCKET="${GPROJECT}-landing-page-staging"
+    EMS_PROJECT=landing-page
+    STAGING_BUCKET=${GPROJECT}-${EMS_PROJECT}-staging
     echo "Copying $PWD/release/* to gs://$STAGING_BUCKET/$URL_PATH"
     gsutil -m cp -r -a public-read -z js,css,html "$PWD/build/release/*" "gs://$STAGING_BUCKET/$URL_PATH"
 
