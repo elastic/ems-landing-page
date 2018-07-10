@@ -56,6 +56,5 @@ module.exports = {
   stats: {
     colors: true
   },
-  devtool: 'source-map',
-  cache: false
+  devtool: 'source-map'
 };
