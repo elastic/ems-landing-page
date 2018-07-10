@@ -48,6 +48,7 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({}),
     new UglifyJsPlugin({
+      sourceMap: true,
       exclude: 'public/mapbox.bundle.js',
       parallel: 4
     })
