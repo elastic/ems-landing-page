@@ -8,8 +8,11 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.0.20",
     "babel-eslint": "^8.2.3",
-    "babel-loader": "^6.2.2",
+    "babel-loader": "^7.1.5",
     "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-inline-react-svg": "^0.5.3",
+    "babel-plugin-pegjs-inline-precompile": "^0.1.0",
+    "babel-plugin-react-docgen": "^2.0.0-rc.1",
     "babel-plugin-react-intl": "^2.4.0",
     "babel-plugin-transform-async-generator-functions": "^6.24.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
@@ -48,7 +51,8 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.2",
     "uglify-js": "3.4.0",
-    "webpack": "^1.15.0"
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "webpack": "^3"
   },
   "dependencies": {
     "@elastic/eui": "^1.1.0",
