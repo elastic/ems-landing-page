@@ -82,9 +82,9 @@
   version "0.15.0"
   resolved "https://registry.yarnpkg.com/@elastic/eslint-config-kibana/-/eslint-config-kibana-0.15.0.tgz#a552793497cdfc1829c2f9b7cd7018eb008f1606"
 
-"@elastic/eui@^0.0.52":
-  version "0.0.52"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-0.0.52.tgz#c34c6cd482b458015e0d2b410f98652053994138"
+"@elastic/eui@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-1.1.0.tgz#f4aa5702358133dd8c26295ba7c6a243c35616be"
   dependencies:
     classnames "^2.2.5"
     core-js "^2.5.1"
