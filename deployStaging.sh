@@ -35,7 +35,7 @@ if [[ "$1" != "nodocker" ]]; then
     # Run this script from inside the docker container, using google/cloud-sdk image
     echo "Deploying to staging environment"
     docker run \
-        -ti \
+        --rm -i \
         --env GCE_ACCOUNT \
         --env GIT_BRANCH \
         --env GPROJECT \
