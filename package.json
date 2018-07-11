@@ -23,6 +23,7 @@
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "backport": "^4.0.3",
     "css-loader": "^0.28.10",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
