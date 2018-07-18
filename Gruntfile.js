@@ -5,8 +5,8 @@ module.exports = function (grunt) {
 
 
   const BUILD_DIR = './build/';
-  const COMPILED_FILE = './public/main.bundle.js';
-  const COMPILED_FILE_SOURCE_MAP = './public/main.bundle.js.map';
+  const COMPILED_FILES = './public/*.bundle.js';
+  const COMPILED_FILES_SOURCE_MAP = './public/*.bundle.js.map';
   const RELEASE_DIR_SITE = BUILD_DIR + 'release/';
 
   grunt.initConfig({
@@ -26,7 +26,7 @@ module.exports = function (grunt) {
     },
     clean: {
       release: [BUILD_DIR],
-      compile: [COMPILED_FILE, COMPILED_FILE_SOURCE_MAP]
+      compile: [COMPILED_FILES, COMPILED_FILES_SOURCE_MAP]
     },
     copy: {
       'site-html-png': {
@@ -36,20 +36,10 @@ module.exports = function (grunt) {
         ]
       },
       'site-js': {
-        src: COMPILED_FILE,
-        dest: RELEASE_DIR_SITE + 'main.bundle.js',
-        options: {
-          process: function (content) {
-            const minified = UglifyJS.minify(content, { mangle: false, compress: false });
-            if (minified.error) {
-              throw new Error(minified.error);
-            }
-            if (minified.warnings) {
-              console.warn(minified.warnings);
-            }
-            return minified.code;
-          }
-        }
+        expand: true, 
+        flatten: true,
+        src: [COMPILED_FILES, COMPILED_FILES_SOURCE_MAP], 
+        dest: RELEASE_DIR_SITE
       }
     }
   });
