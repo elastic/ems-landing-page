@@ -1,8 +1,10 @@
 var path = require('path');
 var webpack = require('webpack');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   entry: {
+    mapbox: './node_modules/mapbox-gl/dist/mapbox-gl.js',
     main: ['babel-polyfill', path.resolve(__dirname, 'public/main.js')]
   },
   output: {
@@ -10,30 +12,25 @@ module.exports = {
     filename: 'public/[name].bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(png|jpg|gif)$/,
-        loaders: ['file-loader']
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
+        use: ['file-loader']
       },
       {
         test: /\.css$/,
-        loader: 'style!css',
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'resolve-url-loader', 'postcss-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'resolve-url-loader', 'postcss-loader', 'sass-loader'],
         exclude: /node_modules/
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react']
+        exclude: /node_modules\/(?!@elastic\/eui)/,
+        use: {
+          loader: 'babel-loader'
         }
       }
     ]
@@ -43,13 +40,21 @@ module.exports = {
     }
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
-    new webpack.ProvidePlugin({})
+    new webpack.optimize.OccurrenceOrderPlugin(true),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'mapbox',
+      minChunks: Infinity
+    }),
+    new webpack.ProvidePlugin({}),
+    new UglifyJsPlugin({
+      sourceMap: true,
+      exclude: 'public/mapbox.bundle.js',
+      parallel: 4
+    })
   ],
   stats: {
     colors: true
   },
-  devtool: 'source-map',
-  debug: true,
-  cache: true
+  devtool: 'source-map'
 };
