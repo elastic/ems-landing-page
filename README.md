@@ -17,6 +17,10 @@ is similar to how Kibana retrieves the manifest from EMS.
 
 `grunt` is used for creating a distributable package of the app.
 
+To use the recommended node version for running the dev and compile tasks, you can use 
+
+> nvm use
+
 ### Running the page locally
 
 #### Install dependencies
