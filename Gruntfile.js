@@ -1,4 +1,3 @@
-const UglifyJS = require('uglify-js');
 const exec = require('child_process').exec;
 
 module.exports = function (grunt) {
