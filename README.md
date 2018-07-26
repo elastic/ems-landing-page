@@ -53,4 +53,5 @@ Fix the errors, and redeploy.
 ## Continuous Integration and Deployment
 * The code will be built automatically by Jenkins on every pull request using the `build.sh` script.
 * Once merged, Jenkins will run `deployStaging.sh` script, which will place code into the staging bucket.
-* You may also trigger manual Jenkins job to run `deployProduction.sh` script, which will rsync files from staging to production.
+* If necessary use the [backport tool](https://www.npmjs.com/package/backport) to backport changes to specific branches. 
+* Deploying to production requires manually triggering [this Jenkins job](https://kibana-ci.elastic.co/job/elastic+ems-landing-page+deploy/) to run the `deployProduction.sh` script. This will rsync files of the chosen branch from the staging bucket to the production bucket. To trigger, log in and click the "Build with Parameters" link. In the `branch_specifier` field enter the branch of the repository to be published to the root of the [production website](https://maps.elastic.co) (ex. `v2`). 
