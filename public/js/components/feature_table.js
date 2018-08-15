@@ -84,9 +84,9 @@ export class FeatureTable extends Component {
       humanReadableFormat = this.props.config.format;
     }
     return (
-    <EuiButton href={this.props.config.url} target="_">
-      Download {humanReadableFormat}
-    </EuiButton>
+      <EuiButton href={this.props.config.url} target="_">
+        Download {humanReadableFormat}
+      </EuiButton>
     );
   }
 
