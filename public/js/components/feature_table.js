@@ -75,10 +75,18 @@ export class FeatureTable extends Component {
   }
 
   _renderToolsRight() {
+    let humanReadableFormat;
+    if (this.props.config.format === 'geojson') {
+      humanReadableFormat = 'GeoJSON';
+    } else if (this.props.config.format === 'topojson') {
+      humanReadableFormat = 'TopoJSON';
+    } else {
+      humanReadableFormat = this.props.config.format;
+    }
     return (
-      <EuiButton href={this.props.config.url} target="_">
-        Download {this.props.config.format}
-      </EuiButton>
+    <EuiButton href={this.props.config.url} target="_">
+      Download {humanReadableFormat}
+    </EuiButton>
     );
   }
 
