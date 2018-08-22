@@ -39,12 +39,12 @@ export class TableOfContents extends Component {
     });
   }
 
-  _createItem(id, name, config, data = {}) {
+  _createItem(id, name, config, onClickHandler, data = {}) {
     return Object.assign(data, {
       id,
       name,
       isSelected: this.state.selectedItemId === id,
-      onClick: () => this.selectItem(id, config),
+      onClick: onClickHandler
     });
   }
 
@@ -63,9 +63,13 @@ export class TableOfContents extends Component {
     const fileItems = this.props.layers.file.manifest.layers.map((service) => {
       const id = `file/${service.name}`;
       const name = service.name;
-      return this._createItem(id, name, service);
+      return this._createItem(
+        id,
+        name,
+        service,
+        () => this.selectItem(id, service));
     });
-    const files = this._createItem('file', 'Vector Layers', this.props.layers.file.meta, {
+    const files = this._createItem('file', 'Vector Layers', this.props.layers.file.meta, null, {
       icon: <EuiIcon type="vector" />,
       items: fileItems,
     });

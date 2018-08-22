@@ -7,6 +7,11 @@ import React, { Component } from 'react';
 
 
 export class Map extends Component {
+
+  static isSupported() {
+    return mapboxgl.supported();
+  }
+
   constructor(props) {
     super(props);
 
