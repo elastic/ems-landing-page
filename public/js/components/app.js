@@ -14,6 +14,7 @@ import {
   EuiHeaderSectionItem,
   EuiHeaderLogo,
   EuiText,
+  EuiToast
 } from '@elastic/eui';
 
 import { TableOfContents } from './table_of_contents';
@@ -84,6 +85,11 @@ export class App extends Component {
 
 
   componentDidMount() {
+
+    if (!Map.isSupported()) {
+      return;
+    }
+
     let vectorLayerSelection = this._readFileRoute();
     if (!vectorLayerSelection) {
       //fallback to the first layer from the manifest
@@ -126,6 +132,15 @@ export class App extends Component {
   }
 
   render() {
+
+    if (!Map.isSupported()) {
+      return (<EuiToast
+        title="Your browser does not support WebGL. Please turn on WebGL in order to use this application."
+        color="danger"
+        iconType="alert"
+      />);
+    }
+
     const setMap = (map) => {
       if (this._map === null) {
         this._map = map;
