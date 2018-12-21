@@ -174,8 +174,8 @@ export class App extends Component {
           </EuiHeaderSection>
         </EuiHeader>
         <EuiPage>
+          <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
           <EuiPageBody>
-            <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
             <div className="mainContent">
               <EuiPanel paddingSize="none">
                 <Map ref={setMap}  baseLayer={this._baseLayer} />
