@@ -53,16 +53,13 @@ export class EMSClientV66 {
 
   constructor({ manifestServiceUrl, htmlSanitizer, language }) {
 
-    this._queryParams = {
-    //   my_app_version: kbnVersion
-    };
+    this._queryParams = {};
 
     this._sanitizer = htmlSanitizer ? htmlSanitizer : x => x;
     this._manifestServiceUrl = manifestServiceUrl;
     this._loadCatalogue = null;
     this._loadFileLayers = null;
     this._loadTMSServices = null;
-    // this._emsLandingPageUrl = landingPageUrl;
     this._language = typeof language === 'string' ? language : DEFAULT_LANGUAGE;
 
     this._invalidateSettings();
@@ -156,10 +153,6 @@ export class EMSClientV66 {
     });
 
   }
-
-  //   getLandingPageUrl() {
-  //     return this._emsLandingPageUrl;
-  //   }
 
   sanitizeMarkdown(markdown) {
     return this._sanitizer(markdownIt.render(markdown));
