@@ -30,10 +30,11 @@ export class FeatureTable extends Component {
     filter = filter ? filter : '';
     const filterNormalized = filter.toLowerCase();
     const passes = [];
+    const fields = this.props.config.getFieldsInLanguage();
     for (let i = 0; i < this.props.jsonFeatures.features.length; i++) {
       const feature = this.props.jsonFeatures.features[i];
-      for (let j = 0; j < this.props.config.fields.length; j++) {
-        const field = this.props.config.fields[j];
+      for (let j = 0; j < fields.length; j++) {
+        const field = fields[j];
         const fieldValue = feature.properties[field.name];
         const stringifiedFieldValue = JSON.stringify(fieldValue);
         if (!stringifiedFieldValue) {
@@ -55,7 +56,7 @@ export class FeatureTable extends Component {
   }
 
   _getColumns() {
-    return this.props.config.fields.map(field => ({
+    return this.props.config.getFieldsInLanguage().map(field => ({
       field: field.name,
       name: `${field.description} (${field.name})`,
       sortable: true,
@@ -76,15 +77,16 @@ export class FeatureTable extends Component {
 
   _renderToolsRight() {
     let humanReadableFormat;
-    if (this.props.config.format === 'geojson') {
+    const format = this.props.config.getDefaultFormatType();
+    if (format === 'geojson') {
       humanReadableFormat = 'GeoJSON';
-    } else if (this.props.config.format === 'topojson') {
+    } else if (format === 'topojson') {
       humanReadableFormat = 'TopoJSON';
     } else {
-      humanReadableFormat = this.props.config.format;
+      humanReadableFormat = format;
     }
     return (
-      <EuiButton href={this.props.config.url} target="_">
+      <EuiButton href={this.props.config.getDefaultFormatUrl()} target="_">
         Download {humanReadableFormat}
       </EuiButton>
     );

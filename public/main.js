@@ -5,29 +5,32 @@ import ReactDOM from 'react-dom';
 import URL from 'url-parse';
 import CONFIG from './config.json';
 import { App } from './js/components/app';
-import { ManifestParserV2 } from './js/manifest_parser_v2';
+import { EMSClientV66 } from './js/ems_client';
 
 start();
 
 async function start() {
   const urlTokens = new URL(window.location, true);
-  const manifestParser = getManifestParser(urlTokens.query.manifest);
+  const emsClient = getEmsClient(urlTokens.query.manifest);
 
-  if (!manifestParser) {
+  if (!emsClient) {
     console.error(`Cannot load the required manifest for "${urlTokens.query.manifest}"`);
     return;
   }
-  const emsLayers = await manifestParser.getAllEMSLayers();
+  const emsLayers = {
+    file: await emsClient.getFileLayers(),
+    tms: await emsClient.getTMSServices()
+  };
 
   ReactDOM.render(<App layers={emsLayers}/>, document.getElementById('wrapper'));
 }
 
 
-function getManifestParser(deployment) {
+function getEmsClient(deployment) {
   if (!deployment) {
     deployment = CONFIG.default;
   }
   const url = CONFIG.SUPPORTED_EMS.manifest[deployment];
-  return (url) ? new ManifestParserV2(url) : null;
+  return (url) ? new EMSClientV66({ manifestServiceUrl: url }) : null;
 }
 

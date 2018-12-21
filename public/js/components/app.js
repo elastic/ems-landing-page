@@ -38,13 +38,13 @@ export class App extends Component {
     this._selectFileLayer = async (fileLayerConfig) => {
 
       this._featuretable.startLoading();
-      const response = await fetch(fileLayerConfig.url);
+      const response = await fetch(fileLayerConfig.getDefaultFormatUrl());
       const json = await response.json();
 
 
       let featureCollection;
-      if (fileLayerConfig.format === 'topojson') {
-        const features = json.objects[fileLayerConfig.meta.feature_collection_path];
+      if (fileLayerConfig.getDefaultFormatType() === 'topojson') {
+        const features = json.objects[fileLayerConfig.getDefaultFormatMeta().feature_collection_path];
         featureCollection = topojson.feature(json, features);// conversion to geojson
       } else {
         featureCollection = json;
@@ -74,8 +74,8 @@ export class App extends Component {
     };
 
     //find the road map layer
-    this._baseLayer = this.props.layers.tms.manifest.services.find((service) => {
-      return service.id === 'road_map';
+    this._baseLayer = this.props.layers.tms.find((service) => {
+      return service.hasId('road_map');
     });
 
     this._map = null;
@@ -93,14 +93,14 @@ export class App extends Component {
     let vectorLayerSelection = this._readFileRoute();
     if (!vectorLayerSelection) {
       //fallback to the first layer from the manifest
-      const firstLayer = this.props.layers.file.manifest.layers[0];
+      const firstLayer = this.props.layers.file[0];
       if (!firstLayer) {
         window.location.hash = '';
         return;
       }
       vectorLayerSelection = {
         config: firstLayer,
-        path: `file/${firstLayer.name}`
+        path: `file/${firstLayer.getId()}`
       };
     }
     this._selectFileLayer(vectorLayerSelection.config);
@@ -110,7 +110,7 @@ export class App extends Component {
   _readFileRoute() {
     const urlTokens = new URL(window.location, true);
 
-    // uses layername as ID.
+    // uses layer id as ID.
     // This is more human readable, and seems more transferable than the machine GCP cloud storage ids.
     const path = urlTokens.hash.substr(1);// cut off #
     const tokens = path.split('/');
@@ -120,15 +120,15 @@ export class App extends Component {
       return;
     }
 
-    const name = decodeURIComponent(tokens[1]);
+    const id = decodeURIComponent(tokens[1]);
     return {
-      path: `file/${name}`,
-      config: this.props.layers.file.manifest.layers.find(layer => layer.name === name)
+      path: `file/${id}`,
+      config: this.props.layers.file.find(layer => layer.hasId(id))
     };
   }
 
   _setFileRoute(layerConfig) {
-    window.location.hash = `file/${layerConfig.name}`;
+    window.location.hash = `file/${layerConfig.getId()}`;
   }
 
   render() {

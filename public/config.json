@@ -1,10 +1,10 @@
 {
   "default": "production",
   "SUPPORTED_EMS": {
-    "version": "v2",
+    "version": "v6.6",
     "manifest": {
-      "staging": "https://catalogue-staging.maps.elastic.co/v2/manifest",
-      "production": "https://catalogue.maps.elastic.co/v2/manifest"
+      "staging": "https://catalogue-staging.maps.elastic.co/v6.6/manifest",
+      "production": "https://catalogue.maps.elastic.co/v6.6/manifest"
     }
   }
 }
