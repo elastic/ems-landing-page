@@ -1,18 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   EuiText,
   EuiTitle,
 } from '@elastic/eui';
 
-import MarkdownIt from 'markdown-it';
-
-const markdownIt = new MarkdownIt({
-  html: false,
-  linkify: true,
-});
-
-export class LayerDetails extends Component {
+export class LayerDetails extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -21,19 +14,11 @@ export class LayerDetails extends Component {
     if (!this.props.layerConfig) {
       return null;
     }
-
-    const attributions = this.props.layerConfig.attribution.split('|');
-    const htmlAttributions = attributions.map((attribution) => {
-      attribution = attribution.trim();
-      const html = markdownIt.render(attribution);
-      return html.trim();
-    });
-    const attributionsHtmlString = htmlAttributions.join(', ');
-
+    const attributionsHtmlString = this.props.layerConfig.getHTMLAttribution();
     return (
       <div>
         <EuiTitle size="s">
-          <h2>{this.props.layerConfig.name}</h2>
+          <h2>{this.props.layerConfig.getDisplayName()}</h2>
         </EuiTitle>
         <EuiText size="s">
           <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution"/>

@@ -39,7 +39,7 @@ export class TableOfContents extends Component {
     });
   }
 
-  _createItem(id, name, config, onClickHandler, data = {}) {
+  _createItem(id, name, onClickHandler, data = {}) {
     return Object.assign(data, {
       id,
       name,
@@ -60,16 +60,15 @@ export class TableOfContents extends Component {
   }
 
   _getSidebarItems() {
-    const fileItems = this.props.layers.file.manifest.layers.map((service) => {
-      const id = `file/${service.name}`;
-      const name = service.name;
+    const fileItems = this.props.layers.file.map((service) => {
+      const id = `file/${service.getId()}`;
+      const name = service.getDisplayName();
       return this._createItem(
         id,
         name,
-        service,
         () => this.selectItem(id, service));
     });
-    const files = this._createItem('file', 'Vector Layers', this.props.layers.file.meta, null, {
+    const files = this._createItem('file', 'Vector Layers', null, {
       icon: <EuiIcon type="vector" />,
       items: fileItems,
     });

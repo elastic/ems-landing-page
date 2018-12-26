@@ -29,7 +29,7 @@ export class Map extends Component {
         sources: {
           'raster-tiles': {
             type: 'raster',
-            tiles: [this.props.baseLayer.url],
+            tiles: [this.props.baseLayer.getUrlTemplate()],
             tileSize: 256,
             scheme: 'xyz',
           },
