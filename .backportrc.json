@@ -1,6 +1,6 @@
 {
   "upstream": "elastic/ems-landing-page",
-  "branches": [{ "name": "v2", "checked": true }],
+  "branches": [{ "name": "v6.6", "checked": true }, "v2"],
   "labels": ["backport"],
   "multipleCommits": true
 }
