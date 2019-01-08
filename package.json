@@ -84,6 +84,6 @@
       "pre-commit": "yarn lint"
     }
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Elastic",
+  "license": "SEE LICENSE IN ELASTIC-LICENSE.txt"
 }
