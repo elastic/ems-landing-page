@@ -3,6 +3,7 @@ import './main.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import URL from 'url-parse';
+import 'whatwg-fetch';
 import CONFIG from './config.json';
 import { App } from './js/components/app';
 import { ManifestParserV2 } from './js/manifest_parser_v2';
