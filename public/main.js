@@ -1,8 +1,15 @@
+/*
+ * Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
+ * or more contributor license agreements. Licensed under the Elastic License;
+ * you may not use this file except in compliance with the Elastic License.
+ */
+
 import './main.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import URL from 'url-parse';
+import 'whatwg-fetch';
 import CONFIG from './config.json';
 import { App } from './js/components/app';
 import { EMSClientV66 } from './js/ems_client';

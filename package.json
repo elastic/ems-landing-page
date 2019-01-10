@@ -45,6 +45,7 @@
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.0.0-rc.4",
     "json-loader": "^0.5.7",
+    "mermaid.cli": "^0.5.1",
     "node-libs-browser": "^0.5.3",
     "node-sass": "^4.7.2",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
@@ -68,8 +69,10 @@
     "moment": "2.21.0",
     "react": "16.3.0",
     "react-dom": "16.3.0",
+    "react-https-redirect": "^1.0.11",
     "topojson-client": "3.0.0",
-    "url-parse": "1.4.4"
+    "url-parse": "1.4.4",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
@@ -82,6 +85,6 @@
       "pre-commit": "yarn lint"
     }
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Elastic",
+  "license": "SEE LICENSE IN ELASTIC-LICENSE.txt"
 }
