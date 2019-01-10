@@ -1,14 +1,8 @@
 import mapboxgl from 'mapbox-gl';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
-import MarkdownIt from 'markdown-it';
 
 import React, { Component } from 'react';
-
-const markdownIt = new MarkdownIt({
-  html: false,
-  linkify: true
-});
 
 export class Map extends Component {
 
@@ -36,7 +30,7 @@ export class Map extends Component {
             tiles: [this.props.baseLayer.getUrlTemplate()],
             tileSize: 256,
             scheme: 'xyz',
-            attribution: markdownIt.render(this.props.baseLayer.attribution || '')
+            attribution: this.props.baseLayer.getHTMLAttribution() || ''
           },
         },
         layers: [{
