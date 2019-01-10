@@ -49,6 +49,7 @@ export class TableOfContents extends Component {
     return Object.assign(data, {
       id,
       name,
+      title: name,
       isSelected: this.state.selectedItemId === id,
       onClick: onClickHandler
     });
