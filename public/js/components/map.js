@@ -1,10 +1,14 @@
+/*
+ * Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
+ * or more contributor license agreements. Licensed under the Elastic License;
+ * you may not use this file except in compliance with the Elastic License.
+ */
+
 import mapboxgl from 'mapbox-gl';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 
 import React, { Component } from 'react';
-
-
 
 export class Map extends Component {
 
@@ -32,6 +36,7 @@ export class Map extends Component {
             tiles: [this.props.baseLayer.getUrlTemplate()],
             tileSize: 256,
             scheme: 'xyz',
+            attribution: this.props.baseLayer.getHTMLAttribution() || ''
           },
         },
         layers: [{

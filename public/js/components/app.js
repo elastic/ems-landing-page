@@ -1,4 +1,11 @@
+/*
+ * Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
+ * or more contributor license agreements. Licensed under the Elastic License;
+ * you may not use this file except in compliance with the Elastic License.
+ */
+
 import React, { Component } from 'react';
+import HttpsRedirect from 'react-https-redirect';
 
 import {
   EuiPage,
@@ -160,48 +167,50 @@ export class App extends Component {
     };
 
     return (
-      <div>
-        <EuiHeader>
-          <EuiHeaderSection>
-            <EuiHeaderSectionItem border="none">
-              <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
-            </EuiHeaderSectionItem>
-          </EuiHeaderSection>
-          <EuiHeaderSection side="right">
-            <EuiHeaderLinks>
-              <EuiHeaderLink href="//elastic.co">elastic.co</EuiHeaderLink>
-            </EuiHeaderLinks>
-          </EuiHeaderSection>
-        </EuiHeader>
-        <EuiPage>
-          <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
-          <EuiPageBody>
-            <div className="mainContent">
-              <EuiPanel paddingSize="none">
-                <Map ref={setMap}  baseLayer={this._baseLayer} />
-              </EuiPanel>
-              <EuiSpacer size="xl" />
-              <EuiPageContent>
-                <EuiPageContentBody>
-                  <LayerDetails layerConfig={this.state.selectedFileLayer} />
-                  <EuiSpacer size="l" />
-                  <FeatureTable
-                    ref={setFeatureTable}
-                    jsonFeatures={this.state.jsonFeatures}
-                    config={this.state.selectedFileLayer}
-                    onShow={this._showFeature}
-                    onFilterChange={this._filterFeatures}
-                  />
-                </EuiPageContentBody>
-              </EuiPageContent>
-              <EuiSpacer />
-              <EuiText size="xs" textAlign="center">
-                <p>Please submit any issues with this layer or suggestions for improving this layer in the <a href="https://github.com/elastic/kibana/issues/new" target="_blank">Kibana repo</a>.</p>
-              </EuiText>
-            </div>
-          </EuiPageBody>
-        </EuiPage>
-      </div>
+      <HttpsRedirect>
+        <div>
+          <EuiHeader>
+            <EuiHeaderSection>
+              <EuiHeaderSectionItem border="none">
+                <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
+              </EuiHeaderSectionItem>
+            </EuiHeaderSection>
+            <EuiHeaderSection side="right">
+              <EuiHeaderLinks>
+                <EuiHeaderLink href="//elastic.co">elastic.co</EuiHeaderLink>
+              </EuiHeaderLinks>
+            </EuiHeaderSection>
+          </EuiHeader>
+          <EuiPage>
+            <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
+            <EuiPageBody>
+              <div className="mainContent">
+                <EuiPanel paddingSize="none">
+                  <Map ref={setMap}  baseLayer={this._baseLayer} />
+                </EuiPanel>
+                <EuiSpacer size="xl" />
+                <EuiPageContent>
+                  <EuiPageContentBody>
+                    <LayerDetails layerConfig={this.state.selectedFileLayer} />
+                    <EuiSpacer size="l" />
+                    <FeatureTable
+                      ref={setFeatureTable}
+                      jsonFeatures={this.state.jsonFeatures}
+                      config={this.state.selectedFileLayer}
+                      onShow={this._showFeature}
+                      onFilterChange={this._filterFeatures}
+                    />
+                  </EuiPageContentBody>
+                </EuiPageContent>
+                <EuiSpacer />
+                <EuiText size="xs" textAlign="center">
+                  <p>Please submit any issues with this layer or suggestions for improving this layer in the <a href="https://github.com/elastic/kibana/issues/new" target="_blank">Kibana repo</a>.</p>
+                </EuiText>
+              </div>
+            </EuiPageBody>
+          </EuiPage>
+        </div>
+      </HttpsRedirect>
     );
   }
 }

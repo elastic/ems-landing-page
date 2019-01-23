@@ -65,10 +65,11 @@
     "@turf/bbox": "6.0.1",
     "@turf/center": "6.0.1",
     "mapbox-gl": "0.52.0",
-    "markdown-it": "8.4.1",
+    "markdown-it": "8.4.2",
     "moment": "2.21.0",
     "react": "16.3.0",
     "react-dom": "16.3.0",
+    "react-https-redirect": "^1.0.11",
     "topojson-client": "3.0.0",
     "url-parse": "1.4.4",
     "whatwg-fetch": "^3.0.0"
@@ -84,6 +85,6 @@
       "pre-commit": "yarn lint"
     }
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Elastic",
+  "license": "SEE LICENSE IN ELASTIC-LICENSE.txt"
 }
