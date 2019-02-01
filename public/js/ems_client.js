@@ -47,7 +47,7 @@ export class EMSClientV66 {
     this._loadCatalogue = null;
     this._loadFileLayers = null;
     this._loadTMSServices = null;
-    this._language = typeof language === 'string' ? language : DEFAULT_LANGUAGE;
+    this._language = typeof language === 'string' ? language.toLowerCase() : DEFAULT_LANGUAGE;
 
     this._invalidateSettings();
 
