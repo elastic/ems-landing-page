@@ -38,6 +38,7 @@ function getEmsClient(deployment, locale) {
     deployment = CONFIG.default;
   }
   const url = CONFIG.SUPPORTED_EMS.manifest[deployment];
-  return (url) ? new EMSClientV66({ manifestServiceUrl: url, language:locale }) : null;
+  const language = CONFIG.SUPPORTED_LOCALE[locale.toLowerCase()] ? locale : null;
+  return (url) ? new EMSClientV66({ manifestServiceUrl: url, language: language }) : null;
 }
 
