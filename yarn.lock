@@ -82,15 +82,23 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@elastic/datemath@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@elastic/datemath/-/datemath-5.0.2.tgz#1e62fe7137acd6ebcde9a794ef22b91820c9e6cf"
+  integrity sha512-MYU7KedGPMYu3ljgrO3tY8I8rD73lvBCltd78k5avDIv/6gMbuhKXsMhkEPbb9angs9hR/2ADk0QcGbVxUBXUw==
+  dependencies:
+    tslib "^1.9.3"
+
 "@elastic/eslint-config-kibana@^0.15.0":
   version "0.15.0"
   resolved "https://registry.yarnpkg.com/@elastic/eslint-config-kibana/-/eslint-config-kibana-0.15.0.tgz#a552793497cdfc1829c2f9b7cd7018eb008f1606"
 
-"@elastic/eui@5.8.1":
-  version "5.8.1"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-5.8.1.tgz#33467c059699a4626256d7197451400500831a66"
-  integrity sha512-y1hn27p9lm5P1sru8jHFbdKx6FzG5mQXc2cyS2Fc/T0SVH1n9Pj44OilM/NyVQNiR2pHKat+Hqc2SRrCcpeDmQ==
+"@elastic/eui@6.10.0":
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-6.10.0.tgz#4255e53c7481dd5170072a0bdf45eb796817c0b0"
+  integrity sha512-yWEt/wbG3BtqaDAcPOS9Hkm8G2BftmP31wzr2Q/Dm+jpNhTA/fUs++1WFgaVvX/Vj9RsTgi8yx8PZHth8Metog==
   dependencies:
+    "@types/lodash" "^4.14.116"
     "@types/numeral" "^0.0.25"
     classnames "^2.2.5"
     core-js "^2.5.1"
@@ -104,6 +112,7 @@
     react-ace "^5.5.0"
     react-color "^2.13.8"
     react-input-autosize "^2.2.1"
+    react-is "~16.3.0"
     react-virtualized "^9.18.5"
     react-vis "1.10.2"
     resize-observer-polyfill "^1.5.0"
@@ -182,6 +191,11 @@
   resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-6.0.2.tgz#eb92951126d24a613ac1b7b99d733fcc20fd30cf"
   dependencies:
     "@turf/helpers" "6.x"
+
+"@types/lodash@^4.14.116":
+  version "4.14.120"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.120.tgz#cf265d06f6c7a710db087ed07523ab8c1a24047b"
+  integrity sha512-jQ21kQ120mo+IrDs1nFNVm/AsdFxIx2+vZ347DbogHJPd/JzKNMOqU6HCYin1W6v8l5R9XSO2/e9cxmn7HAnVw==
 
 "@types/numeral@^0.0.25":
   version "0.0.25"
@@ -7754,6 +7768,11 @@ react-input-autosize@^2.2.1:
   dependencies:
     prop-types "^15.5.8"
 
+react-is@~16.3.0:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.3.2.tgz#f4d3d0e2f5fbb6ac46450641eb2e25bf05d36b22"
+  integrity sha512-ybEM7YOr4yBgFd6w8dJqwxegqZGJNBZl6U27HnGKuTZmDvVrD5quWOK/wAnMywiZzW+Qsk+l4X2c70+thp/A8Q==
+
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -9214,7 +9233,7 @@ trim@0.0.1:
   dependencies:
     glob "^6.0.4"
 
-tslib@^1.9.0:
+tslib@^1.9.0, tslib@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
 

@@ -61,7 +61,7 @@
     "webpack-merge": "^4.1.5"
   },
   "dependencies": {
-    "@elastic/eui": "5.8.1",
+    "@elastic/eui": "6.10.0",
     "@turf/bbox": "6.0.1",
     "@turf/center": "6.0.1",
     "mapbox-gl": "0.52.0",
@@ -86,5 +86,8 @@
     }
   },
   "author": "Elastic",
-  "license": "SEE LICENSE IN ELASTIC-LICENSE.txt"
+  "license": "SEE LICENSE IN ELASTIC-LICENSE.txt",
+  "peerDependencies": {
+    "@elastic/datemath": "^5.0.2"
+  }
 }
