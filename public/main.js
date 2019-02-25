@@ -35,7 +35,8 @@ async function start() {
 
 function getEmsClient(deployment) {
   const url = CONFIG.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
-    ? CONFIG.SUPPORTED_EMS.manifest[deployment] : CONFIG.default;
+    ? CONFIG.SUPPORTED_EMS.manifest[deployment]
+    : CONFIG.SUPPORTED_EMS.manifest[CONFIG.default];
   return (url) ? new EMSClientV66({ manifestServiceUrl: url }) : null;
 }
 
