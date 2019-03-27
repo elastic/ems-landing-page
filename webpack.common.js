@@ -8,7 +8,7 @@ const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
@@ -62,7 +62,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['build/release']),
-    new FaviconsWebpackPlugin('@elastic/eui/lib/components/icon/assets/app_ems.svg'),
+    new WebappWebpackPlugin('@elastic/eui/lib/components/icon/assets/app_ems.svg'),
     new HTMLWebpackPlugin({
       template: 'public/index.html',
       hash: true

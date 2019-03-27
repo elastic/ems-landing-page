@@ -18,7 +18,7 @@ start();
 
 async function start() {
   const urlTokens = new URL(window.location, true);
-  const emsClient = getEmsClient(urlTokens.query.manifest);
+  const emsClient = getEmsClient(urlTokens.query.manifest, urlTokens.query.locale);
 
   if (!emsClient) {
     console.error(`Cannot load the required manifest for "${urlTokens.query.manifest}"`);
@@ -32,12 +32,12 @@ async function start() {
   ReactDOM.render(<App layers={emsLayers}/>, document.getElementById('wrapper'));
 }
 
-
-function getEmsClient(deployment) {
-  if (!deployment) {
-    deployment = CONFIG.default;
-  }
-  const url = CONFIG.SUPPORTED_EMS.manifest[deployment];
-  return (url) ? new EMSClientV66({ manifestServiceUrl: url }) : null;
+function getEmsClient(deployment, locale) {
+  const url = CONFIG.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
+    ? CONFIG.SUPPORTED_EMS.manifest[deployment]
+    : CONFIG.SUPPORTED_EMS.manifest[CONFIG.default];
+  const language = locale && CONFIG.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
+    ? locale : null;
+  return (url) ? new EMSClientV66({ manifestServiceUrl: url, language: language }) : null;
 }
 
