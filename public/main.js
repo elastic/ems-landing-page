@@ -32,13 +32,11 @@ async function start() {
   ReactDOM.render(<App layers={emsLayers}/>, document.getElementById('wrapper'));
 }
 
-
 function getEmsClient(deployment, locale) {
-  if (!deployment) {
-    deployment = CONFIG.default;
-  }
-  const url = CONFIG.SUPPORTED_EMS.manifest[deployment];
-  const language = locale && CONFIG.SUPPORTED_LOCALE[locale.toLowerCase()]
+  const url = CONFIG.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
+    ? CONFIG.SUPPORTED_EMS.manifest[deployment]
+    : CONFIG.SUPPORTED_EMS.manifest[CONFIG.default];
+  const language = locale && CONFIG.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
     ? locale : null;
   return (url) ? new EMSClientV66({ manifestServiceUrl: url, language: language }) : null;
 }
