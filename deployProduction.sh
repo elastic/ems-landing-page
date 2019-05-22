@@ -45,6 +45,7 @@ if [[ "$1" != "nodocker" ]]; then
         --env GPROJECT \
         --env HOME=/tmp \
         --volume $PWD:/app \
+        --user=$(id -u):$(id -g) \
         --workdir /app \
         'google/cloud-sdk:slim' \
         /app/deployProduction.sh nodocker "$@"
