@@ -25,10 +25,10 @@ async function start() {
 
 
 function getManifestParser(deployment) {
-  if (!deployment) {
-    deployment = CONFIG.default;
-  }
-  const url = CONFIG.SUPPORTED_EMS.manifest[deployment];
-  return (url) ? new ManifestParserV2(url) : null;
+  const url = CONFIG.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
+    ? CONFIG.SUPPORTED_EMS.manifest[deployment]
+    : CONFIG.SUPPORTED_EMS.manifest[CONFIG.default];
+  const license = CONFIG.license || null;
+  return (url) ? new ManifestParserV2(url, license) : null;
 }
 
