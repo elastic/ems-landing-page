@@ -47,16 +47,6 @@ export class TableOfContents extends Component {
     });
   }
 
-  _createItem(id, name, onClickHandler, data = {}) {
-    return Object.assign(data, {
-      id,
-      name,
-      title: name,
-      isSelected: this.state.selectedTmsId === id || this.state.selectedFileId === id,
-      onClick: onClickHandler
-    });
-  }
-
   selectItem(id, config) {
     if (id.startsWith('file')) {
       this.setState({
@@ -79,27 +69,42 @@ export class TableOfContents extends Component {
     const tmsItems = this.props.layers.tms.map((service) => {
       const id = `tms/${service.getId()}`;
       const name = service.getDisplayName();
-      return this._createItem(
+      return {
         id,
         name,
-        () => this.selectItem(id, service));
+        title: name,
+        isSelected: this.state.selectedTmsId === id,
+        onClick: () => this.selectItem(id, service)
+      };
     });
+
     const fileItems = this.props.layers.file.map((service) => {
       const id = `file/${service.getId()}`;
       const name = service.getDisplayName();
-      return this._createItem(
+      return {
         id,
         name,
-        () => this.selectItem(id, service));
+        title: name,
+        isSelected: this.state.selectedFileId === id,
+        onClick: () => this.selectItem(id, service)
+      };
     });
-    const tiles = this._createItem('tms', 'Tile Layers', null, {
+
+    const tiles = {
+      id: 'tms',
+      name: 'Tile Layers',
+      title: 'Tile Layers',
       icon: <EuiIcon type="grid" />,
       items: tmsItems
-    });
-    const files = this._createItem('file', 'Vector Layers', null, {
+    };
+
+    const files = {
+      id: 'file',
+      name: 'Vector Layers',
+      title: 'Vector Layers',
       icon: <EuiIcon type="vector" />,
       items: fileItems,
-    });
+    };
 
     return [tiles, files];
   }

@@ -39,7 +39,6 @@ export class App extends Component {
     this.state = {
       selectedFileLayer: null,
       jsonFeatures: null,
-      selectedTmsLayer: null,
       initialSelection: null
     };
 
@@ -95,17 +94,8 @@ export class App extends Component {
     this._selectTmsLayer = async (tmsLayerConfig) => {
       const source = await this._getTmsSource(tmsLayerConfig);
 
-      this.setState({
-        selectedTmsLayer: tmsLayerConfig
-      });
-
       this._map.setTmsLayer(source);
     };
-
-    //find the road map layer
-    this._baseLayer = this.props.layers.tms.find((service) => {
-      return service.getId() === 'road_map';
-    });
 
     this._map = null;
     this._toc = null;
@@ -133,9 +123,14 @@ export class App extends Component {
       };
     }
     this._selectFileLayer(vectorLayerSelection.config);
-    this._selectTmsLayer(this._baseLayer);
+
+    const baseLayer = this.props.layers.tms.find((service) => {
+      return service.getId() === 'road_map';
+    });
+    this._selectTmsLayer(baseLayer);
+
     this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
-    this._toc.selectItem(`tms/${this._baseLayer.getId()}`, this._baseLayer);
+    this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
   }
 
   _readFileRoute() {
