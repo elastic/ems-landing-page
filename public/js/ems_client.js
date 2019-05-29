@@ -87,7 +87,7 @@ export class EMSClient {
 
     this._queryParams = {
       elastic_tile_service_tos: 'agree',
-      my_app_name: 'kibana',
+      my_app_name: 'ems-landing',
       my_app_version: kbnVersion,
     };
 
