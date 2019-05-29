@@ -17,8 +17,10 @@ export class TableOfContents extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedItemId: null,
-      selectedConfig: null,
+      selectedTmsId: null,
+      selectedTmsConfig: null,
+      selectedFileId: null,
+      selectedFileConfig: null,
       isSideNavOpenOnMobile: false,
     };
 
@@ -50,23 +52,38 @@ export class TableOfContents extends Component {
       id,
       name,
       title: name,
-      isSelected: this.state.selectedItemId === id,
+      isSelected: this.state.selectedTmsId === id || this.state.selectedFileId === id,
       onClick: onClickHandler
     });
   }
 
   selectItem(id, config) {
-    this.setState({
-      selectedItemId: id,
-      selectedConfig: config
-    });
-
     if (id.startsWith('file')) {
+      this.setState({
+        selectedFileId: id,
+        selectedFileConfig: config
+      });
       this.props.onFileLayerSelect(config);
+    }
+
+    if (id.startsWith('tms')) {
+      this.setState({
+        selectedTmsId: id,
+        selectedTmsConfig: config
+      });
+      this.props.onTmsLayerSelect(config);
     }
   }
 
   _getSidebarItems() {
+    const tmsItems = this.props.layers.tms.map((service) => {
+      const id = `tms/${service.getId()}`;
+      const name = service.getDisplayName();
+      return this._createItem(
+        id,
+        name,
+        () => this.selectItem(id, service));
+    });
     const fileItems = this.props.layers.file.map((service) => {
       const id = `file/${service.getId()}`;
       const name = service.getDisplayName();
@@ -75,11 +92,15 @@ export class TableOfContents extends Component {
         name,
         () => this.selectItem(id, service));
     });
+    const tiles = this._createItem('tms', 'Tile Layers', null, {
+      icon: <EuiIcon type="grid" />,
+      items: tmsItems
+    });
     const files = this._createItem('file', 'Vector Layers', null, {
       icon: <EuiIcon type="vector" />,
       items: fileItems,
     });
 
-    return [files];
+    return [tiles, files];
   }
 }

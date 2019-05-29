@@ -39,6 +39,7 @@ export class App extends Component {
     this.state = {
       selectedFileLayer: null,
       jsonFeatures: null,
+      selectedTmsLayer: null,
       initialSelection: null
     };
 
@@ -80,9 +81,30 @@ export class App extends Component {
       this._map.filterFeatures(features);
     };
 
+    this._getTmsSource = async (tmsLayerConfig) => {
+      return {
+        type: 'raster',
+        tiles: [ await tmsLayerConfig.getUrlTemplate() ],
+        minzoom: await tmsLayerConfig.getMinZoom(),
+        maxzoom: await tmsLayerConfig.getMaxZoom(),
+        tileSize: 256,
+        attribution: tmsLayerConfig.getHTMLAttribution()
+      };
+    };
+
+    this._selectTmsLayer = async (tmsLayerConfig) => {
+      const source = await this._getTmsSource(tmsLayerConfig);
+
+      this.setState({
+        selectedTmsLayer: tmsLayerConfig
+      });
+
+      this._map.setTmsLayer(source);
+    };
+
     //find the road map layer
     this._baseLayer = this.props.layers.tms.find((service) => {
-      return service.hasId('road_map');
+      return service.getId() === 'road_map';
     });
 
     this._map = null;
@@ -111,7 +133,9 @@ export class App extends Component {
       };
     }
     this._selectFileLayer(vectorLayerSelection.config);
+    this._selectTmsLayer(this._baseLayer);
     this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
+    this._toc.selectItem(`tms/${this._baseLayer.getId()}`, this._baseLayer);
   }
 
   _readFileRoute() {
@@ -182,11 +206,16 @@ export class App extends Component {
             </EuiHeaderSection>
           </EuiHeader>
           <EuiPage>
-            <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
+            <TableOfContents
+              layers={this.props.layers}
+              onTmsLayerSelect={this._selectTmsLayer}
+              onFileLayerSelect={this._selectFileLayer}
+              ref={setToc}
+            />
             <EuiPageBody>
               <div className="mainContent">
                 <EuiPanel paddingSize="none">
-                  <Map ref={setMap}  baseLayer={this._baseLayer} />
+                  <Map ref={setMap} />
                 </EuiPanel>
                 <EuiSpacer size="xl" />
                 <EuiPageContent>

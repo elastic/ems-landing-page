@@ -12,7 +12,7 @@ import URL from 'url-parse';
 import 'whatwg-fetch';
 import CONFIG from './config.json';
 import { App } from './js/components/app';
-import { EMSClientV66 } from './js/ems_client';
+import { EMSClient } from './js/ems_client';
 
 start();
 
@@ -29,7 +29,7 @@ async function start() {
     tms: await emsClient.getTMSServices()
   };
 
-  ReactDOM.render(<App layers={emsLayers}/>, document.getElementById('wrapper'));
+  ReactDOM.render(<App client={emsClient} layers={emsLayers} />, document.getElementById('wrapper'));
 }
 
 function getEmsClient(deployment, locale) {
@@ -38,6 +38,6 @@ function getEmsClient(deployment, locale) {
     : CONFIG.SUPPORTED_EMS.manifest[CONFIG.default];
   const language = locale && CONFIG.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
     ? locale : null;
-  return (url) ? new EMSClientV66({ manifestServiceUrl: url, language: language }) : null;
+  return (url) ? new EMSClient({ manifestServiceUrl: url, language: language }) : null;
 }
 
