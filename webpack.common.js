@@ -14,7 +14,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = {
   entry: {
     mapbox: './node_modules/mapbox-gl/dist/mapbox-gl.js',
-    main: ['babel-polyfill', path.resolve(__dirname, 'public/main.js')]
+    main: ['@babel/polyfill', path.resolve(__dirname, 'public/main.js')]
   },
   mode: 'development',
   output: {

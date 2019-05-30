@@ -23,6 +23,8 @@ export class Map extends Component {
     this._overlayFillLayerId = 'overlay-fill-layer';
     this._overlayLineLayerId = 'overlay-line-layer';
     this._overlayFillHighlightId = 'overlay-fill-highlight-layer';
+    this._tmsSourceId = 'raster-tms-source';
+    this._tmsLayerId = 'raster-tms-layer';
   }
 
   componentDidMount() {
@@ -30,22 +32,8 @@ export class Map extends Component {
       container: this.refs.mapContainer,
       style: {
         version: 8,
-        sources: {
-          'raster-tiles': {
-            type: 'raster',
-            tiles: [this.props.baseLayer.getUrlTemplate()],
-            tileSize: 256,
-            scheme: 'xyz',
-            attribution: this.props.baseLayer.getHTMLAttribution() || ''
-          },
-        },
-        layers: [{
-          id: 'simple-tiles',
-          type: 'raster',
-          source: 'raster-tiles',
-          minzoom: 0,
-          maxzoom: 22,
-        }],
+        sources: {},
+        layers: []
       },
     });
     this._mapboxMap.dragRotate.disable();
@@ -106,6 +94,15 @@ export class Map extends Component {
 
   }
 
+  _removeTmsLayer() {
+    if (this._mapboxMap.getLayer(this._tmsLayerId)) {
+      this._mapboxMap.removeLayer(this._tmsLayerId);
+    }
+    if (this._mapboxMap.getSource(this._tmsSourceId)) {
+      this._mapboxMap.removeSource(this._tmsSourceId);
+    }
+  }
+
   _removeOverlayLayer() {
     if (this._mapboxMap.getLayer(this._overlayFillLayerId)) {
       this._mapboxMap.removeLayer(this._overlayFillLayerId);
@@ -127,6 +124,22 @@ export class Map extends Component {
       this._currentPopup.remove();
       this._currentPopup = null;
     }
+  }
+
+  setTmsLayer(source) {
+    this._removeTmsLayer();
+
+    this._mapboxMap.addSource(this._tmsSourceId, source);
+
+    const beforeLayer = this._mapboxMap.getLayer(this._overlayFillLayerId)
+      ? this._overlayFillLayerId
+      : null;
+
+    this._mapboxMap.addLayer({
+      id: this._tmsLayerId,
+      source: this._tmsSourceId,
+      type: 'raster'
+    }, beforeLayer);
   }
 
   setOverlayLayer(featureCollection) {
