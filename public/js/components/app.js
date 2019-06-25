@@ -80,10 +80,22 @@ export class App extends Component {
       this._map.filterFeatures(features);
     };
 
-    //find the road map layer
-    this._baseLayer = this.props.layers.tms.find((service) => {
-      return service.hasId('road_map');
-    });
+    this._getTmsSource = async (tmsLayerConfig) => {
+      return {
+        type: 'raster',
+        tiles: [ await tmsLayerConfig.getUrlTemplate() ],
+        minzoom: await tmsLayerConfig.getMinZoom(),
+        maxzoom: await tmsLayerConfig.getMaxZoom(),
+        tileSize: 256,
+        attribution: tmsLayerConfig.getHTMLAttribution()
+      };
+    };
+
+    this._selectTmsLayer = async (tmsLayerConfig) => {
+      const source = await this._getTmsSource(tmsLayerConfig);
+
+      this._map.setTmsLayer(source);
+    };
 
     this._map = null;
     this._toc = null;
@@ -111,7 +123,14 @@ export class App extends Component {
       };
     }
     this._selectFileLayer(vectorLayerSelection.config);
+
+    const baseLayer = this.props.layers.tms.find((service) => {
+      return service.getId() === 'road_map';
+    });
+    this._selectTmsLayer(baseLayer);
+
     this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
+    this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
   }
 
   _readFileRoute() {
@@ -182,11 +201,16 @@ export class App extends Component {
             </EuiHeaderSection>
           </EuiHeader>
           <EuiPage>
-            <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
+            <TableOfContents
+              layers={this.props.layers}
+              onTmsLayerSelect={this._selectTmsLayer}
+              onFileLayerSelect={this._selectFileLayer}
+              ref={setToc}
+            />
             <EuiPageBody>
               <div className="mainContent">
                 <EuiPanel paddingSize="none">
-                  <Map ref={setMap}  baseLayer={this._baseLayer} />
+                  <Map ref={setMap} />
                 </EuiPanel>
                 <EuiSpacer size="xl" />
                 <EuiPageContent>

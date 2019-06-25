@@ -17,8 +17,10 @@ export class TableOfContents extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedItemId: null,
-      selectedConfig: null,
+      selectedTmsId: null,
+      selectedTmsConfig: null,
+      selectedFileId: null,
+      selectedFileConfig: null,
       isSideNavOpenOnMobile: false,
     };
 
@@ -45,41 +47,65 @@ export class TableOfContents extends Component {
     });
   }
 
-  _createItem(id, name, onClickHandler, data = {}) {
-    return Object.assign(data, {
-      id,
-      name,
-      title: name,
-      isSelected: this.state.selectedItemId === id,
-      onClick: onClickHandler
-    });
-  }
-
   selectItem(id, config) {
-    this.setState({
-      selectedItemId: id,
-      selectedConfig: config
-    });
-
     if (id.startsWith('file')) {
+      this.setState({
+        selectedFileId: id,
+        selectedFileConfig: config
+      });
       this.props.onFileLayerSelect(config);
+    }
+
+    if (id.startsWith('tms')) {
+      this.setState({
+        selectedTmsId: id,
+        selectedTmsConfig: config
+      });
+      this.props.onTmsLayerSelect(config);
     }
   }
 
   _getSidebarItems() {
+    const tmsItems = this.props.layers.tms.map((service) => {
+      const id = `tms/${service.getId()}`;
+      const name = service.getDisplayName();
+      return {
+        id,
+        name,
+        title: name,
+        isSelected: this.state.selectedTmsId === id,
+        onClick: () => this.selectItem(id, service)
+      };
+    });
+
     const fileItems = this.props.layers.file.map((service) => {
       const id = `file/${service.getId()}`;
       const name = service.getDisplayName();
-      return this._createItem(
+      return {
         id,
         name,
-        () => this.selectItem(id, service));
-    });
-    const files = this._createItem('file', 'Vector Layers', null, {
-      icon: <EuiIcon type="vector" />,
-      items: fileItems,
+        title: name,
+        isSelected: this.state.selectedFileId === id,
+        onClick: () => this.selectItem(id, service)
+      };
     });
 
-    return [files];
+    const tiles = {
+      id: 'tms',
+      name: 'Tile Layers',
+      title: 'Tile Layers',
+      icon: <EuiIcon type="grid" />,
+      items: tmsItems
+    };
+
+    const files = {
+      id: 'file',
+      name: 'Vector Layers',
+      title: 'Vector Layers',
+      icon: <EuiIcon type="vector" />,
+      items: fileItems,
+    };
+
+    return [tiles, files];
   }
 }
