@@ -57,7 +57,7 @@ else
 
 
     # all buckets must be different
-    EMS_PROJECT=landing-page
+    EMS_PROJECT=maps-landing-page
     STAGING_BUCKET=${GPROJECT}-${EMS_PROJECT}-staging
     PRODUCTION_BUCKET=${GPROJECT}-${EMS_PROJECT}-live
     ARCHIVE_BUCKET=${GPROJECT}-${EMS_PROJECT}-archive
