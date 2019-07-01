@@ -41,7 +41,6 @@ if [[ "$1" != "nodocker" ]]; then
     docker run \
         --rm -i \
         --env GCE_ACCOUNT \
-        --env GIT_BRANCH \
         --env GPROJECT \
         --env HOME=/tmp \
         --volume $PWD:/app \
