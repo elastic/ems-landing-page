@@ -52,7 +52,7 @@ if [[ "$1" != "nodocker" ]]; then
 
 else
     # Steps:  login, download live bucket to create zip snapshot, upload zip to archive bucket, rsync staging to live
-    gcloud auth activate-service-account --key-file <(echo $GCE_ACCOUNT)
+    gcloud auth activate-service-account --key-file <(echo "$GCE_ACCOUNT")
     unset GCE_ACCOUNT
 
 
