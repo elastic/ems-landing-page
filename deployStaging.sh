@@ -69,7 +69,7 @@ else
 
 
     # All branches go into correspondingly named dirs.
-    # remove remote "origin/", leaving just the branch name plus a slash '/'
+    # remove remote "origin/", leaving just the branch name
     BRANCH="${GIT_BRANCH#*/}"
 
     # Copy files
