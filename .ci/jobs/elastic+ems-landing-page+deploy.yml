@@ -20,6 +20,6 @@
         export GCE_ACCOUNT
         unset VAULT_ROLE_ID VAULT_SECRET_ID VAULT_ADDR VAULT_TOKEN VAULT_ACCOUNT
 
-        # Expects env: GPROJECT, GCE_ACCOUNT, GIT_BRANCH
+        # Expects env: GPROJECT, GCE_ACCOUNT
         # Run EMS script, set in the template parameter
         ./deployProduction.sh
