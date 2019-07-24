@@ -6,7 +6,7 @@ All pull requests must be targeted to the `master` branch.
 If multiple releases are affected:
 
 1. Open a PR against the `master` branch.
-1. After the PR is merged, use the [backport tool](https://github.com/sqren/backport) to to generate a backport PR for the affected branches.
+1. After the PR is merged, use the [backport tool](https://github.com/sqren/backport) to generate a backport PR for the affected branches.
 1. After all PRs to release branches have been merged and their [respective Jenkins jobs](https://kibana-ci.elastic.co) (ex. elastic / ems-landing-page # v7.2 - stage) have completed successfully review the staged changes at https://maps-staging.elastic.co/{some-release-branch} (ex. [7.2](https://maps-staging.elastic.co/v7.2)).
 1. If the staged changes are ok, deploy the changes to production by logging into [this Jenkins job](https://kibana-ci.elastic.co/job/elastic+ems-landing-page+deploy/) and choose "Build with Parameters".
 
