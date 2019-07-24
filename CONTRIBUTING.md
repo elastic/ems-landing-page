@@ -3,7 +3,7 @@
 ## New features and bug fixes
 Pull requests must be targeted to the `master` branch.
 
-If multiple releases are affected, please open a PR against the `master` branch. After the bugfix PR is merged, use the [backport tool](https://github.com/sqren/backport) to to generate a backport PR for the affected branches.
+If multiple releases are affected, please open a PR against the `master` branch. After the bugfix PR is merged, use the [backport tool](https://github.com/sqren/backport) to generate a backport PR for the affected branches.
 
 Jenkins needs to be [manually triggered](https://kibana-ci.elastic.co/job/elastic+ems-landing-page+deploy/) to deploy changes to branches to production.
 
