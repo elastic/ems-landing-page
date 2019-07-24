@@ -47,6 +47,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+      querystring: 'querystring-browser'
     }
   },
   optimization: {
