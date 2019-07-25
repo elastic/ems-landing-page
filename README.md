@@ -19,7 +19,7 @@ Please carefully review the CONTRIBUTING.md document before submitting any pull 
 
 `grunt` is used for creating a distributable package of the app.
 
-To use the recommended node version for running the dev and compile tasks, you can use 
+To use the recommended node version for running the dev and compile tasks, you can use
 
 > nvm use
 
@@ -54,5 +54,5 @@ Fix the errors, and redeploy.
 
 ## Continuous Integration and Deployment
 * When a PR is merged Jenkins will run `deployStaging.sh` script, which will place code into the staging bucket.
-* Deploying to production requires manually triggering [this Jenkins job](https://kibana-ci.elastic.co/job/elastic+ems-landing-page+deploy/) to run the `deployProduction.sh` script. This will rsync files of the chosen branch from the staging bucket to the production bucket. To trigger, log in and click the "Build with Parameters" link. In the `branch_specifier` field enter the current release branch of the repository (ex. `v2`). 
-* On the day of release, the respective release branch should be merged to `master` and deployed to production. This will update the default webpage (https://maps.elastic.co) to the current release.
+* Deploying to production requires manually triggering [this Jenkins job](https://kibana-ci.elastic.co/job/elastic+ems-landing-page+deploy/) to run the [deployProduction.sh](deployProduction.sh) script. This will rsync files in all branches to the production bucket. To trigger, log in and click the "Build with Parameters" link.
+* On the day of release, update the [default `root_branch`](https://github.com/elastic/ems-landing-page/blob/master/.ci/jobs/defaults.yml#L22). This will update the default webpage (https://maps.elastic.co) to the current release.
