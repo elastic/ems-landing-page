@@ -1,7 +1,6 @@
 {
   "default": "production",
   "SUPPORTED_EMS": {
-    "version": "v7.0",
     "manifest": {
       "testing": "http://storage.googleapis.com/elastic-bekitzur-emsfiles-catalogue-dev/v7.2/manifest",
       "staging": "https://catalogue-staging.maps.elastic.co/v7.2/manifest",
