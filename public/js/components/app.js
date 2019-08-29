@@ -80,9 +80,7 @@ export class App extends Component {
       this._map.filterFeatures(features);
     };
 
-    this._getTmsSource = async (tmsLayerConfig) => {
-      return await tmsLayerConfig.getVectorStyleSheet();
-    };
+    this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
     this._selectTmsLayer = async (tmsLayerConfig) => {
       const source = await this._getTmsSource(tmsLayerConfig);
