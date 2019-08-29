@@ -81,14 +81,7 @@ export class App extends Component {
     };
 
     this._getTmsSource = async (tmsLayerConfig) => {
-      return {
-        type: 'raster',
-        tiles: [ await tmsLayerConfig.getUrlTemplate() ],
-        minzoom: await tmsLayerConfig.getMinZoom(),
-        maxzoom: await tmsLayerConfig.getMaxZoom(),
-        tileSize: 256,
-        attribution: tmsLayerConfig.getHTMLAttribution()
-      };
+      return await tmsLayerConfig.getVectorStyleSheet();
     };
 
     this._selectTmsLayer = async (tmsLayerConfig) => {
@@ -127,7 +120,6 @@ export class App extends Component {
     const baseLayer = this.props.layers.tms.find((service) => {
       return service.getId() === 'road_map';
     });
-    this._selectTmsLayer(baseLayer);
 
     this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
     this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
