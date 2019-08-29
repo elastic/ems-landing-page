@@ -7674,13 +7674,6 @@ react-dom@16.3.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-https-redirect@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/react-https-redirect/-/react-https-redirect-1.0.11.tgz#c1a66594de58ba29afec616574ed946ab779694d"
-  integrity sha512-4ZmiF5mKk0QgNCMw0VquGlBwaOdWMrZRIJg9dEGj1Xu/0fzhx3imd5hOmPWje8FsL3AghlvdEcNS7xXA/ueiOQ==
-  dependencies:
-    prop-types "^15.5.8"
-
 react-input-autosize@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.1.tgz#ec428fa15b1592994fb5f9aa15bb1eb6baf420f8"
