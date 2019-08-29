@@ -7,7 +7,6 @@
 import mapboxgl from 'mapbox-gl';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
-
 import React, { Component } from 'react';
 
 export class Map extends Component {
@@ -23,8 +22,8 @@ export class Map extends Component {
     this._overlayFillLayerId = 'overlay-fill-layer';
     this._overlayLineLayerId = 'overlay-line-layer';
     this._overlayFillHighlightId = 'overlay-fill-highlight-layer';
-    this._tmsSourceId = 'raster-tms-source';
-    this._tmsLayerId = 'raster-tms-layer';
+    this._tmsSourceId = 'vector-tms-source';
+    this._tmsLayerId = 'vector-tms-layer';
   }
 
   componentDidMount() {
@@ -52,6 +51,10 @@ export class Map extends Component {
     this._mapboxMap.on('mouseleave', this._overlayFillLayerId, () => {
       this._mapboxMap.getCanvas().style.cursor = '';
     });
+  }
+
+  _getOverlayLayerIds() {
+    return [this._overlayFillLayerId, this._overlayLineLayerId, this._overlayFillHighlightId];
   }
 
   _highlightFeature(feature, lngLat) {
@@ -126,20 +129,26 @@ export class Map extends Component {
     }
   }
 
+  _persistOverlayLayers(source) {
+    const overlayLayerIds = this._getOverlayLayerIds();
+    const curStyle = this._mapboxMap.getStyle();
+    const overlayLayers = curStyle.layers.filter(layer => overlayLayerIds.includes(layer.id));
+    const overlaySource = { ...curStyle.sources };
+    const layers = [...source.layers, ...overlayLayers];
+    const sources = { ...source.sources, ...overlaySource };
+    return {
+      ...source,
+      ...{ layers, sources }
+    };
+  }
+
   setTmsLayer(source) {
-    this._removeTmsLayer();
+    // The setStyle method removes all layers and sources from the map including the overlays.
+    // We must persist the overlay layers and overlay source by creating a new style from
+    // the incoming source and the overlay layers.
+    const newStyle = this._persistOverlayLayers(source);
 
-    this._mapboxMap.addSource(this._tmsSourceId, source);
-
-    const beforeLayer = this._mapboxMap.getLayer(this._overlayFillLayerId)
-      ? this._overlayFillLayerId
-      : null;
-
-    this._mapboxMap.addLayer({
-      id: this._tmsLayerId,
-      source: this._tmsSourceId,
-      type: 'raster'
-    }, beforeLayer);
+    this._mapboxMap.setStyle(newStyle, { diff: false });
   }
 
   setOverlayLayer(featureCollection) {
