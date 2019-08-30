@@ -39,7 +39,7 @@ function getEmsClient(deployment, locale) {
   const language = locale && CONFIG.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
     ? locale : null;
 
-  const license = CONFIG.hasOwnProperty('license') ? CONFIG['license'] : null;
+  const license = CONFIG.license;
   const emsClient = new EMSClient({ kbnVersion: '7.4.0', manifestServiceUrl: url, language: language });
   if (license) {
     emsClient.addQueryParams({ license });
