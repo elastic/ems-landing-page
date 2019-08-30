@@ -38,6 +38,11 @@ function getEmsClient(deployment, locale) {
     : CONFIG.SUPPORTED_EMS.manifest[CONFIG.default];
   const language = locale && CONFIG.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
     ? locale : null;
-  return (url) ? new EMSClientV66({ manifestServiceUrl: url, language: language }) : null;
+  const license = CONFIG.license;
+  const emsClient = new EMSClientV66({ manifestServiceUrl: url, language: language });
+  if (license) {
+    emsClient.addQueryParams({ license });
+  }
+  return emsClient;
 }
 
