@@ -12,7 +12,7 @@ import URL from 'url-parse';
 import 'whatwg-fetch';
 import CONFIG from './config.json';
 import { App } from './js/components/app';
-import { EMSClient } from './js/ems_client';
+import { EMSClient } from '@elastic/ems-client';
 
 start();
 
@@ -32,12 +32,22 @@ async function start() {
   ReactDOM.render(<App client={emsClient} layers={emsLayers} />, document.getElementById('wrapper'));
 }
 
+function fetchFunction (...args) {
+  return fetch(...args);
+}
+
 function getEmsClient(deployment, locale) {
   const url = CONFIG.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
     ? CONFIG.SUPPORTED_EMS.manifest[deployment]
     : CONFIG.SUPPORTED_EMS.manifest[CONFIG.default];
   const language = locale && CONFIG.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
     ? locale : null;
-  return (url) ? new EMSClient({ kbnVersion: '7.2.0', manifestServiceUrl: url, language: language }) : null;
+
+  const license = CONFIG.license;
+  const emsClient = new EMSClient({ kbnVersion: '7.4.0', manifestServiceUrl: url, language: language, fetchFunction });
+  if (license) {
+    emsClient.addQueryParams({ license });
+  }
+  return emsClient;
 }
 

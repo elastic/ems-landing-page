@@ -5,7 +5,6 @@
  */
 
 import React, { Component } from 'react';
-import HttpsRedirect from 'react-https-redirect';
 
 import {
   EuiPage,
@@ -80,16 +79,7 @@ export class App extends Component {
       this._map.filterFeatures(features);
     };
 
-    this._getTmsSource = async (tmsLayerConfig) => {
-      return {
-        type: 'raster',
-        tiles: [ await tmsLayerConfig.getUrlTemplate() ],
-        minzoom: await tmsLayerConfig.getMinZoom(),
-        maxzoom: await tmsLayerConfig.getMaxZoom(),
-        tileSize: 256,
-        attribution: tmsLayerConfig.getHTMLAttribution()
-      };
-    };
+    this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
     this._selectTmsLayer = async (tmsLayerConfig) => {
       const source = await this._getTmsSource(tmsLayerConfig);
@@ -127,7 +117,6 @@ export class App extends Component {
     const baseLayer = this.props.layers.tms.find((service) => {
       return service.getId() === 'road_map';
     });
-    this._selectTmsLayer(baseLayer);
 
     this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
     this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
@@ -186,55 +175,53 @@ export class App extends Component {
     };
 
     return (
-      <HttpsRedirect>
-        <div>
-          <EuiHeader>
-            <EuiHeaderSection>
-              <EuiHeaderSectionItem border="none">
-                <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
-              </EuiHeaderSectionItem>
-            </EuiHeaderSection>
-            <EuiHeaderSection side="right">
-              <EuiHeaderLinks>
-                <EuiHeaderLink href="//elastic.co">elastic.co</EuiHeaderLink>
-              </EuiHeaderLinks>
-            </EuiHeaderSection>
-          </EuiHeader>
-          <EuiPage>
-            <TableOfContents
-              layers={this.props.layers}
-              onTmsLayerSelect={this._selectTmsLayer}
-              onFileLayerSelect={this._selectFileLayer}
-              ref={setToc}
-            />
-            <EuiPageBody>
-              <div className="mainContent">
-                <EuiPanel paddingSize="none">
-                  <Map ref={setMap} />
-                </EuiPanel>
-                <EuiSpacer size="xl" />
-                <EuiPageContent>
-                  <EuiPageContentBody>
-                    <LayerDetails layerConfig={this.state.selectedFileLayer} />
-                    <EuiSpacer size="l" />
-                    <FeatureTable
-                      ref={setFeatureTable}
-                      jsonFeatures={this.state.jsonFeatures}
-                      config={this.state.selectedFileLayer}
-                      onShow={this._showFeature}
-                      onFilterChange={this._filterFeatures}
-                    />
-                  </EuiPageContentBody>
-                </EuiPageContent>
-                <EuiSpacer />
-                <EuiText size="xs" textAlign="center">
-                  <p>Please submit any issues with this layer or suggestions for improving this layer in the <a href="https://github.com/elastic/kibana/issues/new" target="_blank">Kibana repo</a>.</p>
-                </EuiText>
-              </div>
-            </EuiPageBody>
-          </EuiPage>
-        </div>
-      </HttpsRedirect>
+      <div>
+        <EuiHeader>
+          <EuiHeaderSection>
+            <EuiHeaderSectionItem border="none">
+              <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
+            </EuiHeaderSectionItem>
+          </EuiHeaderSection>
+          <EuiHeaderSection side="right">
+            <EuiHeaderLinks>
+              <EuiHeaderLink href="https://elastic.co">elastic.co</EuiHeaderLink>
+            </EuiHeaderLinks>
+          </EuiHeaderSection>
+        </EuiHeader>
+        <EuiPage>
+          <TableOfContents
+            layers={this.props.layers}
+            onTmsLayerSelect={this._selectTmsLayer}
+            onFileLayerSelect={this._selectFileLayer}
+            ref={setToc}
+          />
+          <EuiPageBody>
+            <div className="mainContent">
+              <EuiPanel paddingSize="none">
+                <Map ref={setMap} />
+              </EuiPanel>
+              <EuiSpacer size="xl" />
+              <EuiPageContent>
+                <EuiPageContentBody>
+                  <LayerDetails layerConfig={this.state.selectedFileLayer} />
+                  <EuiSpacer size="l" />
+                  <FeatureTable
+                    ref={setFeatureTable}
+                    jsonFeatures={this.state.jsonFeatures}
+                    config={this.state.selectedFileLayer}
+                    onShow={this._showFeature}
+                    onFilterChange={this._filterFeatures}
+                  />
+                </EuiPageContentBody>
+              </EuiPageContent>
+              <EuiSpacer />
+              <EuiText size="xs" textAlign="center">
+                <p>Please submit any issues with this layer or suggestions for improving this layer in the <a href="https://github.com/elastic/kibana/issues/new" target="_blank">Kibana repo</a>.</p>
+              </EuiText>
+            </div>
+          </EuiPageBody>
+        </EuiPage>
+      </div>
     );
   }
 }
