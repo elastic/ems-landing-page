@@ -180,16 +180,11 @@ export class App extends Component {
           </EuiHeaderSection>
         </EuiHeader>
         <EuiPage>
-          <TableOfContents
-            layers={this.props.layers}
-            onTmsLayerSelect={this._selectTmsLayer}
-            onFileLayerSelect={this._selectFileLayer}
-            ref={setToc}
-          />
+          <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
           <EuiPageBody>
             <div className="mainContent">
               <EuiPanel paddingSize="none">
-                <Map ref={setMap} />
+                <Map ref={setMap}  baseLayer={this._baseLayer} />
               </EuiPanel>
               <EuiSpacer size="xl" />
               <EuiPageContent>
