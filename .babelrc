@@ -6,12 +6,16 @@
         "targets": [
           "last 2 versions",
           "IE >= 9"
-        ]
+        ],
+        "useBuiltIns": "usage",
+        "modules": "commonjs",
+        "corejs": 3
       }
     ],
     "@babel/react"
   ],
   "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-proposal-class-properties"
   ]
 }
