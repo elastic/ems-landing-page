@@ -7,7 +7,7 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -24,7 +24,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         use: ['file-loader']
       },
       {
@@ -38,7 +38,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules\/(?!@elastic\/eui)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
         }
@@ -61,7 +61,7 @@ module.exports = {
     },
   },
   plugins: [
-    new CleanWebpackPlugin(['build/release']),
+    new CleanWebpackPlugin(),
     new WebappWebpackPlugin('@elastic/eui/lib/components/icon/assets/app_ems.svg'),
     new HTMLWebpackPlugin({
       template: 'public/index.html',
