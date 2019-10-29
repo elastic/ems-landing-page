@@ -7,14 +7,14 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   entry: {
     mapbox: './node_modules/mapbox-gl/dist/mapbox-gl.js',
-    main: ['babel-polyfill', path.resolve(__dirname, 'public/main.js')]
+    main: ['@babel/polyfill', path.resolve(__dirname, 'public/main.js')]
   },
   mode: 'development',
   output: {
@@ -24,7 +24,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         use: ['file-loader']
       },
       {
@@ -38,7 +38,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules\/(?!@elastic\/eui)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
         }
@@ -47,7 +47,6 @@ module.exports = {
   },
   resolve: {
     alias: {
-      querystring: 'querystring-browser'
     }
   },
   optimization: {
@@ -62,7 +61,7 @@ module.exports = {
     },
   },
   plugins: [
-    new CleanWebpackPlugin(['build/release']),
+    new CleanWebpackPlugin(),
     new WebappWebpackPlugin('@elastic/eui/lib/components/icon/assets/app_ems.svg'),
     new HTMLWebpackPlugin({
       template: 'public/index.html',

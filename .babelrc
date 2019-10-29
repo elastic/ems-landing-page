@@ -1,16 +1,21 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
-        "targets": {
-          "browsers": [
-            "last 2 versions",
-            "IE >= 9"
-          ]
-        }
+        "targets": [
+          "last 2 versions",
+          "IE >= 9"
+        ],
+        "useBuiltIns": "usage",
+        "modules": "commonjs",
+        "corejs": 3
       }
     ],
-    "react"
+    "@babel/react"
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties"
   ]
 }
