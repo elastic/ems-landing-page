@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "@elastic/datemath": "^5.0.2",
-    "@elastic/ems-client": "^1.0.2",
+    "@elastic/ems-client": "^1.0.5",
     "@elastic/eui": "^14.8.0",
     "@turf/bbox": "6.0.1",
     "@turf/center": "6.0.1",
