@@ -5,9 +5,13 @@
  */
 
 import mapboxgl from 'mapbox-gl';
+// eslint-disable-next-line import/no-unresolved
+import mbRtlPlugin from '!!file-loader!@mapbox/mapbox-gl-rtl-text/mapbox-gl-rtl-text.min.js';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 import React, { Component } from 'react';
+
+mapboxgl.setRTLTextPlugin(mbRtlPlugin);
 
 export class Map extends Component {
 
