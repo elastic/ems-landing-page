@@ -22,6 +22,7 @@ module.exports = {
     filename: '[name].bundle.js'
   },
   module: {
+    noParse: /iconv-loader\.js/,
     rules: [
       {
         test: /\.(png|jpg|gif|svg)$/,
