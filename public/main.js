@@ -10,7 +10,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import URL from 'url-parse';
 import 'whatwg-fetch';
-import CONFIG from './config.json';
 import { version } from '../package.json';
 import { App } from './js/components/app';
 import { EMSClient } from '@elastic/ems-client';
@@ -19,7 +18,7 @@ start();
 
 async function start() {
   const urlTokens = new URL(window.location, true);
-  const emsClient = getEmsClient(urlTokens.query.manifest, urlTokens.query.locale);
+  const emsClient = await getEmsClient(urlTokens.query.manifest, urlTokens.query.locale);
 
   if (!emsClient) {
     console.error(`Cannot load the required manifest for "${urlTokens.query.manifest}"`);
@@ -37,17 +36,24 @@ function fetchFunction (...args) {
   return fetch(...args);
 }
 
-function getEmsClient(deployment, locale) {
-  const manifest = CONFIG.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
-    ? CONFIG.SUPPORTED_EMS.manifest[deployment]
-    : CONFIG.SUPPORTED_EMS.manifest[CONFIG.default];
+async function getEmsClient(deployment, locale) {
+  let config;
+  try {
+    const response = await fetch('config.json');
+    config = await response.json();
+  } catch (e) {
+    throw new Error(`Config file is missing or invalid`);
+  }
+  const manifest = config.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
+    ? config.SUPPORTED_EMS.manifest[deployment]
+    : config.SUPPORTED_EMS.manifest[config.default];
   const emsVersion = manifest.hasOwnProperty('emsVersion') ? manifest['emsVersion'] : null;
   const fileApiUrl = manifest.hasOwnProperty('emsFileApiUrl') ? manifest['emsFileApiUrl'] : null;
   const tileApiUrl = manifest.hasOwnProperty('emsTileApiUrl') ? manifest['emsTileApiUrl'] : null;
-  const language = locale && CONFIG.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
+  const language = locale && config.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
     ? locale : null;
 
-  const license = CONFIG.license;
+  const license = config.license;
   const emsClient = new EMSClient({ kbnVersion: version, fileApiUrl, tileApiUrl, emsVersion, language: language, fetchFunction });
   if (license) {
     emsClient.addQueryParams({ license });
