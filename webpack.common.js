@@ -16,19 +16,19 @@ module.exports = env => {
   return {
     entry: {
       mapbox: './node_modules/mapbox-gl/dist/mapbox-gl.js',
-      main: ['@babel/polyfill', path.resolve(__dirname, 'public/main.js')],
+      main: ['@babel/polyfill', path.resolve(__dirname, 'public/main.js')]
     },
     mode: 'development',
     output: {
       path: path.resolve(__dirname, 'build/release'),
-      filename: '[name].bundle.js',
+      filename: '[name].bundle.js'
     },
     module: {
       noParse: /iconv-loader\.js/,
       rules: [
         {
           test: /\.(png|jpg|gif|svg)$/,
-          use: ['file-loader'],
+          use: ['file-loader']
         },
         {
           test: /\.css$/,
@@ -36,45 +36,41 @@ module.exports = env => {
         },
         {
           test: /\.scss$/,
-          use: [
-            'style-loader',
-            'css-loader',
-            'resolve-url-loader',
-            'postcss-loader',
-            'sass-loader',
-          ],
-          exclude: /node_modules/,
+          use: ['style-loader', 'css-loader', 'resolve-url-loader', 'postcss-loader', 'sass-loader'],
+          exclude: /node_modules/
         },
         {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
-            loader: 'babel-loader',
-          },
+            loader: 'babel-loader'
+          }
         },
         {
           test: /\.hbs$/,
           use: {
-            loader: 'handlebars-loader',
-          },
-        },
-      ],
+            loader: 'handlebars-loader'
+          }
+        }
+      ]
     },
     externals: {
-      config: JSON.stringify(require(path.resolve(__dirname, 'public', 'config.json'))),
+      'config': JSON.stringify(require(path.resolve(__dirname, 'public', 'config.json')))
     },
     resolve: {
-      alias: {},
+      alias: {
+
+      }
     },
     optimization: {
       minimizer: [
         new TerserPlugin({
-          exclude: /node_modules\/(?!mapbox-gl\/dist)/,
-        }),
+          exclude: /node_modules\/(?!mapbox-gl\/dist)/
+        })
       ],
       occurrenceOrder: true,
       splitChunks: {
-        chunks: 'all',
+        chunks: 'all'
       },
     },
     plugins: [
@@ -86,15 +82,15 @@ module.exports = env => {
         hash: true,
         httpsRedirect: env && env.httpOnly ? false : true,
       }),
-      new OptimizeCssAssetsPlugin(),
+      new OptimizeCssAssetsPlugin()
     ],
     stats: {
-      colors: true,
+      colors: true
     },
     devtool: 'source-map',
     devServer: {
       contentBase: './build/release',
-      compress: true,
-    },
+      compress: true
+    }
   };
 };
