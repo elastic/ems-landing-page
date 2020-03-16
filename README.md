@@ -53,7 +53,7 @@ If any intermediate tasks break before packaging, such as a javascript linting o
 Fix the errors, and redeploy.
 
 ## HTTPS
-By default, the client will redirect HTTP protocols to HTTPS. This can be disabled using `yarn dev --env.httpOnly` or `yarn compile --env.httpOnly`.
+By default, the client will redirect HTTP protocols to HTTPS. This can be disabled by setting the `httpOnly` environment variable, e.g. `httpOnly=YES yarn dev` or `httpOnly=YES yarn compile`.
 
 ## Continuous Integration and Deployment
 * When a PR is merged Jenkins will run `deployStaging.sh` script, which will place code into the staging bucket.
