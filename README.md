@@ -17,8 +17,6 @@ Please carefully review the CONTRIBUTING.md document before submitting any pull 
 
 `webpack` is used for Javascript transpilation.
 
-`grunt` is used for creating a distributable package of the app.
-
 To use the recommended node version for running the dev and compile tasks, you can use
 
 > nvm use
