@@ -50,6 +50,9 @@ This script will put the relevant resources of the app in the `./build/release/*
 If any intermediate tasks break before packaging, such as a javascript linting or compilation failure, the build-script will error out.
 Fix the errors, and redeploy.
 
+## HTTPS
+By default, the client will redirect HTTP protocols to HTTPS. This can be disabled by setting the `httpOnly` environment variable, e.g. `httpOnly=YES yarn dev` or `httpOnly=YES yarn compile`.
+
 ## Continuous Integration and Deployment
 * When a PR is merged Jenkins will run `deployStaging.sh` script, which will place code into the staging bucket.
 * Deploying to production requires manually triggering [this Jenkins job](https://kibana-ci.elastic.co/job/elastic+ems-landing-page+deploy/) to run the [deployProduction.sh](deployProduction.sh) script. This will rsync files in all branches to the production bucket. To trigger, log in and click the "Build with Parameters" link.
