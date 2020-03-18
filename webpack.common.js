@@ -44,6 +44,12 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.hbs$/,
+        use: {
+          loader: 'handlebars-loader'
+        }
       }
     ]
   },
@@ -52,6 +58,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+
     }
   },
   optimization: {
@@ -70,8 +77,9 @@ module.exports = {
     new CopyWebpackPlugin(['./public/config.json']),
     new WebappWebpackPlugin('@elastic/eui/lib/components/icon/assets/app_ems.svg'),
     new HTMLWebpackPlugin({
-      template: 'public/index.html',
-      hash: true
+      template: 'public/index.hbs',
+      hash: true,
+      httpsRedirect: 'httpOnly' in process.env ? false : true,
     }),
     new OptimizeCssAssetsPlugin()
   ],
