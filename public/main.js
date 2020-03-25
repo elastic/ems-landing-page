@@ -54,7 +54,15 @@ async function getEmsClient(deployment, locale) {
     ? locale : null;
 
   const license = config.license;
-  const emsClient = new EMSClient({ kbnVersion: version, fileApiUrl, tileApiUrl, emsVersion, language: language, fetchFunction });
+  const emsClient = new EMSClient({
+    appName: 'ems-landing-page',
+    appVersion: version,
+    fileApiUrl,
+    tileApiUrl,
+    emsVersion,
+    language: language,
+    fetchFunction,
+  });
   if (license) {
     emsClient.addQueryParams({ license });
   }
