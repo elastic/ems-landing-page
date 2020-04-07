@@ -36,7 +36,10 @@ export class Map extends Component {
       style: {
         version: 8,
         sources: {},
-        layers: []
+        layers: [],
+      },
+      transformRequest: (url) => {
+        return { url: new URL(url, window.location.origin).href };
       },
     });
     this._mapboxMap.dragRotate.disable();
