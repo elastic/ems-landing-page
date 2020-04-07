@@ -41,7 +41,7 @@ function getEmsClient(deployment, locale) {
   const manifest = CONFIG.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
     ? CONFIG.SUPPORTED_EMS.manifest[deployment]
     : CONFIG.SUPPORTED_EMS.manifest[CONFIG.default];
-  const emsVersion = manifest.hasOwnProperty('emsVersion') ? manifest['emsVersion'] : null;
+  const emsVersion = CONFIG.SUPPORTED_EMS.hasOwnProperty('emsVersion') ? CONFIG.SUPPORTED_EMS['emsVersion'] : null;
   const fileApiUrl = manifest.hasOwnProperty('emsFileApiUrl') ? manifest['emsFileApiUrl'] : null;
   const tileApiUrl = manifest.hasOwnProperty('emsTileApiUrl') ? manifest['emsTileApiUrl'] : null;
   const language = locale && CONFIG.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
