@@ -44,10 +44,10 @@ async function getEmsClient(deployment, locale) {
   } catch (e) {
     throw new Error(`Config file is missing or invalid`);
   }
+  const emsVersion = config.SUPPORTED_EMS.hasOwnProperty('emsVersion') ? config.SUPPORTED_EMS['emsVersion'] : null;
   const manifest = config.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
     ? config.SUPPORTED_EMS.manifest[deployment]
     : config.SUPPORTED_EMS.manifest[config.default];
-  const emsVersion = manifest.hasOwnProperty('emsVersion') ? manifest['emsVersion'] : null;
   const fileApiUrl = manifest.hasOwnProperty('emsFileApiUrl') ? manifest['emsFileApiUrl'] : null;
   const tileApiUrl = manifest.hasOwnProperty('emsTileApiUrl') ? manifest['emsTileApiUrl'] : null;
   const language = locale && config.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
