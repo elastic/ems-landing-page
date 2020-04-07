@@ -26,14 +26,24 @@ async function start() {
   }
   const emsLayers = {
     file: await emsClient.getFileLayers(),
-    tms: await emsClient.getTMSServices()
+    tms: await emsClient.getTMSServices(),
   };
 
-  ReactDOM.render(<App client={emsClient} layers={emsLayers} />, document.getElementById('wrapper'));
+  ReactDOM.render(
+    <App client={emsClient} layers={emsLayers} />,
+    document.getElementById('wrapper')
+  );
 }
 
-function fetchFunction (...args) {
+function fetchFunction(...args) {
   return fetch(...args);
+}
+
+function relativeToAbsolute(url) {
+  // convert all link urls to absolute urls
+  const a = document.createElement('a');
+  a.setAttribute('href', url);
+  return a.href;
 }
 
 async function getEmsClient(deployment, locale) {
@@ -48,10 +58,14 @@ async function getEmsClient(deployment, locale) {
   const manifest = config.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
     ? config.SUPPORTED_EMS.manifest[deployment]
     : config.SUPPORTED_EMS.manifest[config.default];
-  const fileApiUrl = manifest.hasOwnProperty('emsFileApiUrl') ? manifest['emsFileApiUrl'] : null;
-  const tileApiUrl = manifest.hasOwnProperty('emsTileApiUrl') ? manifest['emsTileApiUrl'] : null;
-  const language = locale && config.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase())
-    ? locale : null;
+  const fileApiUrl = manifest.hasOwnProperty('emsFileApiUrl')
+    ? relativeToAbsolute(manifest['emsFileApiUrl'])
+    : null;
+  const tileApiUrl = manifest.hasOwnProperty('emsTileApiUrl')
+    ? relativeToAbsolute(manifest['emsTileApiUrl'])
+    : null;
+  const language =
+    locale && config.SUPPORTED_LOCALE.hasOwnProperty(locale.toLowerCase()) ? locale : null;
 
   const license = config.license;
   const emsClient = new EMSClient({ kbnVersion: version, fileApiUrl, tileApiUrl, emsVersion, language: language, fetchFunction });
@@ -60,4 +74,3 @@ async function getEmsClient(deployment, locale) {
   }
   return emsClient;
 }
-
