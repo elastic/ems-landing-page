@@ -146,6 +146,10 @@ export class App extends Component {
     }
 
     const id = decodeURIComponent(tokens[1]);
+    if (!id || id === 'undefined') {
+      return;
+    }
+
     return {
       path: `file/${id}`,
       config: this.props.layers.file.find(layer => layer.hasId(id))
