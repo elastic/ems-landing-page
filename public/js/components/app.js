@@ -121,6 +121,10 @@ export class App extends Component {
     }
 
     const name = decodeURIComponent(tokens[1]);
+    if (!name || name === 'undefined') {
+      return;
+    }
+
     return {
       path: `file/${name}`,
       config: this.props.layers.file.manifest.layers.find(layer => layer.name === name)
