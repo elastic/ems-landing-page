@@ -41,9 +41,6 @@ export class Map extends Component {
       transformRequest: (url) => {
         return { url: new URL(url, window.location.origin).href };
       },
-      transformRequest: (url) => {
-        return { url: new URL(url, window.location.origin).href };
-      },
     });
     this._mapboxMap.dragRotate.disable();
     this._mapboxMap.touchZoomRotate.disableRotation();
