@@ -17,8 +17,6 @@ Please carefully review the CONTRIBUTING.md document before submitting any pull 
 
 `webpack` is used for Javascript transpilation.
 
-`grunt` is used for creating a distributable package of the app.
-
 To use the recommended node version for running the dev and compile tasks, you can use
 
 > nvm use
@@ -51,6 +49,9 @@ This script will put the relevant resources of the app in the `./build/release/*
 
 If any intermediate tasks break before packaging, such as a javascript linting or compilation failure, the build-script will error out.
 Fix the errors, and redeploy.
+
+## HTTPS
+By default, the client will redirect HTTP protocols to HTTPS. This can be disabled by setting the `httpOnly` environment variable, e.g. `httpOnly=YES yarn dev` or `httpOnly=YES yarn compile`.
 
 ## Continuous Integration and Deployment
 * When a PR is merged Jenkins will run `deployStaging.sh` script, which will place code into the staging bucket.

@@ -6,6 +6,7 @@
 
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WebappWebpackPlugin = require('webapp-webpack-plugin');
@@ -43,11 +44,21 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.hbs$/,
+        use: {
+          loader: 'handlebars-loader'
+        }
       }
     ]
   },
+  externals: {
+    'config': JSON.stringify(require(path.resolve(__dirname, 'public', 'config.json')))
+  },
   resolve: {
     alias: {
+
     }
   },
   optimization: {
@@ -63,10 +74,12 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new CopyWebpackPlugin(['./public/config.json']),
     new WebappWebpackPlugin('@elastic/eui/lib/components/icon/assets/app_ems.svg'),
     new HTMLWebpackPlugin({
-      template: 'public/index.html',
-      hash: true
+      template: 'public/index.hbs',
+      hash: true,
+      httpsRedirect: 'httpOnly' in process.env ? false : true,
     }),
     new OptimizeCssAssetsPlugin()
   ],
