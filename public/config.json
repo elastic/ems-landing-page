@@ -1,7 +1,7 @@
 {
   "default": "production",
   "SUPPORTED_EMS": {
-    "emsVersion": "v7.7",
+    "emsVersion": "v7.8",
     "manifest": {
       "testing": {
         "emsFileApiUrl": "https://storage.googleapis.com/elastic-bekitzur-emsfiles-vector-dev",
