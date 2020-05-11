@@ -15,6 +15,9 @@ New releases of EMS Landing Page match minor releases of the Elastic Stack.
 
 To add a new release:
 1. Create a new config in the [.ci/jobs](https://github.com/elastic/ems-landing-page/tree/master/.ci/jobs) directory for a new release branch on the `master` branch.
+1. Change the EMS_VERSION in config.json.
+1. Upgrade the ems-client dependency.
+1. Bump the verison in package.json.
 1. Create the new release branch from the `master` branch.
 
 After release:
