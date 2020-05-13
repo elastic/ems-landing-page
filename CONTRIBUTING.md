@@ -22,5 +22,6 @@ To add a new release:
 
 After release:
 1. Open a PR to change the [default `root_branch`](https://github.com/elastic/ems-landing-page/blob/master/.ci/jobs/defaults.yml#L22) to the current release branch (ex. v7.4).
-1. After merging the PR, wait for the elastic+ems-landing-page+jjbb Jenkins job to update.
+1. After merging the PR, backport the commit to the respective release branch and merge.
+1. Wait for the elastic+ems-landing-page+jjbb Jenkins job to update.
 1. Then log into [this Jenkins job](https://kibana-ci.elastic.co/job/elastic+ems-landing-page+deploy/) and choose "Build with Parameters". This will update https://maps.elastic.co to the current release.
