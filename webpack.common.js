@@ -79,7 +79,6 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: 'public/index.hbs',
       hash: true,
-      httpsRedirect: 'httpOnly' in process.env ? false : true,
     }),
     new OptimizeCssAssetsPlugin()
   ],
