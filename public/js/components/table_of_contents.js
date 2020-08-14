@@ -66,7 +66,7 @@ export class TableOfContents extends Component {
   }
 
   _getSidebarItems() {
-    const tmsItems = this.props.layers.tms.map((service) => {
+    const tmsItems = this.props.tmsLayers.map((service) => {
       const id = `tms/${service.getId()}`;
       const name = service.getDisplayName();
       return {
@@ -78,7 +78,7 @@ export class TableOfContents extends Component {
       };
     });
 
-    const fileItems = this.props.layers.file.map((service) => {
+    const fileItems = this.props.fileLayers.map((service) => {
       const id = `file/${service.getId()}`;
       const name = service.getDisplayName();
       return {

@@ -4,6 +4,9 @@
 The Elastic Maps Landing Page is a previewer of the data of the Elastic Maps Service. It allows users to browse the data
 that is available within EMS.
 
+## Unreleased Notes
+Hosting on static buckets requires setting the 404 error page to index.html. This allows react-router to properly handle client-side routing.
+
 ## Development
 
 The page is designed as a single-page application. It loads the root manifest from EMS using a cross-domain call. This

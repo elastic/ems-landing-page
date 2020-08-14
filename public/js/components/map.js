@@ -10,6 +10,7 @@ import mbRtlPlugin from '!!file-loader!@mapbox/mapbox-gl-rtl-text/mapbox-gl-rtl-
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 import React, { Component } from 'react';
+import { pick } from 'lodash';
 
 mapboxgl.setRTLTextPlugin(mbRtlPlugin);
 
@@ -26,8 +27,9 @@ export class Map extends Component {
     this._overlayFillLayerId = 'overlay-fill-layer';
     this._overlayLineLayerId = 'overlay-line-layer';
     this._overlayFillHighlightId = 'overlay-fill-highlight-layer';
-    this._tmsSourceId = 'vector-tms-source';
-    this._tmsLayerId = 'vector-tms-layer';
+    this._tmsSourceId = 'tms-source';
+    this._tmsLayerId = 'tms-layer';
+    this._handleMapLoad = this._handleMapLoad.bind(this);
   }
 
   componentDidMount() {
@@ -58,10 +60,16 @@ export class Map extends Component {
     this._mapboxMap.on('mouseleave', this._overlayFillLayerId, () => {
       this._mapboxMap.getCanvas().style.cursor = '';
     });
+
+    this._mapboxMap.on('load', this.props.onMapReady);
   }
 
   _getOverlayLayerIds() {
     return [this._overlayFillLayerId, this._overlayLineLayerId, this._overlayFillHighlightId];
+  }
+
+  _handleMapLoad() {
+    this.props.onMapReady();
   }
 
   _highlightFeature(feature, lngLat) {
@@ -140,7 +148,7 @@ export class Map extends Component {
     const overlayLayerIds = this._getOverlayLayerIds();
     const curStyle = this._mapboxMap.getStyle();
     const overlayLayers = curStyle.layers.filter(layer => overlayLayerIds.includes(layer.id));
-    const overlaySource = { ...curStyle.sources };
+    const overlaySource = pick(curStyle.sources, [this._overlaySourceId]);
     const layers = [...source.layers, ...overlayLayers];
     const sources = { ...source.sources, ...overlaySource };
     return {
@@ -154,7 +162,6 @@ export class Map extends Component {
     // We must persist the overlay layers and overlay source by creating a new style from
     // the incoming source and the overlay layers.
     const newStyle = this._persistOverlayLayers(source);
-
     this._mapboxMap.setStyle(newStyle, { diff: false });
   }
 

@@ -9,7 +9,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
@@ -20,7 +19,7 @@ module.exports = {
   mode: 'development',
   output: {
     path: path.resolve(__dirname, 'build/release'),
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
   },
   module: {
     noParse: /iconv-loader\.js/,
@@ -45,12 +44,6 @@ module.exports = {
           loader: 'babel-loader'
         }
       },
-      {
-        test: /\.hbs$/,
-        use: {
-          loader: 'handlebars-loader'
-        }
-      }
     ]
   },
   externals: {
@@ -75,9 +68,9 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin(['./public/config.json']),
-    new WebappWebpackPlugin('@elastic/eui/lib/components/icon/assets/app_ems.svg'),
     new HTMLWebpackPlugin({
-      template: 'public/index.hbs',
+      base: '/',
+      template: 'public/index.html',
       hash: true,
     }),
     new OptimizeCssAssetsPlugin()
@@ -85,9 +78,15 @@ module.exports = {
   stats: {
     colors: true
   },
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   devServer: {
-    contentBase: './build/release',
-    compress: true
+    contentBase: path.join(__dirname, 'public'),
+    contentBasePublicPath: '/',
+    watchContentBase: true,
+    compress: true,
+    historyApiFallback: {
+      disableDotRule: true,
+      index: '/'
+    },
   }
 };
