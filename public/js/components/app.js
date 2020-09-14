@@ -19,7 +19,9 @@ import {
   EuiHeaderSection,
   EuiHeaderSectionItem,
   EuiHeaderLogo,
-  EuiText,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiLink,
   EuiToast
 } from '@elastic/eui';
 
@@ -219,9 +221,31 @@ export class App extends Component {
                 </EuiPageContentBody>
               </EuiPageContent>
               <EuiSpacer />
-              <EuiText size="xs" textAlign="center">
-                <p>Please submit any issues with this layer or suggestions for improving this layer in the <a href="https://github.com/elastic/kibana/issues/new" target="_blank">Kibana repo</a>.</p>
-              </EuiText>
+              <EuiFlexGroup justifyContent="spaceAround">
+                <EuiFlexItem grow={false}>
+                  <p>
+                    <EuiLink external target="_blank" href="https://www.github.com/elastic/ems-file-service/issues/new">
+                      Report data issues
+                    </EuiLink>
+                  </p>
+                </EuiFlexItem>
+                <EuiSpacer />
+                <EuiFlexItem grow={false}>
+                  <p>
+                    <EuiLink external target="_blank" href="https://www.elastic.co/elastic-maps-service-terms">
+                      Terms of Service
+                    </EuiLink>
+                  </p>
+                </EuiFlexItem>
+                <EuiSpacer />
+                <EuiFlexItem grow={false}>
+                  <p>
+                    <EuiLink external target="_blank" href="https://www.github.com/elastic/ems-landing-page">
+                      GitHub
+                    </EuiLink>
+                  </p>
+                </EuiFlexItem>
+              </EuiFlexGroup>
             </div>
           </EuiPageBody>
         </EuiPage>
