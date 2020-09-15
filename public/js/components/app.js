@@ -16,12 +16,8 @@ import {
   EuiHeader,
   EuiHeaderLink,
   EuiHeaderLinks,
-  EuiHeaderSection,
   EuiHeaderSectionItem,
   EuiHeaderLogo,
-  EuiFlexGroup,
-  EuiFlexItem,
-  EuiLink,
   EuiToast
 } from '@elastic/eui';
 
@@ -183,16 +179,17 @@ export class App extends Component {
     return (
       <div>
         <EuiHeader>
-          <EuiHeaderSection>
-            <EuiHeaderSectionItem border="none">
-              <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
-            </EuiHeaderSectionItem>
-          </EuiHeaderSection>
-          <EuiHeaderSection side="right">
+          <EuiHeaderSectionItem border="right">
+            <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
+          </EuiHeaderSectionItem>
+          <EuiHeaderSectionItem border="none">
             <EuiHeaderLinks>
               <EuiHeaderLink href="https://elastic.co">elastic.co</EuiHeaderLink>
+              <EuiHeaderLink href="https://www.github.com/elastic/ems-landing-page"> Github </EuiHeaderLink>
+              <EuiHeaderLink href="https://www.github.com/elastic/ems-file-service/issues/new"> Report data issues </EuiHeaderLink>
+              <EuiHeaderLink href="https://www.elastic.co/elastic-maps-service-terms"> Terms of Service </EuiHeaderLink>
             </EuiHeaderLinks>
-          </EuiHeaderSection>
+          </EuiHeaderSectionItem>
         </EuiHeader>
         <EuiPage>
           <TableOfContents
@@ -220,32 +217,6 @@ export class App extends Component {
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
-              <EuiSpacer />
-              <EuiFlexGroup justifyContent="spaceAround">
-                <EuiFlexItem grow={false}>
-                  <p>
-                    <EuiLink external target="_blank" href="https://www.github.com/elastic/ems-file-service/issues/new">
-                      Report data issues
-                    </EuiLink>
-                  </p>
-                </EuiFlexItem>
-                <EuiSpacer />
-                <EuiFlexItem grow={false}>
-                  <p>
-                    <EuiLink external target="_blank" href="https://www.elastic.co/elastic-maps-service-terms">
-                      Terms of Service
-                    </EuiLink>
-                  </p>
-                </EuiFlexItem>
-                <EuiSpacer />
-                <EuiFlexItem grow={false}>
-                  <p>
-                    <EuiLink external target="_blank" href="https://www.github.com/elastic/ems-landing-page">
-                      GitHub
-                    </EuiLink>
-                  </p>
-                </EuiFlexItem>
-              </EuiFlexGroup>
             </div>
           </EuiPageBody>
         </EuiPage>
