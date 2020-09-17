@@ -20,7 +20,7 @@ export class LayerDetails extends PureComponent {
     if (!this.props.layerConfig) {
       return null;
     }
-    const attributionsHtmlString = this.props.layerConfig.getHTMLAttribution();
+    const attributionsHtmlString = getAttributionString(this.props.layerConfig);
     return (
       <div>
         <EuiTitle size="s">
@@ -32,5 +32,19 @@ export class LayerDetails extends PureComponent {
       </div>
     );
   }
+}
+
+function getAttributionString(emsService) {
+  const attributions = emsService.getAttributions();
+  const attributionSnippets = attributions.map((attribution) => {
+    const anchorTag = document.createElement('a');
+    anchorTag.setAttribute('rel', 'noreferrer noopener');
+    if (attribution.url.startsWith('http://') || attribution.url.startsWith('https://')) {
+      anchorTag.setAttribute('href', attribution.url);
+    }
+    anchorTag.textContent = attribution.label;
+    return anchorTag.outerHTML;
+  });
+  return attributionSnippets.join(' | '); //!!!this is the current convention used in Kibana
 }
 
