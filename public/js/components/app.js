@@ -16,10 +16,8 @@ import {
   EuiHeader,
   EuiHeaderLink,
   EuiHeaderLinks,
-  EuiHeaderSection,
   EuiHeaderSectionItem,
   EuiHeaderLogo,
-  EuiText,
   EuiToast
 } from '@elastic/eui';
 
@@ -172,16 +170,17 @@ export class App extends Component {
     return (
       <div>
         <EuiHeader>
-          <EuiHeaderSection>
-            <EuiHeaderSectionItem border="none">
-              <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
-            </EuiHeaderSectionItem>
-          </EuiHeaderSection>
-          <EuiHeaderSection side="right">
+          <EuiHeaderSectionItem border="right">
+            <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
+          </EuiHeaderSectionItem>
+          <EuiHeaderSectionItem border="none">
             <EuiHeaderLinks>
               <EuiHeaderLink href="https://elastic.co">elastic.co</EuiHeaderLink>
+              <EuiHeaderLink href="https://www.github.com/elastic/ems-landing-page"> Github </EuiHeaderLink>
+              <EuiHeaderLink href="https://www.github.com/elastic/ems-file-service/issues/new"> Report data issues </EuiHeaderLink>
+              <EuiHeaderLink href="https://www.elastic.co/elastic-maps-service-terms"> Terms of Service </EuiHeaderLink>
             </EuiHeaderLinks>
-          </EuiHeaderSection>
+          </EuiHeaderSectionItem>
         </EuiHeader>
         <EuiPage>
           <TableOfContents layers={this.props.layers} onFileLayerSelect={this._selectFileLayer} ref={setToc}/>
@@ -204,10 +203,6 @@ export class App extends Component {
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
-              <EuiSpacer />
-              <EuiText size="xs" textAlign="center">
-                <p>Please submit any issues with this layer or suggestions for improving this layer in the <a href="https://github.com/elastic/kibana/issues/new" target="_blank">Kibana repo</a>.</p>
-              </EuiText>
             </div>
           </EuiPageBody>
         </EuiPage>
