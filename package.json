@@ -59,7 +59,7 @@
   "dependencies": {
     "@elastic/datemath": "^5.0.2",
     "@elastic/ems-client": "^7.2.2",
-    "@elastic/eui": "^14.8.0",
+    "@elastic/eui": "^28.4.0",
     "@turf/bbox": "6.0.1",
     "@turf/center": "6.0.1",
     "mapbox-gl": "1.5.0",
