@@ -11,6 +11,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+const ASSET_PATH = process.env.ASSET_PATH || '/';
+
 module.exports = {
   entry: {
     mapbox: './node_modules/mapbox-gl/dist/mapbox-gl.js',
@@ -19,7 +21,8 @@ module.exports = {
   mode: 'development',
   output: {
     path: path.resolve(__dirname, 'build/release'),
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
+    publicPath: ASSET_PATH,
   },
   module: {
     noParse: /iconv-loader\.js/,
