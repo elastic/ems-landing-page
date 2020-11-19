@@ -83,7 +83,7 @@ export class FeatureTable extends Component {
 
   _renderToolsRight() {
     let humanReadableFormat;
-    const format = this.props.config.getDefaultFormatType();
+    const format = this.props.config.getFormatOfType('geojson');
     if (format === 'geojson') {
       humanReadableFormat = 'GeoJSON';
     } else if (format === 'topojson') {
@@ -92,7 +92,7 @@ export class FeatureTable extends Component {
       humanReadableFormat = format;
     }
     return (
-      <EuiButton href={this.props.config.getDefaultFormatUrl()} target="_">
+      <EuiButton href={this.props.config.getFormatOfTypeUrl('geojson')} target="_">
         Download {humanReadableFormat}
       </EuiButton>
     );
