@@ -174,11 +174,11 @@ export class App extends Component {
             <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
           </EuiHeaderSectionItem>
           <EuiHeaderSectionItem border="none">
-            <EuiHeaderLinks>
-              <EuiHeaderLink href="https://elastic.co">elastic.co</EuiHeaderLink>
-              <EuiHeaderLink href="https://www.github.com/elastic/ems-landing-page"> Github </EuiHeaderLink>
-              <EuiHeaderLink href="https://www.github.com/elastic/ems-file-service/issues/new"> Report data issues </EuiHeaderLink>
-              <EuiHeaderLink href="https://www.elastic.co/elastic-maps-service-terms"> Terms of Service </EuiHeaderLink>
+            <EuiHeaderLinks gutterSize="xs">
+              <EuiHeaderLink target="_blank" iconType="logoElastic" href="https://elastic.co"> elastic.co </EuiHeaderLink>
+              <EuiHeaderLink target="_blank" iconType="logoGithub" href="https://www.github.com/elastic/ems-landing-page"> GitHub </EuiHeaderLink>
+              <EuiHeaderLink target="_blank" iconType="bug" href="https://www.github.com/elastic/ems-file-service/issues/new"> Report data issues </EuiHeaderLink>
+              <EuiHeaderLink target="_blank" iconType="documents" href="https://www.elastic.co/elastic-maps-service-terms"> Terms of Service </EuiHeaderLink>
             </EuiHeaderLinks>
           </EuiHeaderSectionItem>
         </EuiHeader>
