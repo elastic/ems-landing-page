@@ -42,3 +42,9 @@ body {
     padding-left: 7px;
     padding-right: 7px;
 }
+
+.euiSideNavItem__items {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 1020px;
+}
