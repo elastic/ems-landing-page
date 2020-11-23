@@ -886,10 +886,10 @@
   dependencies:
     tslib "^1.9.3"
 
-"@elastic/ems-client@7.11.0":
-  version "7.11.0"
-  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-7.11.0.tgz#d2142d0ef5bd1aff7ae67b37c1394b73cdd48d8b"
-  integrity sha512-7+gDEkBr8nRS7X9i/UPg1WkS7bEBuNbBBjXCchQeYwqPRmw6vOb4wjlNzVwmOFsp2OH4lVFfZ+XU4pxTt32EXA==
+"@elastic/ems-client@7.10.3":
+  version "7.10.3"
+  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-7.10.3.tgz#c877de31e04f616041cc5de1bd7c99dd2048364b"
+  integrity sha512-rtMBypV5LE2/iU51hLwyPVCTE5vxuPl2y0Y9T52LGe87wGxZzHmAYwEqNy6oyO8Pb45dFpoVywr08MO9XASUng==
   dependencies:
     lodash "^4.17.15"
     semver "7.3.2"
