@@ -210,13 +210,13 @@ export class App extends Component {
               <EuiSpacer size="xl" />
               <EuiPageContent>
                 <EuiPageContentBody>
-                  <LayerDetails type="Tile Layer" layerConfig={this.state.selectedTileLayer} />
+                  <LayerDetails title="Tile Layer" layerConfig={this.state.selectedTileLayer} />
                 </EuiPageContentBody>
               </EuiPageContent>
               <EuiSpacer />
               <EuiPageContent>
                 <EuiPageContentBody>
-                  <LayerDetails type="Vector Layer" layerConfig={this.state.selectedFileLayer} />
+                  <LayerDetails title="Vector Layer" layerConfig={this.state.selectedFileLayer} />
                   <EuiSpacer size="l" />
                   <FeatureTable
                     ref={setFeatureTable}
