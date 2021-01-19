@@ -24,9 +24,10 @@ export class LayerDetails extends PureComponent {
     return (
       <div>
         <EuiTitle size="s">
-          <h2>{this.props.layerConfig.getDisplayName()}</h2>
+          <h2>Selected {this.props.type}: {this.props.layerConfig.getDisplayName()}</h2>
         </EuiTitle>
         <EuiText size="s">
+          <p>Layer Id: {this.props.layerConfig.getId()}</p>
           <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution"/>
         </EuiText>
       </div>
