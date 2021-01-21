@@ -4,9 +4,14 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import React, { PureComponent } from "react";
+import React, { PureComponent } from 'react';
 
-import { EuiText, EuiTitle, EuiSpacer, EuiBadge } from "@elastic/eui";
+import {
+  EuiText,
+  EuiTitle,
+  EuiBadge,
+  EuiSpacer
+} from '@elastic/eui';
 
 export class LayerDetails extends PureComponent {
   constructor(props) {
@@ -21,18 +26,12 @@ export class LayerDetails extends PureComponent {
     return (
       <div>
         <EuiTitle size="s">
-          <h2>
-            Selected {this.props.title}:{" "}
-            {this.props.layerConfig.getDisplayName()}
-          </h2>
+          <h2>Selected {this.props.title}: {this.props.layerConfig.getDisplayName()}</h2>
         </EuiTitle>
         <EuiText size="s">
           <EuiBadge>Layer Id: {this.props.layerConfig.getId()}</EuiBadge>
           <EuiSpacer size="xs" />
-          <span
-            dangerouslySetInnerHTML={{ __html: attributionsHtmlString }}
-            className="attribution"
-          />
+          <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution"/>
         </EuiText>
       </div>
     );
@@ -42,16 +41,13 @@ export class LayerDetails extends PureComponent {
 function getAttributionString(emsService) {
   const attributions = emsService.getAttributions();
   const attributionSnippets = attributions.map((attribution) => {
-    const anchorTag = document.createElement("a");
-    anchorTag.setAttribute("rel", "noreferrer noopener");
-    if (
-      attribution.url.startsWith("http://") ||
-      attribution.url.startsWith("https://")
-    ) {
-      anchorTag.setAttribute("href", attribution.url);
+    const anchorTag = document.createElement('a');
+    anchorTag.setAttribute('rel', 'noreferrer noopener');
+    if (attribution.url.startsWith('http://') || attribution.url.startsWith('https://')) {
+      anchorTag.setAttribute('href', attribution.url);
     }
     anchorTag.textContent = attribution.label;
     return anchorTag.outerHTML;
   });
-  return attributionSnippets.join(" | "); //!!!this is the current convention used in Kibana
+  return attributionSnippets.join(' | '); //!!!this is the current convention used in Kibana
 }
