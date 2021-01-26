@@ -9,6 +9,8 @@ import React, { PureComponent } from 'react';
 import {
   EuiText,
   EuiTitle,
+  EuiBadge,
+  EuiSpacer
 } from '@elastic/eui';
 
 export class LayerDetails extends PureComponent {
@@ -27,7 +29,8 @@ export class LayerDetails extends PureComponent {
           <h2>Selected {this.props.title}: {this.props.layerConfig.getDisplayName()}</h2>
         </EuiTitle>
         <EuiText size="s">
-          <p>Layer Id: {this.props.layerConfig.getId()}</p>
+          <EuiBadge>Layer Id: {this.props.layerConfig.getId()}</EuiBadge>
+          <EuiSpacer size="xs" />
           <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution"/>
         </EuiText>
       </div>
@@ -48,4 +51,3 @@ function getAttributionString(emsService) {
   });
   return attributionSnippets.join(' | '); //!!!this is the current convention used in Kibana
 }
-
