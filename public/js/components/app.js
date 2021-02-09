@@ -34,6 +34,7 @@ export class App extends Component {
     super(props);
 
     this.state = {
+      selectedTileLayer: null,
       selectedFileLayer: null,
       jsonFeatures: null,
       initialSelection: null
@@ -81,6 +82,9 @@ export class App extends Component {
 
     this._selectTmsLayer = async (tmsLayerConfig) => {
       const source = await this._getTmsSource(tmsLayerConfig);
+      this.setState({
+        selectedTileLayer: tmsLayerConfig,
+      });
 
       this._map.setTmsLayer(source);
     };
@@ -206,7 +210,13 @@ export class App extends Component {
               <EuiSpacer size="xl" />
               <EuiPageContent>
                 <EuiPageContentBody>
-                  <LayerDetails layerConfig={this.state.selectedFileLayer} />
+                  <LayerDetails title="Tile Layer" layerConfig={this.state.selectedTileLayer} />
+                </EuiPageContentBody>
+              </EuiPageContent>
+              <EuiSpacer />
+              <EuiPageContent>
+                <EuiPageContentBody>
+                  <LayerDetails title="Vector Layer" layerConfig={this.state.selectedFileLayer} />
                   <EuiSpacer size="l" />
                   <FeatureTable
                     ref={setFeatureTable}
