@@ -1,5 +1,6 @@
 {
   "default": "production",
+  "serviceName": "Elastic Maps Server",
   "SUPPORTED_EMS": {
     "emsVersion": "v7.12",
     "manifest": {

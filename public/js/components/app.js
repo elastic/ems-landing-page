@@ -184,7 +184,9 @@ export class App extends Component {
       <div>
         <EuiHeader>
           <EuiHeaderSectionItem border="right">
-            <EuiHeaderLogo href="#" aria-label="Go to elastic.co" iconType="emsApp" >Elastic Maps Service</EuiHeaderLogo>
+            <EuiHeaderLogo href="/" aria-label={`${this.props.serviceName} home`} iconType="emsApp" >
+              {this.props.serviceName}
+            </EuiHeaderLogo>
           </EuiHeaderSectionItem>
           <EuiHeaderSectionItem border="none">
             <EuiHeaderLinks gutterSize="xs">
