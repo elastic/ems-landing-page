@@ -97,6 +97,8 @@ export class App extends Component {
 
   componentDidMount() {
 
+    document.title = this.props.serviceName;
+
     if (!Map.isSupported()) {
       return;
     }
