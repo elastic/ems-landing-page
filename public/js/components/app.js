@@ -27,8 +27,6 @@ import { Map } from './map';
 import { LayerDetails } from './layer_details';
 import URL from 'url-parse';
 
-import * as topojson from 'topojson-client';
-
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -43,17 +41,7 @@ export class App extends Component {
     this._selectFileLayer = async (fileLayerConfig) => {
 
       this._featuretable.startLoading();
-      const response = await fetch(fileLayerConfig.getDefaultFormatUrl());
-      const json = await response.json();
-
-
-      let featureCollection;
-      if (fileLayerConfig.getDefaultFormatType() === 'topojson') {
-        const features = json.objects[fileLayerConfig.getDefaultFormatMeta().feature_collection_path];
-        featureCollection = topojson.feature(json, features);// conversion to geojson
-      } else {
-        featureCollection = json;
-      }
+      const featureCollection = await fileLayerConfig.getGeoJson();
 
       featureCollection.features.forEach((feature, index) => {
         feature.properties.__id__ = index;
