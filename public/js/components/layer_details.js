@@ -10,8 +10,7 @@ import React, { PureComponent } from 'react';
 import {
   EuiText,
   EuiTitle,
-  EuiBadge,
-  EuiSpacer
+  EuiBadge
 } from '@elastic/eui';
 
 export class LayerDetails extends PureComponent {
@@ -23,16 +22,15 @@ export class LayerDetails extends PureComponent {
     if (!this.props.layerConfig) {
       return null;
     }
-    const attributionsHtmlString = getAttributionString(this.props.layerConfig);
+    const attributionsHtmlString = 'Attribution: ' + getAttributionString(this.props.layerConfig);
     return (
       <div>
-        <EuiTitle size="s">
+        <EuiTitle size="s" className="layerTitle">
           <h2>Selected {this.props.title}: {this.props.layerConfig.getDisplayName()}</h2>
         </EuiTitle>
         <EuiText size="s">
           <EuiBadge>Layer Id: {this.props.layerConfig.getId()}</EuiBadge>
-          <EuiSpacer size="xs" />
-          <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution"/>
+          <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution eui-alignMiddle"/>
         </EuiText>
       </div>
     );
