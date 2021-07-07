@@ -123,7 +123,7 @@ export class FeatureTable extends Component {
     };
 
     const pagination = {
-      initialPageSize: 50,
+      pageSize: 8,
       pageSizeOptions: [50],
     };
 

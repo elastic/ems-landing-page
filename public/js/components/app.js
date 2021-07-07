@@ -200,7 +200,7 @@ export class App extends Component {
               <EuiPanel paddingSize="none">
                 <Map ref={setMap} />
               </EuiPanel>
-              <EuiSpacer size="xl" />
+              <EuiSpacer size="l" />
               <EuiPageContent>
                 <EuiPageContentBody>
                   <LayerDetails title="Tile Layer" layerConfig={this.state.selectedTileLayer} />
