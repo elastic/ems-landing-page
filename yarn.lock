@@ -977,10 +977,10 @@
   resolved "https://registry.yarnpkg.com/@elastic/eslint-config-kibana/-/eslint-config-kibana-0.15.0.tgz#a552793497cdfc1829c2f9b7cd7018eb008f1606"
   integrity sha1-pVJ5NJfN/Bgpwvm3zXAY6wCPFgY=
 
-"@elastic/eui@34.6.0":
-  version "34.6.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-34.6.0.tgz#a7188bc97d9c3120cd65e52ed423377872b604bd"
-  integrity sha512-uVMSX0jPJU3LLwD4TRHllyJeTr+Uihh+R5qsFSAzKrCCRZjSfKMmMHKffWhzFyYjG97npdWlMvneXG5q0yobCw==
+"@elastic/eui@36.0.0":
+  version "36.0.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-36.0.0.tgz#ebb180e859fd86171b5f84d08f8c958bb659b1cd"
+  integrity sha512-VLwtHZp3Qdj+vWR8wSNwxEYpGtJIdiErq0/PBsg83HDfz4KwgEveSI6STwODLgiUDr/YnpDhawuz+HU3JpfXRg==
   dependencies:
     "@types/chroma-js" "^2.0.0"
     "@types/lodash" "^4.14.160"
