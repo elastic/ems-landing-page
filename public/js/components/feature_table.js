@@ -122,11 +122,6 @@ export class FeatureTable extends Component {
       onChange: this._changeFilter
     };
 
-    const pagination = {
-      pageSize: 8,
-      pageSizeOptions: [50],
-    };
-
     const rowProps = (row) => {
       return {
         onClick: () => {
@@ -142,7 +137,7 @@ export class FeatureTable extends Component {
         items={rows}
         columns={columns}
         search={search}
-        pagination={pagination}
+        pagination={true}
         sorting
       />
     );

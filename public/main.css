@@ -36,7 +36,7 @@ body {
 .euiSideNavItem__items {
     overflow-x: hidden;
     overflow-y: auto;
-    max-height: 1020px;
+    max-height: 1120px;
 }
 
 .euiPage--paddingMedium .euiPageSideBar {
