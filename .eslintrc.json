@@ -2,5 +2,10 @@
     "extends": "@elastic/eslint-config-kibana",
     "env": {
       "browser": true
+    },
+    "settings": {
+      "react": {
+        "version": "defect"
+      }
     }
 }
