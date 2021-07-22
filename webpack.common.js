@@ -10,7 +10,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '';
@@ -78,8 +77,11 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin(['./public/config.json']),
-    new WebappWebpackPlugin('@elastic/eui/lib/components/icon/assets/app_ems.svg'),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: './public/config.json', to: '.' }
+      ]
+    }),
     new HTMLWebpackPlugin({
       template: 'public/index.hbs',
       hash: true,
