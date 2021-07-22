@@ -1,4 +1,4 @@
-@import "../node_modules/@elastic/eui/dist/eui_theme_light.css";
+@import "../node_modules/@elastic/eui/dist/eui_theme_amsterdam_light.css";
 @import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
 
 body {
@@ -9,34 +9,24 @@ body {
     width: 100%;
 }
 
-
 .mainContent {
     width: 100%;
 }
 
 .mapContainer {
     width: 100%;
-    height: 512px;
+    height: 450px;
 }
 
-.attribution  p {
-    display: inline;
+.layerTitle {
+    margin-bottom: 5px;
 }
-
+.attribution  {
+    margin-left: 10px; 
+}
 
 /* The following will need to be fixed in EUI too */
-.euiHeader {
-    position: relative;
-    z-index: 2000;
-}
 
-.euiHeaderLinks {
-    position: static;
-}
-
-.euiHeaderSectionItem:hover {
-    background: transparent;
-}
 
 .mapboxgl-popup-close-button {
     padding-left: 7px;
@@ -46,5 +36,14 @@ body {
 .euiSideNavItem__items {
     overflow-x: hidden;
     overflow-y: auto;
-    max-height: 1020px;
+    max-height: 1120px;
+}
+
+.euiPage--paddingMedium .euiPageSideBar {
+    min-width: 220px;
+}
+
+.euiSideNavItem--root.euiSideNavItem--rootIcon 
+> .euiSideNavItem__items {
+    margin-left: 10px;
 }
