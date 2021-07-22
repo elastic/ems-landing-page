@@ -6,8 +6,12 @@
 
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
-  devtool: 'source-map'
+  devtool: 'source-map',
+  plugins: [
+    new FaviconsWebpackPlugin('@elastic/eui/lib/components/icon/assets/app_ems.svg'),
+  ]
 });
