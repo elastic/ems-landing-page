@@ -10,7 +10,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '';
@@ -83,7 +82,6 @@ module.exports = {
         { from: './public/config.json', to: '.' }
       ]
     }),
-    new FaviconsWebpackPlugin('node_modules/@elastic/eui/lib/components/icon/assets/app_ems.svg'),
     new HTMLWebpackPlugin({
       template: 'public/index.hbs',
       hash: true,
