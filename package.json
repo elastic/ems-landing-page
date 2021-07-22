@@ -22,7 +22,7 @@
     "babel-plugin-react-docgen": "^3.2.0",
     "babel-plugin-react-intl": "^4.1.21",
     "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^5.1.1",
+    "copy-webpack-plugin": "6.4.0",
     "core-js": "^3.3.5",
     "css-loader": "^3.2.0",
     "eslint": "^6.6.0",
@@ -51,7 +51,7 @@
     "webapp-webpack-plugin": "^2.6.0",
     "webpack": "^4.28.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10",
+    "webpack-dev-server": "3.11.2",
     "webpack-merge": "^4.1.5"
   },
   "dependencies": {
