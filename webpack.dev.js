@@ -16,6 +16,6 @@ module.exports = merge(common, {
     contentBase: './public'
   },
   plugins: [
-    new FaviconsWebpackPlugin('node_modules/@elastic/eui/lib/components/icon/svgs/app_ems.svg'),
+    new FaviconsWebpackPlugin('./public/app_ems.svg'),
   ]
 });

@@ -13,6 +13,6 @@ module.exports = merge(common, {
   mode: 'production',
   devtool: 'source-map',
   plugins: [
-    new FaviconsWebpackPlugin('node_modules/@elastic/eui/lib/components/icon/svgs/app_ems.svg'),
+    new FaviconsWebpackPlugin('./public/app_ems.svg'),
   ]
 });
