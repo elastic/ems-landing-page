@@ -22,6 +22,25 @@ import {
   EuiToast
 } from '@elastic/eui';
 
+import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
+
+import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
+import { icon as EuiIconAlert } from '@elastic/eui/lib/components/icon/assets/alert';
+import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
+import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
+import { icon as EuiIconBug } from '@elastic/eui/lib/components/icon/assets/bug';
+import { icon as EuiIconDocuments } from '@elastic/eui/lib/components/icon/assets/documents';
+
+// One or more icons are passed in as an object of iconKey (string): IconComponent
+appendIconComponentCache({
+  emsApp: EuiIconEmsApp,
+  alert: EuiIconAlert,
+  logoGithub: EuiIconGithub,
+  logoElastic: EuiIconElastic,
+  bug: EuiIconBug,
+  documents: EuiIconDocuments,
+});
+
 import { TableOfContents } from './table_of_contents';
 import { FeatureTable } from './feature_table';
 import { Map } from './map';
