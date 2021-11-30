@@ -11,6 +11,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '';
 
@@ -76,7 +77,11 @@ module.exports = {
     },
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+      cleanAfterEveryBuildPatterns: [
+        path.resolve(__dirname, 'build/release/icon*')
+      ]
+    }),
     new CopyWebpackPlugin({
       patterns: [
         { from: './public/config.json', to: '.' }
@@ -86,7 +91,21 @@ module.exports = {
       template: 'public/index.hbs',
       hash: true,
     }),
-    new OptimizeCssAssetsPlugin()
+    new OptimizeCssAssetsPlugin(),
+    new FaviconsWebpackPlugin({
+      logo: './public/app_ems.svg',
+      favicons: {
+        icons: {
+          coast: false,
+          yandex: false,
+          android: false,
+          appleIcon: false,
+          appleStartup: false,
+          windows: false,
+          firefox: false
+        }
+      }
+    }),
   ],
   stats: {
     colors: true

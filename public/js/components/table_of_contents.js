@@ -13,6 +13,24 @@ import {
   EuiSideNav,
 } from '@elastic/eui';
 
+import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
+
+import { icon as EuiIconGrid } from '@elastic/eui/lib/components/icon/assets/grid';
+import { icon as EuiIconVector } from '@elastic/eui/lib/components/icon/assets/vector';
+import { icon as EuiIconSearch } from '@elastic/eui/es/components/icon/assets/search';
+import { icon as EuiIconArrowDown } from '@elastic/eui/es/components/icon/assets/arrow_down';
+import { icon as EuiIconArrowLeft } from '@elastic/eui/es/components/icon/assets/arrow_left';
+import { icon as EuiIconArrowRight } from '@elastic/eui/es/components/icon/assets/arrow_right';
+
+// One or more icons are passed in as an object of iconKey (string): IconComponent
+appendIconComponentCache({
+  grid: EuiIconGrid,
+  vector: EuiIconVector,
+  search: EuiIconSearch,
+  arrowDown: EuiIconArrowDown,
+  arrowLeft: EuiIconArrowLeft,
+  arrowRight: EuiIconArrowRight,
+});
 
 export class TableOfContents extends Component {
   constructor(props) {
