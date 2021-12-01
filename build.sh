@@ -8,7 +8,7 @@
 
 set -e
 
-NODE_IMG="node:12"
+NODE_IMG="node:14"
 
 # Compile using node image
 echo "Compiling ${PWD} using ${NODE_IMG} docker image"
