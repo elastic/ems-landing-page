@@ -2,7 +2,7 @@
   "default": "production",
   "serviceName": "Elastic Maps Service",
   "SUPPORTED_EMS": {
-    "emsVersion": "v7.16",
+    "emsVersion": "v7.17",
     "manifest": {
       "testing": {
         "emsFileApiUrl": "https://storage.googleapis.com/elastic-bekitzur-emsfiles-vector-dev",
