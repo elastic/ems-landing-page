@@ -91,5 +91,8 @@
     }
   },
   "author": "Elastic",
-  "license": "SEE LICENSE IN LICENSE.txt"
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "engines": {
+    "node": ">=14 <=16"
+  }
 }
