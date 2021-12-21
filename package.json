@@ -1,6 +1,6 @@
 {
   "name": "ems_landing_page",
-  "version": "8.0.0",
+  "version": "8.1.0",
   "description": "",
   "main": "main.js",
   "devDependencies": {
@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@elastic/datemath": "^5.0.2",
-    "@elastic/ems-client": "8.0.0",
+    "@elastic/ems-client": "8.1.0",
     "@elastic/eui": "40.0.0",
     "@mapbox/mapbox-gl-rtl-text": "^0.2.3",
     "@turf/bbox": "6.0.1",
