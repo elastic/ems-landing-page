@@ -5,19 +5,19 @@
  * 2.0.
  */
 
-import mapboxgl from 'mapbox-gl';
+import maplibre from 'maplibre-gl';
 // eslint-disable-next-line import/no-unresolved
 import mbRtlPlugin from '!!file-loader!@mapbox/mapbox-gl-rtl-text/mapbox-gl-rtl-text.min.js';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 import React, { Component } from 'react';
 
-mapboxgl.setRTLTextPlugin(mbRtlPlugin);
+maplibre.setRTLTextPlugin(mbRtlPlugin);
 
 export class Map extends Component {
 
   static isSupported() {
-    return mapboxgl.supported();
+    return maplibre.supported();
   }
 
   constructor(props) {
@@ -32,7 +32,7 @@ export class Map extends Component {
   }
 
   componentDidMount() {
-    this._mapboxMap = new mapboxgl.Map({
+    this._maplibreMap = new maplibre.Map({
       container: this.refs.mapContainer,
       style: {
         version: 8,
@@ -43,21 +43,21 @@ export class Map extends Component {
         return { url: new URL(url, window.location.origin).href };
       },
     });
-    this._mapboxMap.dragRotate.disable();
-    this._mapboxMap.touchZoomRotate.disableRotation();
+    this._maplibreMap.dragRotate.disable();
+    this._maplibreMap.touchZoomRotate.disableRotation();
 
-    this._mapboxMap.on('click', this._overlayFillLayerId, (e) => {
+    this._maplibreMap.on('click', this._overlayFillLayerId, (e) => {
       this._highlightFeature(e.features[0], e.lngLat);
     });
 
     // Change the cursor to a pointer when the mouse is over the places layer.
-    this._mapboxMap.on('mouseenter', this._overlayFillLayerId, () => {
-      this._mapboxMap.getCanvas().style.cursor = 'pointer';
+    this._maplibreMap.on('mouseenter', this._overlayFillLayerId, () => {
+      this._maplibreMap.getCanvas().style.cursor = 'pointer';
     });
 
     // Change it back to a pointer when it leaves.
-    this._mapboxMap.on('mouseleave', this._overlayFillLayerId, () => {
-      this._mapboxMap.getCanvas().style.cursor = '';
+    this._maplibreMap.on('mouseleave', this._overlayFillLayerId, () => {
+      this._maplibreMap.getCanvas().style.cursor = '';
     });
   }
 
@@ -77,20 +77,20 @@ export class Map extends Component {
     });
     const html = `<div class="euiText euiText--extraSmall"><dl class="eui-definitionListReverse">${rows}</dl></div>`;
 
-    this._currentPopup = new mapboxgl.Popup();
+    this._currentPopup = new maplibre.Popup();
     this._currentPopup.setLngLat(lngLat);
     this._currentPopup.setHTML(html);
-    this._currentPopup.addTo(this._mapboxMap);
+    this._currentPopup.addTo(this._maplibreMap);
 
-    this._mapboxMap.setFilter(this._overlayFillHighlightId, ['==', '__id__', feature.properties.__id__]);
+    this._maplibreMap.setFilter(this._overlayFillHighlightId, ['==', '__id__', feature.properties.__id__]);
   }
 
   highlightFeature(feature) {
     const center = turfCenter(feature);
-    this._highlightFeature(feature, new mapboxgl.LngLat(center.geometry.coordinates[0], center.geometry.coordinates[1]));
+    this._highlightFeature(feature, new maplibre.LngLat(center.geometry.coordinates[0], center.geometry.coordinates[1]));
 
     const bbox = turfBbox(feature);
-    this._mapboxMap.fitBounds(bbox);
+    this._maplibreMap.fitBounds(bbox);
   }
 
 
@@ -100,32 +100,32 @@ export class Map extends Component {
     const filterArgs = features.map((f) => f.properties.__id__);
     const filter = idFilterPrefix.concat(filterArgs);
 
-    this._mapboxMap.setFilter(this._overlayFillLayerId, filter);
-    this._mapboxMap.setFilter(this._overlayLineLayerId, filter);
+    this._maplibreMap.setFilter(this._overlayFillLayerId, filter);
+    this._maplibreMap.setFilter(this._overlayLineLayerId, filter);
 
   }
 
   _removeTmsLayer() {
-    if (this._mapboxMap.getLayer(this._tmsLayerId)) {
-      this._mapboxMap.removeLayer(this._tmsLayerId);
+    if (this._maplibreMap.getLayer(this._tmsLayerId)) {
+      this._maplibreMap.removeLayer(this._tmsLayerId);
     }
-    if (this._mapboxMap.getSource(this._tmsSourceId)) {
-      this._mapboxMap.removeSource(this._tmsSourceId);
+    if (this._maplibreMap.getSource(this._tmsSourceId)) {
+      this._maplibreMap.removeSource(this._tmsSourceId);
     }
   }
 
   _removeOverlayLayer() {
-    if (this._mapboxMap.getLayer(this._overlayFillLayerId)) {
-      this._mapboxMap.removeLayer(this._overlayFillLayerId);
+    if (this._maplibreMap.getLayer(this._overlayFillLayerId)) {
+      this._maplibreMap.removeLayer(this._overlayFillLayerId);
     }
-    if (this._mapboxMap.getLayer(this._overlayLineLayerId)) {
-      this._mapboxMap.removeLayer(this._overlayLineLayerId);
+    if (this._maplibreMap.getLayer(this._overlayLineLayerId)) {
+      this._maplibreMap.removeLayer(this._overlayLineLayerId);
     }
-    if (this._mapboxMap.getLayer(this._overlayFillHighlightId)) {
-      this._mapboxMap.removeLayer(this._overlayFillHighlightId);
+    if (this._maplibreMap.getLayer(this._overlayFillHighlightId)) {
+      this._maplibreMap.removeLayer(this._overlayFillHighlightId);
     }
-    if (this._mapboxMap.getSource(this._overlaySourceId)) {
-      this._mapboxMap.removeSource(this._overlaySourceId);
+    if (this._maplibreMap.getSource(this._overlaySourceId)) {
+      this._maplibreMap.removeSource(this._overlaySourceId);
     }
     this._removePopup();
   }
@@ -139,7 +139,7 @@ export class Map extends Component {
 
   _persistOverlayLayers(source) {
     const overlayLayerIds = this._getOverlayLayerIds();
-    const curStyle = this._mapboxMap.getStyle();
+    const curStyle = this._maplibreMap.getStyle();
     const overlayLayers = curStyle.layers.filter(layer => overlayLayerIds.includes(layer.id));
     const overlaySource = { ...curStyle.sources };
     const layers = [...source.layers, ...overlayLayers];
@@ -156,18 +156,18 @@ export class Map extends Component {
     // the incoming source and the overlay layers.
     const newStyle = this._persistOverlayLayers(source);
 
-    this._mapboxMap.setStyle(newStyle, { diff: false });
+    this._maplibreMap.setStyle(newStyle, { diff: false });
   }
 
   setOverlayLayer(featureCollection) {
     this._removeOverlayLayer();
 
-    this._mapboxMap.addSource(this._overlaySourceId, {
+    this._maplibreMap.addSource(this._overlaySourceId, {
       type: 'geojson',
       data: featureCollection,
     });
 
-    this._mapboxMap.addLayer({
+    this._maplibreMap.addLayer({
       id: this._overlayFillLayerId,
       source: this._overlaySourceId,
       type: 'fill',
@@ -177,7 +177,7 @@ export class Map extends Component {
       },
     });
 
-    this._mapboxMap.addLayer({
+    this._maplibreMap.addLayer({
       id: this._overlayLineLayerId,
       source: this._overlaySourceId,
       type: 'line',
@@ -187,7 +187,7 @@ export class Map extends Component {
       },
     });
 
-    this._mapboxMap.addLayer({
+    this._maplibreMap.addLayer({
       id: this._overlayFillHighlightId,
       source: this._overlaySourceId,
       type: 'fill',
@@ -203,7 +203,7 @@ export class Map extends Component {
     const bbox = turfBbox(featureCollection);
 
     //bug in mapbox-gl dealing with wrapping bounds
-    //without normalization, mapboxgl will throw on the world layer
+    //without normalization, maplibre will throw on the world layer
     //seems to be fixed when cropping the bounds slightly.
     if (bbox[2] - bbox[0] > 360) {
       bbox[0] = -175;
@@ -211,7 +211,7 @@ export class Map extends Component {
       bbox[2] = 175;
       bbox[3] = 85;
     }
-    this._mapboxMap.fitBounds(bbox);
+    this._maplibreMap.fitBounds(bbox);
   }
 
   render() {
