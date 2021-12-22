@@ -19,7 +19,8 @@ import {
   EuiHeaderLinks,
   EuiHeaderSectionItem,
   EuiHeaderLogo,
-  EuiToast
+  EuiToast,
+  EuiProvider
 } from '@elastic/eui';
 
 import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
@@ -191,7 +192,7 @@ export class App extends Component {
     };
 
     return (
-      <div>
+      <EuiProvider colorMode="light">
         <EuiHeader>
           <EuiHeaderSectionItem border="right">
             <EuiHeaderLogo href="/" aria-label={`${this.props.serviceName} home`} iconType="emsApp" >
@@ -242,7 +243,7 @@ export class App extends Component {
             </div>
           </EuiPageBody>
         </EuiPage>
-      </div>
+      </EuiProvider>
     );
   }
 }

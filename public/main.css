@@ -1,5 +1,5 @@
-@import "../node_modules/@elastic/eui/dist/eui_theme_amsterdam_light.css";
-@import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
+@import "../node_modules/@elastic/eui/dist/eui_theme_light.css";
+@import "../node_modules/maplibre-gl/dist/maplibre-gl.css";
 
 body {
     margin: 0 auto;
@@ -28,7 +28,7 @@ body {
 /* The following will need to be fixed in EUI too */
 
 
-.mapboxgl-popup-close-button {
+.maplibre-popup-close-button {
     padding-left: 7px;
     padding-right: 7px;
 }
