@@ -17,7 +17,7 @@ const ASSET_PATH = process.env.ASSET_PATH || '';
 
 module.exports = {
   entry: {
-    mapbox: './node_modules/mapbox-gl/dist/mapbox-gl.js',
+    maplibre: './node_modules/maplibre-gl/dist/maplibre-gl.js',
     main: ['@babel/polyfill', path.resolve(__dirname, 'public/main.js')]
   },
   mode: 'development',
@@ -39,7 +39,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'resolve-url-loader', 'postcss-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'resolve-url-loader'],
         exclude: /node_modules/
       },
       {
@@ -68,7 +68,7 @@ module.exports = {
   optimization: {
     minimizer: [
       new TerserPlugin({
-        exclude: /node_modules\/(?!mapbox-gl\/dist)/
+        exclude: /node_modules\/(?!maplibre-gl\/dist)/
       })
     ],
     occurrenceOrder: true,
