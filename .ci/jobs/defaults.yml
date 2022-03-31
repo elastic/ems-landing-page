@@ -19,7 +19,7 @@
           &lt;commitId&gt;, etc.)
     - string:
         name: root_branch
-        default: 'v7.12'
+        default: 'v8.2'
         description: Which branch should also be available as the maps.elastic.co root
     node: linux && !oraclelinux
     scm:
