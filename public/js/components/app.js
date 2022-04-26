@@ -23,6 +23,8 @@ import {
   EuiProvider
 } from '@elastic/eui';
 
+import { TMSService } from '@elastic/ems-client';
+
 import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
 
 import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
@@ -89,13 +91,27 @@ export class App extends Component {
 
     this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
-    this._selectTmsLayer = async (tmsLayerConfig) => {
-      const source = await this._getTmsSource(tmsLayerConfig);
-      this.setState({
-        selectedTileLayer: tmsLayerConfig,
-      });
+    this._selectLanguage = (tmsConfig, lang) => {
+      this._selectTmsLayer(tmsConfig, lang);
+    }
 
-      this._map.setTmsLayer(source);
+    this._selectTmsLayer = async (tmsLayerConfig, lang) => {
+      const source = await this._getTmsSource(tmsLayerConfig);
+      const sourceCopy = JSON.parse(JSON.stringify(source));
+
+      try {
+        const langSource = TMSService.transformLanguage(sourceCopy, lang.replace("lang/", "") || "en");
+
+        this.setState({
+          selectedTileLayer: tmsLayerConfig,
+        });
+
+        this._map.setTmsLayer(langSource);
+      } catch (error) {
+        console.error(error);
+        console.error('Adding the default syle');
+        this._map.setTmsLayer(source);
+      }
     };
 
     this._map = null;
@@ -131,7 +147,7 @@ export class App extends Component {
       return service.getId() === 'road_map';
     });
 
-    this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
+    //this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
     this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
   }
 
@@ -211,6 +227,7 @@ export class App extends Component {
         <EuiPage>
           <TableOfContents
             layers={this.props.layers}
+            onLanguageSelect={this._selectLanguage}
             onTmsLayerSelect={this._selectTmsLayer}
             onFileLayerSelect={this._selectFileLayer}
             ref={setToc}

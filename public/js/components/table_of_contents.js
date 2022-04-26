@@ -37,6 +37,7 @@ export class TableOfContents extends Component {
     super(props);
     this.state = {
       selectedTmsId: null,
+      selectLangId: null,
       selectedTmsConfig: null,
       selectedFileId: null,
       selectedFileConfig: null,
@@ -80,11 +81,58 @@ export class TableOfContents extends Component {
         selectedTmsId: id,
         selectedTmsConfig: config
       });
-      this.props.onTmsLayerSelect(config);
+      this.props.onTmsLayerSelect(config, this.state.selectedLangId);
+    }
+
+    if (id.startsWith('lang')) {
+      this.setState({
+        selectedLangId: id,
+        selectedlangConfig: config
+      });
+      this.props.onLanguageSelect(this.state.selectedTmsConfig, config);
     }
   }
 
   _getSidebarItems() {
+    const langItems = [{
+      id: "en",
+      name: "English"
+    }, {
+      id: "ch-CN",
+      name: "Chinese"
+    }, {
+      id: "ja-JP",
+      name: "Japanese"
+    }, {
+      id: "fr-FR",
+      name: "French"
+    }, {
+      id: "es",
+      name: "Spanish"
+    }, {
+      id: "ar",
+      name: "Arabic"
+    }, {
+      id: "hi-IN",
+      name: "Hindi"
+    }, {
+      id: "ru",
+      name: "Russian"
+    }, {
+      id: "pt-PT",
+      name: "Portuguese"
+    }].map(lang => {
+      const id = `lang/${lang.id}`;
+
+      return {
+        id,
+        name: lang.name,
+        title: lang.name,
+        isSelected: this.state.selectedLangId === id,
+        onClick: () => this.selectItem(id, lang.id)
+      }
+    });
+
     const tmsItems = this.props.layers.tms.map((service) => {
       const id = `tms/${service.getId()}`;
       const name = service.getDisplayName();
@@ -109,6 +157,22 @@ export class TableOfContents extends Component {
       };
     });
 
+    const langs = {
+      id: "langs",
+      name: "Languages",
+      title: "Languages",
+      icon: <EuiIcon type="globe" />,
+      items: [
+        {
+          id: "select-lang",
+          name: "Select a language",
+          title: "Select a language",
+          onClick: undefined,
+          items: langItems
+        }
+      ]
+    };
+
     const tiles = {
       id: 'tms',
       name: 'Tile Layers',
@@ -125,6 +189,6 @@ export class TableOfContents extends Component {
       items: fileItems,
     };
 
-    return [tiles, files];
+    return [tiles, langs, files];
   }
 }
