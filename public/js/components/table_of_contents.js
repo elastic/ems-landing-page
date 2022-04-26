@@ -95,32 +95,32 @@ export class TableOfContents extends Component {
 
   _getSidebarItems() {
     const langItems = [{
-      id: "en",
-      name: "English"
+      id: 'en',
+      name: 'English'
     }, {
-      id: "ch-CN",
-      name: "Chinese"
+      id: 'ch-CN',
+      name: 'Chinese'
     }, {
-      id: "ja-JP",
-      name: "Japanese"
+      id: 'ja-JP',
+      name: 'Japanese'
     }, {
-      id: "fr-FR",
-      name: "French"
+      id: 'fr-FR',
+      name: 'French'
     }, {
-      id: "es",
-      name: "Spanish"
+      id: 'es',
+      name: 'Spanish'
     }, {
-      id: "ar",
-      name: "Arabic"
+      id: 'ar',
+      name: 'Arabic'
     }, {
-      id: "hi-IN",
-      name: "Hindi"
+      id: 'hi-IN',
+      name: 'Hindi'
     }, {
-      id: "ru",
-      name: "Russian"
+      id: 'ru-RU',
+      name: 'Russian'
     }, {
-      id: "pt-PT",
-      name: "Portuguese"
+      id: 'pt-PT',
+      name: 'Portuguese'
     }].map(lang => {
       const id = `lang/${lang.id}`;
 
@@ -130,7 +130,7 @@ export class TableOfContents extends Component {
         title: lang.name,
         isSelected: this.state.selectedLangId === id,
         onClick: () => this.selectItem(id, lang.id)
-      }
+      };
     });
 
     const tmsItems = this.props.layers.tms.map((service) => {
@@ -158,15 +158,15 @@ export class TableOfContents extends Component {
     });
 
     const langs = {
-      id: "langs",
-      name: "Languages",
-      title: "Languages",
+      id: 'langs',
+      name: 'Languages',
+      title: 'Languages',
       icon: <EuiIcon type="globe" />,
       items: [
         {
-          id: "select-lang",
-          name: "Select a language",
-          title: "Select a language",
+          id: 'select-lang',
+          name: 'Select a language',
+          title: 'Select a language',
           onClick: undefined,
           items: langItems
         }

@@ -93,14 +93,14 @@ export class App extends Component {
 
     this._selectLanguage = (tmsConfig, lang) => {
       this._selectTmsLayer(tmsConfig, lang);
-    }
+    };
 
     this._selectTmsLayer = async (tmsLayerConfig, lang) => {
       const source = await this._getTmsSource(tmsLayerConfig);
       const sourceCopy = JSON.parse(JSON.stringify(source));
 
       try {
-        const langSource = TMSService.transformLanguage(sourceCopy, lang.replace("lang/", "") || "en");
+        const langSource = TMSService.transformLanguage(sourceCopy, lang.replace('lang/', '') || 'en');
 
         this.setState({
           selectedTileLayer: tmsLayerConfig,
