@@ -49,6 +49,7 @@ import { FeatureTable } from './feature_table';
 import { Map } from './map';
 import { LayerDetails } from './layer_details';
 import URL from 'url-parse';
+import { TMSService } from '@elastic/ems-client';
 
 export class App extends Component {
   constructor(props) {
@@ -115,12 +116,15 @@ export class App extends Component {
       }
     };
 
-    this._changeColor = (color) => {
+    this._changeColor = async (color) => {
       this.setState({
         selectedColor: color
       });
+      const source = await this._getTmsSource(this.state.selectedTileLayer);
+      const sourceCopy = JSON.parse(JSON.stringify(source));
 
-      console.log(`Changing basemap color to ${color}`);
+      const colorizedSource = TMSService.transformColor(sourceCopy, color);
+      this._map.setTmsLayer(colorizedSource);
     };
 
     this._map = null;
