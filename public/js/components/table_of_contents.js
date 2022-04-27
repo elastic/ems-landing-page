@@ -21,6 +21,7 @@ import { icon as EuiIconSearch } from '@elastic/eui/es/components/icon/assets/se
 import { icon as EuiIconArrowDown } from '@elastic/eui/es/components/icon/assets/arrow_down';
 import { icon as EuiIconArrowLeft } from '@elastic/eui/es/components/icon/assets/arrow_left';
 import { icon as EuiIconArrowRight } from '@elastic/eui/es/components/icon/assets/arrow_right';
+import { TMSService } from '@elastic/ems-client';
 
 // One or more icons are passed in as an object of iconKey (string): IconComponent
 appendIconComponentCache({
@@ -86,50 +87,25 @@ export class TableOfContents extends Component {
 
     if (id.startsWith('lang')) {
       this.setState({
-        selectedLangId: id,
-        selectedlangConfig: config
+        selectedLangId: id
       });
-      this.props.onLanguageSelect(this.state.selectedTmsConfig, config);
+      this.props.onLanguageSelect(this.state.selectedTmsConfig, id);
     }
   }
 
   _getSidebarItems() {
-    const langItems = [{
-      id: 'en',
-      name: 'English'
-    }, {
-      id: 'ch-CN',
-      name: 'Chinese'
-    }, {
-      id: 'ja-JP',
-      name: 'Japanese'
-    }, {
-      id: 'fr-FR',
-      name: 'French'
-    }, {
-      id: 'es',
-      name: 'Spanish'
-    }, {
-      id: 'ar',
-      name: 'Arabic'
-    }, {
-      id: 'hi-IN',
-      name: 'Hindi'
-    }, {
-      id: 'ru-RU',
-      name: 'Russian'
-    }, {
-      id: 'pt-PT',
-      name: 'Portuguese'
-    }].map(lang => {
-      const id = `lang/${lang.id}`;
+    const Languages = TMSService.SupportedLanguages;
 
+    const langItems = Object.keys(Languages).map(langKey => {
+      const id = langKey;
+      const langId = `lang/${id}`;
+      const name = Languages[langKey].label;
       return {
         id,
-        name: lang.name,
-        title: lang.name,
-        isSelected: this.state.selectedLangId === id,
-        onClick: () => this.selectItem(id, lang.id)
+        name,
+        title: name,
+        isSelected: this.state.selectedLangId === langId,
+        onClick: () => this.selectItem(langId, id)
       };
     });
 
