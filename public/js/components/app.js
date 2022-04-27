@@ -23,8 +23,6 @@ import {
   EuiProvider
 } from '@elastic/eui';
 
-import { TMSService } from '@elastic/ems-client';
-
 import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
 
 import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
