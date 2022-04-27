@@ -47,3 +47,7 @@ body {
 > .euiSideNavItem__items {
     margin-left: 10px;
 }
+
+.colorPicker {
+    display: block;
+}

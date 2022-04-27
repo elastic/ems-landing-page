@@ -10,9 +10,11 @@ import React, { PureComponent } from 'react';
 import {
   EuiText,
   EuiTitle,
-  EuiBadge
+  EuiBadge,
+  EuiSpacer
 } from '@elastic/eui';
 import { FileLayer } from '@elastic/ems-client';
+import { ColorSelect } from './color_select';
 
 export class LayerDetails extends PureComponent {
   constructor(props) {
@@ -44,6 +46,12 @@ export class LayerDetails extends PureComponent {
           }
           <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution eui-alignMiddle" />
         </EuiText>
+        <EuiSpacer />
+        <ColorSelect
+          layerConfig={this.props.layerConfig}
+          onColorChange={this.props.onColorChange}
+          color={this.props.color}
+        />
       </div>
     );
   }
