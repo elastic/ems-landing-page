@@ -49,6 +49,7 @@ import { FeatureTable } from './feature_table';
 import { Map } from './map';
 import { LayerDetails } from './layer_details';
 import URL from 'url-parse';
+import { TMSService } from '@elastic/ems-client';
 
 export class App extends Component {
   constructor(props) {
@@ -57,6 +58,7 @@ export class App extends Component {
     this.state = {
       selectedTileLayer: null,
       selectedFileLayer: null,
+      selectedColor: '#CCCCCC',
       jsonFeatures: null,
       initialSelection: null
     };
@@ -112,6 +114,17 @@ export class App extends Component {
         console.error('Adding the default syle');
         this._map.setTmsLayer(source);
       }
+    };
+
+    this._changeColor = async (color) => {
+      this.setState({
+        selectedColor: color
+      });
+      const source = await this._getTmsSource(this.state.selectedTileLayer);
+      const sourceCopy = JSON.parse(JSON.stringify(source));
+
+      const colorizedSource = TMSService.transformColor(sourceCopy, color);
+      this._map.setTmsLayer(colorizedSource);
     };
 
     this._map = null;
@@ -240,13 +253,21 @@ export class App extends Component {
               <EuiSpacer size="l" />
               <EuiPageContent>
                 <EuiPageContentBody>
-                  <LayerDetails title="Tile Layer" layerConfig={this.state.selectedTileLayer} />
+                  <LayerDetails
+                    title="Tile Layer"
+                    layerConfig={this.state.selectedTileLayer}
+                    onColorChange={this._changeColor}
+                    color={this.state.selectedColor}
+                  />
                 </EuiPageContentBody>
               </EuiPageContent>
               <EuiSpacer />
               <EuiPageContent>
                 <EuiPageContentBody>
-                  <LayerDetails title="Vector Layer" layerConfig={this.state.selectedFileLayer} />
+                  <LayerDetails
+                    title="Vector Layer"
+                    layerConfig={this.state.selectedFileLayer}
+                  />
                   <EuiSpacer size="l" />
                   <FeatureTable
                     ref={setFeatureTable}
