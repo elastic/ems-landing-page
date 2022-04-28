@@ -105,7 +105,7 @@ export class App extends Component {
         const source = await this._getTmsSource(config);
 
         this._map.setTmsLayer(source);
-        this._updateMap()
+        this._updateMap();
       });
     };
 
@@ -209,24 +209,24 @@ export class App extends Component {
 
     if (selectedColor) {
       try {
-        let params = {}
+        let params = {};
         switch (tmsId) {
           //export type blendMode = 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge';
           case 'road_map':
             params = {
               operation: 'mix',
               percentage: 0.25
-            }
+            };
             break;
           case 'road_map_desaturated':
             params = {
               operation: 'screen'
-            }
+            };
             break;
           case 'dark_map':
             params = {
               operation: 'dodge'
-            }
+            };
             break;
           default:
             break;
@@ -236,7 +236,7 @@ export class App extends Component {
           if (map._maplibreMap.getLayer(id)) {
             properties.forEach(({ property, color }) => {
               map._maplibreMap.setPaintProperty(id, property, color);
-            })
+            });
           }
         });
       } catch (error) {
