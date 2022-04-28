@@ -21,12 +21,8 @@ export class ColorSelect extends PureComponent {
     if (!this.props.onColorChange) {
       return null;
     }
-
-    const isDisabled = this.props?.layerConfig._config.id !== 'road_map_desaturated';
-
     return (
       <EuiFormRow
-        isDisabled={isDisabled}
         className="colorPicker"
         label="Pick a color"
       >
