@@ -38,7 +38,7 @@ export class TableOfContents extends Component {
     super(props);
     this.state = {
       selectedTmsId: null,
-      selectLangId: null,
+      selectedLangId: props.selectedLang,
       selectedTmsConfig: null,
       selectedFileId: null,
       selectedFileConfig: null,
@@ -70,26 +70,32 @@ export class TableOfContents extends Component {
 
   selectItem(id, config) {
     if (id.startsWith('file')) {
-      this.setState({
-        selectedFileId: id,
-        selectedFileConfig: config
+      this.setState(() => {
+        return {
+          selectedFileId: id,
+          selectedFileConfig: config
+        };
       });
       this.props.onFileLayerSelect(config);
     }
 
     if (id.startsWith('tms')) {
-      this.setState({
-        selectedTmsId: id,
-        selectedTmsConfig: config
+      this.setState(() => {
+        return {
+          selectedTmsId: id,
+          selectedTmsConfig: config
+        };
       });
-      this.props.onTmsLayerSelect(config, this.state.selectedLangId);
+      this.props.onTmsLayerSelect(config);
     }
 
     if (id.startsWith('lang')) {
-      this.setState({
-        selectedLangId: id
+      this.setState(() => {
+        return {
+          selectedLangId: id
+        };
       });
-      this.props.onLanguageSelect(this.state.selectedTmsConfig, id);
+      this.props.onLanguageSelect(id);
     }
   }
 

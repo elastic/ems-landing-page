@@ -56,7 +56,8 @@ export class App extends Component {
     this.state = {
       selectedTileLayer: null,
       selectedFileLayer: null,
-      selectedColor: '#CCCCCC',
+      selectedLanguage: 'lang/en',
+      selectedColor: null,
       jsonFeatures: null,
       initialSelection: null
     };
@@ -91,38 +92,22 @@ export class App extends Component {
 
     this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
-    this._selectLanguage = (tmsConfig, lang) => {
-      this._selectTmsLayer(tmsConfig, lang);
+    this._selectLanguage = (lang) => {
+      this.setState(() => {
+        return { selectedLanguage: lang };
+      }, this._updateMap)
     };
 
-    this._selectTmsLayer = async (tmsLayerConfig, lang) => {
-      const source = await this._getTmsSource(tmsLayerConfig);
-      const sourceCopy = JSON.parse(JSON.stringify(source));
-
-      try {
-        const langSource = TMSService.transformLanguage(sourceCopy, lang.replace('lang/', '') || 'en');
-
-        this.setState({
-          selectedTileLayer: tmsLayerConfig,
-        });
-
-        this._map.setTmsLayer(langSource);
-      } catch (error) {
-        console.error(error);
-        console.error('Adding the default syle');
-        this._map.setTmsLayer(source);
-      }
+    this._selectTmsLayer = async (config) => {
+      this.setState(() => {
+        return { selectedTileLayer: config };
+      }, this._updateMap)
     };
 
     this._changeColor = async (color) => {
-      this.setState({
-        selectedColor: color
-      });
-      const source = await this._getTmsSource(this.state.selectedTileLayer);
-      const sourceCopy = JSON.parse(JSON.stringify(source));
-
-      const colorizedSource = TMSService.transformColor(sourceCopy, color);
-      this._map.setTmsLayer(colorizedSource);
+      this.setState(() => {
+        return { selectedColor: color };
+      }, this._updateMap)
     };
 
     this._map = null;
@@ -190,6 +175,63 @@ export class App extends Component {
     window.location.hash = `file/${layerConfig.getId()}`;
   }
 
+  async _updateMap() {
+    console.log('Updating the map....');
+    const { selectedTileLayer, selectedColor, selectedLanguage } = this.state;
+
+    if (!selectedTileLayer) {
+      return;
+    }
+
+    const tmsId = selectedTileLayer._config.id;
+
+    console.log(`[${tmsId}] - [${selectedLanguage}] - [${selectedColor}]`);
+
+
+    const source = await this._getTmsSource(selectedTileLayer);
+    console.log(`Source last label: ${source?.layers[109]?.layout['text-field']}`)
+    let sourceCopy = JSON.parse(JSON.stringify(source));
+
+    // Transform lang
+    if (selectedLanguage) {
+      const lang = selectedLanguage.replace('lang/', '');
+      try {
+        sourceCopy = TMSService.transformLanguage(sourceCopy, lang);
+      } catch (error) {
+        console.error(error);
+        console.error(`Error transforming to ${lang}`);
+      }
+    }
+
+    if (selectedColor) {
+      try {
+        switch (tmsId) {
+          //export type blendMode = 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge';
+          case 'road_map':
+            // sourceCopy = TMSService.transformColor(sourceCopy, selectedColor, 'screen');
+            // sourceCopy = TMSService.transformColor(sourceCopy, selectedColor, 'overlay');
+            sourceCopy = TMSService.transformColor(sourceCopy, selectedColor, 'mix', 0.25);
+
+            break;
+          case 'road_map_desaturated':
+            sourceCopy = TMSService.transformColor(sourceCopy, selectedColor, 'screen');
+            break;
+          case 'dark_map':
+            // sourceCopy = TMSService.transformColor(sourceCopy, selectedColor, 'overlay');
+            sourceCopy = TMSService.transformColor(sourceCopy, selectedColor, 'dodge');
+            break;
+          default:
+            break;
+        }
+
+      } catch (error) {
+        console.error(error);
+        console.error(`Error transforming to color ${selectedColor}`);
+      }
+    }
+
+    this._map.setTmsLayer(sourceCopy);
+  }
   render() {
 
     if (!Map.isSupported()) {
@@ -238,6 +280,7 @@ export class App extends Component {
         <EuiPage>
           <TableOfContents
             layers={this.props.layers}
+            selectedLang={this.state.selectedLanguage}
             onLanguageSelect={this._selectLanguage}
             onTmsLayerSelect={this._selectTmsLayer}
             onFileLayerSelect={this._selectFileLayer}
