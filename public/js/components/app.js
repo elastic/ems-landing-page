@@ -95,7 +95,9 @@ export class App extends Component {
     this._selectLanguage = (lang) => {
       this.setState(() => {
         return { selectedLanguage: lang };
-      }, this._updateMap);
+      }, () => {
+        this._updateMap(this.state, this?._map?._maplibreMap);
+      });
     };
 
     this._selectTmsLayer = async (config) => {
@@ -104,15 +106,18 @@ export class App extends Component {
       }, async () => {
         const source = await this._getTmsSource(config);
 
-        this._map.setTmsLayer(source);
-        this._updateMap();
+        this._map.setTmsLayer(source, (map) => {
+          this._updateMap(this.state, map);
+        });
       });
     };
 
     this._changeColor = async (color) => {
       this.setState(() => {
         return { selectedColor: color };
-      }, this._updateMap);
+      }, (state) => {
+        this._updateMap(state, this?._map?._maplibreMap);
+      });
     };
 
     this._map = null;
@@ -180,27 +185,35 @@ export class App extends Component {
     window.location.hash = `file/${layerConfig.getId()}`;
   }
 
-  async _updateMap() {
-    console.log('Updating the map....');
-    const map = this._map;
-    const { selectedTileLayer, selectedColor, selectedLanguage } = this.state;
+  async _updateMap(state = this.state, mlMap = this?._map?._maplibreMap) {
+
+    if (!state) {
+      return;
+    }
+
+    const { selectedTileLayer, selectedColor, selectedLanguage } = state;
 
     if (!selectedTileLayer) {
       return;
     }
 
     const tmsId = selectedTileLayer._config.id;
-    const source = await this._getTmsSource(selectedTileLayer);
+    const source = await (selectedTileLayer.getVectorStyleSheet());
 
     // Iterate over map layers to change the layout[text-field] property
     if (selectedLanguage) {
       const lang = selectedLanguage.replace('lang/', '');
       try {
-        TMSService.transformLanguageProperty(source, lang).forEach(({ id, textField }) => {
-          if (map._maplibreMap.getLayer(id)) {
-            map._maplibreMap.setLayoutProperty(id, 'text-field', textField);
-          }
-        });
+        if (!(mlMap && mlMap.isStyleLoaded())) {
+          return;
+        } else {
+          source.layers.forEach(layer => {
+            const textField = TMSService.transformLanguageProperty(layer, lang);
+            if (textField) {
+              mlMap.setLayoutProperty(layer.id, 'text-field', textField);
+            }
+          });
+        }
       } catch (error) {
         console.error(error);
         console.error(`Error transforming to ${lang}`);
@@ -232,12 +245,12 @@ export class App extends Component {
             break;
         }
 
-        TMSService.transformColorProperty(source, selectedColor, params.operation, params.percentage).forEach(({ id, properties }) => {
-          if (map._maplibreMap.getLayer(id)) {
-            properties.forEach(({ property, color }) => {
-              map._maplibreMap.setPaintProperty(id, property, color);
+        source?.layers.forEach(layer => {
+          TMSService
+            .transformColorProperties(layer, selectedColor, params.operation, params.percentage)
+            .forEach(({ color, property }) => {
+              mlMap.setPaintProperty(layer.id, property, color);
             });
-          }
         });
       } catch (error) {
         console.error(error);

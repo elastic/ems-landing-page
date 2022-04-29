@@ -150,13 +150,22 @@ export class Map extends Component {
     };
   }
 
-  setTmsLayer(source) {
+  setTmsLayer(source, callback) {
     // The setStyle method removes all layers and sources from the map including the overlays.
     // We must persist the overlay layers and overlay source by creating a new style from
     // the incoming source and the overlay layers.
     const newStyle = this._persistOverlayLayers(source);
 
     this._maplibreMap.setStyle(newStyle, { diff: false });
+
+    const waiting = () => {
+      if (!this._maplibreMap.isStyleLoaded()) {
+        setTimeout(waiting, 200);
+      } else {
+        callback(this._maplibreMap);
+      }
+    };
+    waiting();
   }
 
   setOverlayLayer(featureCollection) {
