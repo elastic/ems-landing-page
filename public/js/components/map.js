@@ -160,7 +160,7 @@ export class Map extends Component {
 
     const waiting = () => {
       if (!this._maplibreMap.isStyleLoaded()) {
-        setTimeout(waiting, 200);
+        setTimeout(waiting, 50);
       } else {
         callback(this._maplibreMap);
       }

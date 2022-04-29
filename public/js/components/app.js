@@ -56,8 +56,10 @@ export class App extends Component {
     this.state = {
       selectedTileLayer: null,
       selectedFileLayer: null,
-      selectedLanguage: 'lang/en',
+      selectedLanguage: 'en',
       selectedColor: null,
+      selectedColorOp: 'overlay',
+      selectedPercentage: 0.25,
       jsonFeatures: null,
       initialSelection: null
     };
@@ -115,6 +117,22 @@ export class App extends Component {
     this._changeColor = async (color) => {
       this.setState(() => {
         return { selectedColor: color };
+      }, (state) => {
+        this._updateMap(state, this?._map?._maplibreMap);
+      });
+    };
+
+    this._changeColorOp = async (colorOp) => {
+      this.setState(() => {
+        return { selectedColorOp: colorOp };
+      }, (state) => {
+        this._updateMap(state, this?._map?._maplibreMap);
+      });
+    };
+
+    this._onPercentageChange = async (percentage) => {
+      this.setState(() => {
+        return {selectedPercentage: percentage};
       }, (state) => {
         this._updateMap(state, this?._map?._maplibreMap);
       });
@@ -197,12 +215,17 @@ export class App extends Component {
       return;
     }
 
-    const tmsId = selectedTileLayer._config.id;
     const source = await (selectedTileLayer.getVectorStyleSheet());
+
+    if (!source){
+      console.error('updateMap: Source not found')
+      return;
+    }
 
     // Iterate over map layers to change the layout[text-field] property
     if (selectedLanguage) {
-      const lang = selectedLanguage.replace('lang/', '');
+      console.log(`updateMap: translating to ${selectedLanguage}`);
+      const lang = selectedLanguage;
       try {
         if (!(mlMap && mlMap.isStyleLoaded())) {
           return;
@@ -222,28 +245,32 @@ export class App extends Component {
 
     if (selectedColor) {
       try {
-        let params = {};
-        switch (tmsId) {
-          //export type blendMode = 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge';
-          case 'road_map':
-            params = {
-              operation: 'mix',
-              percentage: 0.25
-            };
-            break;
-          case 'road_map_desaturated':
-            params = {
-              operation: 'screen'
-            };
-            break;
-          case 'dark_map':
-            params = {
-              operation: 'dodge'
-            };
-            break;
-          default:
-            break;
-        }
+        let params = {
+          operation: this.state.selectedColorOp,
+          percentage: this.state.selectedPercentage
+        };
+        // const tmsId = selectedTileLayer._config.id;
+        // switch (tmsId) {
+        //   //export type blendMode = 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge';
+        //   case 'road_map':
+        //     params = {
+        //       operation: 'mix',
+        //       percentage: 0.25
+        //     };
+        //     break;
+        //   case 'road_map_desaturated':
+        //     params = {
+        //       operation: 'screen'
+        //     };
+        //     break;
+        //   case 'dark_map':
+        //     params = {
+        //       operation: 'dodge'
+        //     };
+        //     break;
+        //   default:
+        //     break;
+        // }
 
         source?.layers.forEach(layer => {
           TMSService
@@ -323,8 +350,13 @@ export class App extends Component {
                   <LayerDetails
                     title="Tile Layer"
                     layerConfig={this.state.selectedTileLayer}
+                    onLanguageChange={this._selectLanguage}
                     onColorChange={this._changeColor}
+                    onColorOpChange={this._changeColorOp}
+                    onPercentageChange={this._onPercentageChange}
                     color={this.state.selectedColor}
+                    colorOp={this.state.selectedColorOp}
+                    percentage={this.state.selectedPercentage}
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
