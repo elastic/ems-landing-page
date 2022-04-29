@@ -14,7 +14,7 @@ import {
   EuiSpacer
 } from '@elastic/eui';
 import { FileLayer } from '@elastic/ems-client';
-import { ColorSelect } from './color_select';
+import { CustomizeTMS } from './customize_tms';
 
 export class LayerDetails extends PureComponent {
   constructor(props) {
@@ -47,11 +47,16 @@ export class LayerDetails extends PureComponent {
           <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution eui-alignMiddle" />
         </EuiText>
         <EuiSpacer />
-        <ColorSelect
+        <CustomizeTMS
           layerConfig={this.props.layerConfig}
+          onLanguageChange={this.props.onLanguageChange}
           onColorChange={this.props.onColorChange}
+          onColorOpChange={this.props.onColorOpChange}
+          onPercentageChange={this.props.onPercentageChange}
           color={this.props.color}
-        />
+          colorOp={this.props.colorOp}
+          percentage={this.props.percentage}
+        ></CustomizeTMS>
       </div>
     );
   }
