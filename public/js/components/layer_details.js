@@ -56,7 +56,7 @@ export class LayerDetails extends PureComponent {
           color={this.props.color}
           colorOp={this.props.colorOp}
           percentage={this.props.percentage}
-        ></CustomizeTMS>
+        />
       </div>
     );
   }
