@@ -26,8 +26,8 @@ export class CustomizeTMS extends PureComponent {
         label: lang.label,
         key,
         code: lang.omtCode
-      }
-    })
+      };
+    });
 
     this.state = {
       supportedLanguages,
@@ -45,7 +45,7 @@ export class CustomizeTMS extends PureComponent {
       selectedColor: this.props.color,
       selectedColorOp: { label: this.props.colorOp },
       selectedPercentage: this.props.percentage
-    }
+    };
 
 
     this._onLanguageChange = (selectedOptions) => {
@@ -55,23 +55,23 @@ export class CustomizeTMS extends PureComponent {
         this.setState(() => {
           return {
             selectedLanguage: lang
-          }
+          };
         }, () => {
           this.props.onLanguageChange(lang.key);
-        })
+        });
       }
-    }
+    };
 
     this._onColorChange = (color) => {
       console.log(color);
       this.setState(() => {
         return {
           selectedColor: color
-        }
+        };
       }, () => {
         this.props.onColorChange(color);
       });
-    } 
+    };
 
     this._onColorOpChange = (selectedOptions) => {
       const colorOp = selectedOptions[0];
@@ -79,23 +79,23 @@ export class CustomizeTMS extends PureComponent {
         this.setState(() => {
           return {
             selectedColorOp: colorOp
-          }
+          };
         }, () => {
           this.props.onColorOpChange(colorOp.label);
         });
       }
-    }
+    };
 
     this._onPercentageChange = (e) => {
       console.log(e.target.value);
       this.setState(() => {
         return {
           selectedPercentage: e.target.value
-        }
+        };
       }, () => {
         this.props.onPercentageChange(parseFloat(e.target.value));
       });
-    }
+    };
   }
 
   render() {

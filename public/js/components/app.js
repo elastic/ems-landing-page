@@ -132,7 +132,7 @@ export class App extends Component {
 
     this._onPercentageChange = async (percentage) => {
       this.setState(() => {
-        return {selectedPercentage: percentage};
+        return { selectedPercentage: percentage };
       }, (state) => {
         this._updateMap(state, this?._map?._maplibreMap);
       });
@@ -217,8 +217,8 @@ export class App extends Component {
 
     const source = await (selectedTileLayer.getVectorStyleSheet());
 
-    if (!source){
-      console.error('updateMap: Source not found')
+    if (!source) {
+      console.error('updateMap: Source not found');
       return;
     }
 
@@ -245,7 +245,7 @@ export class App extends Component {
 
     if (selectedColor) {
       try {
-        let params = {
+        const params = {
           operation: this.state.selectedColorOp,
           percentage: this.state.selectedPercentage
         };
