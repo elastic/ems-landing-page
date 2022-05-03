@@ -64,7 +64,7 @@ export class App extends Component {
       initialSelection: null
     };
 
-    this._selectFileLayer = async (fileLayerConfig) => {
+    this._selectFileLayer = async (fileLayerConfig, skipZoom) => {
 
       this._featuretable.startLoading();
       const featureCollection = await fileLayerConfig.getGeoJson();
@@ -80,7 +80,7 @@ export class App extends Component {
 
 
       this._setFileRoute(fileLayerConfig);
-      this._map.setOverlayLayer(featureCollection);
+      this._map.setOverlayLayer(featureCollection, skipZoom, this.state.selectedColor);
       this._featuretable.stopLoading();
     };
 
@@ -119,6 +119,9 @@ export class App extends Component {
         return { selectedColor: color };
       }, (state) => {
         this._updateMap(state, this?._map?._maplibreMap);
+        if (this.state.selectedFileLayer) {
+          this._selectFileLayer(this.state.selectedFileLayer, true);
+        }
       });
     };
 
@@ -152,27 +155,17 @@ export class App extends Component {
       return;
     }
 
-    let vectorLayerSelection = this._readFileRoute();
-    if (!vectorLayerSelection) {
-      //fallback to the first layer from the manifest
-      const firstLayer = this.props.layers.file[0];
-      if (!firstLayer) {
-        window.location.hash = '';
-        return;
-      }
-      vectorLayerSelection = {
-        config: firstLayer,
-        path: `file/${firstLayer.getId()}`
-      };
-    }
-    this._selectFileLayer(vectorLayerSelection.config);
-
     const baseLayer = this.props.layers.tms.find((service) => {
       return service.getId() === 'road_map';
     });
-
-    //this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
     this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
+
+
+    const vectorLayerSelection = this._readFileRoute();
+    if (vectorLayerSelection) {
+      this._selectFileLayer(vectorLayerSelection.config);
+      this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
+    }
   }
 
   _readFileRoute() {
@@ -279,12 +272,18 @@ export class App extends Component {
               mlMap.setPaintProperty(layer.id, property, color);
             });
         });
+
+        if (mlMap && mlMap?.redraw === 'function') {
+          mlMap.redraw();
+        }
       } catch (error) {
         console.error(error);
         console.error(`Error transforming to color ${selectedColor}`);
       }
     }
   }
+
+
   render() {
 
     if (!Map.isSupported()) {

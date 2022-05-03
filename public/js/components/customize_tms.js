@@ -20,13 +20,8 @@ export class CustomizeTMS extends PureComponent {
   constructor(props) {
     super(props);
 
-    const supportedLanguages = Object.keys(TMSService.SupportedLanguages).map(key => {
-      const lang = TMSService.SupportedLanguages[key];
-      return {
-        label: lang.label,
-        key,
-        code: lang.omtCode
-      };
+    const supportedLanguages = TMSService.SupportedLanguages.map(({ key, label }) => {
+      return { key, label };
     });
 
     this.state = {
@@ -63,7 +58,6 @@ export class CustomizeTMS extends PureComponent {
     };
 
     this._onColorChange = (color) => {
-      console.log(color);
       this.setState(() => {
         return {
           selectedColor: color
@@ -87,7 +81,6 @@ export class CustomizeTMS extends PureComponent {
     };
 
     this._onPercentageChange = (e) => {
-      console.log(e.target.value);
       this.setState(() => {
         return {
           selectedPercentage: e.target.value
