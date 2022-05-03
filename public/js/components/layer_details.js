@@ -12,6 +12,7 @@ import {
   EuiTitle,
   EuiBadge
 } from '@elastic/eui';
+import { FileLayer } from '@elastic/ems-client';
 
 export class LayerDetails extends PureComponent {
   constructor(props) {
@@ -19,18 +20,29 @@ export class LayerDetails extends PureComponent {
   }
 
   render() {
-    if (!this.props.layerConfig) {
+    const config = this.props.layerConfig;
+
+    if (config === null) {
       return null;
     }
-    const attributionsHtmlString = 'Attribution: ' + getAttributionString(this.props.layerConfig);
+    const attributionsHtmlString = 'Attribution: ' + getAttributionString(config);
+    const defaultVectorFormat = config instanceof FileLayer ? config.getDefaultFormatType() : null;
     return (
       <div>
         <EuiTitle size="s" className="layerTitle">
           <h2>Selected {this.props.title}: {this.props.layerConfig.getDisplayName()}</h2>
         </EuiTitle>
         <EuiText size="s">
-          <EuiBadge>Layer Id: {this.props.layerConfig.getId()}</EuiBadge>
-          <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution eui-alignMiddle"/>
+          <EuiBadge>Layer Id: <strong>{this.props.layerConfig.getId()}</strong></EuiBadge>
+          {
+            defaultVectorFormat ?
+              <EuiBadge>
+                Default format: <strong>{defaultVectorFormat}</strong>
+              </EuiBadge>
+              :
+              <></>
+          }
+          <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution eui-alignMiddle" />
         </EuiText>
       </div>
     );
