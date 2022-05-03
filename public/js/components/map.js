@@ -11,6 +11,7 @@ import mbRtlPlugin from '!!file-loader!@mapbox/mapbox-gl-rtl-text/mapbox-gl-rtl-
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 import React, { Component } from 'react';
+import chroma from 'chroma-js';
 
 maplibre.setRTLTextPlugin(mbRtlPlugin);
 
@@ -142,7 +143,11 @@ export class Map extends Component {
     const curStyle = this._maplibreMap.getStyle();
     const overlayLayers = curStyle.layers.filter(layer => overlayLayerIds.includes(layer.id));
     const overlaySource = { ...curStyle.sources };
-    const layers = [...source.layers, ...overlayLayers];
+
+    const nonLabelLayers = source.layers.filter(l => l.type !== 'symbol');
+    const labelLayers = source.layers.filter(l => l.type === 'symbol');
+
+    const layers = [ nonLabelLayers, overlayLayers, labelLayers].flat();
     const sources = { ...source.sources, ...overlaySource };
     return {
       ...source,
@@ -168,33 +173,42 @@ export class Map extends Component {
     waiting();
   }
 
-  setOverlayLayer(featureCollection) {
+  setOverlayLayer(featureCollection, skipZoom, fillColor) {
     this._removeOverlayLayer();
+
+    const fill = fillColor ? chroma(fillColor) :  chroma('rgb(220,220,220)');
+    // highilight with the complementary color
+    const highlight = fillColor ? fill.set('hsl.h', '+180') : chroma('#627BC1');
+
+    const border = fill.darken(2);
 
     this._maplibreMap.addSource(this._overlaySourceId, {
       type: 'geojson',
       data: featureCollection,
     });
 
+    //Get the first symbol layer id
+    const firstSymbol = this._maplibreMap.getStyle().layers.find(l => l.type ===  'symbol');
+
     this._maplibreMap.addLayer({
       id: this._overlayFillLayerId,
       source: this._overlaySourceId,
       type: 'fill',
       paint: {
-        'fill-color': 'rgb(220,220,220)',
+        'fill-color': fill.css(),
         'fill-opacity': 0.6,
       },
-    });
+    }, firstSymbol?.id);
 
     this._maplibreMap.addLayer({
       id: this._overlayLineLayerId,
       source: this._overlaySourceId,
       type: 'line',
       paint: {
-        'line-color': 'rgb(0,0,0)',
+        'line-color': border.css(),
         'line-width': 1,
       },
-    });
+    }, firstSymbol?.id);
 
     this._maplibreMap.addLayer({
       id: this._overlayFillHighlightId,
@@ -202,25 +216,26 @@ export class Map extends Component {
       type: 'fill',
       layout: {},
       paint: {
-        'fill-color': '#627BC1',
+        'fill-color': highlight.css(),
         'fill-opacity': 1,
       },
       filter: ['==', 'name', ''],
-    });
+    }, firstSymbol?.id);
 
+    if (!skipZoom) {
+      const bbox = turfBbox(featureCollection);
 
-    const bbox = turfBbox(featureCollection);
-
-    //bug in mapbox-gl dealing with wrapping bounds
-    //without normalization, maplibre will throw on the world layer
-    //seems to be fixed when cropping the bounds slightly.
-    if (bbox[2] - bbox[0] > 360) {
-      bbox[0] = -175;
-      bbox[1] = -85;
-      bbox[2] = 175;
-      bbox[3] = 85;
+      //bug in mapbox-gl dealing with wrapping bounds
+      //without normalization, maplibre will throw on the world layer
+      //seems to be fixed when cropping the bounds slightly.
+      if (bbox[2] - bbox[0] > 360) {
+        bbox[0] = -175;
+        bbox[1] = -85;
+        bbox[2] = 175;
+        bbox[3] = 85;
+      }
+      this._maplibreMap.fitBounds(bbox);
     }
-    this._maplibreMap.fitBounds(bbox);
   }
 
   render() {
