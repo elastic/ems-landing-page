@@ -20,9 +20,12 @@ export class CustomizeTMS extends PureComponent {
   constructor(props) {
     super(props);
 
-    const supportedLanguages = TMSService.SupportedLanguages.map(({ key, label }) => {
+    const supportedLanguages = [{
+      key: 'default',
+      label: 'Default'
+    }, TMSService.SupportedLanguages.map(({ key, label }) => {
       return { key, label };
-    });
+    })].flat();
 
     this.state = {
       supportedLanguages,
@@ -36,12 +39,11 @@ export class CustomizeTMS extends PureComponent {
         { label: 'dodge' },
         { label: 'mix' }
       ],
-      selectedLanguage: supportedLanguages.find(v => v.key === 'en'),
+      selectedLanguage: supportedLanguages.find(l => l.key === this.props.language),
       selectedColor: this.props.color,
       selectedColorOp: { label: this.props.colorOp },
       selectedPercentage: this.props.percentage
     };
-
 
     this._onLanguageChange = (selectedOptions) => {
       const lang = selectedOptions[0];
@@ -89,6 +91,23 @@ export class CustomizeTMS extends PureComponent {
         this.props.onPercentageChange(parseFloat(e.target.value));
       });
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.colorOp !== this.props.colorOp || prevProps.percentage !== this.props.percentage)
+    /*
+      rule can be disabled because the state is
+      conditionally updated depending on the new props values
+      */
+
+    /* eslint-disable react/no-did-update-set-state */
+    {this.setState(() => {
+      return {
+        selectedColorOp: { label: this.props.colorOp },
+        selectedPercentage: parseFloat(this.props.percentage)
+      };
+    });}
+    /* eslint-enable react/no-did-update-set-state */
   }
 
   render() {

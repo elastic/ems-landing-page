@@ -56,7 +56,7 @@ export class App extends Component {
     this.state = {
       selectedTileLayer: null,
       selectedFileLayer: null,
-      selectedLanguage: 'en',
+      selectedLanguage: 'default',
       selectedColor: null,
       selectedColorOp: 'overlay',
       selectedPercentage: 0.25,
@@ -109,7 +109,15 @@ export class App extends Component {
         const source = await this._getTmsSource(config);
 
         this._map.setTmsLayer(source, (map) => {
-          this._updateMap(this.state, map);
+          this.setState(() => {
+            const { operation, percentage } = TMSService.colorOperationDefaults.find(c => c.style === config.getId());
+            return {
+              selectedColorOp: operation,
+              selectedPercentage: percentage
+            };
+          }, async () => {
+            this._updateMap(this.state, map);
+          });
         });
       });
     };
@@ -217,14 +225,20 @@ export class App extends Component {
 
     // Iterate over map layers to change the layout[text-field] property
     if (selectedLanguage) {
-      console.log(`updateMap: translating to ${selectedLanguage}`);
       const lang = selectedLanguage;
+      const defaultStyle = lang === 'default' ? await this.state.selectedTileLayer.getVectorStyleSheet() : null;
       try {
         if (!(mlMap && mlMap.isStyleLoaded())) {
           return;
         } else {
           source.layers.forEach(layer => {
-            const textField = TMSService.transformLanguageProperty(layer, lang);
+            const textField = lang !== 'default'
+              ? TMSService.transformLanguageProperty(layer, lang)
+              : defaultStyle?.layers.find(l => l.id === layer.id)?.layout?.['text-field'];
+
+            if (layer.id.startsWith('place')) {
+              console.log(`[${layer.id}] | ${textField}`);
+            }
             if (textField) {
               mlMap.setLayoutProperty(layer.id, 'text-field', textField);
             }
@@ -242,28 +256,6 @@ export class App extends Component {
           operation: this.state.selectedColorOp,
           percentage: this.state.selectedPercentage
         };
-        // const tmsId = selectedTileLayer._config.id;
-        // switch (tmsId) {
-        //   //export type blendMode = 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge';
-        //   case 'road_map':
-        //     params = {
-        //       operation: 'mix',
-        //       percentage: 0.25
-        //     };
-        //     break;
-        //   case 'road_map_desaturated':
-        //     params = {
-        //       operation: 'screen'
-        //     };
-        //     break;
-        //   case 'dark_map':
-        //     params = {
-        //       operation: 'dodge'
-        //     };
-        //     break;
-        //   default:
-        //     break;
-        // }
 
         source?.layers.forEach(layer => {
           TMSService
@@ -353,6 +345,7 @@ export class App extends Component {
                     onColorChange={this._changeColor}
                     onColorOpChange={this._changeColorOp}
                     onPercentageChange={this._onPercentageChange}
+                    language={this.state.selectedLanguage}
                     color={this.state.selectedColor}
                     colorOp={this.state.selectedColorOp}
                     percentage={this.state.selectedPercentage}
