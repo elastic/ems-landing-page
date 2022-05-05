@@ -355,11 +355,16 @@ export class App extends Component {
               <EuiSpacer />
               <EuiPageContent>
                 <EuiPageContentBody>
-                  <LayerDetails
-                    title="Vector Layer"
-                    layerConfig={this.state.selectedFileLayer}
-                  />
-                  <EuiSpacer size="l" />
+                  {
+                    (this.state.selectedFileLayer) &&
+                    <>
+                      <LayerDetails
+                        title="Vector Layer"
+                        layerConfig={this.state.selectedFileLayer}
+                      />
+                      <EuiSpacer size="l" />
+                    </>
+                  }
                   <FeatureTable
                     ref={setFeatureTable}
                     jsonFeatures={this.state.jsonFeatures}
