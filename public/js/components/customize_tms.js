@@ -16,17 +16,25 @@ import {
   EuiRange
 } from '@elastic/eui';
 
+const supportedLanguages = [
+  { key: 'default', label: 'Default' },
+  { key: 'ar', label: 'العربية' },
+  { key: 'de', label: 'Deutsch' },
+  { key: 'en', label: 'English' },
+  { key: 'es', label: 'Español' },
+  { key: 'fr-fr', label: 'Français' },
+  { key: 'hi-in', label: 'हिन्दी' },
+  { key: 'it', label: 'Italiano' },
+  { key: 'ja-jp', label: '日本語' },
+  { key: 'ko', label: '한국어' },
+  { key: 'pt-pt', label: 'Português' },
+  { key: 'ru-ru', label: 'русский' },
+  { key: 'zh-cn', label: '简体中文' },
+];
+
 export class CustomizeTMS extends PureComponent {
   constructor(props) {
     super(props);
-
-    const supportedLanguages = [{
-      key: 'default',
-      label: 'Default'
-    }, TMSService.SupportedLanguages.map(({ key, label }) => {
-      return { key, label };
-    })].flat();
-
     this.state = {
       supportedLanguages,
       supportedOperations: [
@@ -100,13 +108,14 @@ export class CustomizeTMS extends PureComponent {
       conditionally updated depending on the new props values
       */
 
-    /* eslint-disable react/no-did-update-set-state */
-    {this.setState(() => {
-      return {
-        selectedColorOp: { label: this.props.colorOp },
-        selectedPercentage: parseFloat(this.props.percentage)
-      };
-    });}
+    /* eslint-disable react/no-did-update-set-state */ {
+      this.setState(() => {
+        return {
+          selectedColorOp: { label: this.props.colorOp },
+          selectedPercentage: parseFloat(this.props.percentage)
+        };
+      });
+    }
     /* eslint-enable react/no-did-update-set-state */
   }
 

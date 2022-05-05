@@ -228,17 +228,12 @@ export class App extends Component {
       const lang = selectedLanguage;
       const defaultStyle = lang === 'default' ? await this.state.selectedTileLayer.getVectorStyleSheet() : null;
       try {
-        if (!(mlMap && mlMap.isStyleLoaded())) {
-          return;
-        } else {
+        if (mlMap && mlMap.isStyleLoaded()) {
           source.layers.forEach(layer => {
             const textField = lang !== 'default'
               ? TMSService.transformLanguageProperty(layer, lang)
               : defaultStyle?.layers.find(l => l.id === layer.id)?.layout?.['text-field'];
 
-            if (layer.id.startsWith('place')) {
-              console.log(`[${layer.id}] | ${textField}`);
-            }
             if (textField) {
               mlMap.setLayoutProperty(layer.id, 'text-field', textField);
             }
