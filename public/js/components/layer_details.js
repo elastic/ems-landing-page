@@ -46,7 +46,7 @@ export class LayerDetails extends PureComponent {
           }
           <span dangerouslySetInnerHTML={{ __html: attributionsHtmlString }} className="attribution eui-alignMiddle" />
         </EuiText>
-        <EuiSpacer />
+        <EuiSpacer size='m' />
         <CustomizeTMS
           layerConfig={this.props.layerConfig}
           onLanguageChange={this.props.onLanguageChange}

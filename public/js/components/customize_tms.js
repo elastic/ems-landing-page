@@ -13,7 +13,9 @@ import {
   EuiFormRow,
   EuiColorPicker,
   EuiComboBox,
-  EuiRange
+  EuiRange,
+  EuiPanel,
+  EuiTitle
 } from '@elastic/eui';
 
 const supportedLanguages = [
@@ -127,52 +129,66 @@ export class CustomizeTMS extends PureComponent {
     }
 
     return (
-      <EuiFlexGroup>
-        <EuiFlexItem>
-          <EuiFormRow label="Language" helpText="Select the language of the basemap labels">
-            <EuiComboBox
-              isClearable={false}
-              singleSelection={{ asPlainText: true }}
-              options={this.state.supportedLanguages}
-              selectedOptions={[this.state.selectedLanguage]}
-              onChange={this._onLanguageChange}
-            />
-          </EuiFormRow>
+      <EuiFlexGroup gutterSize={'s'}>
+        <EuiFlexItem grow={false}>
+          <EuiPanel hasShadow={false} hasBorder paddingSize='m'>
+            <EuiTitle size='xs' className='formTitle'><h3>Labels</h3></EuiTitle>
+            <EuiFormRow label="Language" helpText="Select the language of the basemap labels" grow={false} display="rowCompressed">
+              <EuiComboBox
+                compressed
+                isClearable={false}
+                singleSelection={{ asPlainText: true }}
+                options={this.state.supportedLanguages}
+                selectedOptions={[this.state.selectedLanguage]}
+                onChange={this._onLanguageChange}
+              />
+            </EuiFormRow>
+          </EuiPanel>
         </EuiFlexItem>
         <EuiFlexItem>
-          <EuiFormRow label="Pick a color" helpText="Choose a color to modify the basemap">
-            <EuiColorPicker
-              onChange={this._onColorChange}
-              color={this.props.color}
-            />
-          </EuiFormRow>
-        </EuiFlexItem>
-        <EuiFlexItem>
-          <EuiFormRow label="Pick a blend method" helpText="Select an operation to apply to the color">
-            <EuiComboBox
-              isClearable={false}
-              singleSelection={{ asPlainText: true }}
-              options={this.state.supportedOperations}
-              selectedOptions={[this.state.selectedColorOp]}
-              onChange={this._onColorOpChange}
-              isDisabled={!this.state?.selectedColor}
-            />
-          </EuiFormRow>
-        </EuiFlexItem>
-        <EuiFlexItem>
-          <EuiFormRow label="Select a mix percentage" helpText="Define how much of the color to mix">
-            <EuiRange
-              id="percentageRange"
-              showLabels
-              showValue
-              min={0}
-              max={1}
-              step={0.05}
-              value={this.state.selectedPercentage}
-              onChange={this._onPercentageChange}
-              disabled={this.state?.selectedColorOp?.label !== 'mix'}
-            />
-          </EuiFormRow>
+          <EuiPanel hasShadow={false} hasBorder paddingSize='m'>
+            <EuiTitle size='xs' className='formTitle'><h3>Color blending</h3></EuiTitle>
+            <EuiFlexGroup>
+              <EuiFlexItem>
+                <EuiFormRow label="Color" helpText="Choose a color to modify the basemap" display="rowCompressed">
+                  <EuiColorPicker
+                    compressed
+                    onChange={this._onColorChange}
+                    color={this.props.color}
+                  />
+                </EuiFormRow>
+              </EuiFlexItem>
+              <EuiFlexItem>
+                <EuiFormRow label="Blend method" helpText="Select an operation to apply to the color" display="rowCompressed">
+                  <EuiComboBox
+                    compressed
+                    isClearable={false}
+                    singleSelection={{ asPlainText: true }}
+                    options={this.state.supportedOperations}
+                    selectedOptions={[this.state.selectedColorOp]}
+                    onChange={this._onColorOpChange}
+                    isDisabled={!this.state?.selectedColor}
+                  />
+                </EuiFormRow>
+              </EuiFlexItem>
+              <EuiFlexItem>
+                <EuiFormRow label="Mix percentage" helpText="Define how much of the color to mix" display="rowCompressed" >
+                  <EuiRange
+                    compressed
+                    id="percentageRange"
+                    showLabels
+                    showValue
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    value={this.state.selectedPercentage}
+                    onChange={this._onPercentageChange}
+                    disabled={this.state?.selectedColorOp?.label !== 'mix'}
+                  />
+                </EuiFormRow>
+              </EuiFlexItem>
+            </EuiFlexGroup>
+          </EuiPanel>
         </EuiFlexItem>
       </EuiFlexGroup>
     );
