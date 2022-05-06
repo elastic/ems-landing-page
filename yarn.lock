@@ -988,15 +988,16 @@
   dependencies:
     tslib "^1.9.3"
 
-"@elastic/ems-client@8.2.0":
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-8.2.0.tgz#35ca17f07a576c464b15a17ef9b228a51043e329"
-  integrity sha512-NtU/KjTMGntnrCY6+2jdkugn6pqMJj2EV4/Mff/MGlBLrWSlxYkYa6Q6KFhmT3V68RJUxOsId47mUdoQbRi/yg==
+"@elastic/ems-client@8.3.1":
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-8.3.1.tgz#cb08f591c7249cf8dc4591ee4022c330973f24b3"
+  integrity sha512-0UZWxxH9a8/mILwjimpO1MluDxtjhzzCGCN94lcqFw5sgPX8PFhjgwk2eLJM4fS4lDaES6fg3rf3DAHAYYwrQw==
   dependencies:
     "@types/geojson" "^7946.0.7"
     "@types/lru-cache" "^5.1.0"
     "@types/topojson-client" "^3.0.0"
     "@types/topojson-specification" "^1.0.1"
+    chroma-js "^2.1.0"
     lodash "^4.17.15"
     lru-cache "^6.0.0"
     semver "^7.3.2"
