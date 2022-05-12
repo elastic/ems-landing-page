@@ -34,14 +34,14 @@ const supportedLanguages = [
   { key: 'zh-cn', label: '简体中文' },
 ];
 
-const blendOperations = ['screen', 'overlay', 'multiply', 'darken', 'lighten', 'burn', 'dodge', 'mix']
+const blendOperations = ['screen', 'overlay', 'multiply', 'darken', 'lighten', 'burn', 'dodge', 'mix'];
 
 export class CustomizeTMS extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       supportedLanguages,
-      supportedOperations: blendOperations.map(label => { return { label } }),
+      supportedOperations: blendOperations.map(label => { return { label }; }),
       selectedLanguage: supportedLanguages.find(l => l.key === this.props.language),
       selectedColor: this.props.color,
       selectedColorOp: { label: this.props.colorOp },
