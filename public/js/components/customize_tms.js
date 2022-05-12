@@ -34,21 +34,14 @@ const supportedLanguages = [
   { key: 'zh-cn', label: '简体中文' },
 ];
 
+const blendOperations = ['screen', 'overlay', 'multiply', 'darken', 'lighten', 'burn', 'dodge', 'mix']
+
 export class CustomizeTMS extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       supportedLanguages,
-      supportedOperations: [
-        { label: 'screen' },
-        { label: 'overlay' },
-        { label: 'multiply' },
-        { label: 'darken' },
-        { label: 'lighten' },
-        { label: 'burn' },
-        { label: 'dodge' },
-        { label: 'mix' }
-      ],
+      supportedOperations: blendOperations.map(label => { return { label } }),
       selectedLanguage: supportedLanguages.find(l => l.key === this.props.language),
       selectedColor: this.props.color,
       selectedColorOp: { label: this.props.colorOp },
@@ -133,7 +126,7 @@ export class CustomizeTMS extends PureComponent {
         <EuiFlexItem grow={false}>
           <EuiPanel hasShadow={false} hasBorder paddingSize="m">
             <EuiTitle size="xs" className="formTitle"><h3>Labels</h3></EuiTitle>
-            <EuiFormRow label="Language" helpText="Select the language of the basemap labels" grow={false} display="rowCompressed">
+            <EuiFormRow label="Language" helpText="Select the language of the basemap labels" display="rowCompressed">
               <EuiComboBox
                 compressed
                 isClearable={false}
@@ -145,7 +138,7 @@ export class CustomizeTMS extends PureComponent {
             </EuiFormRow>
           </EuiPanel>
         </EuiFlexItem>
-        <EuiFlexItem>
+        <EuiFlexItem grow={false}>
           <EuiPanel hasShadow={false} hasBorder paddingSize="m">
             <EuiTitle size="xs" className="formTitle"><h3>Color blending</h3></EuiTitle>
             <EuiFlexGroup>

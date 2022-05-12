@@ -109,6 +109,8 @@ export class App extends Component {
         const source = await this._getTmsSource(config);
 
         this._map.setTmsLayer(source, (map) => {
+          // After changing the basemap, update colorOp and percentage
+          // with the ems-client default suggestions
           this.setState(() => {
             const { operation, percentage } = TMSService.colorOperationDefaults.find(c => c.style === config.getId());
             return {

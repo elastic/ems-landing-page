@@ -147,7 +147,7 @@ export class Map extends Component {
     const nonLabelLayers = source.layers.filter(l => l.type !== 'symbol');
     const labelLayers = source.layers.filter(l => l.type === 'symbol');
 
-    const layers = [ nonLabelLayers, overlayLayers, labelLayers].flat();
+    const layers = [ ...nonLabelLayers, ...overlayLayers, ...labelLayers];
     const sources = { ...source.sources, ...overlaySource };
     return {
       ...source,
