@@ -166,7 +166,6 @@ export class App extends Component {
 
   async _updateMap(state = this.state, mlMap = this?._map?._maplibreMap) {
     if (!state) {
-      console.warn('updateMap: No state, no op');
       return;
     }
 
