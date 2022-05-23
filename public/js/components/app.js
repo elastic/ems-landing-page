@@ -57,6 +57,9 @@ export class App extends Component {
       selectedTileLayer: null,
       selectedFileLayer: null,
       selectedLanguage: 'default',
+      selectedColor: null,
+      selectedColorOp: 'overlay',
+      selectedPercentage: 0.25,
       jsonFeatures: null,
       initialSelection: null
     };
@@ -77,7 +80,7 @@ export class App extends Component {
 
 
       this._setFileRoute(fileLayerConfig);
-      this._map.setOverlayLayer(featureCollection, skipZoom);
+      this._map.setOverlayLayer(featureCollection, skipZoom, this.state.selectedColor);
       this._featuretable.stopLoading();
     };
 
@@ -100,13 +103,51 @@ export class App extends Component {
     };
 
     this._selectTmsLayer = async (config) => {
-      const source = await this._getTmsSource(config);
       this.setState(() => {
         return { selectedTileLayer: config };
       }, async () => {
+        const source = await this._getTmsSource(config);
+
         this._map.setTmsLayer(source, (map) => {
-          this._updateMap(this.state, map);
+          // After changing the basemap, update colorOp and percentage
+          // with the ems-client default suggestions
+          this.setState(() => {
+            const { operation, percentage } = TMSService.colorOperationDefaults.find(c => c.style === config.getId());
+            return {
+              selectedColorOp: operation,
+              selectedPercentage: percentage
+            };
+          }, async () => {
+            this._updateMap(this.state, map);
+          });
         });
+      });
+    };
+
+    this._changeColor = async (color) => {
+      this.setState(() => {
+        return { selectedColor: color };
+      }, (state) => {
+        this._updateMap(state, this?._map?._maplibreMap);
+        if (this.state.selectedFileLayer) {
+          this._selectFileLayer(this.state.selectedFileLayer, true);
+        }
+      });
+    };
+
+    this._changeColorOp = async (colorOp) => {
+      this.setState(() => {
+        return { selectedColorOp: colorOp };
+      }, (state) => {
+        this._updateMap(state, this?._map?._maplibreMap);
+      });
+    };
+
+    this._onPercentageChange = async (percentage) => {
+      this.setState(() => {
+        return { selectedPercentage: percentage };
+      }, (state) => {
+        this._updateMap(state, this?._map?._maplibreMap);
       });
     };
 
@@ -169,7 +210,7 @@ export class App extends Component {
       return;
     }
 
-    const { selectedTileLayer, selectedLanguage } = state;
+    const { selectedTileLayer, selectedColor, selectedLanguage } = state;
 
     if (!selectedTileLayer) {
       return;
@@ -202,7 +243,32 @@ export class App extends Component {
         console.error(`Error transforming to ${lang}`);
       }
     }
+
+    if (selectedColor) {
+      try {
+        const params = {
+          operation: this.state.selectedColorOp,
+          percentage: this.state.selectedPercentage
+        };
+
+        source?.layers.forEach(layer => {
+          TMSService
+            .transformColorProperties(layer, selectedColor, params.operation, params.percentage)
+            .forEach(({ color, property }) => {
+              mlMap.setPaintProperty(layer.id, property, color);
+            });
+        });
+
+        if (mlMap && mlMap?.redraw === 'function') {
+          mlMap.redraw();
+        }
+      } catch (error) {
+        console.error(error);
+        console.error(`Error transforming to color ${selectedColor}`);
+      }
+    }
   }
+
 
   render() {
 
@@ -270,7 +336,13 @@ export class App extends Component {
                     title="Tile Layer"
                     layerConfig={this.state.selectedTileLayer}
                     onLanguageChange={this._selectLanguage}
+                    onColorChange={this._changeColor}
+                    onColorOpChange={this._changeColorOp}
+                    onPercentageChange={this._onPercentageChange}
                     language={this.state.selectedLanguage}
+                    color={this.state.selectedColor}
+                    colorOp={this.state.selectedColorOp}
+                    percentage={this.state.selectedPercentage}
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
