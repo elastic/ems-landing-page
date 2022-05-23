@@ -135,7 +135,7 @@ export class App extends Component {
               selectedPercentage: percentage
           }, () => {
             this._updateMap()
-          });
+          })
         });
       });
     };
@@ -246,8 +246,16 @@ export class App extends Component {
       console.warn('[app] _updateMap no state');
       return;
     }
+<<<<<<< HEAD
     const { selectedTileLayer, selectedLanguage, selectedColor } = this.state;
     const mlMap = this._map._maplibreMap;
+||||||| constructed merge base
+
+    const { selectedTileLayer, selectedLanguage } = state;
+=======
+
+    const { selectedTileLayer, selectedColor, selectedLanguage } = state;
+>>>>>>> Add basemap color controls
 
     if (!selectedTileLayer) {
       return;
@@ -283,6 +291,30 @@ export class App extends Component {
           `Error switching to ${lang.label}`,
           <p><EuiCode>{error.name}</EuiCode>: <EuiCode>{error.message}</EuiCode></p>
         );
+      }
+    }
+
+    if (selectedColor) {
+      try {
+        const params = {
+          operation: this.state.selectedColorOp,
+          percentage: this.state.selectedPercentage
+        };
+
+        source?.layers.forEach(layer => {
+          TMSService
+            .transformColorProperties(layer, selectedColor, params.operation, params.percentage)
+            .forEach(({ color, property }) => {
+              mlMap.setPaintProperty(layer.id, property, color);
+            });
+        });
+
+        if (mlMap && mlMap?.redraw === 'function') {
+          mlMap.redraw();
+        }
+      } catch (error) {
+        console.error(error);
+        console.error(`Error transforming to color ${selectedColor}`);
       }
     }
 
