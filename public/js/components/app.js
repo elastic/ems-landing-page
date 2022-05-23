@@ -70,6 +70,9 @@ export class App extends Component {
       selectedTileLayer: null,
       selectedFileLayer: null,
       selectedLanguage: 'default',
+      selectedColor: null,
+      selectedColorOp: 'overlay',
+      selectedPercentage: 0.25,
       jsonFeatures: null,
       initialSelection: null,
       toasts: []
@@ -98,7 +101,7 @@ export class App extends Component {
 
 
       this._setFileRoute(fileLayerConfig);
-      this._map.setOverlayLayer(featureCollection, skipZoom);
+      this._map.setOverlayLayer(featureCollection, skipZoom, this.state.selectedColor);
       this._featuretable.stopLoading();
     };
 
@@ -120,9 +123,20 @@ export class App extends Component {
       const source = await this._getTmsSource(config);
       this.setState({
         selectedTileLayer: config,
-        selectedLanguage: 'default'
+        selectedLanguage: 'default',
+        selectedColor: null
       }, () => {
-        this._map.setTmsLayer(source);
+        this._map.setTmsLayer(source, () => {
+          // After changing the basemap, update colorOp and percentage
+          // with the ems-client default suggestions
+          this.setState(() => {
+            const { operation, percentage } = TMSService.colorOperationDefaults.find(c => c.style === config.getId());
+            return {
+              selectedColorOp: operation,
+              selectedPercentage: percentage
+            };
+          }, this._updateMap(this.state, map));
+        });
       });
     };
 
@@ -140,6 +154,33 @@ export class App extends Component {
     this._removeToast = () => {
       this.setState({
         toasts: []
+      });
+    };
+
+    this._changeColor = async (color) => {
+      this.setState(() => {
+        return { selectedColor: color };
+      }, (state) => {
+        this._updateMap(state, this?._map?._maplibreMap);
+        if (this.state.selectedFileLayer) {
+          this._selectFileLayer(this.state.selectedFileLayer, true);
+        }
+      });
+    };
+
+    this._changeColorOp = async (colorOp) => {
+      this.setState(() => {
+        return { selectedColorOp: colorOp };
+      }, (state) => {
+        this._updateMap(state, this?._map?._maplibreMap);
+      });
+    };
+
+    this._onPercentageChange = async (percentage) => {
+      this.setState(() => {
+        return { selectedPercentage: percentage };
+      }, (state) => {
+        this._updateMap(state, this?._map?._maplibreMap);
       });
     };
 
@@ -246,7 +287,32 @@ export class App extends Component {
         );
       }
     }
+
+    if (selectedColor) {
+      try {
+        const params = {
+          operation: this.state.selectedColorOp,
+          percentage: this.state.selectedPercentage
+        };
+
+        source?.layers.forEach(layer => {
+          TMSService
+            .transformColorProperties(layer, selectedColor, params.operation, params.percentage)
+            .forEach(({ color, property }) => {
+              mlMap.setPaintProperty(layer.id, property, color);
+            });
+        });
+
+        if (mlMap && mlMap?.redraw === 'function') {
+          mlMap.redraw();
+        }
+      } catch (error) {
+        console.error(error);
+        console.error(`Error transforming to color ${selectedColor}`);
+      }
+    }
   }
+
 
   render() {
 
@@ -314,7 +380,13 @@ export class App extends Component {
                     title="Tile Layer"
                     layerConfig={this.state.selectedTileLayer}
                     onLanguageChange={this._selectLanguage}
+                    onColorChange={this._changeColor}
+                    onColorOpChange={this._changeColorOp}
+                    onPercentageChange={this._onPercentageChange}
                     language={this.state.selectedLanguage}
+                    color={this.state.selectedColor}
+                    colorOp={this.state.selectedColorOp}
+                    percentage={this.state.selectedPercentage}
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
