@@ -1,0 +1,85 @@
+/*
+ * Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
+ * or more contributor license agreements. Licensed under the Elastic License
+ * 2.0; you may not use this file except in compliance with the Elastic License
+ * 2.0.
+ */
+
+import { TMSService } from '@elastic/ems-client';
+import React, { PureComponent } from 'react';
+import {
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiFormRow,
+  EuiComboBox,
+  EuiPanel,
+  EuiTitle
+} from '@elastic/eui';
+
+const supportedLanguages = [
+  { key: 'default', label: 'Default' },
+  { key: 'ar', label: 'العربية' },
+  { key: 'de', label: 'Deutsch' },
+  { key: 'en', label: 'English' },
+  { key: 'es', label: 'Español' },
+  { key: 'fr-fr', label: 'Français' },
+  { key: 'hi-in', label: 'हिन्दी' },
+  { key: 'it', label: 'Italiano' },
+  { key: 'ja-jp', label: '日本語' },
+  { key: 'ko', label: '한국어' },
+  { key: 'pt-pt', label: 'Português' },
+  { key: 'ru-ru', label: 'русский' },
+  { key: 'zh-cn', label: '简体中文' },
+];
+
+export class CustomizeTMS extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      supportedLanguages,
+      selectedLanguage: supportedLanguages.find(l => l.key === this.props.language),
+    };
+
+    this._onLanguageChange = (selectedOptions) => {
+      const lang = selectedOptions[0];
+
+      if (lang) {
+        this.setState(() => {
+          return {
+            selectedLanguage: lang
+          };
+        }, () => {
+          this.props.onLanguageChange(lang.key);
+        });
+      }
+    };
+  }
+
+  render() {
+    const config = this.props?.layerConfig;
+
+    if (!(config && config instanceof TMSService)) {
+      return null;
+    }
+
+    return (
+      <EuiFlexGroup gutterSize={'s'}>
+        <EuiFlexItem grow={false}>
+          <EuiPanel hasShadow={false} hasBorder paddingSize="m">
+            <EuiTitle size="xs" className="formTitle"><h3>Labels</h3></EuiTitle>
+            <EuiFormRow label="Language" helpText="Select the language of the basemap labels" display="rowCompressed">
+              <EuiComboBox
+                compressed
+                isClearable={false}
+                singleSelection={{ asPlainText: true }}
+                options={this.state.supportedLanguages}
+                selectedOptions={[this.state.selectedLanguage]}
+                onChange={this._onLanguageChange}
+              />
+            </EuiFormRow>
+          </EuiPanel>
+        </EuiFlexItem>
+      </EuiFlexGroup>
+    );
+  }
+}

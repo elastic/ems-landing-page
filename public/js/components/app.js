@@ -47,6 +47,7 @@ import { FeatureTable } from './feature_table';
 import { Map } from './map';
 import { LayerDetails } from './layer_details';
 import URL from 'url-parse';
+import { TMSService } from '@elastic/ems-client';
 
 export class App extends Component {
   constructor(props) {
@@ -55,11 +56,12 @@ export class App extends Component {
     this.state = {
       selectedTileLayer: null,
       selectedFileLayer: null,
+      selectedLanguage: 'default',
       jsonFeatures: null,
       initialSelection: null
     };
 
-    this._selectFileLayer = async (fileLayerConfig) => {
+    this._selectFileLayer = async (fileLayerConfig, skipZoom) => {
 
       this._featuretable.startLoading();
       const featureCollection = await fileLayerConfig.getGeoJson();
@@ -75,7 +77,7 @@ export class App extends Component {
 
 
       this._setFileRoute(fileLayerConfig);
-      this._map.setOverlayLayer(featureCollection);
+      this._map.setOverlayLayer(featureCollection, skipZoom);
       this._featuretable.stopLoading();
     };
 
@@ -89,13 +91,23 @@ export class App extends Component {
 
     this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
-    this._selectTmsLayer = async (tmsLayerConfig) => {
-      const source = await this._getTmsSource(tmsLayerConfig);
-      this.setState({
-        selectedTileLayer: tmsLayerConfig,
+    this._selectLanguage = (lang) => {
+      this.setState(() => {
+        return { selectedLanguage: lang };
+      }, () => {
+        this._updateMap(this.state, this?._map?._maplibreMap);
       });
+    };
 
-      this._map.setTmsLayer(source);
+    this._selectTmsLayer = async (config) => {
+      const source = await this._getTmsSource(config);
+      this.setState(() => {
+        return { selectedTileLayer: config };
+      }, async () => {
+        this._map.setTmsLayer(source, (map) => {
+          this._updateMap(this.state, map);
+        });
+      });
     };
 
     this._map = null;
@@ -112,27 +124,16 @@ export class App extends Component {
       return;
     }
 
-    let vectorLayerSelection = this._readFileRoute();
-    if (!vectorLayerSelection) {
-      //fallback to the first layer from the manifest
-      const firstLayer = this.props.layers.file[0];
-      if (!firstLayer) {
-        window.location.hash = '';
-        return;
-      }
-      vectorLayerSelection = {
-        config: firstLayer,
-        path: `file/${firstLayer.getId()}`
-      };
-    }
-    this._selectFileLayer(vectorLayerSelection.config);
-
     const baseLayer = this.props.layers.tms.find((service) => {
       return service.getId() === 'road_map';
     });
-
-    this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
     this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
+
+    const vectorLayerSelection = this._readFileRoute();
+    if (vectorLayerSelection) {
+      this._selectFileLayer(vectorLayerSelection.config);
+      this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
+    }
   }
 
   _readFileRoute() {
@@ -161,6 +162,47 @@ export class App extends Component {
 
   _setFileRoute(layerConfig) {
     window.location.hash = `file/${layerConfig.getId()}`;
+  }
+
+  async _updateMap(state = this.state, mlMap = this?._map?._maplibreMap) {
+    if (!state) {
+      console.warn('updateMap: No state, no op');
+      return;
+    }
+
+    const { selectedTileLayer, selectedLanguage } = state;
+
+    if (!selectedTileLayer) {
+      return;
+    }
+
+    const source = await (selectedTileLayer.getVectorStyleSheet());
+
+    if (!source) {
+      return;
+    }
+
+    // Iterate over map layers to change the layout[text-field] property
+    if (selectedLanguage) {
+      const lang = selectedLanguage;
+      const defaultStyle = lang === 'default' ? await this.state.selectedTileLayer.getVectorStyleSheet() : null;
+      try {
+        if (mlMap && mlMap.isStyleLoaded()) {
+          source.layers.forEach(layer => {
+            const textField = lang !== 'default'
+              ? TMSService.transformLanguageProperty(layer, lang)
+              : defaultStyle?.layers.find(l => l.id === layer.id)?.layout?.['text-field'];
+
+            if (textField) {
+              mlMap.setLayoutProperty(layer.id, 'text-field', textField);
+            }
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        console.error(`Error transforming to ${lang}`);
+      }
+    }
   }
 
   render() {
@@ -211,6 +253,8 @@ export class App extends Component {
         <EuiPage>
           <TableOfContents
             layers={this.props.layers}
+            selectedLang={this.state.selectedLanguage}
+            onLanguageSelect={this._selectLanguage}
             onTmsLayerSelect={this._selectTmsLayer}
             onFileLayerSelect={this._selectFileLayer}
             ref={setToc}
@@ -223,14 +267,27 @@ export class App extends Component {
               <EuiSpacer size="l" />
               <EuiPageContent>
                 <EuiPageContentBody>
-                  <LayerDetails title="Tile Layer" layerConfig={this.state.selectedTileLayer} />
+                  <LayerDetails
+                    title="Tile Layer"
+                    layerConfig={this.state.selectedTileLayer}
+                    onLanguageChange={this._selectLanguage}
+                    language={this.state.selectedLanguage}
+                  />
                 </EuiPageContentBody>
               </EuiPageContent>
               <EuiSpacer />
               <EuiPageContent>
                 <EuiPageContentBody>
-                  <LayerDetails title="Vector Layer" layerConfig={this.state.selectedFileLayer} />
-                  <EuiSpacer size="l" />
+                  {
+                    (this.state.selectedFileLayer) &&
+                    <>
+                      <LayerDetails
+                        title="Vector Layer"
+                        layerConfig={this.state.selectedFileLayer}
+                      />
+                      <EuiSpacer size="l" />
+                    </>
+                  }
                   <FeatureTable
                     ref={setFeatureTable}
                     jsonFeatures={this.state.jsonFeatures}
