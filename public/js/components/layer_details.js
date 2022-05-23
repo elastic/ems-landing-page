@@ -50,7 +50,13 @@ export class LayerDetails extends PureComponent {
         <CustomizeTMS
           layerConfig={this.props.layerConfig}
           onLanguageChange={this.props.onLanguageChange}
+          onColorChange={this.props.onColorChange}
+          onColorOpChange={this.props.onColorOpChange}
+          onPercentageChange={this.props.onPercentageChange}
           language={this.props.language}
+          color={this.props.color}
+          colorOp={this.props.colorOp}
+          percentage={this.props.percentage}
         />
       </div>
     );
