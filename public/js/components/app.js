@@ -118,8 +118,11 @@ export class App extends Component {
 
     this._selectTmsLayer = async (config) => {
       const source = await this._getTmsSource(config);
-      this.setState({ selectedTileLayer: config }, async () => {
-        this._map.setTmsLayer(source, this._updateMap);
+      this.setState({
+        selectedTileLayer: config,
+        selectedLanguage: 'default'
+      }, () => {
+        this._map.setTmsLayer(source);
       });
     };
 
@@ -161,8 +164,11 @@ export class App extends Component {
 
     const vectorLayerSelection = this._readFileRoute();
     if (vectorLayerSelection) {
-      this._selectFileLayer(vectorLayerSelection.config);
-      this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
+
+      this._map.waitForStyleLoaded(() => {
+        this._selectFileLayer(vectorLayerSelection.config);
+        this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
+      });
     }
   }
 
@@ -196,6 +202,7 @@ export class App extends Component {
 
   async _updateMap() {
     if (!this?.state) {
+      console.warn('[app] _updateMap no state');
       return;
     }
     const { selectedTileLayer, selectedLanguage } = this.state;

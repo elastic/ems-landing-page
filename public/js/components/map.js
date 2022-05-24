@@ -155,6 +155,17 @@ export class Map extends Component {
     };
   }
 
+  waitForStyleLoaded(callback) {
+    const waiting = () => {
+      if (!this._maplibreMap.isStyleLoaded()) {
+        setTimeout(waiting, 50);
+      } else {
+        callback();
+      }
+    };
+    waiting();
+  }
+
   setTmsLayer(source, callback) {
     // The setStyle method removes all layers and sources from the map including the overlays.
     // We must persist the overlay layers and overlay source by creating a new style from
@@ -164,14 +175,7 @@ export class Map extends Component {
     this._maplibreMap.setStyle(newStyle, { diff: false });
 
     if (callback) {
-      const waiting = () => {
-        if (!this._maplibreMap.isStyleLoaded()) {
-          setTimeout(waiting, 50);
-        } else {
-          callback(this._maplibreMap);
-        }
-      };
-      waiting();
+      this.waitForStyleLoaded(callback);
     }
   }
 
