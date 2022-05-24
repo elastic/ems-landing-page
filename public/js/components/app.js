@@ -121,12 +121,13 @@ export class App extends Component {
 
     this._selectTmsLayer = async (config) => {
       const source = await this._getTmsSource(config);
+      const { operation, percentage } = TMSService.colorOperationDefaults.find(c => c.style === config.getId());
+
+      // Reset all settings
       this.setState({
         selectedTileLayer: config
       }, () => {
-        this._map.setTmsLayer(source, () => {
-          const { operation, percentage } = TMSService.colorOperationDefaults.find(c => c.style === config.getId());
-            
+        this._map.setTmsLayer(source, () => {  
           // After changing the basemap, update colorOp and percentage
           // with the ems-client default suggestions
           this.setState({
@@ -245,7 +246,8 @@ export class App extends Component {
       console.warn('[app] _updateMap no state');
       return;
     }
-    const { selectedTileLayer, selectedLanguage } = this.state;
+    const { selectedTileLayer, selectedLanguage, selectedColor } = this.state;
+    const mlMap = this._map._maplibreMap;
 
     if (!selectedTileLayer) {
       return;
@@ -264,7 +266,6 @@ export class App extends Component {
 
       const defaultStyle = langKey === 'default' ? await this.state.selectedTileLayer.getVectorStyleSheet() : null;
       try {
-        const mlMap = this._map._maplibreMap;
 
         if (mlMap && mlMap.isStyleLoaded()) {
           source.layers.forEach(layer => {
@@ -276,8 +277,6 @@ export class App extends Component {
               mlMap.setLayoutProperty(layer.id, 'text-field', textField);
             }
           });
-        } else {
-          throw new Error('Your map is not ready');
         }
       } catch (error) {
         this._addToast(
