@@ -153,10 +153,8 @@ export class App extends Component {
     };
 
     this._changeColor = async (color) => {
-      this.setState(() => {
-        return { selectedColor: color };
-      }, (state) => {
-        this._updateMap(state, this?._map?._maplibreMap);
+      this.setState({ selectedColor: color }, () => {
+        this._updateMap();
         if (this.state.selectedFileLayer) {
           this._selectFileLayer(this.state.selectedFileLayer, true);
         }
@@ -164,18 +162,14 @@ export class App extends Component {
     };
 
     this._changeColorOp = async (colorOp) => {
-      this.setState(() => {
-        return { selectedColorOp: colorOp };
-      }, (state) => {
-        this._updateMap(state, this?._map?._maplibreMap);
+      this.setState({ selectedColorOp: colorOp }, () => {
+        this._updateMap();
       });
     };
 
     this._onPercentageChange = async (percentage) => {
-      this.setState(() => {
-        return { selectedPercentage: percentage };
-      }, (state) => {
-        this._updateMap(state, this?._map?._maplibreMap);
+      this.setState({ selectedPercentage: percentage }, () => {
+        this._updateMap();
       });
     };
 
