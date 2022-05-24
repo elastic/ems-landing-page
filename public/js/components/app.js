@@ -5,32 +5,34 @@
  * 2.0.
  */
 
-import React, { Component } from 'react';
+import { TMSService } from '@elastic/ems-client';
 
 import {
-  EuiPage,
+  EuiCode, EuiGlobalToastList, EuiHeader,
+  EuiHeaderLink,
+  EuiHeaderLinks, EuiHeaderLogo, EuiHeaderSectionItem, EuiPage,
   EuiPageBody,
   EuiPageContent,
   EuiPageContentBody,
-  EuiPanel,
-  EuiSpacer,
-  EuiHeader,
-  EuiHeaderLink,
-  EuiHeaderLinks,
-  EuiHeaderSectionItem,
-  EuiHeaderLogo,
-  EuiToast,
-  EuiProvider
+  EuiPanel, EuiProvider, EuiSpacer, EuiToast
 } from '@elastic/eui';
 
 import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
-
-import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
 import { icon as EuiIconAlert } from '@elastic/eui/lib/components/icon/assets/alert';
-import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
-import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
+import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
 import { icon as EuiIconBug } from '@elastic/eui/lib/components/icon/assets/bug';
 import { icon as EuiIconDocuments } from '@elastic/eui/lib/components/icon/assets/documents';
+import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
+import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
+
+import React, { Component } from 'react';
+import URL from 'url-parse';
+
+import { FeatureTable } from './feature_table';
+import { LayerDetails } from './layer_details';
+import { Map } from './map';
+import { TableOfContents } from './table_of_contents';
+
 
 // One or more icons are passed in as an object of iconKey (string): IconComponent
 appendIconComponentCache({
@@ -42,12 +44,23 @@ appendIconComponentCache({
   documents: EuiIconDocuments,
 });
 
-import { TableOfContents } from './table_of_contents';
-import { FeatureTable } from './feature_table';
-import { Map } from './map';
-import { LayerDetails } from './layer_details';
-import URL from 'url-parse';
-import { TMSService } from '@elastic/ems-client';
+
+
+export const supportedLanguages = [
+  { key: 'default', label: 'Default' },
+  { key: 'ar', label: 'العربية' },
+  { key: 'de', label: 'Deutsch' },
+  { key: 'en', label: 'English' },
+  { key: 'es', label: 'Español' },
+  { key: 'fr-fr', label: 'Français' },
+  { key: 'hi-in', label: 'हिन्दी' },
+  { key: 'it', label: 'Italiano' },
+  { key: 'ja-jp', label: '日本語' },
+  { key: 'ko', label: '한국어' },
+  { key: 'pt-pt', label: 'Português' },
+  { key: 'ru-ru', label: 'русский' },
+  { key: 'zh-cn', label: '简体中文' },
+];
 
 export class App extends Component {
   constructor(props) {
@@ -58,10 +71,18 @@ export class App extends Component {
       selectedFileLayer: null,
       selectedLanguage: 'default',
       jsonFeatures: null,
-      initialSelection: null
+      initialSelection: null,
+      toasts: []
     };
 
     this._selectFileLayer = async (fileLayerConfig, skipZoom) => {
+
+      if (!this._featuretable) {
+        this._addToast(
+          `No feature table found`
+        );
+        return;
+      }
 
       this._featuretable.startLoading();
       const featureCollection = await fileLayerConfig.getGeoJson();
@@ -92,21 +113,30 @@ export class App extends Component {
     this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
     this._selectLanguage = (lang) => {
-      this.setState(() => {
-        return { selectedLanguage: lang };
-      }, () => {
-        this._updateMap(this.state, this?._map?._maplibreMap);
-      });
+      this.setState({ selectedLanguage: lang }, this._updateMap);
     };
 
     this._selectTmsLayer = async (config) => {
       const source = await this._getTmsSource(config);
-      this.setState(() => {
-        return { selectedTileLayer: config };
-      }, async () => {
-        this._map.setTmsLayer(source, (map) => {
-          this._updateMap(this.state, map);
-        });
+      this.setState({ selectedTileLayer: config }, async () => {
+        this._map.setTmsLayer(source, this._updateMap);
+      });
+    };
+
+    this._addToast = (title, text) => {
+      this.setState({
+        toasts: [{
+          id: 'error',
+          color: 'danger',
+          title,
+          text
+        }]
+      });
+    };
+
+    this._removeToast = () => {
+      this.setState({
+        toasts: []
       });
     };
 
@@ -164,12 +194,11 @@ export class App extends Component {
     window.location.hash = `file/${layerConfig.getId()}`;
   }
 
-  async _updateMap(state = this.state, mlMap = this?._map?._maplibreMap) {
-    if (!state) {
+  async _updateMap() {
+    if (!this?.state) {
       return;
     }
-
-    const { selectedTileLayer, selectedLanguage } = state;
+    const { selectedTileLayer, selectedLanguage } = this.state;
 
     if (!selectedTileLayer) {
       return;
@@ -183,23 +212,31 @@ export class App extends Component {
 
     // Iterate over map layers to change the layout[text-field] property
     if (selectedLanguage) {
-      const lang = selectedLanguage;
-      const defaultStyle = lang === 'default' ? await this.state.selectedTileLayer.getVectorStyleSheet() : null;
+      const langKey = selectedLanguage;
+      const lang = supportedLanguages.find(l => l.key === langKey);
+
+      const defaultStyle = langKey === 'default' ? await this.state.selectedTileLayer.getVectorStyleSheet() : null;
       try {
+        const mlMap = this._map._maplibreMap;
+
         if (mlMap && mlMap.isStyleLoaded()) {
           source.layers.forEach(layer => {
-            const textField = lang !== 'default'
-              ? TMSService.transformLanguageProperty(layer, lang)
+            const textField = langKey !== 'default'
+              ? TMSService.transformLanguageProperty(layer, langKey)
               : defaultStyle?.layers.find(l => l.id === layer.id)?.layout?.['text-field'];
 
             if (textField) {
               mlMap.setLayoutProperty(layer.id, 'text-field', textField);
             }
           });
+        } else {
+          throw new Error('Your map is not ready');
         }
       } catch (error) {
-        console.error(error);
-        console.error(`Error transforming to ${lang}`);
+        this._addToast(
+          `Error switching to ${lang.label}`,
+          <p><EuiCode>{error.name}</EuiCode>: <EuiCode>{error.message}</EuiCode></p>
+        );
       }
     }
   }
@@ -296,6 +333,11 @@ export class App extends Component {
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
+              <EuiGlobalToastList
+                toasts={this.state.toasts}
+                dismissToast={this._removeToast}
+                toastLifeTimeMs={3000}
+              />
             </div>
           </EuiPageBody>
         </EuiPage>

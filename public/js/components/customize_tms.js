@@ -16,41 +16,17 @@ import {
   EuiTitle
 } from '@elastic/eui';
 
-const supportedLanguages = [
-  { key: 'default', label: 'Default' },
-  { key: 'ar', label: 'العربية' },
-  { key: 'de', label: 'Deutsch' },
-  { key: 'en', label: 'English' },
-  { key: 'es', label: 'Español' },
-  { key: 'fr-fr', label: 'Français' },
-  { key: 'hi-in', label: 'हिन्दी' },
-  { key: 'it', label: 'Italiano' },
-  { key: 'ja-jp', label: '日本語' },
-  { key: 'ko', label: '한국어' },
-  { key: 'pt-pt', label: 'Português' },
-  { key: 'ru-ru', label: 'русский' },
-  { key: 'zh-cn', label: '简体中文' },
-];
+import { supportedLanguages } from './app';
 
 export class CustomizeTMS extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      supportedLanguages,
-      selectedLanguage: supportedLanguages.find(l => l.key === this.props.language),
-    };
 
     this._onLanguageChange = (selectedOptions) => {
       const lang = selectedOptions[0];
 
       if (lang) {
-        this.setState(() => {
-          return {
-            selectedLanguage: lang
-          };
-        }, () => {
-          this.props.onLanguageChange(lang.key);
-        });
+        this.props.onLanguageChange(lang.key);
       }
     };
   }
@@ -62,6 +38,8 @@ export class CustomizeTMS extends PureComponent {
       return null;
     }
 
+    const selectedOptions = supportedLanguages.filter(l => l.key === this.props.language);
+
     return (
       <EuiFlexGroup gutterSize={'s'}>
         <EuiFlexItem grow={false}>
@@ -72,8 +50,8 @@ export class CustomizeTMS extends PureComponent {
                 compressed
                 isClearable={false}
                 singleSelection={{ asPlainText: true }}
-                options={this.state.supportedLanguages}
-                selectedOptions={[this.state.selectedLanguage]}
+                options={supportedLanguages}
+                selectedOptions={selectedOptions}
                 onChange={this._onLanguageChange}
               />
             </EuiFormRow>
