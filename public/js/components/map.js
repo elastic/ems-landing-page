@@ -175,12 +175,12 @@ export class Map extends Component {
     }
   }
 
-  setOverlayLayer(featureCollection, skipZoom, fillColor) {
+  setOverlayLayer(featureCollection, skipZoom) {
     this._removeOverlayLayer();
 
-    const fill = fillColor ? chroma(fillColor) :  chroma('rgb(220,220,220)');
+    const fill = chroma('rgb(220,220,220)');
     // highilight with the complementary color
-    const highlight = fillColor ? fill.set('hsl.h', '+180') : chroma('#627BC1');
+    const highlight = chroma('#627BC1');
 
     const border = fill.darken(2);
 

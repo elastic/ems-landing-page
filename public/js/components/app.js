@@ -63,6 +63,11 @@ export class App extends Component {
 
     this._selectFileLayer = async (fileLayerConfig, skipZoom) => {
 
+      if (!this._featuretable) {
+        console.error('No feature table found');
+        return;
+      }
+
       this._featuretable.startLoading();
       const featureCollection = await fileLayerConfig.getGeoJson();
 
@@ -92,21 +97,13 @@ export class App extends Component {
     this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
     this._selectLanguage = (lang) => {
-      this.setState(() => {
-        return { selectedLanguage: lang };
-      }, () => {
-        this._updateMap(this.state, this?._map?._maplibreMap);
-      });
+      this.setState({ selectedLanguage: lang }, this._updateMap);
     };
 
     this._selectTmsLayer = async (config) => {
       const source = await this._getTmsSource(config);
-      this.setState(() => {
-        return { selectedTileLayer: config };
-      }, async () => {
-        this._map.setTmsLayer(source, (map) => {
-          this._updateMap(this.state, map);
-        });
+      this.setState({ selectedTileLayer: config }, async () => {
+        this._map.setTmsLayer(source, this._updateMap);
       });
     };
 
@@ -164,12 +161,11 @@ export class App extends Component {
     window.location.hash = `file/${layerConfig.getId()}`;
   }
 
-  async _updateMap(state = this.state, mlMap = this?._map?._maplibreMap) {
-    if (!state) {
+  async _updateMap() {
+    if (!this?.state) {
       return;
     }
-
-    const { selectedTileLayer, selectedLanguage } = state;
+    const { selectedTileLayer, selectedLanguage } = this.state;
 
     if (!selectedTileLayer) {
       return;
@@ -186,6 +182,8 @@ export class App extends Component {
       const lang = selectedLanguage;
       const defaultStyle = lang === 'default' ? await this.state.selectedTileLayer.getVectorStyleSheet() : null;
       try {
+        const mlMap = this._map._maplibreMap;
+
         if (mlMap && mlMap.isStyleLoaded()) {
           source.layers.forEach(layer => {
             const textField = lang !== 'default'

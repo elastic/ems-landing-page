@@ -35,22 +35,12 @@ const supportedLanguages = [
 export class CustomizeTMS extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      supportedLanguages,
-      selectedLanguage: supportedLanguages.find(l => l.key === this.props.language),
-    };
 
     this._onLanguageChange = (selectedOptions) => {
       const lang = selectedOptions[0];
 
       if (lang) {
-        this.setState(() => {
-          return {
-            selectedLanguage: lang
-          };
-        }, () => {
-          this.props.onLanguageChange(lang.key);
-        });
+        this.props.onLanguageChange(lang.key);
       }
     };
   }
@@ -62,6 +52,8 @@ export class CustomizeTMS extends PureComponent {
       return null;
     }
 
+    const selectedOptions = supportedLanguages.filter(l => l.key === this.props.language);
+
     return (
       <EuiFlexGroup gutterSize={'s'}>
         <EuiFlexItem grow={false}>
@@ -72,8 +64,8 @@ export class CustomizeTMS extends PureComponent {
                 compressed
                 isClearable={false}
                 singleSelection={{ asPlainText: true }}
-                options={this.state.supportedLanguages}
-                selectedOptions={[this.state.selectedLanguage]}
+                options={supportedLanguages}
+                selectedOptions={selectedOptions}
                 onChange={this._onLanguageChange}
               />
             </EuiFormRow>
