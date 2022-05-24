@@ -304,6 +304,30 @@ export class App extends Component {
         console.error(`Error transforming to color ${selectedColor}`);
       }
     }
+
+    if (selectedColor) {
+      try {
+        const params = {
+          operation: this.state.selectedColorOp,
+          percentage: this.state.selectedPercentage
+        };
+
+        source?.layers.forEach(layer => {
+          TMSService
+            .transformColorProperties(layer, selectedColor, params.operation, params.percentage)
+            .forEach(({ color, property }) => {
+              mlMap.setPaintProperty(layer.id, property, color);
+            });
+        });
+
+        if (mlMap && mlMap?.redraw === 'function') {
+          mlMap.redraw();
+        }
+      } catch (error) {
+        console.error(error);
+        console.error(`Error transforming to color ${selectedColor}`);
+      }
+    }
   }
 
 
