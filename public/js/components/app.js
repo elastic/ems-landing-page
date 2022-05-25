@@ -125,17 +125,12 @@ export class App extends Component {
 
       // Reset all settings
       this.setState({
-        selectedTileLayer: config
+        selectedTileLayer: config,
+        selectedColorOp: operation,
+        selectedPercentage: percentage
       }, () => {
-        this._map.setTmsLayer(source, () => {  
-          // After changing the basemap, update colorOp and percentage
-          // with the ems-client default suggestions
-          this.setState({
-              selectedColorOp: operation,
-              selectedPercentage: percentage
-          }, () => {
-            this._updateMap()
-          })
+        this._map.setTmsLayer(source, () => {
+          this._updateMap();
         });
       });
     };
@@ -240,16 +235,8 @@ export class App extends Component {
       console.warn('[app] _updateMap no state');
       return;
     }
-<<<<<<< HEAD
     const { selectedTileLayer, selectedLanguage, selectedColor } = this.state;
     const mlMap = this._map._maplibreMap;
-||||||| constructed merge base
-
-    const { selectedTileLayer, selectedLanguage } = state;
-=======
-
-    const { selectedTileLayer, selectedColor, selectedLanguage } = state;
->>>>>>> Add basemap color controls
 
     if (!selectedTileLayer) {
       return;
