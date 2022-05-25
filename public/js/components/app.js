@@ -119,10 +119,11 @@ export class App extends Component {
     this._selectTmsLayer = async (config) => {
       const source = await this._getTmsSource(config);
       this.setState({
-        selectedTileLayer: config,
-        selectedLanguage: 'default'
+        selectedTileLayer: config
       }, () => {
-        this._map.setTmsLayer(source);
+        this._map.setTmsLayer(source, () => {
+          this._updateMap();
+        });
       });
     };
 
