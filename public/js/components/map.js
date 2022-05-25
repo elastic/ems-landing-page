@@ -180,6 +180,10 @@ export class Map extends Component {
   }
 
   setOverlayLayer(featureCollection, skipZoom, fillColor) {
+    if (fillColor && !chroma.valid(fillColor)) {
+      throw new Error(`${fillColor} is not a valid color representation`);
+    }
+
     this._removeOverlayLayer();
 
     const fill = fillColor ? chroma(fillColor) :  chroma('rgb(220,220,220)');

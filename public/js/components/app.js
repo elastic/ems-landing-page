@@ -24,6 +24,7 @@ import { icon as EuiIconBug } from '@elastic/eui/lib/components/icon/assets/bug'
 import { icon as EuiIconDocuments } from '@elastic/eui/lib/components/icon/assets/documents';
 import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
 import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
+import chroma from 'chroma-js';
 
 import React, { Component } from 'react';
 import URL from 'url-parse';
@@ -87,22 +88,29 @@ export class App extends Component {
         return;
       }
 
-      this._featuretable.startLoading();
-      const featureCollection = await fileLayerConfig.getGeoJson();
+      try {
+        this._featuretable.startLoading();
+        const featureCollection = await fileLayerConfig.getGeoJson();
 
-      featureCollection.features.forEach((feature, index) => {
-        feature.properties.__id__ = index;
-      });
+        featureCollection.features.forEach((feature, index) => {
+          feature.properties.__id__ = index;
+        });
 
-      this.setState({
-        selectedFileLayer: fileLayerConfig,
-        jsonFeatures: featureCollection,
-      });
+        this.setState({
+          selectedFileLayer: fileLayerConfig,
+          jsonFeatures: featureCollection,
+        });
 
 
-      this._setFileRoute(fileLayerConfig);
-      this._map.setOverlayLayer(featureCollection, skipZoom, this.state.selectedColor);
-      this._featuretable.stopLoading();
+        this._setFileRoute(fileLayerConfig);
+        this._map.setOverlayLayer(featureCollection, skipZoom, this.state.selectedColor);
+        this._featuretable.stopLoading();
+      } catch (error) {
+        this._addToast(
+          'There was an error',
+          <p><EuiCode>{error.message}</EuiCode></p>
+        );
+      }
     };
 
     this._showFeature = (feature) => {
@@ -129,7 +137,7 @@ export class App extends Component {
         selectedColorOp: operation,
         selectedPercentage: percentage
       }, () => {
-        this._map.setTmsLayer(source, () => {
+        this._map.setTmsLayer(source, async () => {
           this._updateMap();
         });
       });
@@ -153,8 +161,8 @@ export class App extends Component {
     };
 
     this._changeColor = async (color) => {
-      this.setState({ selectedColor: color }, () => {
-        this._updateMap();
+      this.setState({ selectedColor: color }, async () => {
+        await this._updateMap();
         if (this.state.selectedFileLayer) {
           this._selectFileLayer(this.state.selectedFileLayer, true);
         }
@@ -162,13 +170,13 @@ export class App extends Component {
     };
 
     this._changeColorOp = async (colorOp) => {
-      this.setState({ selectedColorOp: colorOp }, () => {
+      this.setState({ selectedColorOp: colorOp }, async () => {
         this._updateMap();
       });
     };
 
     this._onPercentageChange = async (percentage) => {
-      this.setState({ selectedPercentage: percentage }, () => {
+      this.setState({ selectedPercentage: percentage }, async () => {
         this._updateMap();
       });
     };
@@ -275,55 +283,35 @@ export class App extends Component {
       }
     }
 
-    if (selectedColor) {
-      try {
-        const params = {
-          operation: this.state.selectedColorOp,
-          percentage: this.state.selectedPercentage
-        };
 
-        source?.layers.forEach(layer => {
-          TMSService
-            .transformColorProperties(layer, selectedColor, params.operation, params.percentage)
-            .forEach(({ color, property }) => {
-              mlMap.setPaintProperty(layer.id, property, color);
-            });
-        });
-
-        if (mlMap && mlMap?.redraw === 'function') {
-          mlMap.redraw();
-        }
-      } catch (error) {
-        console.error(error);
-        console.error(`Error transforming to color ${selectedColor}`);
+    try {
+      if (selectedColor && !chroma.valid(selectedColor)) {
+        throw new Error(`${selectedColor} is not a valid color representation`);
       }
-    }
 
-    if (selectedColor) {
-      try {
-        const params = {
-          operation: this.state.selectedColorOp,
-          percentage: this.state.selectedPercentage
-        };
+      const params = {
+        operation: this.state.selectedColorOp,
+        percentage: this.state.selectedPercentage
+      };
 
-        source?.layers.forEach(layer => {
-          TMSService
-            .transformColorProperties(layer, selectedColor, params.operation, params.percentage)
-            .forEach(({ color, property }) => {
-              mlMap.setPaintProperty(layer.id, property, color);
-            });
-        });
+      source?.layers.forEach(layer => {
+        TMSService
+          .transformColorProperties(layer, selectedColor, params.operation, params.percentage)
+          .forEach(({ color, property }) => {
+            mlMap.setPaintProperty(layer.id, property, color);
+          });
+      });
 
-        if (mlMap && mlMap?.redraw === 'function') {
-          mlMap.redraw();
-        }
-      } catch (error) {
-        console.error(error);
-        console.error(`Error transforming to color ${selectedColor}`);
+      if (mlMap && mlMap?.redraw === 'function') {
+        mlMap.redraw();
       }
+    } catch (error) {
+      this._addToast(
+        `Error blending basemap with ${selectedColor}`,
+        <p><EuiCode>{error.message}</EuiCode></p>
+      );
     }
   }
-
 
   render() {
 

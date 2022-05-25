@@ -43,11 +43,7 @@ export class CustomizeTMS extends PureComponent {
     };
 
     this._onColorChange = (color) => {
-      this.setState(() => {
-        return {
-          selectedColor: color
-        };
-      }, () => {
+      this.setState({ selectedColor: color }, () => {
         this.props.onColorChange(color);
       });
     };
@@ -55,22 +51,14 @@ export class CustomizeTMS extends PureComponent {
     this._onColorOpChange = (selectedOptions) => {
       const colorOp = selectedOptions[0];
       if (colorOp) {
-        this.setState(() => {
-          return {
-            selectedColorOp: colorOp
-          };
-        }, () => {
+        this.setState({ selectedColorOp: colorOp }, () => {
           this.props.onColorOpChange(colorOp.label);
         });
       }
     };
 
     this._onPercentageChange = (e) => {
-      this.setState(() => {
-        return {
-          selectedPercentage: e.target.value
-        };
-      }, () => {
+      this.setState({ selectedPercentage: e.target.value }, () => {
         this.props.onPercentageChange(parseFloat(e.target.value));
       });
     };
@@ -128,6 +116,7 @@ export class CustomizeTMS extends PureComponent {
                 <EuiFormRow label="Color" helpText="Choose a color to modify the basemap" display="rowCompressed">
                   <EuiColorPicker
                     compressed
+                    isClearable={true}
                     onChange={this._onColorChange}
                     color={this.props.color}
                   />
