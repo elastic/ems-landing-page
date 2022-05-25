@@ -119,10 +119,11 @@ export class App extends Component {
     this._selectTmsLayer = async (config) => {
       const source = await this._getTmsSource(config);
       this.setState({
-        selectedTileLayer: config,
-        selectedLanguage: 'default'
+        selectedTileLayer: config
       }, () => {
-        this._map.setTmsLayer(source);
+        this._map.setTmsLayer(source, () => {
+          this._updateMap();
+        });
       });
     };
 
@@ -205,15 +206,13 @@ export class App extends Component {
       console.warn('[app] _updateMap no state');
       return;
     }
+
+    // Getting the necessary data to update the map
     const { selectedTileLayer, selectedLanguage } = this.state;
-
-    if (!selectedTileLayer) {
-      return;
-    }
-
     const source = await (selectedTileLayer.getVectorStyleSheet());
+    const mlMap = this._map._maplibreMap;
 
-    if (!source) {
+    if (!selectedTileLayer || !source || !mlMap) {
       return;
     }
 
@@ -222,27 +221,29 @@ export class App extends Component {
       const langKey = selectedLanguage;
       const lang = supportedLanguages.find(l => l.key === langKey);
 
-      const defaultStyle = langKey === 'default' ? await this.state.selectedTileLayer.getVectorStyleSheet() : null;
       try {
-        const mlMap = this._map._maplibreMap;
-
-        if (mlMap && mlMap.isStyleLoaded()) {
-          source.layers.forEach(layer => {
-            const textField = langKey !== 'default'
-              ? TMSService.transformLanguageProperty(layer, langKey)
-              : defaultStyle?.layers.find(l => l.id === layer.id)?.layout?.['text-field'];
-
-            if (textField) {
-              mlMap.setLayoutProperty(layer.id, 'text-field', textField);
-            }
-          });
-        } else {
-          throw new Error('Your map is not ready');
-        }
+        this._map.waitForStyleLoaded(async () => {
+          if (langKey === 'default') {
+            const defaultStyle = await this.state.selectedTileLayer.getVectorStyleSheet();
+            source.layers.forEach(layer => {
+              const textField = defaultStyle?.layers.find(l => l.id === layer.id)?.layout?.['text-field'];
+              if (textField) {
+                mlMap.setLayoutProperty(layer.id, 'text-field', textField);
+              }
+            });
+          } else {
+            source.layers.forEach(layer => {
+              const textField = TMSService.transformLanguageProperty(layer, langKey);
+              if (textField) {
+                mlMap.setLayoutProperty(layer.id, 'text-field', textField);
+              }
+            });
+          }
+        });
       } catch (error) {
         this._addToast(
           `Error switching to ${lang.label}`,
-          <p><EuiCode>{error.name}</EuiCode>: <EuiCode>{error.message}</EuiCode></p>
+          <p><EuiCode>{error.message}</EuiCode></p>
         );
       }
     }
