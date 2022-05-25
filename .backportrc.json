@@ -1,6 +1,8 @@
 {
   "upstream": "elastic/ems-landing-page",
   "branches": [
+    { "name": "v8.4", "checked":  true },
+    { "name": "v8.3", "checked":  true },
     { "name": "v8.2", "checked":  true },
     { "name": "v8.1", "checked":  true },
     { "name": "v8.0", "checked":  true },
