@@ -5,32 +5,34 @@
  * 2.0.
  */
 
-import React, { Component } from 'react';
+import { TMSService } from '@elastic/ems-client';
 
 import {
-  EuiPage,
+  EuiCode, EuiGlobalToastList, EuiHeader,
+  EuiHeaderLink,
+  EuiHeaderLinks, EuiHeaderLogo, EuiHeaderSectionItem, EuiPage,
   EuiPageBody,
   EuiPageContent,
   EuiPageContentBody,
-  EuiPanel,
-  EuiSpacer,
-  EuiHeader,
-  EuiHeaderLink,
-  EuiHeaderLinks,
-  EuiHeaderSectionItem,
-  EuiHeaderLogo,
-  EuiToast,
-  EuiProvider
+  EuiPanel, EuiProvider, EuiSpacer, EuiToast
 } from '@elastic/eui';
 
 import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
-
-import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
 import { icon as EuiIconAlert } from '@elastic/eui/lib/components/icon/assets/alert';
-import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
-import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
+import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
 import { icon as EuiIconBug } from '@elastic/eui/lib/components/icon/assets/bug';
 import { icon as EuiIconDocuments } from '@elastic/eui/lib/components/icon/assets/documents';
+import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
+import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
+
+import React, { Component } from 'react';
+import URL from 'url-parse';
+
+import { FeatureTable } from './feature_table';
+import { LayerDetails } from './layer_details';
+import { Map } from './map';
+import { TableOfContents } from './table_of_contents';
+
 
 // One or more icons are passed in as an object of iconKey (string): IconComponent
 appendIconComponentCache({
@@ -42,11 +44,23 @@ appendIconComponentCache({
   documents: EuiIconDocuments,
 });
 
-import { TableOfContents } from './table_of_contents';
-import { FeatureTable } from './feature_table';
-import { Map } from './map';
-import { LayerDetails } from './layer_details';
-import URL from 'url-parse';
+
+
+export const supportedLanguages = [
+  { key: 'default', label: 'Default' },
+  { key: 'ar', label: 'العربية' },
+  { key: 'de', label: 'Deutsch' },
+  { key: 'en', label: 'English' },
+  { key: 'es', label: 'Español' },
+  { key: 'fr-fr', label: 'Français' },
+  { key: 'hi-in', label: 'हिन्दी' },
+  { key: 'it', label: 'Italiano' },
+  { key: 'ja-jp', label: '日本語' },
+  { key: 'ko', label: '한국어' },
+  { key: 'pt-pt', label: 'Português' },
+  { key: 'ru-ru', label: 'русский' },
+  { key: 'zh-cn', label: '简体中文' },
+];
 
 export class App extends Component {
   constructor(props) {
@@ -55,13 +69,15 @@ export class App extends Component {
     this.state = {
       selectedTileLayer: null,
       selectedFileLayer: null,
+      selectedLanguage: 'default',
       jsonFeatures: null,
-      initialSelection: null
+      initialSelection: null,
+      toasts: []
     };
 
-    this._selectFileLayer = async (fileLayerConfig) => {
+    this._selectFileLayer = async (fileLayerConfig, skipZoom) => {
 
-      this._featuretable.startLoading();
+      this._featuretable?.startLoading();
       const featureCollection = await fileLayerConfig.getGeoJson();
 
       featureCollection.features.forEach((feature, index) => {
@@ -75,8 +91,8 @@ export class App extends Component {
 
 
       this._setFileRoute(fileLayerConfig);
-      this._map.setOverlayLayer(featureCollection);
-      this._featuretable.stopLoading();
+      this._map.setOverlayLayer(featureCollection, skipZoom);
+      this._featuretable?.stopLoading();
     };
 
     this._showFeature = (feature) => {
@@ -89,13 +105,36 @@ export class App extends Component {
 
     this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
-    this._selectTmsLayer = async (tmsLayerConfig) => {
-      const source = await this._getTmsSource(tmsLayerConfig);
-      this.setState({
-        selectedTileLayer: tmsLayerConfig,
-      });
+    this._selectLanguage = (lang) => {
+      this.setState({ selectedLanguage: lang }, this._updateMap);
+    };
 
-      this._map.setTmsLayer(source);
+    this._selectTmsLayer = async (config) => {
+      const source = await this._getTmsSource(config);
+      this.setState({
+        selectedTileLayer: config
+      }, () => {
+        this._map.setTmsLayer(source, () => {
+          this._updateMap();
+        });
+      });
+    };
+
+    this._addToast = (title, text) => {
+      this.setState({
+        toasts: [{
+          id: 'error',
+          color: 'danger',
+          title,
+          text
+        }]
+      });
+    };
+
+    this._removeToast = () => {
+      this.setState({
+        toasts: []
+      });
     };
 
     this._map = null;
@@ -112,27 +151,19 @@ export class App extends Component {
       return;
     }
 
-    let vectorLayerSelection = this._readFileRoute();
-    if (!vectorLayerSelection) {
-      //fallback to the first layer from the manifest
-      const firstLayer = this.props.layers.file[0];
-      if (!firstLayer) {
-        window.location.hash = '';
-        return;
-      }
-      vectorLayerSelection = {
-        config: firstLayer,
-        path: `file/${firstLayer.getId()}`
-      };
-    }
-    this._selectFileLayer(vectorLayerSelection.config);
-
     const baseLayer = this.props.layers.tms.find((service) => {
       return service.getId() === 'road_map';
     });
-
-    this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
     this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
+
+    const vectorLayerSelection = this._readFileRoute();
+    if (vectorLayerSelection) {
+
+      this._map.waitForStyleLoaded(() => {
+        this._selectFileLayer(vectorLayerSelection.config);
+        this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
+      });
+    }
   }
 
   _readFileRoute() {
@@ -161,6 +192,53 @@ export class App extends Component {
 
   _setFileRoute(layerConfig) {
     window.location.hash = `file/${layerConfig.getId()}`;
+  }
+
+  async _updateMap() {
+    if (!this?.state) {
+      return;
+    }
+
+    // Getting the necessary data to update the map
+    const { selectedTileLayer, selectedLanguage } = this.state;
+    const source = await (selectedTileLayer.getVectorStyleSheet());
+    const mlMap = this._map._maplibreMap;
+
+    if (!selectedTileLayer || !source || !mlMap) {
+      return;
+    }
+
+    // Iterate over map layers to change the layout[text-field] property
+    if (selectedLanguage) {
+      const langKey = selectedLanguage;
+      const lang = supportedLanguages.find(l => l.key === langKey);
+
+      try {
+        this._map.waitForStyleLoaded(async () => {
+          if (langKey === 'default') {
+            const defaultStyle = await this.state.selectedTileLayer.getVectorStyleSheet();
+            source.layers.forEach(layer => {
+              const textField = defaultStyle?.layers.find(l => l.id === layer.id)?.layout?.['text-field'];
+              if (textField) {
+                mlMap.setLayoutProperty(layer.id, 'text-field', textField);
+              }
+            });
+          } else {
+            source.layers.forEach(layer => {
+              const textField = TMSService.transformLanguageProperty(layer, langKey);
+              if (textField) {
+                mlMap.setLayoutProperty(layer.id, 'text-field', textField);
+              }
+            });
+          }
+        });
+      } catch (error) {
+        this._addToast(
+          `Error switching to ${lang.label}`,
+          <p><EuiCode>{error.message}</EuiCode></p>
+        );
+      }
+    }
   }
 
   render() {
@@ -211,6 +289,8 @@ export class App extends Component {
         <EuiPage>
           <TableOfContents
             layers={this.props.layers}
+            selectedLang={this.state.selectedLanguage}
+            onLanguageSelect={this._selectLanguage}
             onTmsLayerSelect={this._selectTmsLayer}
             onFileLayerSelect={this._selectFileLayer}
             ref={setToc}
@@ -223,23 +303,41 @@ export class App extends Component {
               <EuiSpacer size="l" />
               <EuiPageContent>
                 <EuiPageContentBody>
-                  <LayerDetails title="Tile Layer" layerConfig={this.state.selectedTileLayer} />
-                </EuiPageContentBody>
-              </EuiPageContent>
-              <EuiSpacer />
-              <EuiPageContent>
-                <EuiPageContentBody>
-                  <LayerDetails title="Vector Layer" layerConfig={this.state.selectedFileLayer} />
-                  <EuiSpacer size="l" />
-                  <FeatureTable
-                    ref={setFeatureTable}
-                    jsonFeatures={this.state.jsonFeatures}
-                    config={this.state.selectedFileLayer}
-                    onShow={this._showFeature}
-                    onFilterChange={this._filterFeatures}
+                  <LayerDetails
+                    title="Tile Layer"
+                    layerConfig={this.state.selectedTileLayer}
+                    onLanguageChange={this._selectLanguage}
+                    language={this.state.selectedLanguage}
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
+              <EuiSpacer />
+              {
+                (this.state.selectedFileLayer) &&
+                <EuiPageContent>
+                  <EuiPageContentBody>
+                    <>
+                      <LayerDetails
+                        title="Vector Layer"
+                        layerConfig={this.state.selectedFileLayer}
+                      />
+                      <EuiSpacer size="l" />
+                    </>
+                    <FeatureTable
+                      ref={setFeatureTable}
+                      jsonFeatures={this.state.jsonFeatures}
+                      config={this.state.selectedFileLayer}
+                      onShow={this._showFeature}
+                      onFilterChange={this._filterFeatures}
+                    />
+                  </EuiPageContentBody>
+                </EuiPageContent>
+              }
+              <EuiGlobalToastList
+                toasts={this.state.toasts}
+                dismissToast={this._removeToast}
+                toastLifeTimeMs={3000}
+              />
             </div>
           </EuiPageBody>
         </EuiPage>

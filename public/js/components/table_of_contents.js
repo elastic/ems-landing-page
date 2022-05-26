@@ -37,6 +37,7 @@ export class TableOfContents extends Component {
     super(props);
     this.state = {
       selectedTmsId: null,
+      selectedLangId: props.selectedLang,
       selectedTmsConfig: null,
       selectedFileId: null,
       selectedFileConfig: null,
