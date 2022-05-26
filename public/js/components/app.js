@@ -77,14 +77,7 @@ export class App extends Component {
 
     this._selectFileLayer = async (fileLayerConfig, skipZoom) => {
 
-      if (!this._featuretable) {
-        this._addToast(
-          `No feature table found`
-        );
-        return;
-      }
-
-      this._featuretable.startLoading();
+      this._featuretable?.startLoading();
       const featureCollection = await fileLayerConfig.getGeoJson();
 
       featureCollection.features.forEach((feature, index) => {
@@ -99,7 +92,7 @@ export class App extends Component {
 
       this._setFileRoute(fileLayerConfig);
       this._map.setOverlayLayer(featureCollection, skipZoom);
-      this._featuretable.stopLoading();
+      this._featuretable?.stopLoading();
     };
 
     this._showFeature = (feature) => {
@@ -203,7 +196,6 @@ export class App extends Component {
 
   async _updateMap() {
     if (!this?.state) {
-      console.warn('[app] _updateMap no state');
       return;
     }
 
@@ -320,10 +312,10 @@ export class App extends Component {
                 </EuiPageContentBody>
               </EuiPageContent>
               <EuiSpacer />
-              <EuiPageContent>
-                <EuiPageContentBody>
-                  {
-                    (this.state.selectedFileLayer) &&
+              {
+                (this.state.selectedFileLayer) &&
+                <EuiPageContent>
+                  <EuiPageContentBody>
                     <>
                       <LayerDetails
                         title="Vector Layer"
@@ -331,16 +323,16 @@ export class App extends Component {
                       />
                       <EuiSpacer size="l" />
                     </>
-                  }
-                  <FeatureTable
-                    ref={setFeatureTable}
-                    jsonFeatures={this.state.jsonFeatures}
-                    config={this.state.selectedFileLayer}
-                    onShow={this._showFeature}
-                    onFilterChange={this._filterFeatures}
-                  />
-                </EuiPageContentBody>
-              </EuiPageContent>
+                    <FeatureTable
+                      ref={setFeatureTable}
+                      jsonFeatures={this.state.jsonFeatures}
+                      config={this.state.selectedFileLayer}
+                      onShow={this._showFeature}
+                      onFilterChange={this._filterFeatures}
+                    />
+                  </EuiPageContentBody>
+                </EuiPageContent>
+              }
               <EuiGlobalToastList
                 toasts={this.state.toasts}
                 dismissToast={this._removeToast}

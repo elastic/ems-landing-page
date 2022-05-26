@@ -8,12 +8,10 @@
 import { TMSService } from '@elastic/ems-client';
 import React, { PureComponent } from 'react';
 import {
-  EuiFlexGroup,
-  EuiFlexItem,
   EuiFormRow,
   EuiComboBox,
-  EuiPanel,
-  EuiTitle
+  EuiForm,
+  EuiDescribedFormGroup
 } from '@elastic/eui';
 
 import { supportedLanguages } from './app';
@@ -41,23 +39,29 @@ export class CustomizeTMS extends PureComponent {
     const selectedOptions = supportedLanguages.filter(l => l.key === this.props.language);
 
     return (
-      <EuiFlexGroup gutterSize={'s'}>
-        <EuiFlexItem grow={false}>
-          <EuiPanel hasShadow={false} hasBorder paddingSize="m">
-            <EuiTitle size="xs" className="formTitle"><h3>Labels</h3></EuiTitle>
-            <EuiFormRow label="Language" helpText="Select the language of the basemap labels" display="rowCompressed">
-              <EuiComboBox
-                compressed
-                isClearable={false}
-                singleSelection={{ asPlainText: true }}
-                options={supportedLanguages}
-                selectedOptions={selectedOptions}
-                onChange={this._onLanguageChange}
-              />
-            </EuiFormRow>
-          </EuiPanel>
-        </EuiFlexItem>
-      </EuiFlexGroup>
+      <EuiForm component="form">
+        <EuiDescribedFormGroup
+          title={<h3>Basemap labels</h3>}
+          description={
+            <p>
+              Select the language you prefer for
+              the basemap labels. Any non-translated
+              labels will fallback to their default.
+            </p>
+          }
+        >
+          <EuiFormRow label="Select language">
+            <EuiComboBox
+              compressed
+              isClearable={false}
+              singleSelection={{ asPlainText: true }}
+              options={supportedLanguages}
+              selectedOptions={selectedOptions}
+              onChange={this._onLanguageChange}
+            />
+          </EuiFormRow>
+        </EuiDescribedFormGroup>
+      </EuiForm>
     );
   }
 }
