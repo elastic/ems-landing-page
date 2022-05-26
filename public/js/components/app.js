@@ -24,10 +24,10 @@ import { icon as EuiIconBug } from '@elastic/eui/lib/components/icon/assets/bug'
 import { icon as EuiIconDocuments } from '@elastic/eui/lib/components/icon/assets/documents';
 import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
 import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
-import chroma from 'chroma-js';
 
 import React, { Component } from 'react';
 import URL from 'url-parse';
+import chroma from 'chroma-js';
 
 import { FeatureTable } from './feature_table';
 import { LayerDetails } from './layer_details';
@@ -81,15 +81,8 @@ export class App extends Component {
 
     this._selectFileLayer = async (fileLayerConfig, skipZoom) => {
 
-      if (!this._featuretable) {
-        this._addToast(
-          `No feature table found`
-        );
-        return;
-      }
-
       try {
-        this._featuretable.startLoading();
+        this._featuretable?.startLoading();
         const featureCollection = await fileLayerConfig.getGeoJson();
 
         featureCollection.features.forEach((feature, index) => {
@@ -101,10 +94,9 @@ export class App extends Component {
           jsonFeatures: featureCollection,
         });
 
-
         this._setFileRoute(fileLayerConfig);
-        this._map.setOverlayLayer(featureCollection, skipZoom, this.state.selectedColor);
-        this._featuretable.stopLoading();
+        this._map.setOverlayLayer(featureCollection, skipZoom);
+        this._featuretable?.stopLoading();
       } catch (error) {
         this._addToast(
           'There was an error',
@@ -124,14 +116,14 @@ export class App extends Component {
     this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
     this._selectLanguage = (lang) => {
-      this.setState({ selectedLanguage: lang }, this._updateMap);
+      this.setState({ selectedLanguage: lang },  () => {
+        this._updateMap();
+      });
     };
 
     this._selectTmsLayer = async (config) => {
       const source = await this._getTmsSource(config);
       const { operation, percentage } = TMSService.colorOperationDefaults.find(c => c.style === config.getId());
-
-      // Reset all settings
       this.setState({
         selectedTileLayer: config,
         selectedColorOp: operation,
@@ -140,23 +132,6 @@ export class App extends Component {
         this._map.setTmsLayer(source, async () => {
           this._updateMap();
         });
-      });
-    };
-
-    this._addToast = (title, text) => {
-      this.setState({
-        toasts: [{
-          id: 'error',
-          color: 'danger',
-          title,
-          text
-        }]
-      });
-    };
-
-    this._removeToast = () => {
-      this.setState({
-        toasts: []
       });
     };
 
@@ -178,6 +153,23 @@ export class App extends Component {
     this._onPercentageChange = async (percentage) => {
       this.setState({ selectedPercentage: percentage }, async () => {
         this._updateMap();
+      });
+    };
+
+    this._addToast = (title, text) => {
+      this.setState({
+        toasts: [{
+          id: 'error',
+          color: 'danger',
+          title,
+          text
+        }]
+      });
+    };
+
+    this._removeToast = () => {
+      this.setState({
+        toasts: []
       });
     };
 
@@ -240,19 +232,15 @@ export class App extends Component {
 
   async _updateMap() {
     if (!this?.state) {
-      console.warn('[app] _updateMap no state');
       return;
     }
+
+    // Getting the necessary data to update the map
     const { selectedTileLayer, selectedLanguage, selectedColor } = this.state;
+    const source = await (selectedTileLayer.getVectorStyleSheet());
     const mlMap = this._map._maplibreMap;
 
-    if (!selectedTileLayer) {
-      return;
-    }
-
-    const source = await (selectedTileLayer.getVectorStyleSheet());
-
-    if (!source) {
+    if (!selectedTileLayer || !source || !mlMap) {
       return;
     }
 
@@ -261,28 +249,32 @@ export class App extends Component {
       const langKey = selectedLanguage;
       const lang = supportedLanguages.find(l => l.key === langKey);
 
-      const defaultStyle = langKey === 'default' ? await this.state.selectedTileLayer.getVectorStyleSheet() : null;
       try {
-
-        if (mlMap && mlMap.isStyleLoaded()) {
-          source.layers.forEach(layer => {
-            const textField = langKey !== 'default'
-              ? TMSService.transformLanguageProperty(layer, langKey)
-              : defaultStyle?.layers.find(l => l.id === layer.id)?.layout?.['text-field'];
-
-            if (textField) {
-              mlMap.setLayoutProperty(layer.id, 'text-field', textField);
-            }
-          });
-        }
+        this._map.waitForStyleLoaded(async () => {
+          if (langKey === 'default') {
+            const defaultStyle = await this.state.selectedTileLayer.getVectorStyleSheet();
+            source.layers.forEach(layer => {
+              const textField = defaultStyle?.layers.find(l => l.id === layer.id)?.layout?.['text-field'];
+              if (textField) {
+                mlMap.setLayoutProperty(layer.id, 'text-field', textField);
+              }
+            });
+          } else {
+            source.layers.forEach(layer => {
+              const textField = TMSService.transformLanguageProperty(layer, langKey);
+              if (textField) {
+                mlMap.setLayoutProperty(layer.id, 'text-field', textField);
+              }
+            });
+          }
+        });
       } catch (error) {
         this._addToast(
           `Error switching to ${lang.label}`,
-          <p><EuiCode>{error.name}</EuiCode>: <EuiCode>{error.message}</EuiCode></p>
+          <p><EuiCode>{error.message}</EuiCode></p>
         );
       }
     }
-
 
     try {
       if (selectedColor && !chroma.valid(selectedColor)) {
@@ -390,10 +382,10 @@ export class App extends Component {
                 </EuiPageContentBody>
               </EuiPageContent>
               <EuiSpacer />
-              <EuiPageContent>
-                <EuiPageContentBody>
-                  {
-                    (this.state.selectedFileLayer) &&
+              {
+                (this.state.selectedFileLayer) &&
+                <EuiPageContent>
+                  <EuiPageContentBody>
                     <>
                       <LayerDetails
                         title="Vector Layer"
@@ -401,16 +393,16 @@ export class App extends Component {
                       />
                       <EuiSpacer size="l" />
                     </>
-                  }
-                  <FeatureTable
-                    ref={setFeatureTable}
-                    jsonFeatures={this.state.jsonFeatures}
-                    config={this.state.selectedFileLayer}
-                    onShow={this._showFeature}
-                    onFilterChange={this._filterFeatures}
-                  />
-                </EuiPageContentBody>
-              </EuiPageContent>
+                    <FeatureTable
+                      ref={setFeatureTable}
+                      jsonFeatures={this.state.jsonFeatures}
+                      config={this.state.selectedFileLayer}
+                      onShow={this._showFeature}
+                      onFilterChange={this._filterFeatures}
+                    />
+                  </EuiPageContentBody>
+                </EuiPageContent>
+              }
               <EuiGlobalToastList
                 toasts={this.state.toasts}
                 dismissToast={this._removeToast}

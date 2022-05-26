@@ -20,19 +20,13 @@ import {
 
 import { supportedLanguages } from './app';
 
-const blendOperations = ['screen', 'overlay', 'multiply', 'darken', 'lighten', 'burn', 'dodge', 'mix'];
+const blendOperations = ['screen', 'overlay', 'multiply', 'darken', 'lighten', 'burn', 'dodge', 'mix'].map((label) =>{
+  return { label };
+});
 
 export class CustomizeTMS extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      supportedLanguages,
-      supportedOperations: blendOperations.map(label => { return { label }; }),
-      selectedLanguage: supportedLanguages.find(l => l.key === this.props.language),
-      selectedColor: this.props.color,
-      selectedColorOp: { label: this.props.colorOp },
-      selectedPercentage: this.props.percentage
-    };
 
     this._onLanguageChange = (selectedOptions) => {
       const lang = selectedOptions[0];
@@ -43,44 +37,21 @@ export class CustomizeTMS extends PureComponent {
     };
 
     this._onColorChange = (color) => {
-      this.setState({ selectedColor: color }, () => {
-        this.props.onColorChange(color);
-      });
+      this.props.onColorChange(color);
     };
 
     this._onColorOpChange = (selectedOptions) => {
       const colorOp = selectedOptions[0];
       if (colorOp) {
-        this.setState({ selectedColorOp: colorOp }, () => {
-          this.props.onColorOpChange(colorOp.label);
-        });
+        this.props.onColorOpChange(colorOp.label);
       }
     };
 
     this._onPercentageChange = (e) => {
-      this.setState({ selectedPercentage: e.target.value }, () => {
-        this.props.onPercentageChange(parseFloat(e.target.value));
-      });
+      this.props.onPercentageChange(parseFloat(e.target.value));
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.colorOp !== this.props.colorOp || prevProps.percentage !== this.props.percentage)
-    /*
-      rule can be disabled because the state is
-      conditionally updated depending on the new props values
-      */
-
-    /* eslint-disable react/no-did-update-set-state */ {
-      this.setState(() => {
-        return {
-          selectedColorOp: { label: this.props.colorOp },
-          selectedPercentage: parseFloat(this.props.percentage)
-        };
-      });
-    }
-    /* eslint-enable react/no-did-update-set-state */
-  }
 
   render() {
     const config = this.props?.layerConfig;
@@ -89,7 +60,9 @@ export class CustomizeTMS extends PureComponent {
       return null;
     }
 
-    const selectedOptions = supportedLanguages.filter(l => l.key === this.props.language);
+    const selectedLangOptions = supportedLanguages.filter(l => l.key === this.props.language);
+    const selectedBlendOptions = blendOperations.filter(l => l.label === this.props.colorOp);
+    const shouldPercentageBeEnabled = this.props.color != null &&  this.props.colorOp === 'mix';
 
     return (
       <EuiFlexGroup gutterSize={'s'}>
@@ -102,7 +75,7 @@ export class CustomizeTMS extends PureComponent {
                 isClearable={false}
                 singleSelection={{ asPlainText: true }}
                 options={supportedLanguages}
-                selectedOptions={selectedOptions}
+                selectedOptions={selectedLangOptions}
                 onChange={this._onLanguageChange}
               />
             </EuiFormRow>
@@ -128,10 +101,10 @@ export class CustomizeTMS extends PureComponent {
                     compressed
                     isClearable={false}
                     singleSelection={{ asPlainText: true }}
-                    options={this.state.supportedOperations}
-                    selectedOptions={[this.state.selectedColorOp]}
+                    options={blendOperations}
+                    selectedOptions={selectedBlendOptions}
                     onChange={this._onColorOpChange}
-                    isDisabled={!this.state?.selectedColor}
+                    isDisabled={!this.props.color}
                   />
                 </EuiFormRow>
               </EuiFlexItem>
@@ -145,9 +118,9 @@ export class CustomizeTMS extends PureComponent {
                     min={0}
                     max={1}
                     step={0.05}
-                    value={this.state.selectedPercentage}
+                    value={this.props.percentage}
                     onChange={this._onPercentageChange}
-                    disabled={this.state?.selectedColorOp?.label !== 'mix'}
+                    disabled={!shouldPercentageBeEnabled}
                   />
                 </EuiFormRow>
               </EuiFlexItem>
@@ -158,3 +131,6 @@ export class CustomizeTMS extends PureComponent {
     );
   }
 }
+
+
+
