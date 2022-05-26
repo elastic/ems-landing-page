@@ -988,15 +988,16 @@
   dependencies:
     tslib "^1.9.3"
 
-"@elastic/ems-client@8.2.0":
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-8.2.0.tgz#35ca17f07a576c464b15a17ef9b228a51043e329"
-  integrity sha512-NtU/KjTMGntnrCY6+2jdkugn6pqMJj2EV4/Mff/MGlBLrWSlxYkYa6Q6KFhmT3V68RJUxOsId47mUdoQbRi/yg==
+"@elastic/ems-client@8.3.3":
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-8.3.3.tgz#16ddd582e1029055a5a77e7bebbc5b57b3246ff7"
+  integrity sha512-vcgPwnAw7QjcR68IddErobZqwJdH0T4h/6U4swUR3XEF+9jojNZnxBkvM3mEV9Z7QLQxDprebJJu04d37lzlUw==
   dependencies:
     "@types/geojson" "^7946.0.7"
     "@types/lru-cache" "^5.1.0"
     "@types/topojson-client" "^3.0.0"
     "@types/topojson-specification" "^1.0.1"
+    chroma-js "^2.1.0"
     lodash "^4.17.15"
     lru-cache "^6.0.0"
     semver "^7.3.2"
@@ -1007,10 +1008,10 @@
   resolved "https://registry.yarnpkg.com/@elastic/eslint-config-kibana/-/eslint-config-kibana-0.15.0.tgz#a552793497cdfc1829c2f9b7cd7018eb008f1606"
   integrity sha1-pVJ5NJfN/Bgpwvm3zXAY6wCPFgY=
 
-"@elastic/eui@53.0.1":
-  version "53.0.1"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-53.0.1.tgz#82359460ae4edab3a538846b6915518cb1214848"
-  integrity sha512-fPOuDyc7adjHBp+UHOtIJTHdZVKi8MGzyuYxTRN8ZYLHbzcNTaCsogdk+0eb6u4ISRqhk3tudG8Q0znksVHt1w==
+"@elastic/eui@57.0.0":
+  version "57.0.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-57.0.0.tgz#86d43e27196f9997ef44d2a4c701d092ce99e132"
+  integrity sha512-VBgW6Pr0JJB3JhJ59MV8guxb2v4Gd3SJEmsMGKGyIY+KcvSMWbVEGa44Ep12VAJYynIA05Z3OXXc/ge5dMycpA==
   dependencies:
     "@types/chroma-js" "^2.0.0"
     "@types/lodash" "^4.14.160"
@@ -1044,7 +1045,7 @@
     remark-emoji "^2.1.0"
     remark-parse "^8.0.3"
     remark-rehype "^8.0.0"
-    tabbable "^3.0.0"
+    tabbable "^5.2.1"
     text-diff "^1.0.1"
     unified "^9.2.0"
     unist-util-visit "^2.0.3"
@@ -3108,6 +3109,13 @@ chownr@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-2.0.0.tgz#15bfbe53d2eab4cf70f18a8cd68ebe5b3cb1dece"
   integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
+
+chroma-js@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/chroma-js/-/chroma-js-2.1.0.tgz#c0be48a21fe797ef8965608c1c4f911ef2da49d5"
+  integrity sha512-uiRdh4ZZy+UTPSrAdp8hqEdVb1EllLtTHOt5TMaOjJUvi+O54/83Fc5K2ld1P+TJX+dw5B+8/sCgzI6eaur/lg==
+  dependencies:
+    cross-env "^6.0.3"
 
 chroma-js@^2.1.0:
   version "2.1.2"
@@ -9868,10 +9876,10 @@ svgo@^2.0.3:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
-tabbable@^3.0.0:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-3.1.2.tgz#f2d16cccd01f400e38635c7181adfe0ad965a4a2"
-  integrity sha512-wjB6puVXTYO0BSFtCmWQubA/KIn7Xvajw0x0l6eJUudMG/EAiJvIUnyNX6xO4NpGrJ16lbD0eUseB9WxW0vlpQ==
+tabbable@^5.2.1:
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-5.3.2.tgz#66d6119ee8a533634c3f17deb0caa1c379e36ac7"
+  integrity sha512-6G/8EWRFx8CiSe2++/xHhXkmCRq2rHtDtZbQFHx34cvDfZzIBfvwG9zGUNTWMXWLCYvDj3aQqOzdl3oCxKuBkQ==
 
 table@^5.2.3:
   version "5.4.6"
