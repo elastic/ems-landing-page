@@ -10,19 +10,15 @@ import React, { PureComponent } from 'react';
 import {
   EuiFlexGroup,
   EuiFlexItem,
+  EuiForm,
   EuiFormRow,
+  EuiDescribedFormGroup,
   EuiColorPicker,
   EuiComboBox,
-  EuiRange,
   EuiPanel,
-  EuiTitle
 } from '@elastic/eui';
 
 import { supportedLanguages } from './app';
-
-const blendOperations = ['screen', 'overlay', 'multiply', 'darken', 'lighten', 'burn', 'dodge', 'mix'].map((label) =>{
-  return { label };
-});
 
 export class CustomizeTMS extends PureComponent {
   constructor(props) {
@@ -39,17 +35,6 @@ export class CustomizeTMS extends PureComponent {
     this._onColorChange = (color) => {
       this.props.onColorChange(color);
     };
-
-    this._onColorOpChange = (selectedOptions) => {
-      const colorOp = selectedOptions[0];
-      if (colorOp) {
-        this.props.onColorOpChange(colorOp.label);
-      }
-    };
-
-    this._onPercentageChange = (e) => {
-      this.props.onPercentageChange(parseFloat(e.target.value));
-    };
   }
 
 
@@ -61,32 +46,49 @@ export class CustomizeTMS extends PureComponent {
     }
 
     const selectedLangOptions = supportedLanguages.filter(l => l.key === this.props.language);
-    const selectedBlendOptions = blendOperations.filter(l => l.label === this.props.colorOp);
-    const shouldPercentageBeEnabled = this.props.color != null &&  this.props.colorOp === 'mix';
 
     return (
       <EuiFlexGroup gutterSize={'s'}>
-        <EuiFlexItem grow={false}>
+        <EuiFlexItem>
           <EuiPanel hasShadow={false} hasBorder paddingSize="m">
-            <EuiTitle size="xs" className="formTitle"><h3>Labels</h3></EuiTitle>
-            <EuiFormRow label="Language" helpText="Select the language of the basemap labels" display="rowCompressed">
-              <EuiComboBox
-                compressed
-                isClearable={false}
-                singleSelection={{ asPlainText: true }}
-                options={supportedLanguages}
-                selectedOptions={selectedLangOptions}
-                onChange={this._onLanguageChange}
-              />
-            </EuiFormRow>
+            <EuiForm component="form">
+              <EuiDescribedFormGroup
+                title={<h3>Basemap labels</h3>}
+                description={
+                  <p>
+                    Select the language for
+                    the basemap. Non-translated
+                    labels will fallback to defaults.
+                  </p>
+                }
+              >
+                <EuiFormRow label="Select language">
+                  <EuiComboBox
+                    compressed
+                    isClearable={false}
+                    singleSelection={{ asPlainText: true }}
+                    options={supportedLanguages}
+                    selectedOptions={selectedLangOptions}
+                    onChange={this._onLanguageChange}
+                  />
+                </EuiFormRow>
+              </EuiDescribedFormGroup>
+            </EuiForm>
           </EuiPanel>
         </EuiFlexItem>
-        <EuiFlexItem grow={false}>
+        <EuiFlexItem>
           <EuiPanel hasShadow={false} hasBorder paddingSize="m">
-            <EuiTitle size="xs" className="formTitle"><h3>Color blending</h3></EuiTitle>
-            <EuiFlexGroup>
-              <EuiFlexItem>
-                <EuiFormRow label="Color" helpText="Choose a color to modify the basemap" display="rowCompressed">
+            <EuiForm component="form">
+              <EuiDescribedFormGroup
+                title={<h3>Color blending</h3>}
+                description={
+                  <p>
+                    Choose a color to blend with the
+                    basemap style to make it unique.
+                  </p>
+                }
+              >
+                <EuiFormRow label="Pick a color">
                   <EuiColorPicker
                     compressed
                     isClearable={true}
@@ -94,37 +96,8 @@ export class CustomizeTMS extends PureComponent {
                     color={this.props.color}
                   />
                 </EuiFormRow>
-              </EuiFlexItem>
-              <EuiFlexItem>
-                <EuiFormRow label="Blend method" helpText="Select an operation to apply to the color" display="rowCompressed">
-                  <EuiComboBox
-                    compressed
-                    isClearable={false}
-                    singleSelection={{ asPlainText: true }}
-                    options={blendOperations}
-                    selectedOptions={selectedBlendOptions}
-                    onChange={this._onColorOpChange}
-                    isDisabled={!this.props.color}
-                  />
-                </EuiFormRow>
-              </EuiFlexItem>
-              <EuiFlexItem>
-                <EuiFormRow label="Mix percentage" helpText="Define how much of the color to mix" display="rowCompressed" >
-                  <EuiRange
-                    compressed
-                    id="percentageRange"
-                    showLabels
-                    showValue
-                    min={0}
-                    max={1}
-                    step={0.05}
-                    value={this.props.percentage}
-                    onChange={this._onPercentageChange}
-                    disabled={!shouldPercentageBeEnabled}
-                  />
-                </EuiFormRow>
-              </EuiFlexItem>
-            </EuiFlexGroup>
+              </EuiDescribedFormGroup>
+            </EuiForm>
           </EuiPanel>
         </EuiFlexItem>
       </EuiFlexGroup>

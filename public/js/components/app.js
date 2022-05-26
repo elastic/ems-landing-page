@@ -95,7 +95,7 @@ export class App extends Component {
         });
 
         this._setFileRoute(fileLayerConfig);
-        this._map.setOverlayLayer(featureCollection, skipZoom);
+        this._map.setOverlayLayer(featureCollection, skipZoom, this.state.selectedColor);
         this._featuretable?.stopLoading();
       } catch (error) {
         this._addToast(
@@ -141,18 +141,6 @@ export class App extends Component {
         if (this.state.selectedFileLayer) {
           this._selectFileLayer(this.state.selectedFileLayer, true);
         }
-      });
-    };
-
-    this._changeColorOp = async (colorOp) => {
-      this.setState({ selectedColorOp: colorOp }, async () => {
-        this._updateMap();
-      });
-    };
-
-    this._onPercentageChange = async (percentage) => {
-      this.setState({ selectedPercentage: percentage }, async () => {
-        this._updateMap();
       });
     };
 
@@ -372,12 +360,8 @@ export class App extends Component {
                     layerConfig={this.state.selectedTileLayer}
                     onLanguageChange={this._selectLanguage}
                     onColorChange={this._changeColor}
-                    onColorOpChange={this._changeColorOp}
-                    onPercentageChange={this._onPercentageChange}
                     language={this.state.selectedLanguage}
                     color={this.state.selectedColor}
-                    colorOp={this.state.selectedColorOp}
-                    percentage={this.state.selectedPercentage}
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
