@@ -116,7 +116,7 @@ export class App extends Component {
     this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
     this._selectLanguage = (lang) => {
-      this.setState({ selectedLanguage: lang },  () => {
+      this.setState({ selectedLanguage: lang }, () => {
         this._updateMap();
       });
     };
@@ -129,7 +129,7 @@ export class App extends Component {
         selectedColorOp: operation,
         selectedPercentage: percentage
       }, () => {
-        this._map.setTmsLayer(source, async () => {
+        this._map.setTmsLayer(source, () => {
           this._updateMap();
         });
       });
@@ -224,7 +224,7 @@ export class App extends Component {
     }
 
     // Getting the necessary data to update the map
-    const { selectedTileLayer, selectedLanguage, selectedColor } = this.state;
+    const { selectedTileLayer, selectedLanguage } = this.state;
     const source = await (selectedTileLayer.getVectorStyleSheet());
     const mlMap = this._map._maplibreMap;
 
@@ -264,19 +264,16 @@ export class App extends Component {
       }
     }
 
+
+    const { selectedColor, selectedColorOp, selectedPercentage } = this.state;
     try {
       if (selectedColor && !chroma.valid(selectedColor)) {
         throw new Error(`${selectedColor} is not a valid color representation`);
       }
 
-      const params = {
-        operation: this.state.selectedColorOp,
-        percentage: this.state.selectedPercentage
-      };
-
       source?.layers.forEach(layer => {
         TMSService
-          .transformColorProperties(layer, selectedColor, params.operation, params.percentage)
+          .transformColorProperties(layer, selectedColor, selectedColorOp, selectedPercentage)
           .forEach(({ color, property }) => {
             mlMap.setPaintProperty(layer.id, property, color);
           });
