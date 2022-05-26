@@ -48,10 +48,10 @@ export class CustomizeTMS extends PureComponent {
     const selectedLangOptions = supportedLanguages.filter(l => l.key === this.props.language);
 
     return (
-      <EuiFlexGroup gutterSize={'s'}>
-        <EuiFlexItem>
-          <EuiPanel hasShadow={false} hasBorder paddingSize="m">
-            <EuiForm component="form">
+      <EuiForm component="form">
+        <EuiFlexGroup gutterSize={'s'}>
+          <EuiFlexItem>
+            <EuiPanel hasShadow={false} hasBorder paddingSize="m">
               <EuiDescribedFormGroup
                 title={<h3>Basemap labels</h3>}
                 description={
@@ -73,12 +73,10 @@ export class CustomizeTMS extends PureComponent {
                   />
                 </EuiFormRow>
               </EuiDescribedFormGroup>
-            </EuiForm>
-          </EuiPanel>
-        </EuiFlexItem>
-        <EuiFlexItem>
-          <EuiPanel hasShadow={false} hasBorder paddingSize="m">
-            <EuiForm component="form">
+            </EuiPanel>
+          </EuiFlexItem>
+          <EuiFlexItem>
+            <EuiPanel hasShadow={false} hasBorder paddingSize="m">
               <EuiDescribedFormGroup
                 title={<h3>Color blending</h3>}
                 description={
@@ -97,10 +95,10 @@ export class CustomizeTMS extends PureComponent {
                   />
                 </EuiFormRow>
               </EuiDescribedFormGroup>
-            </EuiForm>
-          </EuiPanel>
-        </EuiFlexItem>
-      </EuiFlexGroup>
+            </EuiPanel>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      </EuiForm>
     );
   }
 }
