@@ -90,7 +90,7 @@ export class CustomizeTMS extends PureComponent {
                   <EuiColorPicker
                     compressed
                     isClearable={true}
-                    onChange={this._onColorChange}
+                    onChange={this.props.onColorChange}
                     color={this.props.color}
                     format="hex"
                     secondaryInputDisplay="top"
