@@ -78,7 +78,7 @@ export class CustomizeTMS extends PureComponent {
           <EuiFlexItem>
             <EuiPanel hasShadow={false} hasBorder paddingSize="m">
               <EuiDescribedFormGroup
-                title={<h3>Color blending</h3>}
+                title={<h3>Color filter</h3>}
                 description={
                   <p>
                     Choose a color to blend with the
