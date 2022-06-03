@@ -92,6 +92,9 @@ export class CustomizeTMS extends PureComponent {
                     isClearable={true}
                     onChange={this._onColorChange}
                     color={this.props.color}
+                    format="hex"
+                    secondaryInputDisplay="top"
+                    placeholder="No filter"
                   />
                 </EuiFormRow>
               </EuiDescribedFormGroup>
