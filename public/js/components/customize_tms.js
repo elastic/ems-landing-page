@@ -81,8 +81,8 @@ export class CustomizeTMS extends PureComponent {
                 title={<h3>Color filter</h3>}
                 description={
                   <p>
-                    Choose a color to blend with the
-                    basemap style to make it unique.
+                    Choose a color filter to apply 
+                    to the basemap.
                   </p>
                 }
               >
