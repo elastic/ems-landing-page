@@ -179,12 +179,16 @@ export class Map extends Component {
     }
   }
 
-  setOverlayLayer(featureCollection, skipZoom) {
+  setOverlayLayer(featureCollection, skipZoom, fillColor) {
+    if (fillColor && !chroma.valid(fillColor)) {
+      throw new Error(`${fillColor} is not a valid color representation`);
+    }
+
     this._removeOverlayLayer();
 
-    const fill = chroma('rgb(220,220,220)');
-    // highilight with the complementary color
-    const highlight = chroma('#627BC1');
+    const fill = fillColor ? chroma(fillColor) :  chroma('rgb(220,220,220)');
+    // highlight with the complementary color
+    const highlight = fillColor ? fill.set('hsl.h', '+180') : chroma('#627BC1');
 
     const border = fill.darken(2);
 

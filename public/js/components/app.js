@@ -27,6 +27,7 @@ import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/l
 
 import React, { Component } from 'react';
 import URL from 'url-parse';
+import chroma from 'chroma-js';
 
 import { FeatureTable } from './feature_table';
 import { LayerDetails } from './layer_details';
@@ -70,6 +71,9 @@ export class App extends Component {
       selectedTileLayer: null,
       selectedFileLayer: null,
       selectedLanguage: 'default',
+      selectedColor: null,
+      selectedColorOp: null,
+      selectedPercentage: null,
       jsonFeatures: null,
       initialSelection: null,
       toasts: []
@@ -77,22 +81,28 @@ export class App extends Component {
 
     this._selectFileLayer = async (fileLayerConfig, skipZoom) => {
 
-      this._featuretable?.startLoading();
-      const featureCollection = await fileLayerConfig.getGeoJson();
+      try {
+        this._featuretable?.startLoading();
+        const featureCollection = await fileLayerConfig.getGeoJson();
 
-      featureCollection.features.forEach((feature, index) => {
-        feature.properties.__id__ = index;
-      });
+        featureCollection.features.forEach((feature, index) => {
+          feature.properties.__id__ = index;
+        });
 
-      this.setState({
-        selectedFileLayer: fileLayerConfig,
-        jsonFeatures: featureCollection,
-      });
+        this.setState({
+          selectedFileLayer: fileLayerConfig,
+          jsonFeatures: featureCollection,
+        });
 
-
-      this._setFileRoute(fileLayerConfig);
-      this._map.setOverlayLayer(featureCollection, skipZoom);
-      this._featuretable?.stopLoading();
+        this._setFileRoute(fileLayerConfig);
+        this._map.setOverlayLayer(featureCollection, skipZoom, this.state.selectedColor);
+        this._featuretable?.stopLoading();
+      } catch (error) {
+        this._addToast(
+          'There was an error',
+          <p><EuiCode>{error.message}</EuiCode></p>
+        );
+      }
     };
 
     this._showFeature = (feature) => {
@@ -106,17 +116,31 @@ export class App extends Component {
     this._getTmsSource = (cfg) => cfg.getVectorStyleSheet();
 
     this._selectLanguage = (lang) => {
-      this.setState({ selectedLanguage: lang }, this._updateMap);
+      this.setState({ selectedLanguage: lang }, () => {
+        this._updateMap();
+      });
     };
 
     this._selectTmsLayer = async (config) => {
       const source = await this._getTmsSource(config);
+      const { operation, percentage } = TMSService.colorOperationDefaults.find(c => c.style === config.getId());
       this.setState({
-        selectedTileLayer: config
+        selectedTileLayer: config,
+        selectedColorOp: operation,
+        selectedPercentage: percentage
       }, () => {
         this._map.setTmsLayer(source, () => {
           this._updateMap();
         });
+      });
+    };
+
+    this._changeColor = async (color) => {
+      this.setState({ selectedColor: color }, async () => {
+        await this._updateMap();
+        if (this.state.selectedFileLayer) {
+          this._selectFileLayer(this.state.selectedFileLayer, true);
+        }
       });
     };
 
@@ -239,6 +263,31 @@ export class App extends Component {
         );
       }
     }
+
+
+    const { selectedColor, selectedColorOp, selectedPercentage } = this.state;
+    try {
+      if (selectedColor && !chroma.valid(selectedColor)) {
+        throw new Error(`${selectedColor} is not a valid color representation`);
+      }
+
+      source?.layers.forEach(layer => {
+        TMSService
+          .transformColorProperties(layer, selectedColor, selectedColorOp, selectedPercentage)
+          .forEach(({ color, property }) => {
+            mlMap.setPaintProperty(layer.id, property, color);
+          });
+      });
+
+      if (mlMap && mlMap?.redraw === 'function') {
+        mlMap.redraw();
+      }
+    } catch (error) {
+      this._addToast(
+        `Error blending basemap with ${selectedColor}`,
+        <p><EuiCode>{error.message}</EuiCode></p>
+      );
+    }
   }
 
   render() {
@@ -307,7 +356,9 @@ export class App extends Component {
                     title="Tile Layer"
                     layerConfig={this.state.selectedTileLayer}
                     onLanguageChange={this._selectLanguage}
+                    onColorChange={this._changeColor}
                     language={this.state.selectedLanguage}
+                    color={this.state.selectedColor}
                   />
                 </EuiPageContentBody>
               </EuiPageContent>
