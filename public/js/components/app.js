@@ -72,8 +72,8 @@ export class App extends Component {
       selectedFileLayer: null,
       selectedLanguage: 'default',
       selectedColor: null,
-      selectedColorOp: 'overlay',
-      selectedPercentage: 0.25,
+      selectedColorOp: null,
+      selectedPercentage: null,
       jsonFeatures: null,
       initialSelection: null,
       toasts: []
