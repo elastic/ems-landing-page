@@ -32,9 +32,6 @@ export class CustomizeTMS extends PureComponent {
       }
     };
 
-    this._onColorChange = (color) => {
-      this.props.onColorChange(color);
-    };
   }
 
 
