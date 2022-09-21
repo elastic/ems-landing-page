@@ -1,12 +1,12 @@
 ---
 - job:
-    name: elastic+ems-landing-page+v8.2+stage
-    display-name: 'elastic / ems-landing-page # v8.2 - stage'
-    description: Build and deploy v8.2 branch to staging server using ./deployStaging.sh.
+    name: elastic+ems-landing-page+v8.6+stage
+    display-name: 'elastic / ems-landing-page # v8.6 - stage'
+    description: Build and deploy v8.6 branch to staging server using ./deployStaging.sh.
     parameters:
     - string:
         name: branch_specifier
-        default: refs/heads/v8.2
+        default: refs/heads/v8.6
         description: the Git branch specifier to build (&lt;branchName&gt;, &lt;tagName&gt;,
           &lt;commitId&gt;, etc.)
     builders:
