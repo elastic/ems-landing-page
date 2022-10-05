@@ -44,6 +44,9 @@ export class Map extends Component {
         return { url: new URL(url, window.location.origin).href };
       },
     });
+
+    this._maplibreMap.addControl(new maplibre.FullscreenControl());
+
     this._maplibreMap.dragRotate.disable();
     this._maplibreMap.touchZoomRotate.disableRotation();
 
