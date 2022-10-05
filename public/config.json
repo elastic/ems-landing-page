@@ -6,7 +6,7 @@
     "manifest": {
       "testing": {
         "emsFileApiUrl": "https://storage.googleapis.com/elastic-bekitzur-emsfiles-vector-dev",
-        "emsTileApiUrl": "https://tiles.maps.elastic.co"
+        "emsTileApiUrl": "https://tiles.maps.elastic.dev"
       },
       "staging": {
         "emsFileApiUrl": "https://vector-staging.maps.elastic.co",
