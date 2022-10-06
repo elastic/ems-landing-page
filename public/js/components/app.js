@@ -176,7 +176,7 @@ export class App extends Component {
     }
 
     const baseLayer = this.props.layers.tms.find((service) => {
-      return service.getId() === 'road_map';
+      return service.getId() === 'road_map_desaturated';
     });
     this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
 
