@@ -65,6 +65,11 @@
     "url-parse": "1.5.3",
     "whatwg-fetch": "^3.0.0"
   },
+  "resolutions": {
+    "**/trim": "^0.0.3",
+    "**/minimist": "^1.2.6",
+    "**/refractor/prismjs": "~1.27.0"
+  },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
     "lint": "eslint ./public/js --fix",
