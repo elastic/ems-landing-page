@@ -12,8 +12,7 @@ import {
   EuiHeaderLink,
   EuiHeaderLinks, EuiHeaderLogo, EuiHeaderSectionItem, EuiPage,
   EuiPageBody,
-  EuiPageContent,
-  EuiPageContentBody,
+  EuiPageSection,
   EuiPanel, EuiProvider, EuiSpacer, EuiToast
 } from '@elastic/eui';
 
@@ -345,51 +344,45 @@ export class App extends Component {
             ref={setToc}
           />
           <EuiPageBody>
-            <div className="mainContent">
+            <EuiPageSection className="mainContent">
               <EuiPanel paddingSize="none">
                 <Map ref={setMap} />
               </EuiPanel>
               <EuiSpacer size="l" />
-              <EuiPageContent>
-                <EuiPageContentBody>
-                  <LayerDetails
-                    title="Tile Layer"
-                    layerConfig={this.state.selectedTileLayer}
-                    onLanguageChange={this._selectLanguage}
-                    onColorChange={this._changeColor}
-                    language={this.state.selectedLanguage}
-                    color={this.state.selectedColor}
-                  />
-                </EuiPageContentBody>
-              </EuiPageContent>
+              <EuiPanel>
+                <LayerDetails
+                  title="Tile Layer"
+                  layerConfig={this.state.selectedTileLayer}
+                  onLanguageChange={this._selectLanguage}
+                  onColorChange={this._changeColor}
+                  language={this.state.selectedLanguage}
+                  color={this.state.selectedColor}
+                />
+              </EuiPanel>
               <EuiSpacer />
               {
                 (this.state.selectedFileLayer) &&
-                <EuiPageContent>
-                  <EuiPageContentBody>
-                    <>
-                      <LayerDetails
-                        title="Vector Layer"
-                        layerConfig={this.state.selectedFileLayer}
-                      />
-                      <EuiSpacer size="l" />
-                    </>
-                    <FeatureTable
-                      ref={setFeatureTable}
-                      jsonFeatures={this.state.jsonFeatures}
-                      config={this.state.selectedFileLayer}
-                      onShow={this._showFeature}
-                      onFilterChange={this._filterFeatures}
-                    />
-                  </EuiPageContentBody>
-                </EuiPageContent>
+                <EuiPanel>
+                  <LayerDetails
+                    title="Vector Layer"
+                    layerConfig={this.state.selectedFileLayer}
+                  />
+                  <EuiSpacer size="l" />
+                  <FeatureTable
+                    ref={setFeatureTable}
+                    jsonFeatures={this.state.jsonFeatures}
+                    config={this.state.selectedFileLayer}
+                    onShow={this._showFeature}
+                    onFilterChange={this._filterFeatures}
+                  />
+                </EuiPanel>
               }
               <EuiGlobalToastList
                 toasts={this.state.toasts}
                 dismissToast={this._removeToast}
                 toastLifeTimeMs={3000}
               />
-            </div>
+            </EuiPageSection>
           </EuiPageBody>
         </EuiPage>
       </EuiProvider>
