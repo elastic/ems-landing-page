@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 
 import {
-  EuiPageSideBar,
+  EuiPageSidebar,
   EuiIcon,
   EuiSideNav,
 } from '@elastic/eui';
@@ -50,14 +50,14 @@ export class TableOfContents extends Component {
   render() {
     const sidebarItems = this._getSidebarItems();
     return (
-      <EuiPageSideBar>
+      <EuiPageSidebar paddingSize="l">
         <EuiSideNav
           items={sidebarItems}
           mobileTitle="Layers"
           toggleOpenOnMobile={this.toggleSideNavOpenOnMobile}
           isOpenOnMobile={this.state.isSideNavOpenOnMobile}
         />
-      </EuiPageSideBar>
+      </EuiPageSidebar>
     );
   }
 

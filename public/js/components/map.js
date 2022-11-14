@@ -79,7 +79,7 @@ export class Map extends Component {
       }
       rows += `<dt>${key}</dt><dd>${feature.properties[key]}</dd>`;
     });
-    const html = `<div class="euiText euiText--extraSmall"><dl class="eui-definitionListReverse">${rows}</dl></div>`;
+    const html = `<div class="euiText euiText--extraSmall"><dl class="popup_feature_list">${rows}</dl></div>`;
 
     this._currentPopup = new maplibre.Popup();
     this._currentPopup.setLngLat(lngLat);

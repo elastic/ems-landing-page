@@ -54,17 +54,23 @@
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
     "@elastic/ems-client": "8.3.3",
-    "@elastic/eui": "57.0.0",
+    "@elastic/eui": "70.1.0",
+    "@emotion/css": "^11.10.5",
     "@mapbox/mapbox-gl-rtl-text": "^0.2.3",
     "@turf/bbox": "6.5.0",
     "@turf/center": "6.5.0",
-    "chroma-js": "2.1.0",
-    "maplibre-gl": ">=1.14.0",
+    "chroma-js": "2.4.2",
+    "maplibre-gl": "2.4.0",
     "moment": "2.29.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "url-parse": "1.5.10",
     "whatwg-fetch": "^3.0.0"
+  },
+  "resolutions": {
+    "**/trim": "^0.0.3",
+    "**/minimist": "^1.2.6",
+    "**/refractor/prismjs": "~1.27.0"
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
