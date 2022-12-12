@@ -1053,10 +1053,10 @@
   resolved "https://registry.yarnpkg.com/@elastic/eslint-config-kibana/-/eslint-config-kibana-0.15.0.tgz#a552793497cdfc1829c2f9b7cd7018eb008f1606"
   integrity sha1-pVJ5NJfN/Bgpwvm3zXAY6wCPFgY=
 
-"@elastic/eui@70.1.0":
-  version "70.1.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-70.1.0.tgz#9ded144e6b4043d8aeb0ddd6e17ed819ff7fe351"
-  integrity sha512-/WkXH0UQaIw0j6RCcY4y3P6XfcyG0FBNgCOa83niBvBWF3ygE6ryskrYSr3J0QqFxUPVIErG10rEOPqGzthMfg==
+"@elastic/eui@70.2.0":
+  version "70.2.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-70.2.0.tgz#69577096bdfa9ccc659e0185875201306d904f4d"
+  integrity sha512-ahFm00woxJIfmLyBp3cA46VB9Swl+kRczDhaH8bOpQhkfPimvHUwAPnPAJpZnYfcbqJh31NllHuDlRYnZ0IPng==
   dependencies:
     "@types/chroma-js" "^2.0.0"
     "@types/lodash" "^4.14.160"
