@@ -54,7 +54,7 @@
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
     "@elastic/ems-client": "8.3.3",
-    "@elastic/eui": "70.2.0",
+    "@elastic/eui": "70.2.1",
     "@emotion/css": "^11.10.5",
     "@mapbox/mapbox-gl-rtl-text": "^0.2.3",
     "@turf/bbox": "6.5.0",
