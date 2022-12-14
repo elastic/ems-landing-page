@@ -1053,10 +1053,10 @@
   resolved "https://registry.yarnpkg.com/@elastic/eslint-config-kibana/-/eslint-config-kibana-0.15.0.tgz#a552793497cdfc1829c2f9b7cd7018eb008f1606"
   integrity sha1-pVJ5NJfN/Bgpwvm3zXAY6wCPFgY=
 
-"@elastic/eui@70.2.1":
-  version "70.2.1"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-70.2.1.tgz#bf1db285149a8154574cd2a999dd286f8c996150"
-  integrity sha512-S6uWzFB+VLFJ+8svJKZMxizE4dbEHJfFdESigpFfqHYUudN22Z2COYazDKDQzFjvNgV+YkgBgihKQrEthmLGpg==
+"@elastic/eui@70.3.0":
+  version "70.3.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-70.3.0.tgz#a428aea2f944fb87439eb90f74f2574061b97685"
+  integrity sha512-TKQP/JumUG9JCQycYwQ+sQRfpVf3OTShEfsUHeLVSK9yTE+0tdtb5aNIEFvTvsEGnvEMnWHDlCwsYJhyXJTwLw==
   dependencies:
     "@types/chroma-js" "^2.0.0"
     "@types/lodash" "^4.14.160"
@@ -1077,7 +1077,7 @@
     react-beautiful-dnd "^13.1.0"
     react-dropzone "^11.5.3"
     react-element-to-jsx-string "^14.3.4"
-    react-focus-on "^3.5.4"
+    react-focus-on "^3.7.0"
     react-input-autosize "^3.0.0"
     react-is "^17.0.2"
     react-virtualized-auto-sizer "^1.0.6"
@@ -2365,10 +2365,10 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
-aria-hidden@^1.1.3:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/aria-hidden/-/aria-hidden-1.2.1.tgz#ad8c1edbde360b454eb2bf717ea02da00bfee0f8"
-  integrity sha512-PN344VAf9j1EAi+jyVHOJ8XidQdPVssGco39eNcsGdM4wcsILtxrKLkbuiMfLWYROK1FjRQasMWCBttrhjnr6A==
+aria-hidden@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/aria-hidden/-/aria-hidden-1.2.2.tgz#8c4f7cc88d73ca42114106fdf6f47e68d31475b8"
+  integrity sha512-6y/ogyDTk/7YAe91T3E2PR1ALVKyM2QbTio5HwM+N1Q6CMlCKhvClyIjkckBswa0f2xJhjsfzIGa1yVSe1UMVA==
   dependencies:
     tslib "^2.0.0"
 
@@ -8634,10 +8634,10 @@ react-element-to-jsx-string@^14.3.4:
     is-plain-object "5.0.0"
     react-is "17.0.2"
 
-react-focus-lock@^2.9.0:
-  version "2.9.1"
-  resolved "https://registry.yarnpkg.com/react-focus-lock/-/react-focus-lock-2.9.1.tgz#094cfc19b4f334122c73bb0bff65d77a0c92dd16"
-  integrity sha512-pSWOQrUmiKLkffPO6BpMXN7SNKXMsuOakl652IBuALAu1esk+IcpJyM+ALcYzPTTFz1rD0R54aB9A4HuP5t1Wg==
+react-focus-lock@^2.9.2:
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/react-focus-lock/-/react-focus-lock-2.9.2.tgz#a57dfd7c493e5a030d87f161c96ffd082bd920f2"
+  integrity sha512-5JfrsOKyA5Zn3h958mk7bAcfphr24jPoMoznJ8vaJF6fUrPQ8zrtEd3ILLOK8P5jvGxdMd96OxWNjDzATfR2qw==
   dependencies:
     "@babel/runtime" "^7.0.0"
     focus-lock "^0.11.2"
@@ -8646,14 +8646,14 @@ react-focus-lock@^2.9.0:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
-react-focus-on@^3.5.4:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/react-focus-on/-/react-focus-on-3.6.0.tgz#159e13082dad4ea1f07abe11254f0e981d5a7b79"
-  integrity sha512-onIRjpd9trAUenXNdDcvjc8KJUSklty4X/Gr7hAm/MzM7ekSF2pg9D8KBKL7ipige22IAPxLRRf/EmJji9KD6Q==
+react-focus-on@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/react-focus-on/-/react-focus-on-3.7.0.tgz#bf782b51483d52d1d336b7b09cb864897af26cdf"
+  integrity sha512-TsCnbJr4qjqFatJ4U1N8qGSZH+FUzxJ5mJ5ta7TY2YnDmUbGGmcvZMTZgGjQ1fl6vlztsMyg6YyZlPAeeIhEUg==
   dependencies:
-    aria-hidden "^1.1.3"
-    react-focus-lock "^2.9.0"
-    react-remove-scroll "^2.5.2"
+    aria-hidden "^1.2.2"
+    react-focus-lock "^2.9.2"
+    react-remove-scroll "^2.5.5"
     react-style-singleton "^2.2.0"
     tslib "^2.3.1"
     use-callback-ref "^1.3.0"
@@ -8696,7 +8696,7 @@ react-remove-scroll-bar@^2.3.3:
     react-style-singleton "^2.2.1"
     tslib "^2.0.0"
 
-react-remove-scroll@^2.5.2:
+react-remove-scroll@^2.5.5:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/react-remove-scroll/-/react-remove-scroll-2.5.5.tgz#1e31a1260df08887a8a0e46d09271b52b3a37e77"
   integrity sha512-ImKhrzJJsyXJfBZ4bzu8Bwpka14c/fQt0k+cyFp/PBhTfyDnU5hjOtM4AG/0AMyy8oKzOTR0lDgJIM7pYXI0kw==
