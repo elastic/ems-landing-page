@@ -11,8 +11,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
@@ -34,11 +34,12 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|gif|svg)$/,
-        use: ['file-loader']
+        type: 'asset/resource',
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin,'style-loader', 'css-loader'],
+        //        use: [MiniCssExtractPlugin.loader,'style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
@@ -64,6 +65,9 @@ module.exports = {
     'config': JSON.stringify(require(path.resolve(__dirname, 'public', 'config.json')))
   },
   resolve: {
+    fallback: {
+      "url": require.resolve("url/")
+    },
     alias: {
 
     }
@@ -73,13 +77,13 @@ module.exports = {
       new TerserPlugin({
         exclude: /node_modules\/(?!maplibre-gl\/dist)/
       }),
-      new CssMinimizerPlugin(),
+      // new CssMinimizerPlugin(),
     ],
-    chunkIds: 'total-size',
-    moduleIds: 'size',
-    splitChunks: {
-      chunks: 'all'
-    },
+    // chunkIds: 'total-size',
+    // moduleIds: 'size',
+    // splitChunks: {
+    //   chunks: 'all'
+    // },
   },
   plugins: [
     new CleanWebpackPlugin({
@@ -96,7 +100,7 @@ module.exports = {
       template: 'public/index.hbs',
       hash: true,
     }),
-    new MiniCssExtractPlugin(),
+    // new MiniCssExtractPlugin(),
     new FaviconsWebpackPlugin({
       logo: './public/app_ems.svg',
       favicons: {
@@ -117,7 +121,8 @@ module.exports = {
   },
   devtool: 'source-map',
   devServer: {
-    contentBase: './build/release',
-    compress: true
+    static: {
+      directory: './build/release',
+    },
   }
 };

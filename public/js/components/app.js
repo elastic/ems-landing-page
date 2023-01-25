@@ -5,7 +5,7 @@
  * 2.0.
  */
 
-import { TMSService } from '@elastic/ems-client';
+import { TMSService } from '@elastic/ems-client/target/node';
 
 import {
   EuiCode, EuiGlobalToastList, EuiHeader,
