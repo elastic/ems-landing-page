@@ -10,7 +10,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '';
@@ -35,7 +38,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin,'style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
@@ -69,7 +72,8 @@ module.exports = {
     minimizer: [
       new TerserPlugin({
         exclude: /node_modules\/(?!maplibre-gl\/dist)/
-      })
+      }),
+      new CssMinimizerPlugin(),
     ],
     chunkIds: 'total-size',
     moduleIds: 'size',
@@ -92,7 +96,7 @@ module.exports = {
       template: 'public/index.hbs',
       hash: true,
     }),
-    new OptimizeCssAssetsPlugin(),
+    new MiniCssExtractPlugin(),
     new FaviconsWebpackPlugin({
       logo: './public/app_ems.svg',
       favicons: {
