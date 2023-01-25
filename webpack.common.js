@@ -71,7 +71,8 @@ module.exports = {
         exclude: /node_modules\/(?!maplibre-gl\/dist)/
       })
     ],
-    occurrenceOrder: true,
+    chunkIds: 'total-size',
+    moduleIds: 'size',
     splitChunks: {
       chunks: 'all'
     },
