@@ -23,6 +23,7 @@ import { icon as EuiIconBug } from '@elastic/eui/lib/components/icon/assets/bug'
 import { icon as EuiIconDocuments } from '@elastic/eui/lib/components/icon/assets/documents';
 import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
 import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
+import { icon as EuiIconStop } from '@elastic/eui/lib/components/icon/assets/stop';
 
 import React, { Component } from 'react';
 import URL from 'url-parse';
@@ -42,9 +43,8 @@ appendIconComponentCache({
   logoElastic: EuiIconElastic,
   bug: EuiIconBug,
   documents: EuiIconDocuments,
+  stop: EuiIconStop
 });
-
-
 
 export const supportedLanguages = [
   { key: 'default', label: 'Default' },
