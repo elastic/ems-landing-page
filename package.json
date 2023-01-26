@@ -27,15 +27,8 @@
     "core-js": "^3.20.0",
     "css-loader": "^5.2.7",
     "css-minimizer-webpack-plugin": "^4.2.2",
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-jest": "^23.0.2",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-mocha": "^6.2.1",
-    "eslint-plugin-prefer-object-spread": "^1.2.1",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint": "^8.32.0",
+    "eslint-plugin-react": "^7.32.1",
     "favicons": "^7.0.2",
     "favicons-webpack-plugin": "^6.0.0",
     "file-loader": "^6.2.0",
@@ -76,7 +69,12 @@
     "lint": "eslint ./public/js --fix",
     "compile": "webpack --config webpack.prod.js",
     "build": "./bin/git-check.sh && yarn build-unsafe",
-    "build-unsafe": "yarn compile"
+    "build-unsafe": "yarn lint && yarn compile"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   },
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
