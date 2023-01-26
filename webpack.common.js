@@ -94,7 +94,6 @@ module.exports = {
       template: 'public/index.hbs',
       hash: true,
     }),
-    // new MiniCssExtractPlugin(),
     new FaviconsWebpackPlugin({
       logo: './public/app_ems.svg',
       favicons: {
