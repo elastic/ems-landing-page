@@ -20,18 +20,22 @@ const ASSET_PATH = process.env.ASSET_PATH || '';
 
 module.exports = {
   entry: {
-    maplibre: './node_modules/maplibre-gl/dist/maplibre-gl.js',
     main: ['@babel/polyfill', path.resolve(__dirname, 'public/main.js')]
   },
   mode: 'development',
   output: {
+    clean: true,
     path: path.resolve(__dirname, 'build/release'),
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
     publicPath: ASSET_PATH,
   },
   module: {
     noParse: /iconv-loader\.js/,
     rules: [
+      {
+        test: /mapbox-gl-rtl-text.min.js$/,
+        type: 'asset/resource',
+      },
       {
         test: /\.(png|jpg|gif|svg)$/,
         type: 'asset/resource',
@@ -73,17 +77,17 @@ module.exports = {
     }
   },
   optimization: {
-    minimizer: [
-      new TerserPlugin({
-        exclude: /node_modules\/(?!maplibre-gl\/dist)/
-      }),
-      // new CssMinimizerPlugin(),
-    ],
-    // chunkIds: 'total-size',
-    // moduleIds: 'size',
-    // splitChunks: {
-    //   chunks: 'all'
-    // },
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   },
   plugins: [
     new CleanWebpackPlugin({
