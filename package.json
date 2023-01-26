@@ -70,11 +70,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "resolutions": {
-    "**/trim": "^0.0.3",
-    "**/minimist": "^1.2.6",
-    "handlebars-loader/loader-utils": "^1.0.0",
-    "**/loader-utils": "^2.0.3",
-    "**/refractor/prismjs": "~1.27.0"
+    "**/trim": "^0.0.3"
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
