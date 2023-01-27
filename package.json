@@ -14,7 +14,6 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.16.5",
     "@babel/preset-react": "^7.16.5",
-    "@elastic/eslint-config-kibana": "^0.15.0",
     "@emotion/react": "^11.7.1",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.2.3",
