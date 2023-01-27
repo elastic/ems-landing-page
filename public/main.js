@@ -13,7 +13,7 @@ import URL from 'url-parse';
 import 'whatwg-fetch';
 import { version } from '../package.json';
 import { App } from './js/components/app';
-import { EMSClient } from '@elastic/ems-client';
+import { EMSClient } from '@elastic/ems-client/target/node';
 
 start();
 

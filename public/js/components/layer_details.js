@@ -13,7 +13,7 @@ import {
   EuiBadge,
   EuiSpacer
 } from '@elastic/eui';
-import { FileLayer } from '@elastic/ems-client';
+import { FileLayer } from '@elastic/ems-client/target/node';
 import { CustomizeTMS } from './customize_tms';
 
 export class LayerDetails extends PureComponent {
