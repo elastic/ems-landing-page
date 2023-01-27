@@ -14,7 +14,6 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.16.5",
     "@babel/preset-react": "^7.16.5",
-    "@elastic/eslint-config-kibana": "^0.15.0",
     "@emotion/react": "^11.7.1",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.2.3",
@@ -23,33 +22,26 @@
     "babel-plugin-react-docgen": "^4.2.1",
     "babel-plugin-react-intl": "^8.2.25",
     "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^6.4.1",
+    "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.20.0",
     "css-loader": "^5.2.7",
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-jest": "^23.0.2",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-mocha": "^6.2.1",
-    "eslint-plugin-prefer-object-spread": "^1.2.1",
-    "eslint-plugin-react": "^7.7.0",
-    "favicons": "^6.2.2",
-    "favicons-webpack-plugin": "^4.2.0",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "eslint": "^8.32.0",
+    "eslint-plugin-react": "^7.32.1",
+    "favicons": "^7.0.2",
+    "favicons-webpack-plugin": "^6.0.0",
     "file-loader": "^6.2.0",
     "handlebars": "^4.7.7",
     "handlebars-loader": "^1.7.1",
-    "html-webpack-plugin": "^4.5.1",
+    "html-webpack-plugin": "^5.5.0",
     "husky": "^3.0.9",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "resolve-url-loader": "4.0.0",
     "style-loader": "^2.0.0",
-    "terser-webpack-plugin": "^2.2.1",
-    "webpack": "4.46.0",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "3.11.2",
-    "webpack-merge": "^4.1.5"
+    "url": "^0.11.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
@@ -68,11 +60,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "resolutions": {
-    "**/trim": "^0.0.3",
-    "**/minimist": "^1.2.6",
-    "handlebars-loader/loader-utils":"^1.0.0",
-    "**/loader-utils":"^2.0.3",
-    "**/refractor/prismjs": "~1.27.0"
+    "**/trim": "^0.0.3"
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
@@ -89,6 +77,6 @@
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
   "engines": {
-    "node": ">=12 <=16"
+    "node": ">=16 <=18"
   }
 }
