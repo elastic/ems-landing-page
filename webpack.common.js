@@ -6,41 +6,39 @@
  */
 
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '';
 
 module.exports = {
   entry: {
-    maplibre: './node_modules/maplibre-gl/dist/maplibre-gl.js',
     main: ['@babel/polyfill', path.resolve(__dirname, 'public/main.js')]
   },
   mode: 'development',
   output: {
+    clean: true,
     path: path.resolve(__dirname, 'build/release'),
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
     publicPath: ASSET_PATH,
   },
   module: {
     noParse: /iconv-loader\.js/,
     rules: [
       {
+        test: /mapbox-gl-rtl-text.min.js$/,
+        type: 'asset/resource',
+      },
+      {
         test: /\.(png|jpg|gif|svg)$/,
-        use: ['file-loader']
+        type: 'asset/resource',
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'resolve-url-loader'],
-        exclude: /node_modules/
       },
       {
         test: /\.js$/,
@@ -61,19 +59,24 @@ module.exports = {
     'config': JSON.stringify(require(path.resolve(__dirname, 'public', 'config.json')))
   },
   resolve: {
+    fallback: {
+      "url": require.resolve("url/")
+    },
     alias: {
 
     }
   },
   optimization: {
-    minimizer: [
-      new TerserPlugin({
-        exclude: /node_modules\/(?!maplibre-gl\/dist)/
-      })
-    ],
-    occurrenceOrder: true,
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
     splitChunks: {
-      chunks: 'all'
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
     },
   },
   plugins: [
@@ -91,7 +94,6 @@ module.exports = {
       template: 'public/index.hbs',
       hash: true,
     }),
-    new OptimizeCssAssetsPlugin(),
     new FaviconsWebpackPlugin({
       logo: './public/app_ems.svg',
       favicons: {
@@ -112,7 +114,8 @@ module.exports = {
   },
   devtool: 'source-map',
   devServer: {
-    contentBase: './build/release',
-    compress: true
+    static: {
+      directory: './build/release',
+    },
   }
 };
