@@ -1106,11 +1106,6 @@
     semver "^7.3.8"
     topojson-client "^3.1.0"
 
-"@elastic/eslint-config-kibana@^0.15.0":
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eslint-config-kibana/-/eslint-config-kibana-0.15.0.tgz#a552793497cdfc1829c2f9b7cd7018eb008f1606"
-  integrity sha1-pVJ5NJfN/Bgpwvm3zXAY6wCPFgY=
-
 "@elastic/eui@70.4.0":
   version "70.4.0"
   resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-70.4.0.tgz#0ce7520ac96e137f05861224a6cd0a029c4dc0bc"
