@@ -81,7 +81,8 @@ else
     echo "Sync $PWD/release/* to gs://$STAGING_BUCKET/$BRANCH/"
     gsutil -m rsync -d -r -a public-read -j js,css,html "$PWD/build/release/" "gs://$STAGING_BUCKET/$BRANCH/"
 
-    # If the branch name matches ROOT_BRANCH, it also gets copied to the root
+    # If the branch name matches ROOT_BRANCH, it also gets synced to the root
+    # excluding paths matching other versions to avoid removing them (v2, v7.x, etc.)
     if [[ "$BRANCH" == "$ROOT_BRANCH" ]]; then
         echo "Sync $PWD/release/* to gs://$STAGING_BUCKET/"
         gsutil -m rsync -d -r -a public-read -j js,css,html  -x '^v[\d.]+\/.*$' "$PWD/build/release/" "gs://$STAGING_BUCKET/"
