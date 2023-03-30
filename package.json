@@ -1,7 +1,7 @@
 {
   "name": "ems_landing_page",
   "version": "8.8.0",
-  "description": "",
+  "description": "A website showing EMS basemaps and data",
   "main": "main.js",
   "devDependencies": {
     "@babel/cli": "^7.0.0",
