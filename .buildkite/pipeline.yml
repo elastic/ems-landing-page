@@ -1,0 +1,10 @@
+agents:
+  image: "docker.elastic.co/ci-agent-images/ems/buildkite-agent:latest"
+  cpu: "2"
+  memory: "4G"
+
+steps:
+  - label: ":hammer_and_wrench: Build"
+    commands: 
+      - "yarn install"
+      - "yarn build"
