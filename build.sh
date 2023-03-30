@@ -22,4 +22,4 @@ docker run \
     --volume $PWD:/app \
     --workdir /app \
     $NODE_IMG \
-    bash -c 'npm config set spin false && /opt/yarn*/bin/yarn && yarn run build'
+    bash -c '/opt/yarn*/bin/yarn && yarn run build'
