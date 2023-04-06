@@ -10,7 +10,6 @@ echo "--- :yarn:  Installing dependencies"
 yarn install
 
 echo "--- :gear: Building"
-git diff #Temporal check
 yarn build
 
 echo "--- :compression:  Generate artifact"
