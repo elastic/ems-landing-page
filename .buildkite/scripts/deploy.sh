@@ -64,11 +64,10 @@ unset GCE_ACCOUNT_SECRET
 
 echo "--- :compression: Downloading and uncompressing the build"
 buildkite-agent artifact download release.tar.gz .
-tar xvzf release.tar.gz
+tar -xvzf release.tar.gz
 
-if [[ ! -d ./release ]]; then
+if [[ ! -d ./build/release ]]; then
   echo "--- :fire:  There is no release to upload" 1>&2
-  ls -lha .
   exit 1
 fi
 
@@ -82,12 +81,12 @@ BRANCH="${BUILDKITE_BRANCH#*:}"
 
 # The trailing slash is critical with the branch.
 # Otherwise, files from subdirs will go to the same destination dir.
-echo "--- :gcloud: Sync ./release/* to gs://$GCP_BUCKET/$BRANCH/"
-gsutil -m rsync -d -r -a public-read -j js,css,html "./release/" "gs://$GCP_BUCKET/$BRANCH/"
+echo "--- :gcloud: Sync ./build/release/* to gs://$GCP_BUCKET/$BRANCH/"
+gsutil -m rsync -d -r -a public-read -j js,css,html "./build/release/" "gs://$GCP_BUCKET/$BRANCH/"
 
 # If the branch name matches ROOT_BRANCH, it also gets synced to the root
 # excluding paths matching other versions to avoid removing them (v2, v7.x, etc.)
 if [[ "$BRANCH" == "$ROOT_BRANCH" ]]; then
     echo "--- :gcloud: Sync ./release/* to gs://$GCP_BUCKET/"
-    gsutil -m rsync -d -r -a public-read -j js,css,html  -x '^v[\d.]+\/.*$' "./release/" "gs://$GCP_BUCKET/"
+    gsutil -m rsync -d -r -a public-read -j js,css,html  -x '^v[\d.]+\/.*$' "./build/release/" "gs://$GCP_BUCKET/"
 fi
