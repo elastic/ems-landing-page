@@ -12,10 +12,41 @@ steps:
 
   - key: deploy-staging
     label: ":rocket: Deploy to the staging environment"
-    #TODO uncomment this to run only on commits to branches in the Elastic repo
-    #branches: "master"
+    #TODO remove PR branch name
+    if: |
+      // Deploy to stage for whitelisted branches
+      // and untagged commits
+      build.tag == null && 
+      [
+        "master",
+        "v7.17", 
+        "v8.6", 
+        "v8.7", 
+        "v8.8",
+        "jsanz:buildkite-deploy"
+      ] includes build.branch
     depends_on: build
-    command: ".buildkite/scripts/deploy.sh"
+    command: ".buildkite/scripts/deploy-staging.sh"
     env:
       EMS_ENVIRONMENT: "staging"
 
+
+  - key: deploy-production
+    label: ":rocket: Deploy to the production environment"
+    #TODO remove PR branch name
+    if: |
+      // Deploy to stage for whitelisted branches
+      // and untagged commits
+      build.tag != null && 
+      [
+        "master",
+        "v7.17", 
+        "v8.6", 
+        "v8.7", 
+        "v8.8",
+        "jsanz:buildkite-deploy"
+      ] includes build.branch
+    depends_on: build
+    command: ".buildkite/scripts/deploy-production.sh"
+    env:
+      EMS_ENVIRONMENT: "production"

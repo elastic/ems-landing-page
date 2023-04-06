@@ -9,30 +9,52 @@ set -e
 if [[ -z ${EMS_ENVIRONMENT} ]]; then
     exit 0
 fi
+unset EMS_ENVIRONMENT
 
-echo '--- :bash: Setting up the environment to deploy assets into dev/staging/prod buckets'
+echo '--- :bash: Setting up the environment to deploy assets into staging/prod buckets'
+
+function retry {
+    local retries=$1
+    shift
+
+    local count=0
+    until "$@"; do
+        exit=$?
+        wait=$((2 ** count))
+        count=$((count + 1))
+        if [ $count -lt "$retries" ]; then
+            >&2 echo "Retry $count/$retries exited $exit, retrying in $wait seconds..."
+            sleep $wait
+        else
+            >&2 echo "Retry $count/$retries exited $exit, no more retries left."
+            return $exit
+        fi
+    done
+    return 0
+}
+#TO UPDATE WITH VAULT LOCATION FOR BEKITZUR CREDENTIALS
+export GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/testing/gcs_acount" 
+
+# Login to the Google Cloud with the service account
+export GCE_ACCOUNT_SECRET=$(retry 5 vault read --field=value ${GCS_VAULT_SECRET_PATH})
+unset GCS_VAULT_SECRET_PATH
+
+if [[ -z "${GCE_ACCOUNT_SECRET}" ]]; then
+    echo "--- :fire: GCP credentials not set. Expected google service account JSON blob."  1>&2
+    exit 1
+fi
+
+echo "--- :gcloud: Authenticate in GCP"
+gcloud auth activate-service-account --quiet --key-file <(echo "$GCE_ACCOUNT_SECRET")
+unset GCE_ACCOUNT_SECRET
 
 # TODO UPDATE this to elastic-bekitzur
 export GPROJECT="elastic-ems-dev"
 export EMS_PROJECT=maps-landing-page
 
+export STAGING_BUCKET="${GPROJECT}-${EMS_PROJECT}-staging"
+export PRODUCTION_BUCKET="${GPROJECT}-${EMS_PROJECT}-live"
+export ARCHIVE_BUCKET="${GPROJECT}-${EMS_PROJECT}-archive"
+unset GPROJECT EMS_PROJECT
+
 export ROOT_BRANCH='v8.6'
-
-case ${EMS_ENVIRONMENT} in
-    "development")
-    ;;
-    "staging")
-    export GCP_BUCKET="${GPROJECT}-${EMS_PROJECT}-staging"
-    ;;
-    "production")
-    ;;
-    "*")
-        echo "--- :fire: ${EMS_ENVIRONMENT}  is not a valid environment definition" 1>&2
-        exit 1
-esac
-
-
-#TO UPDATE WITH VAULT LOCATION FOR BEKITZUR CREDENTIALS
-export GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/testing/gcs_acount" 
-
-unset GPROJECT EMS_PROJECT EMS_ENVIRONMENT
