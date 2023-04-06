@@ -22,7 +22,7 @@ case ${EMS_ENVIRONMENT} in
     "development")
     ;;
     "staging")
-    GCP_BUCKET="${GPROJECT}-${EMS_PROJECT}-staging"
+    export GCP_BUCKET="${GPROJECT}-${EMS_PROJECT}-staging"
     ;;
     "production")
     ;;
