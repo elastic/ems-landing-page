@@ -6,7 +6,7 @@ agents:
 steps:
   - key: build
     label: ":hammer_and_wrench: Build"
-    command: "./buildkite/build.sh"
+    command: "./buildkite/scripts/build.sh"
     artifact_paths: build.tar.gz
 
 
@@ -15,7 +15,7 @@ steps:
     #TODO uncomment this to run only on commits to branches in the Elastic repo
     #branches: "master"
     depends_on: build
-    command: ".buildkite/deploy.sh"
+    command: ".buildkite/scripts/deploy.sh"
     env:
       EMS_ENVIRONMENT: "staging"
 
