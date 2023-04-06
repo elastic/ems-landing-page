@@ -1,27 +1,29 @@
 agents:
   image: "docker.elastic.co/ci-agent-images/ems/buildkite-agent:latest"
-  cpu: "2"
-  memory: "4G"
 
 steps:
   - key: build
     label: ":hammer_and_wrench: Build"
     command: ".buildkite/scripts/build.sh"
     artifact_paths: release.tar.gz
+    agents:
+      image: "docker.elastic.co/ci-agent-images/ems/buildkite-agent:latest"
+      cpu: "2"
+      memory: "4G"
 
+  - key: deploy-staging
+    label: ":rocket: Stage"
+    #TODO remove PR branch name
+    if: |
+      // Deploy to stage for whitelisted branches
+      // and untagged commits
+      build.tag == null && 
+      build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8|jsanz:buildkite-deploy/
+    depends_on: build
+    command: ".buildkite/scripts/deploy-staging.sh"
+    env:
+      EMS_ENVIRONMENT: "staging"
 
-  # - key: deploy-staging
-  #   label: ":rocket: Deploy to the staging environment"
-  #   #TODO remove PR branch name
-  #   if: |
-  #     // Deploy to stage for whitelisted branches
-  #     // and untagged commits
-  #     build.tag == null && 
-  #     build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8|jsanz:buildkite-deploy/
-  #   depends_on: build
-  #   command: ".buildkite/scripts/deploy-staging.sh"
-  #   env:
-  #     EMS_ENVIRONMENT: "staging"
 
   - key: should-deploy
     block: ":one-does-not-simply: Deploy to production?"
@@ -29,17 +31,17 @@ steps:
     if: |
       // Deploy to production for whitelisted branches
       // and tagged commits
-      // build.tag != null && 
+      build.tag != null && 
       build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8|jsanz:buildkite-deploy/
     depends_on: build
 
   - key: deploy-production
-    label: ":rocket: Deploy to the production environment"
+    label: ":shipit: Deploy"
     #TODO remove PR branch name
     if: |
       // Deploy to production for whitelisted branches
       // and tagged commits
-      // build.tag != null && 
+      build.tag != null && 
       build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8|jsanz:buildkite-deploy/
     depends_on: build
     command: ".buildkite/scripts/deploy-production.sh"
