@@ -6,7 +6,7 @@ agents:
 steps:
   - key: build
     label: ":hammer_and_wrench: Build"
-    command: "./buildkite/scripts/build.sh"
+    command: ".buildkite/scripts/build.sh"
     artifact_paths: build.tar.gz
 
 
