@@ -35,8 +35,8 @@ if [[ -z "${GCP_BUCKET}" ]]; then
     exit 1
 fi
 
-if [[ -z "${GIT_BRANCH}" ]]; then
-    echo "--- :fire:  GIT_BRANCH is not set, e.g. 'GIT_BRANCH=refs/heads/master'" 1>&2
+if [[ -z "${BUILDKITE_BRANCH}" ]]; then
+    echo "--- :fire:  BUILDKITE_BRANCH is not set, e.g. 'BUILDKITE_BRANCH=master'" 1>&2
     exit 1
 fi
 
@@ -46,7 +46,17 @@ if [[ -z "${ROOT_BRANCH}" ]]; then
 fi
 
 
+
 # Login to the Google Cloud with the service account
+
+export GCE_ACCOUNT_SECRET=$(retry 5 vault read --field=value ${GCS_VAULT_SECRET_PATH})
+unset GCS_VAULT_SECRET_PATH
+
+if [[ -z "${GCE_ACCOUNT_SECRET}" ]]; then
+    echo "--- :fire: GCP credentials not set. Expected google service account JSON blob."  1>&2
+    exit 1
+fi
+
 echo "--- :gcloud: Authenticate in GCP"
 gcloud auth activate-service-account --quiet --key-file <(echo "$GCE_ACCOUNT_SECRET")
 unset GCE_ACCOUNT_SECRET
@@ -56,13 +66,13 @@ echo "--- :compression: Downloading and uncompressing the build"
 buildkite-agent artifact download release.tar.gz .
 tar xzf release.tar.gz
 
+
 # TODO remove the "#*:" since this environment
 # variable should not be coming from a fork where
 # Buildkite uses the convention fork_author:branch
 # i.e. jsanz:v8.7
 BRANCH="${BUILDKITE_BRANCH#*:}"
 
-# Copy files
 
 # The trailing slash is critical with the branch.
 # Otherwise, files from subdirs will go to the same destination dir.

@@ -12,10 +12,11 @@ fi
 
 echo '--- :bash: Setting up the environment to deploy assets into dev/staging/prod buckets'
 
+# TODO UPDATE this to elastic-bekitzur
 export GPROJECT="elastic-ems-dev"
 export EMS_PROJECT=maps-landing-page
-export ROOT_BRANCH='v8.6'
 
+export ROOT_BRANCH='v8.6'
 
 case ${EMS_ENVIRONMENT} in
     "development")
@@ -30,7 +31,8 @@ case ${EMS_ENVIRONMENT} in
         exit 1
 esac
 
+
 #TO UPDATE WITH VAULT LOCATION FOR BEKITZUR CREDENTIALS
 export GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/testing/gcs_acount" 
 
-
+unset GPROJECT EMS_PROJECT EMS_ENVIRONMENT
