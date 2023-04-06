@@ -4,7 +4,18 @@ agents:
   memory: "4G"
 
 steps:
-  - label: ":hammer_and_wrench: Build"
-    commands: 
-      - "yarn install"
-      - "yarn build"
+  - key: build
+    label: ":hammer_and_wrench: Build"
+    command: "./buildkite/build.sh"
+    artifact_paths: build.tar.gz
+
+
+  - key: deploy-staging
+    label: ":rocket: Deploy to the staging environment"
+    #TODO uncomment this to run only on commits to branches in the Elastic repo
+    #branches: "master"
+    depends_on: build
+    command: ".buildkite/deploy.sh"
+    env:
+      EMS_ENVIRONMENT: "staging"
+
