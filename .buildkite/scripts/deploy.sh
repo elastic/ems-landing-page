@@ -64,7 +64,13 @@ unset GCE_ACCOUNT_SECRET
 
 echo "--- :compression: Downloading and uncompressing the build"
 buildkite-agent artifact download release.tar.gz .
-tar xzf release.tar.gz
+tar xvzf release.tar.gz
+
+if [[ ! -d ./release ]]; then
+  echo "--- :fire:  There is no release to upload" 1>&2
+  ls -lha .
+  exit 1
+fi
 
 
 # TODO remove the "#*:" since this environment
