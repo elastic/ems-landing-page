@@ -76,7 +76,7 @@ BRANCH="${BUILDKITE_BRANCH#*:}"
 
 # The trailing slash is critical with the branch.
 # Otherwise, files from subdirs will go to the same destination dir.
-echo "--- :gcloud: Sync ./build/release/* to gs://$GCP_BUCKET/$BRANCH/"
+echo "--- :gcloud: Sync ./release/* to gs://$GCP_BUCKET/$BRANCH/"
 gsutil -m rsync -d -r -a public-read -j js,css,html "./release/" "gs://$GCP_BUCKET/$BRANCH/"
 
 # If the branch name matches ROOT_BRANCH, it also gets synced to the root

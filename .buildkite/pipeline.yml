@@ -7,7 +7,7 @@ steps:
   - key: build
     label: ":hammer_and_wrench: Build"
     command: ".buildkite/scripts/build.sh"
-    artifact_paths: build.tar.gz
+    artifact_paths: release.tar.gz
 
 
   - key: deploy-staging
