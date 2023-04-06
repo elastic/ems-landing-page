@@ -7,7 +7,6 @@ steps:
     command: ".buildkite/scripts/build.sh"
     artifact_paths: release.tar.gz
     agents:
-      image: "docker.elastic.co/ci-agent-images/ems/buildkite-agent:latest"
       cpu: "2"
       memory: "4G"
 
@@ -27,22 +26,20 @@ steps:
 
   - key: should-deploy
     block: ":one-does-not-simply: Deploy to production?"
-    #TODO remove PR branch name
     if: |
       // Deploy to production for whitelisted branches
       // and tagged commits
       build.tag != null && 
-      build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8|jsanz:buildkite-deploy/
+      build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8/
     depends_on: build
 
   - key: deploy-production
     label: ":shipit: Deploy"
-    #TODO remove PR branch name
     if: |
       // Deploy to production for whitelisted branches
       // and tagged commits
       build.tag != null && 
-      build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8|jsanz:buildkite-deploy/
+      build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8/
     depends_on: build
     command: ".buildkite/scripts/deploy-production.sh"
     env:
