@@ -9,6 +9,12 @@
 set -e
 set +x
 
+# TODO remove the entire script when migration to Buildkite is finished
+# as for now we just skip the rest of the script
+echo "Skipping the script, we are moving to Buildkite"
+exit 0
+
+
 #     *** This job will ***
 #  * download and compress the entire staging bucket into a single snapshot file (all site versions together)
 #  * upload snapshot file to the archive bucket
