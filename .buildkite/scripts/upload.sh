@@ -7,6 +7,17 @@
 set -e
 set +x
 
+# Script to upload the result of a build into a GCP bucket, also synchronizing
+# the release with the root of the bucket if the branch of the build is the same
+# as the root branch set up in the pre-command script.
+#
+# Parameters:
+# - BUILDKITE_BRANCH: the branch from which this build was triggered
+# - EMS_ENVIRONMENT: defines if this is going to be a staging or production release
+# - STAGING_BUCKET
+# - PRODUCTION_BUCKET
+# - ROOT_BRANCH
+
 echo "--- :compression: Downloading and uncompressing the build"
 buildkite-agent artifact download release.tar.gz .
 tar -xvzf release.tar.gz
@@ -18,6 +29,7 @@ fi
 
 SOURCE_PATH="./build/release/"
 
+# Define the destination of the release
 case ${EMS_ENVIRONMENT} in
     "staging")
         DEST_BUCKET="gs://${STAGING_BUCKET}"

@@ -7,6 +7,10 @@
 set -e
 set +x
 
+# This script stores a full copy of the EMS Landing Page
+# production bucket into a zip file and uploads it to
+# an archive bucket
+#
 # Parameters:
 # - STAGING_BUCKET
 # - ARCHIVE_BUCKET

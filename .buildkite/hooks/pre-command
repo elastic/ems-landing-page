@@ -33,20 +33,25 @@ function retry {
     return 0
 }
 
-# Deployment parameters:
-# GCS_VAULT_SECRET_PATH: vault location for bekitzur service account
-# PREFIX: the string to prepend for bucket names
-# ROOT_BRANCH: the branch to set up in the root of maps.elastic.co
+# This script logs into Google Cloud with the service account credentials
+# retrieved from vault and sets up the location of the different
+# GCP buckets used as staging and production environments for
+# EMS Landing Page.
+#
+# Parameters that set up the production environment:
+# - GCS_VAULT_SECRET_PATH: vault location for the GCP service account
+# - PREFIX: the string to prepend for GCP bucket names
+# - ROOT_BRANCH: the branch to set up in the root of maps.elastic.co
+#
+# Parameters to export:
+# - STAGING_BUCKET: GCP bucket storing the staging copy for testing
+# - PRODUCTION_BUCKET: GCP bucket exposed at maps.elastic.co
+# - ARCHIVE_BUCKET: GCP bucket with the archives of previous builds
+# - ROOT_BRANCH
 
-
-#GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/gce/elastic-bekitzur/service-account/maps-landing"
-#PREFIX="elastic-bekitzur-maps-landing-page"
-#ROOT_BRANCH='v8.6'
-
-# TODO restore production paramenters
-GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/testing/gcs_acount" 
-PREFIX="elastic-ems-dev-maps-landing-page"
-ROOT_BRANCH='buildkite-deploy'
+GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/gce/elastic-bekitzur/service-account/maps-landing"
+PREFIX="elastic-bekitzur-maps-landing-page"
+ROOT_BRANCH='v8.6'
 
 echo "--- :gcloud: Authenticate in GCP"
 

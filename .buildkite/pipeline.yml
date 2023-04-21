@@ -12,12 +12,11 @@ steps:
 
   - key: deploy-staging
     label: ":rocket: Stage"
-    #TODO remove PR branch name
     if: |
       // Deploy to stage for whitelisted branches (also master)
       // and untagged commits
-      build.tag != null && 
-      build.branch =~ /master|v7\.17|v8\.7|v8\.8|jsanz:buildkite-deploy/
+      build.tag == null && 
+      build.branch =~ /master|v7\.17|v8\.7|v8\.8/
     depends_on: build
     command: ".buildkite/scripts/upload.sh"
     env:
@@ -25,22 +24,20 @@ steps:
 
   - key: should-deploy
     block: ":one-does-not-simply: Deploy"
-    #TODO remove PR branch name
     if: |
       // Deploy to production for whitelisted branches
       // and tagged commits
-      build.tag == null && 
-      build.branch =~ /v7\.17|v8\.7|v8\.8|jsanz:buildkite-deploy/
+      build.tag != null && 
+      build.branch =~ /v7\.17|v8\.7|v8\.8/
     depends_on: build
 
   - key: deploy-production
     label: ":shipit: Deploy"
-    #TODO remove PR branch name
     if: |
       // Deploy to production for whitelisted branches
       // and tagged commits
-      build.tag == null && 
-      build.branch =~ /v7\.17|v8\.7|v8\.8|jsanz:buildkite-deploy/
+      build.tag != null && 
+      build.branch =~ /v7\.17|v8\.7|v8\.8/
     depends_on: should-deploy
     commands:
       - ".buildkite/scripts/archive.sh"
