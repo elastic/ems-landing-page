@@ -38,12 +38,15 @@ function retry {
 # PREFIX: the string to prepend for bucket names
 # ROOT_BRANCH: the branch to set up in the root of maps.elastic.co
 
+
 #GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/gce/elastic-bekitzur/service-account/maps-landing"
 #PREFIX="elastic-bekitzur-maps-landing-page"
+#ROOT_BRANCH='v8.6'
+
+# TODO restore production paramenters
 GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/testing/gcs_acount" 
 PREFIX="elastic-ems-dev-maps-landing-page"
-
-ROOT_BRANCH='v8.6'
+ROOT_BRANCH='buildkite-deploy'
 
 echo "--- :gcloud: Authenticate in GCP"
 
