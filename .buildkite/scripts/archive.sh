@@ -18,7 +18,7 @@ ZIP_FILE=${TIMESTAMP}_ems_landingpages.tar.gz
 ZIP_FILE_PATH=$PWD/$ZIP_FILE
 
 
-echo "--- :arrow_down: Copying gs://$STAGING_BUCKET to $SNAPSHOT_DIR"
+echo "--- :arrow_down: Downloading gs://$STAGING_BUCKET to snapshot"
 
 if [[ -d "$SNAPSHOT_DIR" ]]; then
     echo ":fire: $SNAPSHOT_DIR already exist" 1>&2
@@ -27,7 +27,7 @@ fi
 mkdir -p "$SNAPSHOT_DIR"
 gsutil -m cp -r "gs://$STAGING_BUCKET/*" "$SNAPSHOT_DIR"
 
-echo "--- :compression: Archiving assets into $ZIP_FILE_PATH"
+echo "--- :compression: Archiving assets into $ZIP_FILE"
 tar -czvf "$ZIP_FILE_PATH" -C "$SNAPSHOT_DIR" .
 
 set +e
@@ -37,7 +37,7 @@ if gsutil -q stat "gs://$ARCHIVE_BUCKET/$ZIP_FILE" ; then
 fi
 set -e
 
-echo "--- :file_cabinet: Copying $ZIP_FILE_PATH snapshot to gs://$ARCHIVE_BUCKET"
+echo "--- :file_cabinet: Uploading snapshot to gs://$ARCHIVE_BUCKET"
 gsutil cp "$ZIP_FILE_PATH" "gs://$ARCHIVE_BUCKET"
 
 
