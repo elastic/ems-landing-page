@@ -30,7 +30,8 @@ case ${EMS_ENVIRONMENT} in
         exit 1
 esac
 
-DEST_PATH="${DEST_BUCKET}/${BUILDKITE_BRANCH#*:}/"
+BRANCH="${BUILDKITE_BRANCH#*:}"
+DEST_PATH="${DEST_BUCKET}/${BRANCH}/"
 
 
 # The trailing slash is critical with the branch.
@@ -40,7 +41,7 @@ gsutil -m rsync -d -r -a public-read -j js,css,html "${SOURCE_PATH}" "${DEST_PAT
 
 # If the branch name matches ROOT_BRANCH, it also gets synced to the root
 # excluding paths matching other versions to avoid removing them (v2, v7.x, etc.)
-if [[ "$BUILDKITE_BRANCH" == "$ROOT_BRANCH" ]]; then
+if [[ "$BRANCH" == "$ROOT_BRANCH" ]]; then
     echo "--- :gcloud: Sync ${SOURCE_PATH} to ${DEST_BUCKET}"
     gsutil -m rsync -d -r -a public-read -j js,css,html  -x '^v[\d.]+\/.*$' "${SOURCE_PATH}" "${DEST_BUCKET}/"
 fi
