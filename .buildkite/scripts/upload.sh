@@ -30,7 +30,7 @@ case ${EMS_ENVIRONMENT} in
         exit 1
 esac
 
-DEST_PATH="${DEST_BUCKET}/${BUILDKITE_BRANCH}/"
+DEST_PATH="${DEST_BUCKET}/${BUILDKITE_BRANCH#*:}/"
 
 
 # The trailing slash is critical with the branch.
