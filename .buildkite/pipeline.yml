@@ -14,33 +14,31 @@ steps:
     label: ":rocket: Stage"
     #TODO remove PR branch name
     if: |
-      // Deploy to stage for whitelisted branches
+      // Deploy to stage for whitelisted branches (also master)
       // and untagged commits
       build.tag == null && 
-      build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8|jsanz:buildkite-deploy/
+      build.branch =~ /master|v7\.17|v8\.7|v8\.8|jsanz:buildkite-deploy/
     depends_on: build
-    command: ".buildkite/scripts/deploy-staging.sh"
+    command: ".buildkite/scripts/upload.sh"
     env:
       EMS_ENVIRONMENT: "staging"
 
 
   - key: should-deploy
-    block: ":one-does-not-simply: Deploy to production?"
+    block: ":one-does-not-simply: Deploy"
+    #TODO remove PR branch name
     if: |
       // Deploy to production for whitelisted branches
       // and tagged commits
       build.tag != null && 
-      build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8/
+      build.branch =~ /v7\.17|v8\.7|v8\.8|jsanz:buildkite-deploy/
     depends_on: build
 
   - key: deploy-production
     label: ":shipit: Deploy"
-    if: |
-      // Deploy to production for whitelisted branches
-      // and tagged commits
-      build.tag != null && 
-      build.branch =~ /master|v7\.17|v8\.6|v8\.7|v8\.8/
-    depends_on: build
-    command: ".buildkite/scripts/deploy-production.sh"
+    depends_on: should-deploy
+    commands:
+      - ".buildkite/scripts/archive.sh"
+      - ".buildkite/scripts/upload.sh"
     env:
       EMS_ENVIRONMENT: "production"

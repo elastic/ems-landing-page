@@ -1,4 +1,4 @@
-#
+#!/usr/bin/env bash
 # Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
 # or more contributor license agreements. Licensed under the Elastic License;
 # you may not use this file except in compliance with the Elastic License.
@@ -6,12 +6,12 @@
 
 set -e
 
+# Silently quit if this environment variable is not set
 if [[ -z ${EMS_ENVIRONMENT} ]]; then
     exit 0
 fi
 unset EMS_ENVIRONMENT
 
-echo '--- :bash: Setting up the environment to deploy assets into staging/prod buckets'
 
 function retry {
     local retries=$1
@@ -32,29 +32,37 @@ function retry {
     done
     return 0
 }
-#TO UPDATE WITH VAULT LOCATION FOR BEKITZUR CREDENTIALS
-export GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/testing/gcs_acount" 
+
+# Deployment parameters:
+# GCS_VAULT_SECRET_PATH: vault location for bekitzur service account
+# PREFIX: the string to prepend for bucket names
+# ROOT_BRANCH: the branch to set up in the root of maps.elastic.co
+
+#GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/gce/elastic-bekitzur/service-account/maps-landing"
+#PREFIX="elastic-bekitzur-maps-landing-page"
+GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/testing/gcs_acount" 
+PREFIX="elastic-ems-dev-maps-landing-page"
+
+ROOT_BRANCH='v8.6'
+
+echo "--- :gcloud: Authenticate in GCP"
 
 # Login to the Google Cloud with the service account
-export GCE_ACCOUNT_SECRET=$(retry 5 vault read --field=value ${GCS_VAULT_SECRET_PATH})
-unset GCS_VAULT_SECRET_PATH
+GCE_ACCOUNT_SECRET=$(retry 5 vault read --field=value ${GCS_VAULT_SECRET_PATH})
 
 if [[ -z "${GCE_ACCOUNT_SECRET}" ]]; then
     echo "--- :fire: GCP credentials not set. Expected google service account JSON blob."  1>&2
     exit 1
 fi
 
-echo "--- :gcloud: Authenticate in GCP"
 gcloud auth activate-service-account --quiet --key-file <(echo "$GCE_ACCOUNT_SECRET")
-unset GCE_ACCOUNT_SECRET
 
-# TODO UPDATE this to elastic-bekitzur
-export GPROJECT="elastic-ems-dev"
-export EMS_PROJECT=maps-landing-page
+echo '--- :bash: Setting up the environment to deploy assets into staging/prod buckets'
 
-export STAGING_BUCKET="${GPROJECT}-${EMS_PROJECT}-staging"
-export PRODUCTION_BUCKET="${GPROJECT}-${EMS_PROJECT}-live"
-export ARCHIVE_BUCKET="${GPROJECT}-${EMS_PROJECT}-archive"
-unset GPROJECT EMS_PROJECT
+export STAGING_BUCKET="${PREFIX}-staging"
+export PRODUCTION_BUCKET="${PREFIX}-live"
+export ARCHIVE_BUCKET="${PREFIX}-archive"
+export ROOT_BRANCH
 
-export ROOT_BRANCH='v8.6'
+# Cleanup
+unset GCS_VAULT_SECRET_PATH PREFIX GCE_ACCOUNT_SECRET 
