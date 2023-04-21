@@ -23,7 +23,6 @@ steps:
     env:
       EMS_ENVIRONMENT: "staging"
 
-
   - key: should-deploy
     block: ":one-does-not-simply: Deploy"
     #TODO remove PR branch name
@@ -36,6 +35,12 @@ steps:
 
   - key: deploy-production
     label: ":shipit: Deploy"
+    #TODO remove PR branch name
+    if: |
+      // Deploy to production for whitelisted branches
+      // and tagged commits
+      build.tag != null && 
+      build.branch =~ /v7\.17|v8\.7|v8\.8|jsanz:buildkite-deploy/
     depends_on: should-deploy
     commands:
       - ".buildkite/scripts/archive.sh"
