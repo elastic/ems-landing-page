@@ -20,7 +20,7 @@ steps:
 
   - key: should-deploy
     block: ":one-does-not-simply: Deploy"
-    if: build.tag != null build.branch =~ /v[7-9]\.[0-9]{1,2}/
+    if: build.tag != null && build.branch =~ /v[7-9]\.[0-9]{1,2}/
     depends_on: build
 
   - key: deploy-production
