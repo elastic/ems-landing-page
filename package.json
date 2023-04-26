@@ -70,7 +70,8 @@
     "**/minimist": "^1.2.6",
     "handlebars-loader/loader-utils":"^1.0.0",
     "**/loader-utils":"^2.0.3",
-    "**/refractor/prismjs": "~1.27.0"
+    "**/refractor/prismjs": "~1.27.0",
+    "**/yaml": "^2.2.2"
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
