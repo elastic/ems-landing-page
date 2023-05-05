@@ -33,16 +33,18 @@ SOURCE_PATH="./build/release/"
 case ${EMS_ENVIRONMENT} in
     "staging")
         DEST_BUCKET="gs://${STAGING_BUCKET}"
+        BRANCH="${BUILDKITE_BRANCH#*:}"
     ;;
     "production")
         DEST_BUCKET="gs://${PRODUCTION_BUCKET}"
+        # When running from a tag, we need to extract the branch from git log :(
+        BRANCH=$(git show -s --pretty=%d HEAD | sed -e 's/^.*origin\/\(.*\))$/\1/g')
     ;;
     "*")
         echo "--- :fire: ${EMS_ENVIRONMENT}  is not a valid environment definition" 1>&2
         exit 1
 esac
 
-BRANCH="${BUILDKITE_BRANCH#*:}"
 DEST_PATH="${DEST_BUCKET}/${BRANCH}/"
 
 
