@@ -29,10 +29,14 @@ if [[ -d "$SNAPSHOT_DIR" ]]; then
     exit 1
 fi
 mkdir -p "$SNAPSHOT_DIR"
-gsutil -m cp -r "gs://$STAGING_BUCKET/*" "$SNAPSHOT_DIR"
+set -x
+gsutil -m -q cp -r "gs://$STAGING_BUCKET/*" "$SNAPSHOT_DIR"
+set +x
 
 echo "--- :compression: Archiving assets into $ZIP_FILE"
-tar -czvf "$ZIP_FILE_PATH" -C "$SNAPSHOT_DIR" .
+set -x
+tar -czf "$ZIP_FILE_PATH" -C "$SNAPSHOT_DIR" .
+set +x
 
 set +e
 if gsutil -q stat "gs://$ARCHIVE_BUCKET/$ZIP_FILE" ; then
