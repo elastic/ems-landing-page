@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
+# or more contributor license agreements. Licensed under the Elastic License;
+# you may not use this file except in compliance with the Elastic License.
+#
+
+set -e
+
+# Silently quit if this environment variable is not set
+if [[ -z ${EMS_ENVIRONMENT} ]]; then
+    exit 0
+fi
+unset EMS_ENVIRONMENT
+
+
+function retry {
+    local retries=$1
+    shift
+
+    local count=0
+    until "$@"; do
+        exit=$?
+        wait=$((2 ** count))
+        count=$((count + 1))
+        if [ $count -lt "$retries" ]; then
+            >&2 echo "Retry $count/$retries exited $exit, retrying in $wait seconds..."
+            sleep $wait
+        else
+            >&2 echo "Retry $count/$retries exited $exit, no more retries left."
+            return $exit
+        fi
+    done
+    return 0
+}
+
+# This script logs into Google Cloud with the service account credentials
+# retrieved from vault and sets up the location of the different
+# GCP buckets used as staging and production environments for
+# EMS Landing Page.
+#
+# Parameters that set up the production environment:
+# - GCS_VAULT_SECRET_PATH: vault location for the GCP service account
+# - PREFIX: the string to prepend for GCP bucket names
+# - ROOT_BRANCH: the branch to set up in the root of maps.elastic.co
+#
+# Parameters to export:
+# - STAGING_BUCKET: GCP bucket storing the staging copy for testing
+# - PRODUCTION_BUCKET: GCP bucket exposed at maps.elastic.co
+# - ARCHIVE_BUCKET: GCP bucket with the archives of previous builds
+# - ROOT_BRANCH
+
+GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/gce/elastic-bekitzur/service-account/maps-landing"
+PREFIX="elastic-bekitzur-maps-landing-page"
+ROOT_BRANCH='v8.7'
+
+echo "--- :gcloud: Authenticate in GCP"
+
+# Login to the Google Cloud with the service account
+GCE_ACCOUNT_SECRET=$(retry 5 vault read --field=value ${GCS_VAULT_SECRET_PATH})
+
+if [[ -z "${GCE_ACCOUNT_SECRET}" ]]; then
+    echo "--- :fire: GCP credentials not set. Expected google service account JSON blob."  1>&2
+    exit 1
+fi
+
+gcloud auth activate-service-account --quiet --key-file <(echo "$GCE_ACCOUNT_SECRET")
+
+echo '--- :bash: Setting up the environment to deploy assets into staging/prod buckets'
+
+export STAGING_BUCKET="${PREFIX}-staging"
+export PRODUCTION_BUCKET="${PREFIX}-live"
+export ARCHIVE_BUCKET="${PREFIX}-archive"
+export ROOT_BRANCH
+
+# Cleanup
+unset GCS_VAULT_SECRET_PATH PREFIX GCE_ACCOUNT_SECRET 
