@@ -9,6 +9,12 @@
 set -e
 set +x
 
+# TODO remove the entire script when migration to Buildkite is finished
+# as for now we just skip the rest of the script
+echo "Skipping the script, we are moving to Buildkite"
+exit 0
+
+
 # Two stage script: first it compiles using node docker container,
 # then it runs itself from within another docker container to deploys to GCP
 
