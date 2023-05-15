@@ -12,7 +12,7 @@ import {
   EuiTitle,
   EuiBadge
 } from '@elastic/eui';
-import { FileLayer } from '@elastic/ems-client';
+import { FileLayer } from '@elastic/ems-client/target/node';
 
 export class LayerDetails extends PureComponent {
   constructor(props) {

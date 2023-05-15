@@ -5,14 +5,17 @@
  * 2.0.
  */
 
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './public'
+    static: {
+      directory: './public'
+    },
+    compress: false,
   },
   plugins: []
 });
