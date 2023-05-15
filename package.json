@@ -58,6 +58,8 @@
     "whatwg-fetch": "^3.0.0"
   },
   "resolutions": {
+    "@elastic/eui/trim": "^0.0.3",
+    "**/refractor/prismjs": "~1.27.0",
     "**/yaml": "^2.2.2"
   },
   "scripts": {
@@ -75,6 +77,6 @@
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
   "engines": {
-    "node": ">=12 <=16"
+    "node": ">=16 <=18"
   }
 }
