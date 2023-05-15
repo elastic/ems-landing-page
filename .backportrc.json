@@ -1,23 +1,10 @@
 {
   "upstream": "elastic/ems-landing-page",
   "branches": [
-    { "name": "v7.16", "checked":  true },
-    { "name": "v7.15", "checked":  true },
-    { "name": "v7.14", "checked":  true },
-    { "name": "v7.13", "checked":  true },
-    { "name": "v7.12", "checked":  true },
-    { "name": "v7.11", "checked":  true },
-    { "name": "v7.10", "checked":  true },
-    { "name": "v7.9", "checked":  true },
-    { "name": "v7.8", "checked":  true },
-    { "name": "v7.7", "checked":  true },
-    { "name": "v7.6", "checked":  true },
-    { "name": "v7.4", "checked":  true },
-    { "name": "v7.2", "checked":  true },
-    { "name": "v7.0", "checked":  true },
-    { "name": "v6.7", "checked":  true },
-    { "name": "v6.6", "checked":  true },
-    { "name": "v2", "checked": true }
+    { "name": "v8.9", "checked":  true },
+    { "name": "v8.8", "checked":  true },
+    { "name": "v8.7", "checked":  false },
+    { "name": "v7.17", "checked":  true }
   ],
   "labels": ["backport"],
   "multipleCommits": true
