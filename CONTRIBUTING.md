@@ -1,32 +1,34 @@
 # Contributing to Elastic Maps Service Landing Page
 
 ## New features and bug fixes
+
 All pull requests must be targeted to the `master` branch.
 
 If multiple releases are affected:
 
 1. Open a PR against the `master` branch.
 1. After the PR is merged, [Backport](#Backporting) the commit(s) to the affected branches.
-1. After all PRs to release branches have been merged and their [respective Jenkins jobs](https://kibana-ci.elastic.co) (ex. elastic / ems-landing-page # v7.2 - stage) have completed successfully review the staged changes at https://maps-staging.elastic.co/{some-release-branch} (ex. [7.2](https://maps-staging.elastic.co/v7.2)).
-1. If the staged changes are ok, deploy the changes to production by logging into [this Jenkins job](https://kibana-ci.elastic.co/job/elastic+ems-landing-page+deploy/) and choose "Build with Parameters".
+1. After all PRs to release branches have been merged and their corresponding Buildkite pipeline executions have completed successfully review the staged changes at https://maps-staging.elastic.co/{some-release-branch} (ex. [7.2](https://maps-staging.elastic.co/v7.2)).
+1. If the staged changes are OK, deploy the changes to production by pushing tags to the affected release branches and accept the deployment block steps at the corresponding buildkite pipeline executions.
 
 ## New Releases
+
 New releases of EMS Landing Page match minor releases of the Elastic Stack.
 
 To add a new release:
 1. Open a PR with the following changes:
-    1. Create a new config in the [.ci/jobs](https://github.com/elastic/ems-landing-page/tree/master/.ci/jobs) directory for a new release branch.
     1. Change the `EMS_VERSION` in config.json.
-    1. Upgrade the `@elastic/ems-client` dependency.
-    1. Bump the verison in `package.json`.
-    1. Add the new version to `.backportrc.json`.
+    1. Upgrade the `@elastic/ems-client` dependency, if necessary.
+    1. Bump the version in `package.json`.
+    1. Update `.backportrc.json` adding the new release and removing any inactive branch.
 1. After the PR is merged, create the new release branch from the `master` branch.
 
 After release:
-1. Open a PR to change the [default `root_branch`](https://github.com/elastic/ems-landing-page/blob/master/.ci/jobs/defaults.yml#L22) to the current release branch (ex. v7.4).
-1. After merging the PR, [backport](#Backporting) the commit to the respective release branch and merge.
-1. Wait for the elastic+ems-landing-page+jjbb Jenkins job to update.
-1. Then log into [this Jenkins job](https://kibana-ci.elastic.co/job/elastic+ems-landing-page+deploy/) and choose "Build with Parameters". This will update https://maps.elastic.co to the current release.
+
+1. Open a PR to change the [default `root_branch`](https://github.com/elastic/ems-landing-page/blob/c57d15ab7550a8b7e3be639e32743cce95c6994b/.buildkite/hooks/pre-command#L54) to the current release branch (ex. v7.4).
+1. After merging the PR, [backport](#Backporting) the commit to all active branches.
+1. Create a new tag on the release branch to trigger a production deployment.
+1. Add the new release branch to the Snyk project.
 
 ## Backporting
 
