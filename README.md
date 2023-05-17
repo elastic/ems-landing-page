@@ -64,7 +64,9 @@ Fix the errors, and redeploy.
 
 ## Continuous Integration and Deployment
 
-This project is built and deployed at Elastic infrastructure with [buildkite](https://buildkite.com/). All definitions and scripts are stored at the `.buildkite` folder.
+This project is built and deployed at Elastic infrastructure with [Buildkite](https://buildkite.com/). All definitions and scripts are stored at the `.buildkite` folder. 
+
+>:warning: Buildkite pipeline executions are only accessible to Elastic team members.
 
 * Any new PR will trigger a build that executes `yarn install && yarn build` as defined in `.buildkite/scripts/build.sh`. Any new commit on the PR will trigger a build and the result will be updated in a comment in the pull request.
 
@@ -76,4 +78,3 @@ This project is built and deployed at Elastic infrastructure with [buildkite](ht
   * A member of the team needs visit the Buildkite pipeline execution website and accept a manual block step to unlock the rest of the pipeline.
   * `archive.sh` will generate a copy of the current production environment and store it in an archive bucket.
   * `upload.sh` will upload the contents to the production environment. If the tag was made on `ROOT_BRANCH` it will also upload the assets to the root folder of the production bucket.
-
