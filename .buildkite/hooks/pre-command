@@ -51,7 +51,7 @@ function retry {
 
 GCS_VAULT_SECRET_PATH="secret/ci/elastic-ems-landing-page/gce/elastic-bekitzur/service-account/maps-landing"
 PREFIX="elastic-bekitzur-maps-landing-page"
-ROOT_BRANCH='v8.7'
+ROOT_BRANCH='v8.8'
 
 echo "--- :gcloud: Authenticate in GCP"
 
