@@ -12,7 +12,7 @@ set +x
 # an archive bucket
 #
 # Parameters:
-# - STAGING_BUCKET
+# - PRODUCTION_BUCKET
 # - ARCHIVE_BUCKET
 
 
@@ -22,7 +22,7 @@ ZIP_FILE=${TIMESTAMP}_ems_landingpages.tar.gz
 ZIP_FILE_PATH=$PWD/$ZIP_FILE
 
 
-echo "--- :arrow_down: Downloading gs://$STAGING_BUCKET to snapshot"
+echo "--- :arrow_down: Downloading gs://$PRODUCTION_BUCKET to snapshot"
 
 if [[ -d "$SNAPSHOT_DIR" ]]; then
     echo ":fire: $SNAPSHOT_DIR already exist" 1>&2
@@ -30,7 +30,7 @@ if [[ -d "$SNAPSHOT_DIR" ]]; then
 fi
 mkdir -p "$SNAPSHOT_DIR"
 set -x
-gsutil -m -q cp -r "gs://$STAGING_BUCKET/*" "$SNAPSHOT_DIR"
+gsutil -m -q cp -r "gs://$PRODUCTION_BUCKET/*" "$SNAPSHOT_DIR"
 set +x
 
 echo "--- :compression: Archiving assets into $ZIP_FILE"
