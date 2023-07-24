@@ -22,12 +22,12 @@ steps:
 
   - key: should-deploy
     block: ":one-does-not-simply: Deploy"
-    if: build.tag != null && ( build.branch == "master"  || build.branch =~ /^v\d{1,2}\.\d{1,2}$$/ )
+    if: build.tag != null && build.branch =~ /master|/v\d{1,2}\.\d{1,2}/
     depends_on: build
 
   - key: deploy-production
     label: ":shipit: Deploy"
-    if: build.tag != null && ( build.branch == "master"  || build.branch =~ /^v\d{1,2}\.\d{1,2}$$/ )
+    if: build.tag != null && build.branch =~ /master|/v\d{1,2}\.\d{1,2}/
     depends_on: should-deploy
     commands:
       - ".buildkite/scripts/archive.sh"
