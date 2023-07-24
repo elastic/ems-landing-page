@@ -9,7 +9,7 @@ If multiple releases are affected:
 1. Open a PR against the `master` branch.
 1. After the PR is merged, [Backport](#Backporting) the commit(s) to the affected branches.
 1. After all PRs to release branches have been merged and their corresponding Buildkite pipeline executions have completed successfully review the staged changes at https://maps-staging.elastic.co/{some-release-branch} (ex. [7.2](https://maps-staging.elastic.co/v7.2)).
-1. If the staged changes are OK, deploy the changes to production by pushing tags to the affected release branches and accept the deployment block steps at the corresponding buildkite pipeline executions.
+1. If the staged changes are OK, deploy the changes to production by pushing tags to `master` and the affected release branches and accept the deployment block steps at the corresponding buildkite pipeline executions.
 
 ## New Releases
 
