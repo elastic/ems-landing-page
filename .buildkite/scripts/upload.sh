@@ -37,8 +37,10 @@ case ${EMS_ENVIRONMENT} in
     ;;
     "production")
         DEST_BUCKET="gs://${PRODUCTION_BUCKET}"
-        # When running from a tag, we need to extract the branch from git log :(
-        BRANCH=$(git show -s --pretty=%d HEAD | sed -e 's/^.*origin\/\(.*\))$/\1/g')
+        # When running from a tag, we need to extract the branch name following the
+        # convention of branch_tagged-date like in
+        # master-2023-07-24 or v7.17-2023-07-24
+        BRANCH=$(echo "${BUILDKITE_BRANCH}" | cut -d "-" -f 1)
     ;;
     "*")
         echo "--- :fire: ${EMS_ENVIRONMENT}  is not a valid environment definition" 1>&2
@@ -57,5 +59,5 @@ gsutil -m rsync -d -r -a public-read -j js,css,html "${SOURCE_PATH}" "${DEST_PAT
 # excluding paths matching other versions to avoid removing them (v2, v7.x, etc.)
 if [[ "$BRANCH" == "$ROOT_BRANCH" ]]; then
     echo "--- :gcloud: Sync ${SOURCE_PATH} to ${DEST_BUCKET}"
-    gsutil -m rsync -d -r -a public-read -j js,css,html  -x '^v[\d.]+\/.*$' "${SOURCE_PATH}" "${DEST_BUCKET}/"
+    gsutil -m rsync -d -r -a public-read -j js,css,html  -x '^master|v[\d.]+\/.*$' "${SOURCE_PATH}" "${DEST_BUCKET}/"
 fi
