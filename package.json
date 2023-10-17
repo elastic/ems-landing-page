@@ -58,6 +58,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "resolutions": {
+    "**/@babel/traverse": "^7.23.2",
     "**/trim": "^0.0.3",
     "**/refractor/prismjs": "~1.27.0",
     "**/yaml": "^2.2.2",
