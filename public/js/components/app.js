@@ -8,12 +8,21 @@
 import { TMSService } from '@elastic/ems-client/target/node';
 
 import {
-  EuiCode, EuiGlobalToastList, EuiHeader,
+  EuiCode,
+  EuiGlobalToastList,
+  EuiHeader,
   EuiHeaderLink,
-  EuiHeaderLinks, EuiHeaderLogo, EuiHeaderSectionItem, EuiPage,
+  EuiHeaderLinks,
+  EuiHeaderLogo,
+  EuiHeaderSectionItem,
+  EuiPage,
   EuiPageBody,
   EuiPageSection,
-  EuiPanel, EuiProvider, EuiSpacer, EuiToast
+  EuiPanel,
+  EuiProvider,
+  EuiSpacer,
+  EuiToast,
+  EuiToolTip,
 } from '@elastic/eui';
 
 import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
@@ -321,9 +330,12 @@ export class App extends Component {
       <EuiProvider colorMode="light">
         <EuiHeader>
           <EuiHeaderSectionItem border="right">
-            <EuiHeaderLogo href="/" aria-label={`${this.props.serviceName} home`} iconType="emsApp" >
-              {this.props.serviceName}
-            </EuiHeaderLogo>
+            <EuiToolTip delay="long" 
+              content={`EMS version: ${this.props.client._emsVersion}`}>
+              <EuiHeaderLogo href="/" aria-label={`${this.props.serviceName} home`} iconType="emsApp" >
+                {this.props.serviceName}
+              </EuiHeaderLogo>
+            </EuiToolTip>
           </EuiHeaderSectionItem>
           <EuiHeaderSectionItem border="none">
             <EuiHeaderLinks gutterSize="xs">
