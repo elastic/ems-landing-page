@@ -5,11 +5,10 @@
  * 2.0.
  */
 
-const fs = require("fs");
-const { Exception } = require("handlebars");
-const path = require("node:path");
-const fetch = (...args) =>
-  import("node-fetch").then(({ default: fetch }) => fetch(...args));
+import * as url from "url";
+import fs from "fs";
+import path from "node:path";
+import fetch from "node-fetch";
 
 const MANIFEST_URL =
   process.env.EMS_MANIFEST_URL ||
@@ -28,11 +27,12 @@ async function main() {
   }
 
   // Patch the released config.json with the serverless version
-  const configFile = path.join(__dirname, RELEASE_DIR, "config.json");
+  const pasePath = url.fileURLToPath(new URL(".", import.meta.url));
+  const configFile = path.join(pasePath, RELEASE_DIR, "config.json");
   if (fs.existsSync(configFile) == false) {
     throw new Exception(`Config file not found at ${configFile})}`);
   }
-  const config = require(configFile);
+  const config = JSON.parse(fs.readFileSync(configFile));
 
   const newConfig = {
     ...config,
@@ -41,7 +41,7 @@ async function main() {
       emsVersion,
     },
   };
-
+  console.log("Writing a patched config.json file");
   const json = JSON.stringify(newConfig, null, 2);
   fs.writeFileSync(configFile, json);
 }
