@@ -33,7 +33,7 @@ async function start() {
     console.error(`Cannot load the required manifest for "${urlTokens.query.manifest}"`);
     return;
   } else {
-    console.log(`EMS Client ${emsClient._emsVersion} loaded`);
+    console.info(`EMS Client ${emsClient._emsVersion} loaded`);
   } 
   const emsLayers = {
     file: await emsClient.getFileLayers(),
