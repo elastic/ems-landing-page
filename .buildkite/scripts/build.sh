@@ -17,7 +17,7 @@ else
   yarn build-unsafe
 fi
 
-if [[ "${BUILDKITE_BRANCH}" == "${BUILDKITE_PIPELINE_DEFAULT_BRANCH}" ]] ; then
+if [[ "${BUILDKITE_BRANCH}" == "${BUILDKITE_PIPELINE_DEFAULT_BRANCH}"* ]] ; then
   echo "--- :elastic-cloud: Replacing version in config.json"
   yarn serverless
 fi
