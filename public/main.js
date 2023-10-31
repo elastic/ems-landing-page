@@ -76,7 +76,7 @@ async function getEmsClient(config, deployment, locale) {
   const license = config.license;
   const emsClient = new EMSClient({
     appName: 'ems-landing-page',
-    appVersion: version,
+    appVersion: emsVersion,
     fileApiUrl,
     tileApiUrl,
     emsVersion,
