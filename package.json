@@ -28,7 +28,7 @@
     "css-minimizer-webpack-plugin": "^4.2.2",
     "eslint": "^8.32.0",
     "eslint-plugin-react": "^7.32.1",
-    "favicons": "^7.1.2",
+    "favicons": "^7.1.4",
     "favicons-webpack-plugin": "^6.0.0",
     "file-loader": "^6.2.0",
     "handlebars": "^4.7.7",
@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
-    "@elastic/ems-client": "8.5.0",
+    "@elastic/ems-client": "8.5.1",
     "@elastic/eui": "^89.1.0",
     "@emotion/css": "^11.10.6",
     "@mapbox/mapbox-gl-rtl-text": "^0.2.3",
@@ -80,6 +80,6 @@
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
   "engines": {
-    "node": ">=16 <=18"
+    "node": ">=18 <=20"
   }
 }
