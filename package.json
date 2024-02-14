@@ -1,6 +1,6 @@
 {
   "name": "ems_landing_page",
-  "version": "8.13.0",
+  "version": "8.14.0",
   "description": "",
   "main": "main.js",
   "devDependencies": {
