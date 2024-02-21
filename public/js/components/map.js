@@ -21,12 +21,12 @@ export class Map extends Component {
     // Create canvas element. The canvas is not added to the
     // document itself, so it is never displayed in the
     // browser window.
-    var canvas = document.createElement("canvas");
+    var canvas = document.createElement('canvas');
     // Get WebGLRenderingContext from canvas element.
-    var gl = canvas.getContext("webgl") 
-      || canvas.getContext("experimental-webgl");
+    var gl = canvas.getContext('webgl') 
+      || canvas.getContext('experimental-webgl');
     // Report the result.
-    return gl && gl instanceof WebGLRenderingContext
+    return gl && gl instanceof WebGLRenderingContext;
   }
 
   constructor(props) {
