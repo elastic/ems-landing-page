@@ -68,12 +68,8 @@
     "compile": "webpack --config webpack.prod.js",
     "build": "./bin/git-check.sh && yarn build-unsafe",
     "build-unsafe": "yarn lint && yarn compile",
-    "serverless": "node .buildkite/scripts/serverless.mjs"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint"
-    }
+    "serverless": "node .buildkite/scripts/serverless.mjs",
+    "prepare": "husky"
   },
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
