@@ -20,6 +20,7 @@ import {
   EuiHeaderSectionItem,
   EuiHeaderLogo,
   EuiToast,
+  EuiToolTip,
   EuiProvider
 } from '@elastic/eui';
 
@@ -191,13 +192,21 @@ export class App extends Component {
       }
     };
 
+    // Set up the link on the logo to go to the root or up if relative
+    const fileApUrl = this.props.client.getFileApiUrl(); 
+    const logoLink = fileApUrl.startsWith('/') ? '../' : '/';
+
+
     return (
       <EuiProvider colorMode="light">
         <EuiHeader>
           <EuiHeaderSectionItem border="right">
-            <EuiHeaderLogo href="/" aria-label={`${this.props.serviceName} home`} iconType="emsApp" >
-              {this.props.serviceName}
-            </EuiHeaderLogo>
+            <EuiToolTip delay="long" 
+              content={`EMS version: ${this.props.client._emsVersion}`}>
+              <EuiHeaderLogo href={logoLink} aria-label={`${this.props.serviceName} home`} iconType="emsApp" >
+                {this.props.serviceName}
+              </EuiHeaderLogo>
+            </EuiToolTip>
           </EuiHeaderSectionItem>
           <EuiHeaderSectionItem border="none">
             <EuiHeaderLinks gutterSize="xs">
