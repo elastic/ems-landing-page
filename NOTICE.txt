@@ -1,0 +1,6 @@
+Elastic Mapping Service Landing Page
+Copyright 2012-2024 Elasticsearch B.V.
+
+---
+This product includes code license under MPL-2.0 from
+https://github.com/idofilin/webgl-by-example
