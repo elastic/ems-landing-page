@@ -20,6 +20,7 @@ import {
   EuiHeaderSectionItem,
   EuiHeaderLogo,
   EuiToast,
+  EuiToolTip,
   EuiProvider
 } from '@elastic/eui';
 
