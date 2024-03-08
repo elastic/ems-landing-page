@@ -10,8 +10,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-
 const ASSET_PATH = process.env.ASSET_PATH || '';
 
 module.exports = {
@@ -87,26 +85,13 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: './public/config.json', to: '.' }
+        { from: './public/config.json', to: '.' },
+        { from: './public/favicon.ico', to: '.' },
       ]
     }),
     new HTMLWebpackPlugin({
       template: 'public/index.hbs',
       hash: true,
-    }),
-    new FaviconsWebpackPlugin({
-      logo: './public/app_ems.svg',
-      favicons: {
-        icons: {
-          coast: false,
-          yandex: false,
-          android: false,
-          appleIcon: false,
-          appleStartup: false,
-          windows: false,
-          firefox: false
-        }
-      }
     }),
   ],
   stats: {
