@@ -17,7 +17,16 @@ maplibre.setRTLTextPlugin(mbRtlPlugin);
 export class Map extends Component {
 
   static isSupported() {
-    return maplibre.supported();
+    try {
+      const canvas = document.createElement('canvas');
+      const contextIds = ['webgl', 'experimental-webgl'];
+      return contextIds.some( (c) => { 
+        const ctx = canvas.getContext(c); 
+        return ctx && ctx instanceof WebGLRenderingContext
+      });
+    } catch (error) {
+      return false;
+    }
   }
 
   constructor(props) {
