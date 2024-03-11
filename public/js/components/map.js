@@ -21,7 +21,7 @@ export class Map extends Component {
       const contextIds = ['webgl', 'experimental-webgl'];
       return contextIds.some( (c) => { 
         const ctx = canvas.getContext(c); 
-        return ctx && ctx instanceof WebGLRenderingContext
+        return ctx && ctx instanceof WebGLRenderingContext;
       });
     } catch (error) {
       return false;
