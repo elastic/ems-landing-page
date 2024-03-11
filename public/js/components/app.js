@@ -8,20 +8,21 @@
 import React, { Component } from 'react';
 
 import {
-  EuiPage,
-  EuiPageBody,
-  EuiPageContent,
-  EuiPageContentBody,
-  EuiPanel,
-  EuiSpacer,
+  EuiCode,
+  EuiGlobalToastList,
   EuiHeader,
   EuiHeaderLink,
   EuiHeaderLinks,
-  EuiHeaderSectionItem,
   EuiHeaderLogo,
+  EuiHeaderSectionItem,
+  EuiPage,
+  EuiPageBody,
+  EuiPageSection,
+  EuiPanel,
+  EuiProvider,
+  EuiSpacer,
   EuiToast,
   EuiToolTip,
-  EuiProvider
 } from '@elastic/eui';
 
 import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
@@ -62,23 +63,31 @@ export class App extends Component {
 
     this._selectFileLayer = async (fileLayerConfig) => {
 
-      this._featuretable.startLoading();
-      const featureCollection = await fileLayerConfig.getGeoJson();
+      try {
+        this._featuretable?.startLoading();
+        const featureCollection = await fileLayerConfig.getGeoJson();
 
-      featureCollection.features.forEach((feature, index) => {
-        feature.properties.__id__ = index;
-      });
+        featureCollection.features.forEach((feature, index) => {
+          feature.properties.__id__ = index;
+        });
 
-      this.setState({
-        selectedFileLayer: fileLayerConfig,
-        jsonFeatures: featureCollection,
-      });
+        this.setState({
+          selectedFileLayer: fileLayerConfig,
+          jsonFeatures: featureCollection,
+        });
 
 
-      this._setFileRoute(fileLayerConfig);
-      this._map.setOverlayLayer(featureCollection);
-      this._featuretable.stopLoading();
+        this._setFileRoute(fileLayerConfig);
+        this._map.setOverlayLayer(featureCollection);
+        this._featuretable?.stopLoading();
+      } catch (error) {
+        this._addToast(
+          'There was an error',
+          <p><EuiCode>{error.message}</EuiCode></p>
+        );
+      }
     };
+        
 
     this._showFeature = (feature) => {
       this._map.highlightFeature(feature);
@@ -97,6 +106,23 @@ export class App extends Component {
       });
 
       this._map.setTmsLayer(source);
+    };
+
+    this._addToast = (title, text) => {
+      this.setState({
+        toasts: [{
+          id: 'error',
+          color: 'danger',
+          title,
+          text
+        }]
+      });
+    };
+
+    this._removeToast = () => {
+      this.setState({
+        toasts: []
+      });
     };
 
     this._map = null;
@@ -135,6 +161,7 @@ export class App extends Component {
     this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
     this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
   }
+  
 
   _readFileRoute() {
     const urlTokens = new URL(window.location, true);
@@ -225,20 +252,25 @@ export class App extends Component {
             ref={setToc}
           />
           <EuiPageBody>
-            <div className="mainContent">
+            <EuiPageSection className="mainContent">
               <EuiPanel paddingSize="none">
                 <Map ref={setMap} />
               </EuiPanel>
               <EuiSpacer size="l" />
-              <EuiPageContent>
-                <EuiPageContentBody>
-                  <LayerDetails title="Tile Layer" layerConfig={this.state.selectedTileLayer} />
-                </EuiPageContentBody>
-              </EuiPageContent>
+              <EuiPanel>
+                <LayerDetails
+                  title="Tile Layer"
+                  layerConfig={this.state.selectedTileLayer}
+                />
+              </EuiPanel>
               <EuiSpacer />
-              <EuiPageContent>
-                <EuiPageContentBody>
-                  <LayerDetails title="Vector Layer" layerConfig={this.state.selectedFileLayer} />
+              {
+                (this.state.selectedFileLayer) &&
+                <EuiPanel>
+                  <LayerDetails
+                    title="Vector Layer"
+                    layerConfig={this.state.selectedFileLayer}
+                  />
                   <EuiSpacer size="l" />
                   <FeatureTable
                     ref={setFeatureTable}
@@ -247,9 +279,14 @@ export class App extends Component {
                     onShow={this._showFeature}
                     onFilterChange={this._filterFeatures}
                   />
-                </EuiPageContentBody>
-              </EuiPageContent>
-            </div>
+                </EuiPanel>
+              }
+              <EuiGlobalToastList
+                toasts={this.state.toasts}
+                dismissToast={this._removeToast}
+                toastLifeTimeMs={3000}
+              />
+            </EuiPageSection>
           </EuiPageBody>
         </EuiPage>
       </EuiProvider>
