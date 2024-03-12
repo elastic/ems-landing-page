@@ -16,7 +16,16 @@ maplibre.setRTLTextPlugin(mbRtlPlugin);
 export class Map extends Component {
 
   static isSupported() {
-    return maplibre.supported();
+    try {
+      const canvas = document.createElement('canvas');
+      const contextIds = ['webgl', 'experimental-webgl'];
+      return contextIds.some( (c) => { 
+        const ctx = canvas.getContext(c); 
+        return ctx && ctx instanceof WebGLRenderingContext;
+      });
+    } catch (error) {
+      return false;
+    }
   }
 
   constructor(props) {
@@ -74,7 +83,7 @@ export class Map extends Component {
       }
       rows += `<dt>${key}</dt><dd>${feature.properties[key]}</dd>`;
     });
-    const html = `<div class="euiText euiText--extraSmall"><dl class="eui-definitionListReverse">${rows}</dl></div>`;
+    const html = `<div class="euiText euiText--extraSmall"><dl class="popup_feature_list">${rows}</dl></div>`;
 
     this._currentPopup = new maplibre.Popup();
     this._currentPopup.setLngLat(lngLat);
