@@ -3,7 +3,6 @@
   "branches": [
     { "name": "v8.14", "checked": true },
     { "name": "v8.13", "checked": true },
-    { "name": "v8.12", "checked": true },
     { "name": "v7.17", "checked": true }
   ],
   "labels": ["backport"],
