@@ -1,10 +1,9 @@
 {
   "upstream": "elastic/ems-landing-page",
   "branches": [
-    { "name": "v8.9", "checked":  true },
-    { "name": "v8.8", "checked":  false },
-    { "name": "v8.7", "checked":  false },
-    { "name": "v7.17", "checked":  true }
+    { "name": "v8.14", "checked": true },
+    { "name": "v8.13", "checked": true },
+    { "name": "v7.17", "checked": true }
   ],
   "labels": ["backport"],
   "multipleCommits": true
