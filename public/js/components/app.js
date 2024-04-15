@@ -220,8 +220,9 @@ export class App extends Component {
     };
 
     // Set up the link on the logo to go to the root or up if relative
-    const fileApUrl = this.props.client.getFileApiUrl(); 
-    const logoLink = fileApUrl.startsWith('/') ? '../' : '/';
+    const fileApUrl = this.props.client.getFileApiUrl();
+    const logoLink =
+      new URL(fileApUrl).hostname == window.location.hostname ? '../' : '/';
 
 
     return (
