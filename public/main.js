@@ -8,12 +8,14 @@
 import './main.css';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+
 import URL from 'url-parse';
 import 'whatwg-fetch';
-import { version } from '../package.json';
-import { App } from './js/components/app';
+
 import { EMSClient } from '@elastic/ems-client/target/node';
+
+import { App } from './js/components/app';
 
 start();
 
@@ -41,10 +43,11 @@ async function start() {
   };
 
   const serviceName = config.serviceName || 'Elastic Maps Service';
+  const container = document.getElementById('wrapper');
+  const root = createRoot(container);
 
-  ReactDOM.render(
+  root.render(
     <App client={emsClient} serviceName={serviceName} layers={emsLayers} />,
-    document.getElementById('wrapper')
   );
 }
 
