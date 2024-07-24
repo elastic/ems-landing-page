@@ -34,6 +34,8 @@
     "html-webpack-plugin": "^5.5.0",
     "husky": "^9.0.11",
     "node-fetch": "^3.3.2",
+    "node-polyfill-webpack-plugin": "^4.0.0",
+    "process": "^0.11.10",
     "resolve-url-loader": "5.0.0",
     "style-loader": "^3.3.4",
     "url": "^0.11.0",
@@ -44,7 +46,7 @@
   },
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
-    "@elastic/ems-client": "7.17.1",
+    "@elastic/ems-client": "7.17.3",
     "@elastic/eui": "^93.0.0",
     "@emotion/css": "^11.10.6",
     "@hello-pangea/dnd": "^16.5.0",

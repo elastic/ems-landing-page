@@ -9,6 +9,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 const ASSET_PATH = process.env.ASSET_PATH || '';
 
@@ -78,6 +79,9 @@ module.exports = {
     },
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser'
+    }),
     new CleanWebpackPlugin({
       cleanAfterEveryBuildPatterns: [
         path.resolve(__dirname, 'build/release/icon*')
