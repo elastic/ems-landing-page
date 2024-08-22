@@ -45,12 +45,12 @@
     "webpack-merge": "5.10.0"
   },
   "dependencies": {
-    "@elastic/datemath": "5.0.3",
+    "@elastic/datemath": "^5.0.3",
     "@elastic/ems-client": "7.17.3",
-    "@elastic/eui": "93.6.0",
-    "@emotion/css": "11.13.0",
+    "@elastic/eui": "^93.0.0",
+    "@emotion/css": "^11.10.6",
     "@hello-pangea/dnd": "16.6.0",
-    "@mapbox/mapbox-gl-rtl-text": "0.2.3",
+    "@mapbox/mapbox-gl-rtl-text": "^0.3.0",
     "@turf/bbox": "6.5.0",
     "@turf/center": "6.5.0",
     "maplibre-gl": "4.0.2",

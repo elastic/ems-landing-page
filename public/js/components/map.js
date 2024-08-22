@@ -6,13 +6,11 @@
  */
 
 import maplibre from 'maplibre-gl';
-import mbRtlPlugin from '@mapbox/mapbox-gl-rtl-text/mapbox-gl-rtl-text.min.js';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 import React, { Component } from 'react';
 
-maplibre.setRTLTextPlugin(mbRtlPlugin);
-
+maplibre.setRTLTextPlugin('mapbox-gl-rtl-text.js');
 export class Map extends Component {
 
   static isSupported() {
