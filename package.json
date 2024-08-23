@@ -50,7 +50,7 @@
     "@elastic/eui": "^93.0.0",
     "@emotion/css": "^11.10.6",
     "@hello-pangea/dnd": "16.6.0",
-    "@mapbox/mapbox-gl-rtl-text": "^0.3.0",
+    "@mapbox/mapbox-gl-rtl-text": "^0.2.3",
     "@turf/bbox": "6.5.0",
     "@turf/center": "6.5.0",
     "maplibre-gl": "4.0.2",
