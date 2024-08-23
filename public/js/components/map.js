@@ -24,7 +24,7 @@ export class Map extends Component {
         const ctx = canvas.getContext(c); 
         return ctx && ctx instanceof WebGLRenderingContext;
       });
-    } catch (error) {
+    } catch (error) { //eslint-disable-line no-unused-vars
       return false;
     }
   }
