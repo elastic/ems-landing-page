@@ -55,8 +55,8 @@
     "chroma-js": "2.4.2",
     "maplibre-gl": "4.0.2",
     "moment": "^2.30.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "url-parse": "1.5.10",
     "whatwg-fetch": "^3.6.16"
   },
