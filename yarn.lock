@@ -1504,12 +1504,12 @@
     semver "7.6.2"
     topojson-client "^3.1.0"
 
-"@elastic/eui@^93.0.0":
-  version "93.6.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-93.6.0.tgz#9a5892164a4457ba0382a76b63731eeed10dfb89"
-  integrity sha512-o6TEgSE+mOJmZYtMm+xYMeFQoOcoGTQOMWwRBCkP1efEPAlqjeBnUeahco8jKM3kqTeah+jMLm/A02ZjRwU+GA==
+"@elastic/eui@^95.0.0":
+  version "95.8.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-95.8.0.tgz#cc9feb1efc9bdda911d61fcafbc43a12462a0455"
+  integrity sha512-/j6ybhwS90b3CEXmGXrJ8niDhwF8gnBEM1nMDw7CxbxN2WeWhnvkH8F5qe7w5W8o0im702V8heePVt/+RaZ8XA==
   dependencies:
-    "@hello-pangea/dnd" "^16.3.0"
+    "@hello-pangea/dnd" "^16.6.0"
     "@types/lodash" "^4.14.202"
     "@types/numeral" "^2.0.5"
     "@types/react-window" "^1.8.8"
@@ -1534,7 +1534,7 @@
     remark-breaks "^2.0.2"
     remark-emoji "^2.1.0"
     remark-parse-no-trim "^8.0.4"
-    remark-rehype "^8.0.0"
+    remark-rehype "^8.1.0"
     tabbable "^5.3.3"
     text-diff "^1.0.1"
     unified "^9.2.2"
@@ -1690,7 +1690,7 @@
     tslib "^2.0.1"
     typescript "^4.0"
 
-"@hello-pangea/dnd@16.6.0", "@hello-pangea/dnd@^16.3.0":
+"@hello-pangea/dnd@16.6.0", "@hello-pangea/dnd@^16.6.0":
   version "16.6.0"
   resolved "https://registry.yarnpkg.com/@hello-pangea/dnd/-/dnd-16.6.0.tgz#7509639c7bd13f55e537b65a9dcfcd54e7c99ac7"
   integrity sha512-vfZ4GydqbtUPXSLfAvKvXQ6xwRzIjUSjVU0Sx+70VOhc2xx6CdmJXJ8YhH70RpbTUGjxctslQTHul9sIOxCfFQ==
@@ -7626,7 +7626,7 @@ remark-parse-no-trim@^8.0.4:
     vfile-location "^3.0.0"
     xtend "^4.0.1"
 
-remark-rehype@^8.0.0:
+remark-rehype@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/remark-rehype/-/remark-rehype-8.1.0.tgz#610509a043484c1e697437fa5eb3fd992617c945"
   integrity sha512-EbCu9kHgAxKmW1yEYjx3QafMyGY3q8noUbNUI5xyKbaFP89wbhDrKxyIQNukNYthzjNHZu6J7hwFg7hRm1svYA==
