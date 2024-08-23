@@ -61,8 +61,8 @@
     "whatwg-fetch": "^3.6.16"
   },
   "resolutions": {
-    "**/yaml": "^2.3.0",
-    "**/semver": "^7.6.0"
+    "**/yaml": "^2.5.0",
+    "**/semver": "^7.6.3"
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
