@@ -5,8 +5,8 @@
   ],
   "labels": [
     "dependencies",
+    "v8.17",
     "v8.16",
-    "v8.15",
     "v7.17"
   ],
   "packageRules": [
