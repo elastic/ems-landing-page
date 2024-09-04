@@ -4,7 +4,8 @@
     { "name": "v9.0", "checked": true },
     { "name": "v8.x", "checked": true },
     { "name": "v8.17", "checked": true },
-    { "name": "v8.16", "checked": true }
+    { "name": "v8.16", "checked": true },
+    { "name": "v7.17", "checked": true }
   ],
   "labels": ["backport"],
   "multipleCommits": false
