@@ -3447,10 +3447,10 @@ chokidar@^3.6.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-chroma-js@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/chroma-js/-/chroma-js-3.0.0.tgz#c19b3b728352bb02b8906c60d7c7d223d3d9b721"
-  integrity sha512-ZFn4qxtZTvRJ7XatOLgaHGJYN10LoS6T0EMsu7IVayFG5+b6Yw8wCGQL5qLgo4B+wrRZ9niCrozOQ4a584bvaA==
+chroma-js@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/chroma-js/-/chroma-js-3.1.1.tgz#380103ce1f8bb119be2b18303d598b3c113cf6b1"
+  integrity sha512-CGr6w73Gi86142RWqZ1RjED/CyduYw2vMTikQZUvr2jGIihnZlMo/Kzm9rYHWDP2pJc6eebwc8CkX0iteBon+A==
 
 chroma-js@^2.1.0:
   version "2.4.2"
