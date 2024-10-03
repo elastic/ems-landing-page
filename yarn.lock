@@ -31,7 +31,7 @@
     "@nicolo-ribaudo/chokidar-2" "2.1.8-no-fsevents.3"
     chokidar "^3.6.0"
 
-"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.24.7":
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.24.7", "@babel/code-frame@^7.25.7":
   version "7.25.7"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.25.7.tgz#438f2c524071531d643c6f0188e1e28f130cebc7"
   integrity sha512-0xZJFNE5XMpENsgfHYTw8FbX4kv53mFLn2i3XPoq69LyhYSCBJtitaHx9QnsVTrsogI4Z3+HtEfZ2/GFPOtf5g==
@@ -187,6 +187,16 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.25"
     jsesc "^2.5.1"
+
+"@babel/generator@^7.25.7":
+  version "7.25.7"
+  resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.25.7.tgz#de86acbeb975a3e11ee92dd52223e6b03b479c56"
+  integrity sha512-5Dqpl5fyV9pIAD62yK9P7fcA768uVPUyrQmqpqstHWgMma4feF1x/oFysBCVZLY5wJ2GkMUCdsNDnGZrPoR6rA==
+  dependencies:
+    "@babel/types" "^7.25.7"
+    "@jridgewell/gen-mapping" "^0.3.5"
+    "@jridgewell/trace-mapping" "^0.3.25"
+    jsesc "^3.0.2"
 
 "@babel/helper-annotate-as-pure@^7.22.5":
   version "7.22.5"
@@ -523,7 +533,7 @@
   resolved "https://registry.yarnpkg.com/@babel/helper-string-parser/-/helper-string-parser-7.24.8.tgz#5b3329c9a58803d5df425e5785865881a81ca48d"
   integrity sha512-pO9KhhRcuUyGnJWwyEgnRJTSIZHiT+vMD0kPeD+so0l7mxkMT19g3pjY9GTnHySck/hDzq+dtW/4VgnMkippsQ==
 
-"@babel/helper-string-parser@^7.24.8":
+"@babel/helper-string-parser@^7.24.8", "@babel/helper-string-parser@^7.25.7":
   version "7.25.7"
   resolved "https://registry.yarnpkg.com/@babel/helper-string-parser/-/helper-string-parser-7.25.7.tgz#d50e8d37b1176207b4fe9acedec386c565a44a54"
   integrity sha512-CbkjYdsJNHFk8uqpEkpCvRs3YRp9tY6FmFY7wLMSYuGYkrdUi7r2lc4/wqsvlHoMznX3WJ9IP8giGPq68T/Y6g==
@@ -689,6 +699,13 @@
   integrity sha512-nq+eWrOgdtu3jG5Os4TQP3x3cLA8hR8TvJNjD8vnPa20WGycimcparWnLK4jJhElTK6SDyuJo1weMKO/5LpmLA==
   dependencies:
     "@babel/types" "^7.25.4"
+
+"@babel/parser@^7.25.7":
+  version "7.25.7"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.25.7.tgz#99b927720f4ddbfeb8cd195a363ed4532f87c590"
+  integrity sha512-aZn7ETtQsjjGG5HruveUK06cU3Hljuhd9Iojm4M8WWv3wLE6OkE5PWbDUkItmMgegmccaITudyuW5RPYrYlgWw==
+  dependencies:
+    "@babel/types" "^7.25.7"
 
 "@babel/plugin-bugfix-firefox-class-in-computed-class-key@^7.25.3":
   version "7.25.3"
@@ -1516,6 +1533,15 @@
     "@babel/code-frame" "^7.24.7"
     "@babel/parser" "^7.25.0"
     "@babel/types" "^7.25.0"
+
+"@babel/template@^7.25.7":
+  version "7.25.7"
+  resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.25.7.tgz#27f69ce382855d915b14ab0fe5fb4cbf88fa0769"
+  integrity sha512-wRwtAgI3bAS+JGU2upWNL9lSlDcRCqD05BZ1n3X2ONLH1WilFP6O1otQjeMK/1g0pvYcXC7b/qVUB1keofjtZA==
+  dependencies:
+    "@babel/code-frame" "^7.25.7"
+    "@babel/parser" "^7.25.7"
+    "@babel/types" "^7.25.7"
 
 "@babel/traverse@^7.1.6", "@babel/traverse@^7.16.5", "@babel/traverse@^7.20.10", "@babel/traverse@^7.20.13":
   version "7.23.2"
@@ -6135,6 +6161,11 @@ jsesc@^2.5.1:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
   integrity sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==
+
+jsesc@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-3.0.2.tgz#bb8b09a6597ba426425f2e4a07245c3d00b9343e"
+  integrity sha512-xKqzzWXDttJuOcawBt4KnKHHIf5oQ/Cxax+0PWFG+DFDgHNAdi+TXECADI+RYiFUMmx8792xsMbbgXj4CwnP4g==
 
 jsesc@~0.5.0:
   version "0.5.0"
