@@ -10,8 +10,8 @@
   ],
   "branchLabelMapping": {
     "^v9.0$": "master",
-    "^v8.17$": "8.x",
-    "^v(\\d+).(\\d+).\\d+$": "$1.$2"
+    "^v8.17$": "v8.x",
+    "^v(\\d+).(\\d+)$": "v$1.$2"
   },
   "targetPRLabels": ["backport"],
   "commitConflicts": true,
