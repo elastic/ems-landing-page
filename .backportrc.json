@@ -1,13 +1,17 @@
 {
-  "upstream": "elastic/ems-landing-page",
-  "branches": [
-    { "name": "v9.0", "checked": true },
-    { "name": "v8.x", "checked": true },
-    { "name": "v8.17", "checked": true },
-    { "name": "v8.16", "checked": true },
-    { "name": "v8.15", "checked": true },
-    { "name": "v7.17", "checked": true }
+  "repoOwner": "elastic",
+  "repoName": "elastic/ems-landing-page",
+  "targetBranches": [
+    "v9.0",
+    "v8.x",
+    "v8.17",
+    "v8.16",
+    "v8.15",
+    "v7.17"
   ],
-  "labels": ["backport"],
-  "multipleCommits": false
+  "targetPRLabels": ["backport"],
+  "commitConflicts": true,
+  "autoMerge": true,
+  "autoMergeMethod": "squash",
+  "fork": false
 }
