@@ -10,14 +10,14 @@ jobs:
     name: Syncing branches
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2
       - name: Set up Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e # v1
         with:
           node-version: 12
       - name: Opening pull request
         id: pull
-        uses: tretuna/sync-branches@1.4.0
+        uses: tretuna/sync-branches@ea58ab6e406fd3ad016a064b31270bbb41127f41 # 1.4.0
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: "master"
