@@ -4,8 +4,8 @@ on:
   pull_request_target:
     types: ["labeled", "closed"]
     branches-ignore:
-      - v8.x
-      - master
+      - v8.17
+      - v9.0
 
 jobs:
   backport:
