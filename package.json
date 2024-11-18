@@ -16,8 +16,13 @@
     "@babel/preset-env": "7.26.0",
     "@babel/preset-react": "7.25.9",
     "@emotion/react": "11.13.3",
+<<<<<<< HEAD
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.14.0",
+=======
+    "@eslint/eslintrc": "3.2.0",
+    "@eslint/js": "9.15.0",
+>>>>>>> 18d3a7f (chore(deps): update eslint monorepo to v9.15.0 (#1259))
     "babel-loader": "9.2.1",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-inline-react-svg": "2.0.2",
@@ -28,7 +33,7 @@
     "core-js": "3.39.0",
     "css-loader": "7.1.2",
     "css-minimizer-webpack-plugin": "7.0.0",
-    "eslint": "9.14.0",
+    "eslint": "9.15.0",
     "eslint-plugin-react": "7.37.2",
     "file-loader": "6.2.0",
     "globals": "15.12.0",
