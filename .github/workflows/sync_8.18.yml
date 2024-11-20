@@ -1,4 +1,4 @@
-name: Sync v8.x with v8.17
+name: Sync v8.x with v8.18
 on:
   push:
     branches:
@@ -21,4 +21,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: "v8.x"
-          TO_BRANCH: "v8.17"
+          TO_BRANCH: "v8.18"
