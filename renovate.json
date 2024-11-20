@@ -5,11 +5,7 @@
   ],
   "labels": [
     "dependencies",
-<<<<<<< HEAD
-=======
-    "v9.0",
     "v8.18",
->>>>>>> a5b0ec0 ([skip-ci] Update settings after 8.18 bump (#1285))
     "v8.17",
     "v8.16",
     "v7.17"
