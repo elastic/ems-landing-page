@@ -4,7 +4,7 @@ on:
   pull_request_target:
     types: ["labeled", "closed"]
     branches-ignore:
-      - v8.17
+      - v8.18
       - v9.0
 
 jobs:
