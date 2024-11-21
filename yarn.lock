@@ -1592,10 +1592,10 @@
     semver "7.6.2"
     topojson-client "^3.1.0"
 
-"@elastic/eui@^97.0.0":
-  version "97.3.1"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-97.3.1.tgz#b0f07c603042bd359544b41829507e65f4fa3cd2"
-  integrity sha512-zJs3aaO6qjTdxJM2mPahcqaC6FfaC34yTc3qpQq7+Cbhw2xGrwx8bAfIzhttLU87mwgr59Sqv9Ojvwk8c3js7A==
+"@elastic/eui@^98.0.0":
+  version "98.0.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-98.0.0.tgz#837c699eddcc9da22ba9626b314920a38e640945"
+  integrity sha512-S7vxNDNx+5l56+1Td0tA2zrvi/i2akkB62MEmtKlIl7h2w8ghimd7ibyJAj1Tg0yJneKITAwoquWoa/03C14xQ==
   dependencies:
     "@hello-pangea/dnd" "^16.6.0"
     "@types/lodash" "^4.14.202"
