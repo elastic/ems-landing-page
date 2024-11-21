@@ -49,13 +49,8 @@
   },
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
-<<<<<<< HEAD
     "@elastic/ems-client": "7.17.3",
-    "@elastic/eui": "^97.0.0",
-=======
-    "@elastic/ems-client": "8.5.3",
     "@elastic/eui": "^98.0.0",
->>>>>>> fd99222 (fix(deps): update dependency @elastic/eui to v98 (#1293))
     "@emotion/css": "^11.10.6",
     "@hello-pangea/dnd": "16.6.0",
     "@mapbox/mapbox-gl-rtl-text": "^0.2.3",
