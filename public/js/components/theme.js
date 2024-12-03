@@ -8,7 +8,7 @@
 import { EuiThemeAmsterdam } from '@elastic/eui';
 import { EuiThemeBorealis } from '@elastic/eui-theme-borealis';
 
-const DEFAULT_EUI_THEME = EuiThemeAmsterdam;
+const DEFAULT_EUI_THEME = 'amsterdam';
 
 const themes = {
   amsterdam: EuiThemeAmsterdam,
@@ -16,7 +16,9 @@ const themes = {
 };
 
 // eslint-disable-next-line no-undef
-const EUI_THEME = process.env?.EUI_THEME;
+const EUI_THEME = process.env?.EUI_THEME || DEFAULT_EUI_THEME;
 
-export const theme =
-  EUI_THEME && EUI_THEME in themes ? themes[EUI_THEME] : DEFAULT_EUI_THEME;
+export const eui = {
+  name: EUI_THEME,
+  theme: themes[EUI_THEME],
+};

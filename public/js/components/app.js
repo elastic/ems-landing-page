@@ -43,10 +43,12 @@ import { LayerDetails } from './layer_details';
 import { Map } from './map';
 import { TableOfContents } from './table_of_contents';
 
-import { theme } from './theme';
-
+import { eui } from './theme';
 
 const colorMode = window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ? 'dark' :  'light';
+
+document.body.setAttribute('data-eui-theme', eui.name);
+document.body.setAttribute('data-eui-mode', colorMode);
 
 // One or more icons are passed in as an object of iconKey (string): IconComponent
 appendIconComponentCache({
@@ -338,7 +340,7 @@ export class App extends Component {
 
       
     return (
-      <EuiProvider theme={theme} colorMode={colorMode}>
+      <EuiProvider theme={eui.theme} colorMode={colorMode}>
         <EuiHeader>
           <EuiHeaderSectionItem border="right">
             <EuiToolTip delay="long" 
