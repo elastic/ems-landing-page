@@ -79,6 +79,6 @@
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
   "engines": {
-    "node": ">=18 <=20"
+    "node": ">=18 <=22"
   }
 }
