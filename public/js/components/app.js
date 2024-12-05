@@ -43,6 +43,12 @@ import { LayerDetails } from './layer_details';
 import { Map } from './map';
 import { TableOfContents } from './table_of_contents';
 
+import { eui } from './theme';
+
+const colorMode = window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ? 'dark' :  'light';
+
+document.body.setAttribute('data-eui-theme', eui.name);
+document.body.setAttribute('data-eui-mode', colorMode);
 
 // One or more icons are passed in as an object of iconKey (string): IconComponent
 appendIconComponentCache({
@@ -183,8 +189,9 @@ export class App extends Component {
       return;
     }
 
+    const baseLayerStyle = colorMode === 'light' ? 'road_map_desaturated' : 'dark_map';
     const baseLayer = this.props.layers.tms.find((service) => {
-      return service.getId() === 'road_map_desaturated';
+      return service.getId() === baseLayerStyle;
     });
     this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
 
@@ -331,9 +338,9 @@ export class App extends Component {
     const logoLink =
       new URL(fileApUrl).hostname == window.location.hostname ? '../' : '/';
 
-
+      
     return (
-      <EuiProvider colorMode="light">
+      <EuiProvider theme={eui.theme} colorMode={colorMode}>
         <EuiHeader>
           <EuiHeaderSectionItem border="right">
             <EuiToolTip delay="long" 

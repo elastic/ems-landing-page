@@ -41,7 +41,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /node_modules|theme\.js/,
         use: {
           loader: 'babel-loader'
         }
@@ -96,6 +96,9 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: 'public/index.hbs',
       hash: true,
+    }),
+    new webpack.EnvironmentPlugin({
+      EUI_THEME: 'amsterdam',
     }),
   ],
   stats: {
