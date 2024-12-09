@@ -11,6 +11,14 @@ echo "--- :yarn:  Installing dependencies"
 yarn install
 
 echo "--- :gear: Building"
+
+export EUI_THEME="amsterdam"
+
+if [[ "${BUILDKITE_BRANCH}" == "v9.0" ]]; then
+  export EUI_THEME="borealis"
+  echo "Switching to 🌠 Borealis 🌠 theme"
+fi
+
 if [[ -n ${BUILDKITE+x} ]] ; then
   yarn build
 else
