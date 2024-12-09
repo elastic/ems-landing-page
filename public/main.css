@@ -73,3 +73,17 @@ dl.popup_feature_list dd {
 dl.popup_feature_list dd:not(:last-child){
     margin-bottom: 5px;
 }
+
+/* dark mode tweaks */
+body[data-eui-mode="dark"] .maplibregl-ctrl-fullscreen,
+body[data-eui-mode="dark"] .maplibregl-ctrl-attrib,
+body[data-eui-mode="dark"] .maplibregl-ctrl-shrink
+{
+    background-color: #63635c;
+}
+
+body[data-eui-mode="dark"][data-eui-theme="borealis"] .maplibregl-ctrl-fullscreen,
+body[data-eui-mode="dark"][data-eui-theme="borealis"] .maplibregl-ctrl-attrib,
+body[data-eui-mode="dark"][data-eui-theme="borealis"] .maplibregl-ctrl-shrink {
+    background-color: #2a57a0;
+}
