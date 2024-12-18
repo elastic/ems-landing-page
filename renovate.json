@@ -24,6 +24,12 @@
         "devDependencies"
       ],
       "automerge": true
+    },
+    {
+      "matchPackagePatterns": [
+        "elastic/eui"
+      ],
+      "groupName": "Elastic EUI"
     }
   ]
 }
