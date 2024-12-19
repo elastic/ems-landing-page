@@ -1592,33 +1592,11 @@
     semver "7.6.2"
     topojson-client "^3.1.0"
 
-<<<<<<< HEAD
 "@elastic/eui@98.2.1":
   version "98.2.1"
   resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-98.2.1.tgz#d40bfc7b06ad4a964e3c0a192d90614cbcdee0ed"
   integrity sha512-I1C2okBDVlcmSJAgGX4E1N7fBIJPdG9/8Am7S/aJsd4LlB2MnWN47M6SdSH9BJQpVeLKSHyiVCQl4pKwXxOB5w==
   dependencies:
-=======
-"@elastic/eui-theme-borealis@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-borealis/-/eui-theme-borealis-0.0.6.tgz#4ade71ed1a9e771ac22d618b34d8fd89ee64ba37"
-  integrity sha512-tG9SN1MyWcHVOowdY16qZ2R+k5OeBfgUUzQM0rIZdx5ZmGRoGAY8Jr3eUovPNW0znkQA31DcQyrNbrD921xHgg==
-
-"@elastic/eui-theme-common@0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-common/-/eui-theme-common-0.0.6.tgz#45dc17f1e6ddb688dde2befd3a5e32d87e59dd42"
-  integrity sha512-6Uglv3HO3vK1uOyQc9F3ThtedZazohWDzMJXaR7QsYb48y3GP97AALA7+IFlnfl6OimOD/nKKzUylJqEGxffvA==
-  dependencies:
-    "@types/lodash" "^4.14.202"
-    lodash "^4.17.21"
-
-"@elastic/eui@98.2.1-borealis.1":
-  version "98.2.1-borealis.1"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-98.2.1-borealis.1.tgz#759acfdc2ddac94260e5869832f841f16d4d7e63"
-  integrity sha512-xJngnQycka54v7ptVUqJdOcTUuuhrf5/Nrg6EvhOFmMFuDECDSdsWqcbssZ7cCo6Cz0+7FrYWYvsNouK9TfhJA==
-  dependencies:
-    "@elastic/eui-theme-common" "0.0.6"
->>>>>>> 543d309 (Pin dependencies (#1396))
     "@hello-pangea/dnd" "^16.6.0"
     "@types/lodash" "^4.14.202"
     "@types/numeral" "^2.0.5"
@@ -1837,7 +1815,7 @@
     tslib "^2.0.1"
     typescript "^4.0"
 
-"@hello-pangea/dnd@16.6.0", "@hello-pangea/dnd@^16.6.0":
+"@hello-pangea/dnd@^16.6.0":
   version "16.6.0"
   resolved "https://registry.yarnpkg.com/@hello-pangea/dnd/-/dnd-16.6.0.tgz#7509639c7bd13f55e537b65a9dcfcd54e7c99ac7"
   integrity sha512-vfZ4GydqbtUPXSLfAvKvXQ6xwRzIjUSjVU0Sx+70VOhc2xx6CdmJXJ8YhH70RpbTUGjxctslQTHul9sIOxCfFQ==
