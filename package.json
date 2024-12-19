@@ -53,7 +53,7 @@
     "@elastic/eui": "98.2.1-borealis.1",
     "@elastic/eui-theme-borealis": "^0.0.6",
     "@emotion/css": "11.13.5",
-    "@mapbox/mapbox-gl-rtl-text": "0.2.3",
+    "@mapbox/mapbox-gl-rtl-text": "0.3.0",
     "@turf/bbox": "7.1.0",
     "@turf/center": "7.1.0",
     "chroma-js": "3.1.2",
