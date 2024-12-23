@@ -1541,11 +1541,20 @@
   resolved "https://registry.yarnpkg.com/@elastic/eui-theme-borealis/-/eui-theme-borealis-0.0.7.tgz#a6c4600d61a29a96078afbc8003a14f792842d32"
   integrity sha512-N1bo++X+aI4k4CiykdqKiV9ihfSifS3AScQXeeD5I9FunljsNVTk5f+502VIJKx/1knLidplsXmBv4n6iXf1tQ==
 
-"@elastic/eui@98.2.1":
-  version "98.2.1"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-98.2.1.tgz#d40bfc7b06ad4a964e3c0a192d90614cbcdee0ed"
-  integrity sha512-I1C2okBDVlcmSJAgGX4E1N7fBIJPdG9/8Am7S/aJsd4LlB2MnWN47M6SdSH9BJQpVeLKSHyiVCQl4pKwXxOB5w==
+"@elastic/eui-theme-common@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-common/-/eui-theme-common-0.0.6.tgz#45dc17f1e6ddb688dde2befd3a5e32d87e59dd42"
+  integrity sha512-6Uglv3HO3vK1uOyQc9F3ThtedZazohWDzMJXaR7QsYb48y3GP97AALA7+IFlnfl6OimOD/nKKzUylJqEGxffvA==
   dependencies:
+    "@types/lodash" "^4.14.202"
+    lodash "^4.17.21"
+
+"@elastic/eui@98.2.1-borealis.1":
+  version "98.2.1-borealis.1"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-98.2.1-borealis.1.tgz#759acfdc2ddac94260e5869832f841f16d4d7e63"
+  integrity sha512-xJngnQycka54v7ptVUqJdOcTUuuhrf5/Nrg6EvhOFmMFuDECDSdsWqcbssZ7cCo6Cz0+7FrYWYvsNouK9TfhJA==
+  dependencies:
+    "@elastic/eui-theme-common" "0.0.6"
     "@hello-pangea/dnd" "^16.6.0"
     "@types/lodash" "^4.14.202"
     "@types/numeral" "^2.0.5"
