@@ -43,7 +43,7 @@
     "style-loader": "4.0.0",
     "url": "0.11.4",
     "webpack": "5.97.1",
-    "webpack-cli": "5.1.4",
+    "webpack-cli": "6.0.1",
     "webpack-dev-server": "5.2.0",
     "webpack-merge": "6.0.1"
   },
@@ -51,7 +51,7 @@
     "@elastic/datemath": "5.0.3",
     "@elastic/ems-client": "8.6.0",
     "@elastic/eui": "98.2.1-borealis.1",
-    "@elastic/eui-theme-borealis": "^0.0.6",
+    "@elastic/eui-theme-borealis": "^0.0.7",
     "@emotion/css": "11.13.5",
     "@mapbox/mapbox-gl-rtl-text": "0.2.3",
     "@turf/bbox": "7.1.0",
