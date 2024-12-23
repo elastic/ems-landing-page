@@ -1522,10 +1522,10 @@
   dependencies:
     tslib "^1.9.3"
 
-"@elastic/ems-client@8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-8.6.0.tgz#39b3e1ecf3feb57995a9f9ca09142be670cbca22"
-  integrity sha512-44hhvQLiRNsVRPUjEQ0ZbdqiSiwTKVY1JIlM/LfX7o6Sa89RvmsXx5qtg9jQQXM1E6gRwJvkA2JPzwwEp+u3zQ==
+"@elastic/ems-client@8.6.1":
+  version "8.6.1"
+  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-8.6.1.tgz#df3010960cf61ede363146a6693d5d193b7946f6"
+  integrity sha512-Xn0rYfqKxOVmxmZ8FzuQpM6wA1wqBmTx0tFfMyG5OqCRRe6M6M2ISAi5+RrOWIQly4auECCa8v+/C1W/hbsgzA==
   dependencies:
     "@types/geojson" "7946.0.15"
     "@types/topojson-client" "3.1.5"
@@ -1533,7 +1533,6 @@
     lodash "^4.17.21"
     lru-cache "^4.1.5"
     maplibre-gl "3.1.0"
-    node-fetch "2.7.0"
     semver "^7.6.3"
     topojson-client "^3.1.0"
 
@@ -6664,13 +6663,6 @@ node-emoji@^1.10.0:
   dependencies:
     lodash "^4.17.21"
 
-node-fetch@2.7.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
-  integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
-  dependencies:
-    whatwg-url "^5.0.0"
-
 node-fetch@3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.3.2.tgz#d1e889bacdf733b4ff3b2b243eb7a12866a0b78b"
@@ -8873,11 +8865,6 @@ topojson-client@^3.1.0:
   dependencies:
     commander "2"
 
-tr46@~0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
-  integrity sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==
-
 trim-trailing-lines@^1.0.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/trim-trailing-lines/-/trim-trailing-lines-1.1.4.tgz#bd4abbec7cc880462f10b2c8b5ce1d8d1ec7c2c0"
@@ -9365,11 +9352,6 @@ web-streams-polyfill@^3.0.3:
   resolved "https://registry.yarnpkg.com/web-streams-polyfill/-/web-streams-polyfill-3.2.1.tgz#71c2718c52b45fd49dbeee88634b3a60ceab42a6"
   integrity sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==
 
-webidl-conversions@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
-  integrity sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==
-
 webpack-cli@6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-6.0.1.tgz#a1ce25da5ba077151afd73adfa12e208e5089207"
@@ -9495,14 +9477,6 @@ whatwg-fetch@3.6.20:
   version "3.6.20"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.20.tgz#580ce6d791facec91d37c72890995a0b48d31c70"
   integrity sha512-EqhiFU6daOA8kpjOWTL0olhVOF3i7OrFzSYiGsEMB8GcXS+RrzauAERX65xMeNWVqxA6HXH2m69Z9LaKKdisfg==
-
-whatwg-url@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-5.0.0.tgz#966454e8765462e37644d3626f6742ce8b70965d"
-  integrity sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==
-  dependencies:
-    tr46 "~0.0.3"
-    webidl-conversions "^3.0.0"
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"
