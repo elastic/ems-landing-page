@@ -1578,19 +1578,17 @@
   dependencies:
     tslib "^1.9.3"
 
-"@elastic/ems-client@7.17.3":
-  version "7.17.3"
-  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-7.17.3.tgz#29f5dfac88158af57dfcf1ba4c69daf8085945e6"
-  integrity sha512-/338ine5wllkOWenMNAXpVOAU5wzYuwmIUsB016lVMkkUuTF/KP/jlEaSat36XghPTh4V1eQIYIzo01HV0PceQ==
+"@elastic/ems-client@7.17.5":
+  version "7.17.5"
+  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-7.17.5.tgz#f1cac20638390db8c0dbf9143b0e76bc3c3ff80f"
+  integrity sha512-rihRc5mYNcHFIRzgQkkfe+Pyt7PPpeAAGNaslTOfa9/wngoxZHbWiQcnz1E72Qj4QiLg1Ad+G1fAIAG861ujfA==
   dependencies:
-    "@types/geojson" "^7946.0.14"
-    "@types/lru-cache" "^5.1.0"
-    "@types/topojson-client" "^3.1.4"
-    "@types/topojson-specification" "^1.0.5"
-    lodash "^4.17.21"
-    lru-cache "^4.1.5"
-    semver "7.6.2"
-    topojson-client "^3.1.0"
+    "@types/geojson" "7946.0.15"
+    "@types/topojson-client" "3.1.5"
+    lodash "4.17.21"
+    lru-cache "4.1.5"
+    semver "7.6.3"
+    topojson-client "3.1.0"
 
 "@elastic/eui@98.2.1":
   version "98.2.1"
@@ -2219,6 +2217,11 @@
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
   integrity sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==
 
+"@types/geojson@7946.0.15":
+  version "7946.0.15"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.15.tgz#f9d55fd5a0aa2de9dc80b1b04e437538b7298868"
+  integrity sha512-9oSxFzDCT2Rj6DfcHF8G++jxBKS7mBqXl5xrRW+Kbvjry6Uduya2iiwqHPhVXpasAVMBYKkEPGgKhd3+/HZ6xA==
+
 "@types/geojson@^7946.0.10", "@types/geojson@^7946.0.14":
   version "7946.0.14"
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.14.tgz#319b63ad6df705ee2a65a73ef042c8271e696613"
@@ -2297,11 +2300,6 @@
   version "4.17.13"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.13.tgz#786e2d67cfd95e32862143abe7463a7f90c300eb"
   integrity sha512-lfx+dftrEZcdBPczf9d0Qv0x+j/rfNCMuC6OcfXmO8gkfeNAY88PgKUbvG56whcN23gc27yenwF6oJZXGFpYxg==
-
-"@types/lru-cache@^5.1.0":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@types/lru-cache/-/lru-cache-5.1.1.tgz#c48c2e27b65d2a153b19bfc1a317e30872e01eef"
-  integrity sha512-ssE3Vlrys7sdIzs5LOxCzTVMsU7i9oa/IaW92wF32JFb3CVczqOkru2xspuKczHEbG3nvmPY7IFqVmGGHdNbYw==
 
 "@types/mapbox__point-geometry@*":
   version "0.1.2"
@@ -2470,10 +2468,10 @@
   dependencies:
     "@types/geojson" "*"
 
-"@types/topojson-client@^3.1.4":
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/@types/topojson-client/-/topojson-client-3.1.4.tgz#81b83f9ecd6542dc5c3df21967f992e3fe192c33"
-  integrity sha512-Ntf3ZSetMYy7z3PrVCvcqmdRoVhgKA9UKN0ZuuZf8Ts2kcyL4qK34IXBs6qO5fem62EK4k03PtkJPVoroVu4/w==
+"@types/topojson-client@3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@types/topojson-client/-/topojson-client-3.1.5.tgz#3fdbcd52161db8747a071b1d0f635ac700cf599d"
+  integrity sha512-C79rySTyPxnQNNguTZNI1Ct4D7IXgvyAs3p9HPecnl6mNrJ5+UhvGNYcZfpROYV2lMHI48kJPxwR+F9C6c7nmw==
   dependencies:
     "@types/geojson" "*"
     "@types/topojson-specification" "*"
@@ -2482,13 +2480,6 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@types/topojson-specification/-/topojson-specification-1.0.2.tgz#e20df2c5a611e31f51d606473dbaccc1d90461c8"
   integrity sha512-SGc1NdX9g3UGDp6S+p+uyG+Z8CehS51sUJ9bejA25Xgn2kkAguILk6J9nxXK+0M/mbTBN7ypMA7+4HVLNMJ8ag==
-  dependencies:
-    "@types/geojson" "*"
-
-"@types/topojson-specification@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@types/topojson-specification/-/topojson-specification-1.0.5.tgz#bf0009b2e0debb2d97237b124c00b9ea92570375"
-  integrity sha512-C7KvcQh+C2nr6Y2Ub4YfgvWvWCgP2nOQMtfhlnwsRL4pYmmwzBS7HclGiS87eQfDOU/DLQpX6GEscviaz4yLIQ==
   dependencies:
     "@types/geojson" "*"
 
@@ -6123,7 +6114,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21:
+lodash@4.17.21, lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -6142,7 +6133,7 @@ lower-case@^2.0.2:
   dependencies:
     tslib "^2.0.3"
 
-lru-cache@^4.1.5:
+lru-cache@4.1.5:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
   integrity sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==
@@ -7972,7 +7963,7 @@ selfsigned@^2.4.1:
     "@types/node-forge" "^1.3.0"
     node-forge "^1"
 
-semver@7.6.2, semver@^5.6.0, semver@^6.0.0, semver@^6.3.0, semver@^6.3.1, semver@^7.5.4, semver@^7.6.3:
+semver@7.6.3, semver@^5.6.0, semver@^6.0.0, semver@^6.3.0, semver@^6.3.1, semver@^7.5.4, semver@^7.6.3:
   version "7.6.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.3.tgz#980f7b5550bc175fb4dc09403085627f9eb33143"
   integrity sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
@@ -8555,7 +8546,7 @@ toidentifier@1.0.1:
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.1.tgz#3be34321a88a820ed1bd80dfaa33e479fbb8dd35"
   integrity sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==
 
-topojson-client@^3.1.0:
+topojson-client@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/topojson-client/-/topojson-client-3.1.0.tgz#22e8b1ed08a2b922feeb4af6f53b6ef09a467b99"
   integrity sha512-605uxS6bcYxGXw9qi62XyrV6Q3xwbndjachmNxu8HWTtVPxZfEJN9fd/SZS1Q54Sn2y0TMyMxFj/cJINqGHrKw==
