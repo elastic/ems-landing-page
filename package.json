@@ -49,8 +49,14 @@
   },
   "dependencies": {
     "@elastic/datemath": "5.0.3",
+<<<<<<< HEAD
     "@elastic/ems-client": "7.17.5",
     "@elastic/eui": "98.2.1",
+=======
+    "@elastic/ems-client": "8.6.3",
+    "@elastic/eui": "99.1.0-borealis.0",
+    "@elastic/eui-theme-borealis": "0.0.9",
+>>>>>>> 09f57b0 (fix(deps): update elastic eui (#1498))
     "@emotion/css": "11.13.5",
     "@mapbox/mapbox-gl-rtl-text": "0.2.3",
     "@turf/bbox": "7.2.0",
@@ -80,5 +86,6 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "engines": {
     "node": ">=18 <=20"
-  }
+  },
+  "packageManager": "yarn@1.22.21+sha512.ca75da26c00327d26267ce33536e5790f18ebd53266796fbb664d2a4a5116308042dd8ee7003b276a20eace7d3c5561c3577bdd71bcb67071187af124779620a"
 }
