@@ -80,5 +80,10 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "engines": {
     "node": ">=18 <=20"
+<<<<<<< HEAD
   }
+=======
+  },
+  "packageManager": "yarn@1.22.22"
+>>>>>>> ff4a747 (chore(deps): update yarn to v1.22.22 (#1504))
 }
