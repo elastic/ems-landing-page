@@ -81,20 +81,7 @@
     "@babel/highlight" "^7.25.9"
     picocolors "^1.0.0"
 
-<<<<<<< HEAD
-"@babel/code-frame@^7.26.0":
-  version "7.26.0"
-  resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.26.0.tgz#9374b5cd068d128dac0b94ff482594273b1c2815"
-  integrity sha512-INCKxTtbXtcNbUZ3YXutwMpEleqttcswhAdee7dhuoVrD2cnuc3PqtERBtxkX5nziX9vnBL8WXmSGwv8CuPV6g==
-  dependencies:
-    "@babel/helper-validator-identifier" "^7.25.9"
-    js-tokens "^4.0.0"
-    picocolors "^1.0.0"
-
 "@babel/compat-data@^7.20.5", "@babel/compat-data@^7.21.5":
-=======
-"@babel/compat-data@^7.20.5":
->>>>>>> 9948f5b (chore(deps): update babel monorepo to v7.26.7 (#1511))
   version "7.22.9"
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.22.9.tgz#71cdb00a1ce3a329ce4cbec3a44f9fef35669730"
   integrity sha512-5UamI7xkUcJ3i9qVDS+KFDEK8/7oJ55/sJMB1Ge7IEapr7KfdfV/HErR+koZwOfd+SgtFKOKRhRakdg++DcJpQ==
@@ -1804,11 +1791,6 @@
     js-yaml "^4.1.0"
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
-
-"@eslint/js@9.18.0":
-  version "9.18.0"
-  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.18.0.tgz#3356f85d18ed3627ab107790b53caf7e1e3d1e84"
-  integrity sha512-fK6L7rxcq6/z+AaQMtiFTkvbHkBLNlwyRxHpKawP0x3u9+NC6MQTnFW+AdpwC6gfHTW0051cokQgtTN2FqlxQA==
 
 "@eslint/js@9.18.0":
   version "9.18.0"
