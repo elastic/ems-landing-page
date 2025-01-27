@@ -1588,10 +1588,10 @@
   dependencies:
     tslib "^1.9.3"
 
-"@elastic/ems-client@7.17.5":
-  version "7.17.5"
-  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-7.17.5.tgz#f1cac20638390db8c0dbf9143b0e76bc3c3ff80f"
-  integrity sha512-rihRc5mYNcHFIRzgQkkfe+Pyt7PPpeAAGNaslTOfa9/wngoxZHbWiQcnz1E72Qj4QiLg1Ad+G1fAIAG861ujfA==
+"@elastic/ems-client@7.17.6":
+  version "7.17.6"
+  resolved "https://registry.yarnpkg.com/@elastic/ems-client/-/ems-client-7.17.6.tgz#07b58388e334389aa6839895194f410b96393c0f"
+  integrity sha512-KQhD+R4tcF7G97gVBwTSLMzApksZrzaTe/7O0D/L0vDYtK78jI2F5LTk7S1/17wWbVc/afsOmJkkQhRZQVLnFQ==
   dependencies:
     "@types/geojson" "7946.0.15"
     "@types/topojson-client" "3.1.5"
