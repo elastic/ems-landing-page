@@ -65,7 +65,7 @@
     "whatwg-fetch": "3.6.20"
   },
   "resolutions": {
-    "**/yaml": "^2.6.0",
+    "**/yaml": "^2.7.0",
     "**/semver": "^7.6.3"
   },
   "scripts": {
@@ -80,7 +80,7 @@
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
   "engines": {
-    "node": ">=18 <=20"
+    "node": ">=18 <=22"
   },
   "packageManager": "yarn@1.22.22"
 }
