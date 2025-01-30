@@ -1,8 +1,8 @@
-name: Sync v8.x with v8.18
+name: Sync master with v9.1
 on:
   push:
     branches:
-      - v8.x
+      - master
 
 jobs:
   sync-branches:
@@ -20,5 +20,5 @@ jobs:
         uses: tretuna/sync-branches@ea58ab6e406fd3ad016a064b31270bbb41127f41 # 1.4.0
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          FROM_BRANCH: "v8.x"
-          TO_BRANCH: "v8.18"
+          FROM_BRANCH: "master"
+          TO_BRANCH: "v9.1"
