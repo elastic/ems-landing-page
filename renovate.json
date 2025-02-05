@@ -28,10 +28,10 @@
       "automerge": true
     },
     {
-      "matchPackagePatterns": [
-        "elastic/eui"
-      ],
-      "groupName": "Elastic EUI"
+      "groupName": "Elastic EUI",
+      "matchPackageNames": [
+        "/elastic/eui/"
+      ]
     }
   ]
 }
