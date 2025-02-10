@@ -1,8 +1,8 @@
-name: Sync master with v9.0
+name: Sync v8.x with v8.19
 on:
   push:
     branches:
-      - master
+      - v8.x
 
 jobs:
   sync-branches:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Set up Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4
         with:
           node-version: 12
       - name: Opening pull request
@@ -20,5 +20,5 @@ jobs:
         uses: tretuna/sync-branches@ea58ab6e406fd3ad016a064b31270bbb41127f41 # 1.4.0
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          FROM_BRANCH: "master"
-          TO_BRANCH: "v9.0"
+          FROM_BRANCH: "v8.x"
+          TO_BRANCH: "v8.19"
