@@ -16,8 +16,13 @@
     "@babel/preset-env": "7.26.9",
     "@babel/preset-react": "7.26.3",
     "@emotion/react": "11.14.0",
+<<<<<<< HEAD
     "@eslint/eslintrc": "3.2.0",
     "@eslint/js": "9.20.0",
+=======
+    "@eslint/eslintrc": "3.3.0",
+    "@eslint/js": "9.21.0",
+>>>>>>> 878bb60 (chore(deps): update dependency @eslint/eslintrc to v3.3.0 (#1656))
     "babel-loader": "9.2.1",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-inline-react-svg": "2.0.2",
