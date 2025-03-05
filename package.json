@@ -55,7 +55,12 @@
     "@mapbox/mapbox-gl-rtl-text": "0.2.3",
     "@turf/bbox": "7.2.0",
     "@turf/center": "7.2.0",
+<<<<<<< HEAD
     "maplibre-gl": "4.7.1",
+=======
+    "chroma-js": "3.1.2",
+    "maplibre-gl": "5.2.0",
+>>>>>>> 4611f50 (fix(deps): update dependency maplibre-gl to v5.2.0 (#1715))
     "moment": "2.30.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
