@@ -1688,10 +1688,22 @@
     semver "7.6.3"
     topojson-client "3.1.0"
 
+<<<<<<< HEAD
 "@elastic/eui@98.2.1":
   version "98.2.1"
   resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-98.2.1.tgz#d40bfc7b06ad4a964e3c0a192d90614cbcdee0ed"
   integrity sha512-I1C2okBDVlcmSJAgGX4E1N7fBIJPdG9/8Am7S/aJsd4LlB2MnWN47M6SdSH9BJQpVeLKSHyiVCQl4pKwXxOB5w==
+=======
+"@elastic/eui-theme-borealis@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-borealis/-/eui-theme-borealis-0.1.0.tgz#5b7151c9dae093b945060b3f9c1ac9461092fac0"
+  integrity sha512-eoQw+IHK+R1RHjl4VEVyWY6cWovLXddGl/u7XvIyiRZk+oEiM1ksuk0ZkO9nSkTI/j+tA7Z5aRbivhLhvCGjuA==
+
+"@elastic/eui-theme-common@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-common/-/eui-theme-common-0.0.11.tgz#950d06a652a25b09c46cec8f16a449223ada45a3"
+  integrity sha512-DV8qX45R/01SWdCoINWbFwJgMdWHYuq7ZmdY/J3pE1QNKIGv52SdOpiW+XwhT8S3dOv+XFidoywVT9pAjcMmyA==
+>>>>>>> df04d09 (fix(deps): update dependency @elastic/eui-theme-borealis to v0.1.0 (#1763))
   dependencies:
     "@hello-pangea/dnd" "^16.6.0"
     "@types/lodash" "^4.14.202"
