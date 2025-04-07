@@ -28,8 +28,12 @@
     "core-js": "3.41.0",
     "css-loader": "7.1.2",
     "css-minimizer-webpack-plugin": "7.0.2",
+<<<<<<< HEAD
     "eslint": "9.23.0",
     "eslint-plugin-react": "7.37.4",
+=======
+    "eslint-plugin-react": "7.37.5",
+>>>>>>> 414f5d1 (chore(deps): update dependency eslint-plugin-react to v7.37.5 (#1827))
     "file-loader": "6.2.0",
     "globals": "16.0.0",
     "handlebars": "4.7.8",
