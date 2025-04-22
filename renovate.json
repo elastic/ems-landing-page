@@ -7,7 +7,6 @@
     "dependencies",
     "v8.18",
     "v8.17",
-    "v8.16",
     "v7.17"
   ],
   "packageRules": [
