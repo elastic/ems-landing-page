@@ -1499,9 +1499,6 @@
     "@babel/parser" "^7.27.1"
     "@babel/types" "^7.27.1"
 
-<<<<<<< HEAD
-"@babel/traverse@^7.1.6", "@babel/traverse@^7.16.5", "@babel/traverse@^7.21.5":
-=======
 "@babel/template@^7.27.2":
   version "7.27.2"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.27.2.tgz#fa78ceed3c4e7b63ebf6cb39e5852fca45f6809d"
@@ -1511,8 +1508,7 @@
     "@babel/parser" "^7.27.2"
     "@babel/types" "^7.27.1"
 
-"@babel/traverse@^7.1.6", "@babel/traverse@^7.16.5", "@babel/traverse@^7.20.10", "@babel/traverse@^7.20.13":
->>>>>>> 9ab096f (chore(deps): update dependency @babel/core to v7.27.3 (#2041))
+"@babel/traverse@^7.1.6", "@babel/traverse@^7.16.5", "@babel/traverse@^7.21.5":
   version "7.23.2"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.23.2.tgz#329c7a06735e144a506bdb2cad0268b7f46f4ad8"
   integrity sha512-azpe59SQ48qG6nu2CzcMLbxUudtN+dOM9kDbUqGq3HXUJRlo7i8fvPoxQUzYgLZ4cMVmuZgm8vvBpNeRhd6XSw==
