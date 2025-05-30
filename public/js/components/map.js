@@ -197,7 +197,7 @@ export class Map extends Component {
       newStyle.projection = { type: 'globe' };
     }
 
-    // Set backgrounpd color depending on the style name
+    // Set background color depending on the style name
     // taking the EUI token based on the color mode
     if (source) {
       const styleName = newStyle.name || '';
