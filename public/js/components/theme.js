@@ -21,4 +21,9 @@ const EUI_THEME = process.env?.EUI_THEME || DEFAULT_EUI_THEME;
 export const eui = {
   name: EUI_THEME,
   theme: themes[EUI_THEME],
+  light_style:
+    EUI_THEME === 'amsterdam'
+      ? 'road_map_desaturated'
+      : 'road_map_desaturated_v9',
+  dark_style: EUI_THEME === 'amsterdam' ? 'dark_map' : 'dark_map_v9'
 };
