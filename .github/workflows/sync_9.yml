@@ -1,4 +1,4 @@
-name: Sync master with v9.2
+name: Sync master with v9.1
 on:
   push:
     branches:
@@ -21,4 +21,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: "master"
-          TO_BRANCH: "v9.2"
+          TO_BRANCH: "v9.1"

@@ -3,7 +3,7 @@ name: Force backport label for sync PRs
 on:
   pull_request_target:
     branches:
-      - v9.2
+      - v9.1
       - v8.19
     types:
       - opened
