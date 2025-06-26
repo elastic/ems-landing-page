@@ -10,7 +10,7 @@
     "v7.17"
   ],
   "branchLabelMapping": {
-    "^v9.1$": "master",
+    "^v9.2$": "master",
     "^v(\\d+).(\\d+)$": "v$1.$2"
   },
   "targetPRLabels": ["backport"],
