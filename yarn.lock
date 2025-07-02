@@ -1659,26 +1659,26 @@
     semver "^7.6.3"
     topojson-client "^3.1.0"
 
-"@elastic/eui-theme-borealis@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-borealis/-/eui-theme-borealis-3.0.0.tgz#fa8ccbfff3c6d5cefb21bf650ab4dc98e3d66c22"
-  integrity sha512-KikBddzMXegz9jIhkWBCTe38TUwKi6BgFamIXrsUpZKZe2pJQfrsqv+E3Nqexj0qYj+XKVL+KaBKTfPcOa6uZA==
+"@elastic/eui-theme-borealis@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-borealis/-/eui-theme-borealis-3.1.0.tgz#548d55460e1d7339eac66ca1e6ac302bbd0b3946"
+  integrity sha512-TKek3OcMlUA2dmOhIm+SUHM0rTA4irltcHQl5tmlrKCdh51sxSfP+a91VSYlfQFZt8rpZaZAxKq6Z+eGHy52mQ==
 
-"@elastic/eui-theme-common@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-common/-/eui-theme-common-2.0.0.tgz#248973f7161924943a2d6ad96c2ea82f0ca332f4"
-  integrity sha512-cLgC0Y/ugS/5nGeU3e4lQzM9+ObOaoMzNLv/kM5Tnjdezmrgt+6xeVxiBOEe64S99pXbjfSF6u3d/y4YloNOhg==
+"@elastic/eui-theme-common@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-common/-/eui-theme-common-2.1.0.tgz#e48807a867e987543de14af0d6c3d99f57da5c2e"
+  integrity sha512-cKLuflczikSoUQkFViLjv9NBCoti/b8UNc6+sEDK7uuAgA5aYX5jUqH1x4A5dwZ3dBed0ekz23pL5Hv+C65bxQ==
   dependencies:
     "@types/lodash" "^4.14.202"
     chroma-js "^2.4.2"
     lodash "^4.17.21"
 
-"@elastic/eui@104.0.2":
-  version "104.0.2"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-104.0.2.tgz#0182e71148d0977ae291b1a595407cbac2e26ce3"
-  integrity sha512-hNqadmHpCH9J64JiaMblF6DVpq8f57I+rT9GzSsT2e4PT05uyKm8iPo7054WSst5vOI0aF/cx6rYtmCN8qFPlw==
+"@elastic/eui@104.1.0":
+  version "104.1.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-104.1.0.tgz#59a2468d24bf0c9d5449750d2f623a44363cb15a"
+  integrity sha512-exxfm7aOPO1iJD7F7QKZROghFjJh0AuvaV65rR/evNEv52QxbF7zvpGmeQZiUC0fSlAhLbDGPoTbjzPjYTWDIg==
   dependencies:
-    "@elastic/eui-theme-common" "2.0.0"
+    "@elastic/eui-theme-common" "2.1.0"
     "@elastic/prismjs-esql" "^1.1.0"
     "@hello-pangea/dnd" "^16.6.0"
     "@types/lodash" "^4.14.202"
