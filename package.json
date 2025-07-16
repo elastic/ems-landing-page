@@ -42,11 +42,7 @@
     "resolve-url-loader": "5.0.0",
     "style-loader": "4.0.0",
     "url": "0.11.4",
-<<<<<<< HEAD
-    "webpack": "5.100.0",
-=======
     "webpack": "5.100.2",
->>>>>>> cbe36ff (chore(deps): update dependency webpack to v5.100.2 (#2228))
     "webpack-cli": "6.0.1",
     "webpack-dev-server": "5.2.2",
     "webpack-merge": "6.0.1"
