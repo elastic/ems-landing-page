@@ -50,8 +50,8 @@
   "dependencies": {
     "@elastic/datemath": "5.0.3",
     "@elastic/ems-client": "8.6.3",
-    "@elastic/eui": "106.2.0",
-    "@elastic/eui-theme-borealis": "3.3.0",
+    "@elastic/eui": "106.3.0",
+    "@elastic/eui-theme-borealis": "3.3.1",
     "@emotion/css": "11.13.5",
     "@mapbox/mapbox-gl-rtl-text": "0.2.3",
     "@turf/bbox": "7.2.0",
