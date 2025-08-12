@@ -3,7 +3,7 @@
   "repoName": "ems-landing-page",
   "targetBranchChoices": [
     "master",
-    "v9.0",
+    "v9.1",
     "v8.19",
     "v8.18",
     "v8.17",
