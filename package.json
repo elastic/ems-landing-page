@@ -24,7 +24,7 @@
     "babel-plugin-react-docgen": "4.2.1",
     "babel-plugin-react-intl": "8.2.25",
     "clean-webpack-plugin": "4.0.0",
-    "copy-webpack-plugin": "13.0.0",
+    "copy-webpack-plugin": "13.0.1",
     "core-js": "3.45.0",
     "css-loader": "7.1.2",
     "css-minimizer-webpack-plugin": "7.0.2",
