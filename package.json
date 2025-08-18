@@ -34,7 +34,7 @@
     "globals": "16.3.0",
     "handlebars": "4.7.8",
     "handlebars-loader": "1.7.3",
-    "html-webpack-plugin": "5.6.3",
+    "html-webpack-plugin": "5.6.4",
     "husky": "9.1.7",
     "node-fetch": "3.3.2",
     "node-polyfill-webpack-plugin": "4.1.0",
