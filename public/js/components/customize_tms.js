@@ -6,7 +6,7 @@
  */
 
 import { TMSService } from '@elastic/ems-client/target/node';
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent} from 'react';
 import {
   EuiFlexGroup,
   EuiFlexItem,
@@ -16,9 +16,11 @@ import {
   EuiColorPicker,
   EuiComboBox,
   EuiPanel,
+  EuiTabbedContent,
+  EuiTitle,
 } from '@elastic/eui';
 
-import { supportedLanguages } from './app';
+import { supportedLanguages, supportedlabelModes } from './app';
 
 export class CustomizeTMS extends PureComponent {
   constructor(props) {
@@ -29,6 +31,14 @@ export class CustomizeTMS extends PureComponent {
 
       if (lang) {
         this.props.onLanguageChange(lang.key);
+      }
+    };
+
+    this._onLabelChange = (selectedOptions) => {
+      const mode = selectedOptions[0];
+
+      if (mode) {
+        this.props.onLabelModeChange(mode.key);
       }
     };
 
@@ -43,33 +53,86 @@ export class CustomizeTMS extends PureComponent {
     }
 
     const selectedLangOptions = supportedLanguages.filter(l => l.key === this.props.language);
+    const selectedLabelOptions = supportedlabelModes.filter(l => l.key === this.props.labelMode);
 
+
+    /* basemap labels tabs */
+
+    const tabs = [
+      {
+        id: 'labels-language',
+        name: 'Language',
+        content: (
+          <Fragment>
+            <EuiDescribedFormGroup
+              title={<h4>Language</h4>}
+              description={
+                <p>
+                    Select the language for
+                    the basemap. Non-translated
+                    labels will fallback to defaults.
+                </p>
+              }
+              style={{ marginTop: '1em' }}
+            >
+              <EuiFormRow label="Select language">
+                <EuiComboBox
+                  compressed
+                  isClearable={false}
+                  singleSelection={{ asPlainText: true }}
+                  options={supportedLanguages}
+                  selectedOptions={selectedLangOptions}
+                  onChange={this._onLanguageChange}
+                />
+              </EuiFormRow>
+            </EuiDescribedFormGroup>
+          </Fragment>
+        )
+      },
+      {
+        id: 'labels-mode',
+        name: 'Mode',
+        content: (
+          <Fragment>
+            <EuiDescribedFormGroup
+              title={<h4>Mode</h4>}
+              description={
+                <p>
+                    Select if labels should show normally, only show labels, or hide them completely.
+                </p>
+              }
+              style={{ marginTop: '1em' }}
+            >
+              <EuiFormRow label="Select mode">
+                <EuiComboBox
+                  compressed
+                  isClearable={false}
+                  singleSelection={{ asPlainText: true }}
+                  options={supportedlabelModes}
+                  selectedOptions={selectedLabelOptions}
+                  onChange={this._onLabelChange}
+                />
+              </EuiFormRow>
+            </EuiDescribedFormGroup>
+          </Fragment>
+        )
+      },
+    ];
+    
     return (
       <EuiForm component="form">
         <EuiFlexGroup gutterSize={'s'}>
           <EuiFlexItem>
             <EuiPanel hasShadow={false} hasBorder paddingSize="m">
-              <EuiDescribedFormGroup
-                title={<h3>Basemap labels</h3>}
-                description={
-                  <p>
-                    Select the language for
-                    the basemap. Non-translated
-                    labels will fallback to defaults.
-                  </p>
-                }
-              >
-                <EuiFormRow label="Select language">
-                  <EuiComboBox
-                    compressed
-                    isClearable={false}
-                    singleSelection={{ asPlainText: true }}
-                    options={supportedLanguages}
-                    selectedOptions={selectedLangOptions}
-                    onChange={this._onLanguageChange}
-                  />
-                </EuiFormRow>
-              </EuiDescribedFormGroup>
+              <EuiTitle size="xs">
+                <h3>Basemap labels</h3>
+              </EuiTitle>
+              <EuiTabbedContent
+                tabs={tabs}
+                initialSelectedTab={tabs[1]}
+                autoFocus='selected'
+                size='s'
+              />
             </EuiPanel>
           </EuiFlexItem>
           <EuiFlexItem>
