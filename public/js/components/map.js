@@ -38,11 +38,12 @@ export class Map extends Component {
     this._overlayFillHighlightId = 'overlay-fill-highlight-layer';
     this._tmsSourceId = 'vector-tms-source';
     this._tmsLayerId = 'vector-tms-layer';
+    this._mapRef = React.createRef();
   }
 
   componentDidMount() {
     this._maplibreMap = new maplibre.Map({
-      container: this.refs.mapContainer,
+      container: this._mapRef.current,
       style: {
         version: 8,
         sources: {},
@@ -260,6 +261,6 @@ export class Map extends Component {
   }
 
   render() {
-    return (<div className="mapContainer" ref="mapContainer" />);
+    return (<div className="mapContainer" ref={this._mapRef} />);
   }
 }
