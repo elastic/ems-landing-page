@@ -30,8 +30,18 @@
     {
       "groupName": "Elastic EUI",
       "matchPackageNames": [
-        "/elastic/eui/"
-      ]
-    }
+        "@elastic/eui",
+        "@elastic/eui-theme-borealis"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.2",
+        "v9.1",
+        "v9.0",
+        "v8.19",
+        "v8.18"
+      ],
+      "minimumReleaseAge": "3 days"
+    },
   ]
 }
