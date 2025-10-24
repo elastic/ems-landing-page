@@ -11,6 +11,18 @@ echo "--- :yarn:  Installing dependencies"
 yarn install
 
 echo "--- :gear: Building"
+
+export EUI_THEME="borealis"
+
+# If the BUILDKITE_BRANCH starts with v8 or v7, switch to the amsterdam theme
+if [[ "${BUILDKITE_BRANCH}" == v8* || "${BUILDKITE_BRANCH}" == v7* ]] ; then
+  echo "Using 🇳🇱 Amsterdam 🇳🇱 theme for v8 or v7 branches"
+  export EUI_THEME="amsterdam"
+else
+
+  echo "Using 🌠 Borealis 🌠 theme"
+fi
+
 if [[ -n ${BUILDKITE+x} ]] ; then
   yarn build
 else
