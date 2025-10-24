@@ -11,8 +11,6 @@ echo "--- :yarn:  Installing dependencies"
 yarn install
 
 echo "--- :gear: Building"
-<<<<<<< HEAD
-=======
 
 export EUI_THEME="borealis"
 
@@ -25,7 +23,6 @@ else
   echo "Using 🌠 Borealis 🌠 theme"
 fi
 
->>>>>>> 7b3c9b0 ([ci] Deprecate 9.0 branch (#2571))
 if [[ -n ${BUILDKITE+x} ]] ; then
   yarn build
 else
