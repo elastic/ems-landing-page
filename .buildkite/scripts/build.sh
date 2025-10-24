@@ -14,11 +14,6 @@ echo "--- :gear: Building"
 
 export EUI_THEME="borealis"
 
-<<<<<<< HEAD
-if [[ "${BUILDKITE_BRANCH}" == "v9.0" ]]; then
-  export EUI_THEME="borealis"
-  echo "Switching to 🌠 Borealis 🌠 theme"
-=======
 # If the BUILDKITE_BRANCH starts with v8 or v7, switch to the amsterdam theme
 if [[ "${BUILDKITE_BRANCH}" == v8* || "${BUILDKITE_BRANCH}" == v7* ]] ; then
   echo "Using 🇳🇱 Amsterdam 🇳🇱 theme for v8 or v7 branches"
@@ -26,7 +21,6 @@ if [[ "${BUILDKITE_BRANCH}" == v8* || "${BUILDKITE_BRANCH}" == v7* ]] ; then
 else
 
   echo "Using 🌠 Borealis 🌠 theme"
->>>>>>> 7b3c9b0 ([ci] Deprecate 9.0 branch (#2571))
 fi
 
 if [[ -n ${BUILDKITE+x} ]] ; then
