@@ -9,8 +9,11 @@
     "v9.0",
     "v8.19",
     "v8.18",
+<<<<<<< HEAD
 >>>>>>> a78e6d4 ([ci] Remove references to 8.x branch in our build systems (#1931))
     "v8.17",
+=======
+>>>>>>> 6f27220 ([skip-ci] Deprecate 8.17 branch (#2598))
     "v7.17"
   ],
   "branchLabelMapping": {
