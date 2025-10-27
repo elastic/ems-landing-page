@@ -15,7 +15,6 @@
     "v8.19",
 >>>>>>> 7b3c9b0 ([ci] Deprecate 9.0 branch (#2571))
     "v8.18",
-    "v8.17",
     "v7.17"
   ],
   "packageRules": [
