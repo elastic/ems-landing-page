@@ -96,10 +96,7 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: 'public/index.hbs',
       hash: true,
-    }),
-    new webpack.EnvironmentPlugin({
-      EUI_THEME: 'amsterdam',
-    }),
+    })
   ],
   stats: {
     colors: true
