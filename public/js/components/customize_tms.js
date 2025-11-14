@@ -6,19 +6,18 @@
  */
 
 import { TMSService } from '@elastic/ems-client/target/node';
-import React, { PureComponent } from 'react';
+import React, { PureComponent} from 'react';
 import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiForm,
   EuiFormRow,
-  EuiDescribedFormGroup,
   EuiColorPicker,
   EuiComboBox,
   EuiPanel,
 } from '@elastic/eui';
 
-import { supportedLanguages } from './app';
+import { supportedLanguages, supportedlabelModes } from './app';
 
 export class CustomizeTMS extends PureComponent {
   constructor(props) {
@@ -29,6 +28,14 @@ export class CustomizeTMS extends PureComponent {
 
       if (lang) {
         this.props.onLanguageChange(lang.key);
+      }
+    };
+
+    this._onLabelChange = (selectedOptions) => {
+      const mode = selectedOptions[0];
+
+      if (mode) {
+        this.props.onLabelModeChange(mode.key);
       }
     };
 
@@ -43,58 +50,53 @@ export class CustomizeTMS extends PureComponent {
     }
 
     const selectedLangOptions = supportedLanguages.filter(l => l.key === this.props.language);
+    const selectedLabelOptions = supportedlabelModes.filter(l => l.key === this.props.labelMode);
+
 
     return (
       <EuiForm component="form">
         <EuiFlexGroup gutterSize={'s'}>
           <EuiFlexItem>
             <EuiPanel hasShadow={false} hasBorder paddingSize="m">
-              <EuiDescribedFormGroup
-                title={<h3>Basemap labels</h3>}
-                description={
-                  <p>
-                    Select the language for
-                    the basemap. Non-translated
-                    labels will fallback to defaults.
-                  </p>
-                }
-              >
-                <EuiFormRow label="Select language">
-                  <EuiComboBox
-                    compressed
-                    isClearable={false}
-                    singleSelection={{ asPlainText: true }}
-                    options={supportedLanguages}
-                    selectedOptions={selectedLangOptions}
-                    onChange={this._onLanguageChange}
-                  />
-                </EuiFormRow>
-              </EuiDescribedFormGroup>
+              <EuiFormRow label="Select language" helpText="Select the language for the basemap. Non-translated labels will fallback to defaults.">
+                <EuiComboBox
+                  compressed
+                  isClearable={false}
+                  singleSelection={{ asPlainText: true }}
+                  options={supportedLanguages}
+                  selectedOptions={selectedLangOptions}
+                  onChange={this._onLanguageChange}
+                />
+              </EuiFormRow>
+            </EuiPanel>
+          </EuiFlexItem>
+          <EuiFlexItem>
+            <EuiPanel hasShadow={false} hasBorder paddingSize='m'>
+              <EuiFormRow label="Select mode" helpText="Select the mode for the basemap labels, which can be either normal, only labels, or no labels.">
+                <EuiComboBox
+                  compressed
+                  isClearable={false}
+                  singleSelection={{ asPlainText: true }}
+                  options={supportedlabelModes}
+                  selectedOptions={selectedLabelOptions}
+                  onChange={this._onLabelChange}
+                />
+              </EuiFormRow>
             </EuiPanel>
           </EuiFlexItem>
           <EuiFlexItem>
             <EuiPanel hasShadow={false} hasBorder paddingSize="m">
-              <EuiDescribedFormGroup
-                title={<h3>Color filter</h3>}
-                description={
-                  <p>
-                    Choose a color filter to apply
-                    to the basemap.
-                  </p>
-                }
-              >
-                <EuiFormRow label="Pick a color">
-                  <EuiColorPicker
-                    compressed
-                    isClearable={true}
-                    onChange={this.props.onColorChange}
-                    color={this.props.color}
-                    format="hex"
-                    secondaryInputDisplay="top"
-                    placeholder="No filter"
-                  />
-                </EuiFormRow>
-              </EuiDescribedFormGroup>
+              <EuiFormRow label="Pick a color" helpText="Choose a color filter to apply to the basemap.">
+                <EuiColorPicker
+                  compressed
+                  isClearable={true}
+                  onChange={this.props.onColorChange}
+                  color={this.props.color}
+                  format="hex"
+                  secondaryInputDisplay="top"
+                  placeholder="No filter"
+                />
+              </EuiFormRow>
             </EuiPanel>
           </EuiFlexItem>
         </EuiFlexGroup>
