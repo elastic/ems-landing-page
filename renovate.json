@@ -38,9 +38,28 @@
         "dependencies",
         "v9.3",
         "v9.2",
-        "v9.1",
+        "v9.1"
+      ],
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "groupName": "Elastic EUI (8.x)",
+      "matchPackageNames": [
+        "@elastic/eui"
+      ],
+      "matchBaseBranches": [
+        "v8.x"
+      ],
+      "labels": [
+        "dependencies",
         "v8.19",
-        "v8.18"
+        "v8.18",
+        "v7.17"
+      ],
+      "allowedVersions": "^107\\.x",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
       ],
       "minimumReleaseAge": "3 days"
     }
