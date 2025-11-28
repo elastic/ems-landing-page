@@ -5,13 +5,16 @@
   "extends": [
     "github>elastic/renovate-config"
   ],
-  "labels": [
-    "dependencies",
+  "baseBranches": [
+    "master",
     "v9.2",
     "v9.1",
     "v8.19",
     "v8.18",
     "v7.17"
+  ],
+  "labels": [
+    "dependencies"
   ],
   "packageRules": [
     {
@@ -33,14 +36,130 @@
         "@elastic/eui",
         "@elastic/eui-theme-borealis"
       ],
-      "labels": [
-        "dependencies",
-        "v9.2",
-        "v9.1",
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "description": "Pin EUI to 107.x for v8 branches",
+      "matchBaseBranches": [
         "v8.19",
         "v8.18"
       ],
-      "minimumReleaseAge": "3 days"
+      "matchPackageNames": [
+        "@elastic/eui"
+      ],
+      "allowedVersions": "107.x"
+    },
+    {
+      "description": "Pin EUI theme to 3.x for v8 branches (compatible with EUI 107)",
+      "matchBaseBranches": [
+        "v8.19",
+        "v8.18"
+      ],
+      "matchPackageNames": [
+        "@elastic/eui-theme-borealis"
+      ],
+      "allowedVersions": "3.x"
+    },
+    {
+      "description": "Pin EUI to 98.x for v7.17 branch",
+      "matchBaseBranches": [
+        "v7.17"
+      ],
+      "matchPackageNames": [
+        "@elastic/eui"
+      ],
+      "allowedVersions": "98.x"
+    },
+    {
+      "description": "Pin React to 18.x for v7.17 branch",
+      "matchBaseBranches": [
+        "v7.17"
+      ],
+      "matchPackageNames": [
+        "react",
+        "react-dom"
+      ],
+      "allowedVersions": "18.x"
+    },
+    {
+      "description": "Pin maplibre-gl to 4.x for v7.17 branch",
+      "matchBaseBranches": [
+        "v7.17"
+      ],
+      "matchPackageNames": [
+        "maplibre-gl"
+      ],
+      "allowedVersions": "4.x"
+    },
+    {
+      "description": "Pin ems-client to 7.17.x for v7.17 branch",
+      "matchBaseBranches": [
+        "v7.17"
+      ],
+      "matchPackageNames": [
+        "@elastic/ems-client"
+      ],
+      "allowedVersions": "7.17.x"
+    },
+    {
+      "description": "Add branch-specific label for master/v9.3",
+      "matchBaseBranches": [
+        "master"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.3"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v9.2",
+      "matchBaseBranches": [
+        "v9.2"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.2"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v9.1",
+      "matchBaseBranches": [
+        "v9.1"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.1"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v8.19",
+      "matchBaseBranches": [
+        "v8.19"
+      ],
+      "labels": [
+        "dependencies",
+        "v8.19"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v8.18",
+      "matchBaseBranches": [
+        "v8.18"
+      ],
+      "labels": [
+        "dependencies",
+        "v8.18"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v7.17",
+      "matchBaseBranches": [
+        "v7.17"
+      ],
+      "labels": [
+        "dependencies",
+        "v7.17"
+      ]
     }
   ]
 }
