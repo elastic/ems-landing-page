@@ -5,11 +5,16 @@
   "extends": [
     "github>elastic/renovate-config"
   ],
+<<<<<<< HEAD
   "labels": [
     "dependencies",
 <<<<<<< HEAD
 =======
     "v9.3",
+=======
+  "baseBranchPatterns": [
+    "master",
+>>>>>>> b4a2426 ([skip-ci] Update renovate deprecated property (#2737))
     "v9.2",
     "v9.1",
     "v8.19",
