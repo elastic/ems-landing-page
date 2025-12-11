@@ -2329,40 +2329,40 @@
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
   integrity sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==
 
-"@turf/bbox@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-7.3.0.tgz#806c8bd1e851f83a4a7ff0dca39b98ceb145d877"
-  integrity sha512-EC5GSUJlhXSiCVCEmgCSheZYm0s1ouKzUNqeEOsEYlqTbMAZ19RWgsg/xH2tjnuUw2JP9eGAUzQnCFX6JEV53w==
+"@turf/bbox@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-7.3.1.tgz#145a5655bedb61be4f381601d3c622b70a5e8773"
+  integrity sha512-/IyMKoS7P9B0ch5PIlQ6gMfoE8gRr48+cSbzlyexvEjuDuaAV1VURjH1jAthS0ipFG8RrFxFJKnp7TLL1Skong==
   dependencies:
-    "@turf/helpers" "7.3.0"
-    "@turf/meta" "7.3.0"
+    "@turf/helpers" "7.3.1"
+    "@turf/meta" "7.3.1"
     "@types/geojson" "^7946.0.10"
     tslib "^2.8.1"
 
-"@turf/center@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@turf/center/-/center-7.3.0.tgz#a39900c44e1744bcb1de8b93be554efa76d57efe"
-  integrity sha512-OrXgY9Hz9qnfhuEUrB2PHJnyiC0T1al292ZNTvG382G9ZdjUTRhzz4ajT5a4Mtar/QF+p2KwN8SiFlB2H2N7oQ==
+"@turf/center@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@turf/center/-/center-7.3.1.tgz#cbfa0928e04edc823dee348f50ba48bfb4327bae"
+  integrity sha512-czqNKLGGdik3phYsWCK5SHKBRkDulUArMlG4v62IQcNcRFq9MbOGqyN21GSshSMO792ynDeWzdXdcKmycQ14Yg==
   dependencies:
-    "@turf/bbox" "7.3.0"
-    "@turf/helpers" "7.3.0"
+    "@turf/bbox" "7.3.1"
+    "@turf/helpers" "7.3.1"
     "@types/geojson" "^7946.0.10"
     tslib "^2.8.1"
 
-"@turf/helpers@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-7.3.0.tgz#e72d9b8c83c8f1faf9b73aab2b9adb8cc8229499"
-  integrity sha512-5kWdgwI6e2vGbkt2qOD+Z2BiKQ7dfKN/PtWRLCpvzyOO59rk19R53CHi8nUT/Y1vQLgWmT6eNpiKwsWwPZGIdg==
+"@turf/helpers@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-7.3.1.tgz#2f0e666ecdefbf75d0df1b94ea1f5ccc6e4abc5b"
+  integrity sha512-zkL34JVhi5XhsuMEO0MUTIIFEJ8yiW1InMu4hu/oRqamlY4mMoZql0viEmH6Dafh/p+zOl8OYvMJ3Vm3rFshgg==
   dependencies:
     "@types/geojson" "^7946.0.10"
     tslib "^2.8.1"
 
-"@turf/meta@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-7.3.0.tgz#fc0c1e84589aab3ee146ec716b7d967583af9a84"
-  integrity sha512-fTLqdQqRm8qA2zHHUbBMY++YT9LDQejLG7OD70XF2dwg9nPiF9mUxO7nrsDp2IY8vNmH9OTAiMtlIjb0ssYccg==
+"@turf/meta@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-7.3.1.tgz#af2076f6388ea87585190c99b8530cbb05e38944"
+  integrity sha512-NWsfOE5RVtWpLQNkfOF/RrYvLRPwwruxhZUV0UFIzHqfiRJ50aO9Y6uLY4bwCUe2TumLJQSR4yaoA72Rmr2mnQ==
   dependencies:
-    "@turf/helpers" "7.3.0"
+    "@turf/helpers" "7.3.1"
     "@types/geojson" "^7946.0.10"
 
 "@types/babel__core@^7.1.7":
