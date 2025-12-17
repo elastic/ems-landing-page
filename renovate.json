@@ -7,6 +7,7 @@
   ],
   "baseBranches": [
     "master",
+    "v9.3",
     "v9.2",
     "v9.1",
     "v8.19",
@@ -100,6 +101,16 @@
         "@elastic/ems-client"
       ],
       "allowedVersions": "7.17.x"
+    },
+    {
+      "description": "Add branch-specific label for master/v9.4",
+      "matchBaseBranches": [
+        "master"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.4"
+      ]
     },
     {
       "description": "Add branch-specific label for master/v9.3",
