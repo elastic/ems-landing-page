@@ -10,6 +10,7 @@ on:
       - v9.1
       - v9.2
       - v9.3
+      - v9.4
 
 jobs:
   backport:
