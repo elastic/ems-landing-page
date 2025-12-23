@@ -51,7 +51,11 @@
     "@elastic/datemath": "5.0.3",
     "@elastic/ems-client": "8.6.3",
     "@elastic/eui": "111.0.0",
+<<<<<<< HEAD
     "@elastic/eui-theme-borealis": "5.2.0",
+=======
+    "@elastic/eui-theme-borealis": "5.1.0",
+>>>>>>> d53a4fa (fix(deps): update dependency @elastic/eui to v111 (#2883))
     "@emotion/css": "11.13.5",
     "@mapbox/mapbox-gl-rtl-text": "0.2.3",
     "@turf/bbox": "7.3.1",

@@ -1790,11 +1790,28 @@
     chroma-js "^2.4.2"
     lodash "^4.17.21"
 
+<<<<<<< HEAD
 "@elastic/eui@111.0.0":
   version "111.0.0"
   resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-111.0.0.tgz#e9f27ed57e966af9b9507f294ce6c40fb8f7c5f4"
   integrity sha512-FqXSLqiVUYrk+yuxjEV1hUTqf0RxyKC299iFfc027+s/yUp7D39T/eBpig67HxvC3i4yYctuQiOHjry41cv3xA==
   dependencies:
+=======
+"@elastic/eui-theme-common@7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-common/-/eui-theme-common-7.2.0.tgz#caf3800d2faca3c69c0beea0afb8684007071580"
+  integrity sha512-vN8g7znFnhkjHJU1XYHuYZUwXtb9G7EdgqAGj+/jjrcnvmbJiOU1vU9lHMH8MaHkPnWVmk5aBcV3B+yRu06qrQ==
+  dependencies:
+    "@types/lodash" "^4.14.202"
+    chroma-js "^2.4.2"
+    lodash "^4.17.21"
+
+"@elastic/eui@111.0.0":
+  version "111.0.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-111.0.0.tgz#e9f27ed57e966af9b9507f294ce6c40fb8f7c5f4"
+  integrity sha512-FqXSLqiVUYrk+yuxjEV1hUTqf0RxyKC299iFfc027+s/yUp7D39T/eBpig67HxvC3i4yYctuQiOHjry41cv3xA==
+  dependencies:
+>>>>>>> d53a4fa (fix(deps): update dependency @elastic/eui to v111 (#2883))
     "@elastic/eui-theme-common" "7.2.0"
     "@elastic/prismjs-esql" "^1.1.2"
     "@hello-pangea/dnd" "^16.6.0"
