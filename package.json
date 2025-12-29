@@ -27,7 +27,11 @@
     "copy-webpack-plugin": "13.0.1",
     "core-js": "3.47.0",
     "css-loader": "7.1.2",
+<<<<<<< HEAD
     "css-minimizer-webpack-plugin": "7.0.4",
+=======
+    "css-minimizer-webpack-plugin": "7.0.3",
+>>>>>>> 33d18c5 (chore(deps): update eslint monorepo to v9.39.2 (#2908))
     "eslint": "9.39.2",
     "eslint-plugin-react": "7.37.5",
     "file-loader": "6.2.0",
