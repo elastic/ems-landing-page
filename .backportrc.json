@@ -5,8 +5,7 @@
     "master",
     "v9.1",
     "v8.19",
-    "v8.18",
-    "v7.17"
+    "v8.18"
   ],
   "branchLabelMapping": {
     "^v9.2$": "master",
