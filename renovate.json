@@ -10,8 +10,7 @@
     "v9.2",
     "v9.1",
     "v8.19",
-    "v8.18",
-    "v7.17"
+    "v8.18"
   ],
   "labels": [
     "dependencies"
@@ -61,45 +60,14 @@
       "allowedVersions": "3.x"
     },
     {
-      "description": "Pin EUI to 98.x for v7.17 branch",
+      "description": "Add branch-specific label for master/v9.4",
       "matchBaseBranches": [
-        "v7.17"
+        "master"
       ],
-      "matchPackageNames": [
-        "@elastic/eui"
-      ],
-      "allowedVersions": "98.x"
-    },
-    {
-      "description": "Pin React to 18.x for v7.17 branch",
-      "matchBaseBranches": [
-        "v7.17"
-      ],
-      "matchPackageNames": [
-        "react",
-        "react-dom"
-      ],
-      "allowedVersions": "18.x"
-    },
-    {
-      "description": "Pin maplibre-gl to 4.x for v7.17 branch",
-      "matchBaseBranches": [
-        "v7.17"
-      ],
-      "matchPackageNames": [
-        "maplibre-gl"
-      ],
-      "allowedVersions": "4.x"
-    },
-    {
-      "description": "Pin ems-client to 7.17.x for v7.17 branch",
-      "matchBaseBranches": [
-        "v7.17"
-      ],
-      "matchPackageNames": [
-        "@elastic/ems-client"
-      ],
-      "allowedVersions": "7.17.x"
+      "labels": [
+        "dependencies",
+        "v9.4"
+      ]
     },
     {
       "description": "Add branch-specific label for master/v9.3",
@@ -149,16 +117,6 @@
       "labels": [
         "dependencies",
         "v8.18"
-      ]
-    },
-    {
-      "description": "Add branch-specific label for v7.17",
-      "matchBaseBranches": [
-        "v7.17"
-      ],
-      "labels": [
-        "dependencies",
-        "v7.17"
       ]
     }
   ]
