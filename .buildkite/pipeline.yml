@@ -4,6 +4,20 @@ agents:
   memory: "4G"
 
 steps:
+  - key: e2e-test
+    label: ":playwright: E2E Test"
+    command: |
+      npm install -g yarn
+      yarn install --frozen-lockfile
+      yarn test
+    env:
+      PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: "/usr/bin/chromium"
+      CI: "true"
+    agents:
+      image: "docker.elastic.co/ci-agent-images/ems/playwright:0.4.1@sha256:19670b4458abc9aa62ccfc3ee2edb1de7187ddd9e83def42f0db276c4ec5ee03"
+      cpu: "2"
+      memory: "4G"
+
   - key: build
     label: ":hammer_and_wrench: Build"
     command: ".buildkite/scripts/build.sh"
@@ -11,6 +25,9 @@ steps:
     agents:
       cpu: "2"
       memory: "4G"
+
+  # Wait for e2e test to finish
+  - wait: ~
 
   - key: deploy-staging
     label: ":rocket: Stage"
