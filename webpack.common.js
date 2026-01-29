@@ -28,7 +28,7 @@ module.exports = {
     noParse: /iconv-loader\.js/,
     rules: [
       {
-        test: /mapbox-gl-rtl-text.min.js$/,
+        test: /mapbox-gl-rtl-text(\.min)?\.js$/,
         type: 'asset/resource',
       },
       {
@@ -62,7 +62,10 @@ module.exports = {
       "url": require.resolve("url/")
     },
     alias: {
-
+      '@mapbox/mapbox-gl-rtl-text/mapbox-gl-rtl-text.min.js': path.resolve(
+        __dirname,
+        'node_modules/@mapbox/mapbox-gl-rtl-text/dist/mapbox-gl-rtl-text.js'
+      ),
     }
   },
   optimization: {
