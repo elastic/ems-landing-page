@@ -10,7 +10,7 @@ steps:
     env:
       CI: "true"
     artifact_paths: 
-      - "test-results/*"
+      - "test-results/**/*.png"
     agents:
       image: "docker.elastic.co/ci-agent-images/ems/playwright:1769698582-x86_64@sha256:44e9e62564e6e9725655528d2bfc502ea53d662ab2ba13a344760d6c29f4d95d"
       cpu: "2"

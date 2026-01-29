@@ -34,6 +34,8 @@ export default defineConfig({
 
   /* Screenshot comparison settings */
   expect: {
+    /* Increase timeout for CI environments where map tiles may load slower */
+    timeout: 15 * 1000,
     toHaveScreenshot: {
       /* Threshold for pixel difference (0-1, lower is stricter) */
       /* Set to 0.05 to account for rendering differences between local and CI environments */
