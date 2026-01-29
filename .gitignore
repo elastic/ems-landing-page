@@ -8,3 +8,9 @@ yarn-error.log
 build/
 .output.log
 .vscode
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
