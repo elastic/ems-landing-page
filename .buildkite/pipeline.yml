@@ -6,10 +6,7 @@ agents:
 steps:
   - key: e2e-test
     label: ":playwright: E2E Test"
-    command: |
-      npm install -g yarn
-      yarn install --frozen-lockfile
-      yarn test
+    command: /bin/sh -c 'npm install -g yarn && yarn install --frozen-lockfile && yarn test'
     env:
       PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: "/usr/bin/chromium"
       CI: "true"
