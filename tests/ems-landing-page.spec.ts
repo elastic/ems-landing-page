@@ -2,20 +2,18 @@ import { test, expect } from '@playwright/test';
 
 test.describe('EMS Landing Page', () => {
 
-  test('page loads successfully', async ({ page }) => {
+  test('Page loads successfully', async ({ page }) => {
     const response = await page.goto('/');
 
     expect(response?.status()).toBe(200);
   });
 
-  test('has title', async ({ page }) => {
+  test('Has title', async ({ page }) => {
     await page.goto('/');
-
-    // Update this assertion based on your actual page title
     await expect(page).toHaveTitle(/Elastic Maps Service/i);
   });
 
-  test('visual comparison', async ({ page }) => {
+  test('Visual comparison of the initial full page', async ({ page }) => {
     await page.goto('/');
 
     // Wait for the page to be fully loaded
@@ -27,7 +25,7 @@ test.describe('EMS Landing Page', () => {
     });
   });
   
-  test('Switch basemaps', async ({ page }) => {
+  test('Switch between basemaps', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByLabel('Map', { exact: true })).toBeVisible();
 
@@ -39,7 +37,7 @@ test.describe('EMS Landing Page', () => {
     await expect(page).toHaveScreenshot('ems-landing-page-dark-blue.png');
   });
 
-  test('Load data', async ({ page }) => {
+  test('Load a dataset', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('button', { name: 'Brazil States' }).click();
 
