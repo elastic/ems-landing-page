@@ -4,8 +4,13 @@
   "description": "",
   "main": "main.js",
   "devDependencies": {
+<<<<<<< HEAD
     "@playwright/test": "^1.50.0",
     "@types/node": "^22.0.0",
+=======
+    "@playwright/test": "1.58.0",
+    "@types/node": "24.10.10",
+>>>>>>> cc8b030 (chore(deps): pin dependencies (#3032))
     "@babel/cli": "7.28.6",
     "@babel/core": "7.28.6",
     "@babel/eslint-parser": "7.28.6",
