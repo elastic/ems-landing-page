@@ -5,7 +5,7 @@
   "main": "main.js",
   "devDependencies": {
     "@playwright/test": "^1.50.0",
-    "@types/node": "^22.0.0",
+    "@types/node": "^24.0.0",
     "@babel/cli": "7.28.6",
     "@babel/core": "7.28.6",
     "@babel/eslint-parser": "7.28.6",
