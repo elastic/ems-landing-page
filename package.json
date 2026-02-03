@@ -4,6 +4,8 @@
   "description": "",
   "main": "main.js",
   "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "@types/node": "^22.0.0",
     "@babel/cli": "7.28.6",
     "@babel/core": "7.28.6",
     "@babel/eslint-parser": "7.28.6",
@@ -75,7 +77,9 @@
     "build": "./bin/git-check.sh && yarn build-unsafe",
     "build-unsafe": "yarn lint && yarn compile",
     "serverless": "node .buildkite/scripts/serverless.mjs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "playwright test",
+    "test:update-snapshots": "playwright test --update-snapshots"
   },
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
