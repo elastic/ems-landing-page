@@ -70,9 +70,9 @@
       ]
     },
     {
-      "description": "Add branch-specific label for master/v9.3",
+      "description": "Add branch-specific label for v9.2",
       "matchBaseBranches": [
-        "master"
+        "v9.3"
       ],
       "labels": [
         "dependencies",
