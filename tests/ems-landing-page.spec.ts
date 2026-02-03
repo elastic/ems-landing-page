@@ -36,11 +36,11 @@ test.describe('EMS Landing Page', () => {
     await expect(page.getByLabel('Map', { exact: true })).toBeVisible();
 
     const classicMap = 'Classic';
-    const darkMap = 'Dark Blue';
+    const darkMap = 'Dark';
     await page.getByRole('button', { name: classicMap, exact: true }).click();
     await page.getByRole('button', { name: darkMap }).click();
 
-    await expect(page).toHaveScreenshot('ems-landing-page-dark-blue.png');
+    await expect(page).toHaveScreenshot('ems-landing-page-dark.png');
   });
 
   test('Load a dataset', async ({ page }) => {
