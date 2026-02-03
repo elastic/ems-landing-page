@@ -48,6 +48,24 @@ Open `public/index.html`
 
 You can run the page either from the file-system or any web-server.
 
+## End-to-End Testing
+
+This project uses [Playwright](https://playwright.dev/) for end-to-end testing.
+
+```bash
+# Run tests against local dev server
+yarn test
+
+# Run tests against staging
+yarn test:staging
+
+# Run tests against production
+yarn test:production
+
+# Test specific versions
+yarn test:staging --versions v9.4,v9.3
+```
+
 ## Packaging
 
 To package the app, run the build script.
