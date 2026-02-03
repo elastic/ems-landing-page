@@ -59,6 +59,11 @@ export class Map extends Component {
     this._maplibreMap.dragRotate.disable();
     this._maplibreMap.touchZoomRotate.disableRotation();
 
+    // Dispatch a custom event when the map becomes idle (for testing purposes)
+    this._maplibreMap.on('idle', () => {
+      this._mapRef.current?.dispatchEvent(new CustomEvent('map:idle', { bubbles: true }));
+    });
+
     this._maplibreMap.on('click', this._overlayFillLayerId, (e) => {
       this._highlightFeature(e.features[0], e.lngLat);
     });
