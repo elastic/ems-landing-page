@@ -1,3 +1,9 @@
+/*
+ * Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
+ * or more contributor license agreements. Licensed under the Elastic License
+ * 2.0; you may not use this file except in compliance with the Elastic License
+ * 2.0.
+ */
 import { test, expect } from '@playwright/test';
 
 test.describe('EMS Landing Page', () => {
@@ -45,8 +51,14 @@ test.describe('EMS Landing Page', () => {
     await expect(page.locator('.maplibregl-popup-content')).toBeVisible();
     await expect(page.locator('dl')).toContainText('BR-AM');
 
-    // Force a 1 seconds display to let the map move to the correct location
-    await new Promise((_) => setTimeout(_, 1000));
+    // Wait for the map to finish animating to the feature location
+    await page.evaluate(() => {
+      return new Promise<void>((resolve) => {
+        document.querySelector('.mapContainer')
+          ?.addEventListener('map:idle', () => resolve(), { once: true });
+      });
+    });
+
     await expect(page).toHaveScreenshot('ems-landing-page-load-data.png');
   });
 });
