@@ -44,17 +44,26 @@ This starts the Vite development server at `http://localhost:8080`. The page wil
 
 ### Running tests
 
-The project uses Playwright for end-to-end testing with visual snapshot comparisons.
+The project uses [Playwright](https://playwright.dev/) for end-to-end testing with visual snapshot comparisons.
 
 ```bash
+# Run tests against local dev server
 yarn test
-```
 
-To update snapshots after intentional visual changes:
-
-```bash
+# Update snapshots after intentional visual changes
 yarn test:update-snapshots
+
+# Run tests against staging
+yarn test:staging
+
+# Run tests against production
+yarn test:production
+
+# Test specific versions
+yarn test:staging --versions v9.4,v9.3
 ```
+
+Visual snapshot tests are automatically skipped when testing against remote URLs.
 
 ## Packaging
 
