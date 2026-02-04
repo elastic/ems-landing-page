@@ -15,7 +15,7 @@ Please carefully review the `CONTRIBUTING.md` document before submitting any pul
 
 `yarn` is used as the dependency manager and script runner for this project. Ensure both `node` and `yarn` are installed on your system.
 
-`webpack` is used for JavaScript transpilation.
+`vite` is used for development server and production builds.
 
 To use the recommended node version for running the development and compile tasks, you can use [`nvm`](https://github.com/nvm-sh/nvm) with:
 
@@ -33,20 +33,28 @@ nvm use
 yarn install
 ```
 
-#### Start the babel compilation and watch task
+#### Start the development server
 
 
 ```bash
 yarn dev
 ```
 
-Keep this running. The JavaScript/CSS will be automatically recompiled when files change.
+This starts the Vite development server at `http://localhost:8080`. The page will automatically reload when files change.
 
-#### Open the page
+### Running tests
 
-Open `public/index.html`
+The project uses Playwright for end-to-end testing with visual snapshot comparisons.
 
-You can run the page either from the file-system or any web-server.
+```bash
+yarn test
+```
+
+To update snapshots after intentional visual changes:
+
+```bash
+yarn test:update-snapshots
+```
 
 ## Packaging
 

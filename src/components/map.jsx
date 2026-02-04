@@ -6,7 +6,6 @@
  */
 
 import maplibre from 'maplibre-gl';
-import mbRtlPlugin from '@mapbox/mapbox-gl-rtl-text/mapbox-gl-rtl-text.min.js';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 import React, { Component } from 'react';
@@ -14,7 +13,8 @@ import chroma from 'chroma-js';
 
 import { eui } from './theme';
 
-maplibre.setRTLTextPlugin(mbRtlPlugin);
+// Load the RTL text plugin from public directory
+maplibre.setRTLTextPlugin('/mapbox-gl-rtl-text.js');
 
 export class Map extends Component {
 

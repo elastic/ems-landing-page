@@ -61,4 +61,56 @@ test.describe('EMS Landing Page', () => {
 
     await expect(page).toHaveScreenshot('ems-landing-page-load-data.png');
   });
+
+  test('Change basemap language', async ({ page }) => {
+    await page.goto('/');
+    
+    // Wait for the page to be fully loaded
+    await page.waitForLoadState('networkidle');
+
+    // First, load the China Provinces dataset for a more distinctive visual
+    await page.getByRole('button', { name: 'China Provinces' }).click();
+
+    // Wait for the map to finish animating to the China location
+    await page.evaluate(() => {
+      return new Promise<void>((resolve) => {
+        document.querySelector('.mapContainer')
+          ?.addEventListener('map:idle', () => resolve(), { once: true });
+      });
+    });
+
+    // Find the language selector combobox
+    const languageCombobox = page.getByRole('combobox', { name: 'Select language' });
+    await expect(languageCombobox).toBeVisible();
+
+    // Click on the combobox input to focus it and open the dropdown
+    await languageCombobox.click();
+
+    // Wait for the listbox to appear
+    const listbox = page.getByRole('listbox');
+    await expect(listbox).toBeVisible();
+    
+    // Type to filter to Chinese - this will narrow the options
+    await languageCombobox.fill('简体');
+    
+    // Wait for the filtered option to appear and press Enter to select it
+    await expect(listbox.getByRole('option')).toHaveCount(1);
+    await languageCombobox.press('Enter');
+
+    // Verify the selection changed
+    await expect(languageCombobox).toHaveValue('简体中文');
+
+    // Wait for the map to update with the new language
+    await page.evaluate(() => {
+      return new Promise<void>((resolve) => {
+        document.querySelector('.mapContainer')
+          ?.addEventListener('map:idle', () => resolve(), { once: true });
+      });
+    });
+
+    // Take a full page screenshot for visual comparison
+    await expect(page).toHaveScreenshot('ems-landing-page-chinese-language.png', {
+      fullPage: true,
+    });
+  });
 });

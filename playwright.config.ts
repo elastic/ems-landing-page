@@ -52,10 +52,10 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        /* Use system chromium in CI (Docker container) */
-        ...(process.env.CI && {
+        /* Use system chromium in CI (Docker container) if PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH is set */
+        ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH && {
           launchOptions: {
-            executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || '/usr/bin/chromium',
+            executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
           },
         }),
       },
