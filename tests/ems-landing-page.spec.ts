@@ -77,8 +77,8 @@ function flushAllBrowserLogs() {
 }
 
 // Helper to wait for map idle with timeout fallback for older versions
-async function waitForMapIdle(page: import('@playwright/test').Page) {
-  await page.evaluate(() => {
+async function waitForMapIdle(page: import('@playwright/test').Page, timeoutInMs: number = 5000) {
+  await page.evaluate((timeoutMs) => {
     return new Promise<void>((resolve, reject) => {
       const mapContainer = document.querySelector('.mapContainer');
       if (!mapContainer) {
@@ -89,14 +89,14 @@ async function waitForMapIdle(page: import('@playwright/test').Page) {
       const timeout = setTimeout(() => {
         console.warn('map:idle event not received - this version may not support it');
         resolve();
-      }, 5000);
+      }, timeoutMs);
 
       mapContainer.addEventListener('map:idle', () => {
         clearTimeout(timeout);
         resolve();
       }, { once: true });
     });
-  });
+  }, timeoutInMs);
 }
 
 test.describe('EMS Landing Page', () => {
@@ -235,7 +235,7 @@ test.describe('EMS Landing Page', () => {
     await page.keyboard.press('Escape');
 
     // Wait for the map to update with the color filter
-    await waitForMapIdle(page);
+    await waitForMapIdle(page, 10000);
 
     // Take a screenshot to verify the color filter is applied
     if (!skipVisualTests) {
