@@ -42,6 +42,9 @@ import { icon as EuiIconCross } from '@elastic/eui/es/components/icon/assets/cro
 import { icon as EuiIconCheck } from '@elastic/eui/es/components/icon/assets/check';
 import { icon as EuiIconReturn } from '@elastic/eui/es/components/icon/assets/return';
 
+// Color picker icons
+import { icon as EuiIconSwatchInput } from '@elastic/eui/es/components/icon/assets/swatch_input';
+
 appendIconComponentCache({
   // App icons
   emsApp: EuiIconEmsApp,
@@ -73,4 +76,7 @@ appendIconComponentCache({
   check: EuiIconCheck,
   'return': EuiIconReturn,
   returnKey: EuiIconReturn,
+  
+  // Color picker icons
+  swatchInput: EuiIconSwatchInput,
 });
