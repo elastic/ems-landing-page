@@ -65,6 +65,18 @@ yarn test:staging --versions v9.4,v9.3
 
 Visual snapshot tests are automatically skipped when testing against remote URLs.
 
+#### Browser console and errors
+
+When tests run in CI (or when `PLAYWRIGHT_VERBOSE=1` is set), browser console messages (errors and warnings) and uncaught JavaScript errors are collected during the run and displayed all together, grouped by test.
+
+To see this output when running locally (e.g. to debug app or dependency errors):
+
+```bash
+PLAYWRIGHT_VERBOSE=1 yarn test
+```
+
+**Note:** When browser console output is enabled (CI or `PLAYWRIGHT_VERBOSE=1`), tests run with a single worker so that the log is printed once at the end. This makes the run slower than the default parallel execution.
+
 ## Packaging
 
 To package the app, run the build script.

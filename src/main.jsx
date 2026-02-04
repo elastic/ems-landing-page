@@ -5,6 +5,9 @@
  * 2.0.
  */
 
+// Must run first so process/Buffer exist before @elastic/ems-client (and lru-cache, pseudomap) load
+import './polyfills.js';
+
 // Pre-register EUI icons before any components load
 import './icon-cache.js';
 

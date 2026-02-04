@@ -19,8 +19,8 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  /* Use one worker in CI; also when PLAYWRIGHT_VERBOSE=1 so browser log is flushed once at the end instead of interleaved per worker. */
+  workers: process.env.CI || process.env.PLAYWRIGHT_VERBOSE === '1' ? 1 : undefined,
   // Concise 'dot' for CI, default 'list' when running locally
   reporter: process.env.CI ? 'dot' : 'list',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -45,6 +45,9 @@ export default defineConfig({
 
   /* Directory for storing screenshot snapshots */
   snapshotDir: './tests/snapshots',
+
+  /* Print browser logs after all reporter output (see tests/playwright-global-teardown.ts) */
+  globalTeardown: './tests/playwright-global-teardown.ts',
 
   /* Configure projects for major browsers */
   projects: [

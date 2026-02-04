@@ -7,18 +7,19 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { resolve } from 'path';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    nodePolyfills({
-      // Polyfill specific modules needed by @elastic/ems-client
-      include: ['url', 'buffer', 'process'],
-    }),
-  ],
-  
+  plugins: [react()],
+
+  // Polyfill Node built-ins needed by @elastic/ems-client (no plugin = no vulnerable deps)
+  resolve: {
+    alias: {
+      buffer: 'buffer',
+      process: 'process/browser.js',
+      url: 'url',
+    },
+  },
   // Set base path from environment variable (for CDN deployments)
   base: process.env.ASSET_PATH || '/',
 

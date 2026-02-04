@@ -4,10 +4,77 @@
  * 2.0; you may not use this file except in compliance with the Elastic License
  * 2.0.
  */
+import * as fs from 'fs';
+import * as path from 'path';
 import { test, expect } from '@playwright/test';
+
+const BROWSER_LOGS_FILE = path.join(process.cwd(), 'test-results', 'playwright-browser-logs.json');
 
 // Skip visual tests when testing against remote/staging URLs
 const skipVisualTests = !!process.env.PLAYWRIGHT_SKIP_VISUAL_TESTS;
+
+// Log browser console/errors only in CI or when PLAYWRIGHT_VERBOSE=1 (reduces verbosity by default)
+const logBrowserConsole = !!process.env.CI || process.env.PLAYWRIGHT_VERBOSE === '1';
+
+// Collected browser log for the current test (accumulated until afterAll)
+let currentTestBrowserLog: { title: string; entries: string[] } | null = null;
+// All test logs, printed in one go in afterAll
+const allBrowserLogs: { title: string; entries: string[] }[] = [];
+// Cleanup for the current test's page listeners (so late events don't leak into the next test)
+let removeBrowserLogListeners: (() => void) | null = null;
+
+/**
+ * Attach listeners to collect browser console/errors for the current test.
+ * Entries are printed in afterAll in one block (after all tests finish).
+ * Returns a cleanup function so we can remove listeners in afterEach and avoid async leakage.
+ */
+function attachBrowserErrorLogging(page: import('@playwright/test').Page, testTitle: string): () => void {
+  if (!logBrowserConsole) return () => {};
+  currentTestBrowserLog = { title: testTitle, entries: [] };
+  const lines = currentTestBrowserLog.entries;
+
+  const onPageError = (err: Error) => {
+    lines.push('[browser pageerror] ' + err.message);
+    if (err.stack) lines.push(err.stack);
+  };
+  const onConsole = (msg: import('@playwright/test').ConsoleMessage) => {
+    const type = msg.type();
+    const text = msg.text();
+    if (type === 'error') {
+      lines.push('🛑 ' + text);
+    } else if (type === 'warning') {
+      lines.push('⚠️ ' + text);
+    }
+  };
+
+  page.on('pageerror', onPageError);
+  page.on('console', onConsole);
+
+  return () => {
+    page.off('pageerror', onPageError);
+    page.off('console', onConsole);
+  };
+}
+
+function saveBrowserLogForTest() {
+  if (!logBrowserConsole || !currentTestBrowserLog?.entries.length) {
+    currentTestBrowserLog = null;
+    return;
+  }
+  allBrowserLogs.push(currentTestBrowserLog);
+  currentTestBrowserLog = null;
+}
+
+function flushAllBrowserLogs() {
+  if (!logBrowserConsole || !allBrowserLogs.length) return;
+  try {
+    const dir = path.dirname(BROWSER_LOGS_FILE);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(BROWSER_LOGS_FILE, JSON.stringify(allBrowserLogs), 'utf8');
+  } finally {
+    allBrowserLogs.length = 0;
+  }
+}
 
 // Helper to wait for map idle with timeout fallback for older versions
 async function waitForMapIdle(page: import('@playwright/test').Page) {
@@ -33,6 +100,20 @@ async function waitForMapIdle(page: import('@playwright/test').Page) {
 }
 
 test.describe('EMS Landing Page', () => {
+
+  test.beforeEach(async ({ page }, testInfo) => {
+    removeBrowserLogListeners = attachBrowserErrorLogging(page, testInfo.title);
+  });
+
+  test.afterEach(() => {
+    removeBrowserLogListeners?.();
+    removeBrowserLogListeners = null;
+    saveBrowserLogForTest();
+  });
+
+  test.afterAll(() => {
+    flushAllBrowserLogs();
+  });
 
   test('Page loads successfully', async ({ page }) => {
     const response = await page.goto('/');
