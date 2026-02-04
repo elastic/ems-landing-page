@@ -50,6 +50,7 @@
     "build-unsafe": "yarn lint && yarn compile",
     "preview": "vite preview",
     "serverless": "node .buildkite/scripts/serverless.mjs",
+    "postinstall": "node scripts/copy-rtl-plugin.cjs",
     "prepare": "husky",
     "test": "playwright test",
     "test:update-snapshots": "playwright test --update-snapshots",
