@@ -33,9 +33,22 @@ export default defineConfig({
     outDir: 'build/release',
     emptyOutDir: true,
     sourcemap: true,
+    // Increase limit since EUI is inherently large (~2.3 MB)
+    chunkSizeWarningLimit: 2500,
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+      },
+      output: {
+        // Split vendor chunks for better caching
+        manualChunks: {
+          // MapLibre is the largest dependency
+          maplibre: ['maplibre-gl'],
+          // EUI and related Elastic packages
+          eui: ['@elastic/eui', '@elastic/eui-theme-borealis', '@emotion/react', '@emotion/css'],
+          // React ecosystem
+          react: ['react', 'react-dom'],
+        },
       },
     },
   },
