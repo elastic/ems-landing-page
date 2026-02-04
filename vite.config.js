@@ -12,12 +12,13 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [react()],
 
-  // Polyfill Node built-ins needed by @elastic/ems-client (no plugin = no vulnerable deps)
+  // Polyfill Node built-ins needed by @elastic/ems-client and deps (e.g. lru-cache uses util)
   resolve: {
     alias: {
       buffer: 'buffer',
       process: 'process/browser.js',
       url: 'url',
+      util: 'util',
     },
   },
   // Set base path from environment variable (for CDN deployments)
@@ -45,10 +46,8 @@ export default defineConfig({
         manualChunks: {
           // MapLibre is the largest dependency
           maplibre: ['maplibre-gl'],
-          // EUI and related Elastic packages
+          // EUI and related Elastic packages (react/react-dom left to default to avoid empty chunk)
           eui: ['@elastic/eui', '@elastic/eui-theme-borealis', '@emotion/react', '@emotion/css'],
-          // React ecosystem
-          react: ['react', 'react-dom'],
         },
       },
     },
