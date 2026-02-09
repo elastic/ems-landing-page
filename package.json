@@ -16,7 +16,7 @@
     "@vitejs/plugin-react": "4.5.1",
     "eslint": "9.39.2",
     "eslint-plugin-react": "7.37.5",
-    "globals": "17.0.0",
+    "globals": "17.1.0",
     "husky": "9.1.7",
     "node-fetch": "3.3.2",
     "vite": "6.3.5"
@@ -24,8 +24,8 @@
   "dependencies": {
     "@elastic/datemath": "5.0.3",
     "@elastic/ems-client": "8.6.3",
-    "@elastic/eui": "112.0.0",
-    "@elastic/eui-theme-borealis": "5.3.0",
+    "@elastic/eui": "112.1.0",
+    "@elastic/eui-theme-borealis": "5.4.0",
     "@emotion/css": "11.13.5",
     "@emotion/react": "11.14.0",
     "@mapbox/mapbox-gl-rtl-text": "0.3.0",

@@ -380,10 +380,10 @@
     semver "^7.6.3"
     topojson-client "^3.1.0"
 
-"@elastic/eui-theme-borealis@5.3.0":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-borealis/-/eui-theme-borealis-5.3.0.tgz#84672790fe92c2ed559a06aca6f9c4ef64aa058f"
-  integrity sha512-LJcRer7+Qjn2mDE56yuuofNzYsAWXlCRDK/ta8Pu4AStfgCA88wOhHue4xWfH99V926WfUG4HePJZCjUIKZ+Qw==
+"@elastic/eui-theme-borealis@5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-borealis/-/eui-theme-borealis-5.4.0.tgz#b392b43457c5db3fb39c6f148799b5e65ffc5803"
+  integrity sha512-2NQ9s7A/EM6VgQlkkw4IUFhyqPvs37M8jVNX5nYjwTPRfQwLBMEUXqYqUhIWMQXzjocf1x2IkzEejT8C9eqbXA==
   dependencies:
     "@elastic/eui-theme-common" "7.3.0"
     chroma-js "^2.4.2"
@@ -397,10 +397,10 @@
     chroma-js "^2.4.2"
     lodash "^4.17.21"
 
-"@elastic/eui@112.0.0":
-  version "112.0.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-112.0.0.tgz#5546f4d7c1876804f6e8e280d7618ed47e92d6ac"
-  integrity sha512-LEdRzFQ+Wv2xbHWJY8pBet8rAqKIeMgzZqzCqWRX7kuMijNhk6jenusCZgO4ajJGFhq+dkZkkWrvUaHSWoFe8w==
+"@elastic/eui@112.1.0":
+  version "112.1.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-112.1.0.tgz#2c1fe3d426e5f40036fa1ac8fd5f2cb96a537193"
+  integrity sha512-tWM6E6iQ+yqxhOBApvsOzdQKR0u4SYSaj7LFi334grUARXWNsYbZOqJoqXcacpkjE0aw20BtdM7OC19AhVB+bw==
   dependencies:
     "@elastic/eui-theme-common" "7.3.0"
     "@elastic/prismjs-esql" "^1.1.2"
@@ -2768,10 +2768,10 @@ global-prefix@^3.0.0:
     kind-of "^6.0.2"
     which "^1.3.1"
 
-globals@17.0.0:
-  version "17.0.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-17.0.0.tgz#a4196d9cfeb4d627ba165b4647b1f5853bf90a30"
-  integrity sha512-gv5BeD2EssA793rlFWVPMMCqefTlpusw6/2TbAVMy0FzcG8wKJn4O+NqJ4+XWmmwrayJgw5TzrmWjFgmz1XPqw==
+globals@17.1.0:
+  version "17.1.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-17.1.0.tgz#03448e667caa3914312a7937eef48c4a59dc6859"
+  integrity sha512-8HoIcWI5fCvG5NADj4bDav+er9B9JMj2vyL2pI8D0eismKyUvPLTSs+Ln3wqhwcp306i73iyVnEKx3F6T47TGw==
 
 globals@^11.1.0:
   version "11.12.0"
