@@ -14,8 +14,14 @@ import chroma from 'chroma-js';
 import { eui } from './theme';
 
 // Load the RTL text plugin from public directory
-maplibre.setRTLTextPlugin('/mapbox-gl-rtl-text.js');
+const rtlTextPluginUrl =
+  typeof import.meta !== 'undefined' &&
+  import.meta.env &&
+  typeof import.meta.env.BASE_URL === 'string'
+    ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}/mapbox-gl-rtl-text.js`
+    : '/mapbox-gl-rtl-text.js';
 
+maplibre.setRTLTextPlugin(rtlTextPluginUrl);
 export class Map extends Component {
 
   static isSupported() {
