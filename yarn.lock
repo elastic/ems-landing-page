@@ -1818,10 +1818,10 @@
     chroma-js "^2.4.2"
     lodash "^4.17.21"
 
-"@elastic/eui@112.1.0":
-  version "112.1.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-112.1.0.tgz#2c1fe3d426e5f40036fa1ac8fd5f2cb96a537193"
-  integrity sha512-tWM6E6iQ+yqxhOBApvsOzdQKR0u4SYSaj7LFi334grUARXWNsYbZOqJoqXcacpkjE0aw20BtdM7OC19AhVB+bw==
+"@elastic/eui@112.3.0":
+  version "112.3.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-112.3.0.tgz#017534307c3cf240e536ac646086def958a3c2c9"
+  integrity sha512-BgUrVEralLuL8XvRkyJ3rfmD4Mn07yhAKLqnG9w4li786F3GFSMmN4SbWQdBMeVLqApZGfHEoMwC6WWRWqI/6w==
   dependencies:
     "@elastic/eui-theme-common" "7.3.0"
     "@elastic/prismjs-esql" "^1.1.2"
