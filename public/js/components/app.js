@@ -77,6 +77,12 @@ export const supportedLanguages = [
   { key: 'zh-cn', label: '简体中文' },
 ];
 
+export const supportedlabelModes = [
+  { key: 'default', label: 'Show all layers' },
+  { key: 'only', label: 'Only show label layers' },
+  { key: 'hide', label: 'Hide label layers' },
+];
+
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -85,6 +91,7 @@ export class App extends Component {
       selectedTileLayer: null,
       selectedFileLayer: null,
       selectedLanguage: 'default',
+      selectedLabelMode: 'default',
       selectedColor: null,
       selectedColorOp: null,
       selectedPercentage: null,
@@ -131,6 +138,12 @@ export class App extends Component {
 
     this._selectLanguage = (lang) => {
       this.setState({ selectedLanguage: lang }, () => {
+        this._updateMap();
+      });
+    };
+
+    this._selectLabelMode = (mode) => {
+      this.setState({ selectedLabelMode: mode }, () => {
         this._updateMap();
       });
     };
@@ -248,7 +261,7 @@ export class App extends Component {
     }
 
     // Getting the necessary data to update the map
-    const { selectedTileLayer, selectedLanguage } = this.state;
+    const { selectedTileLayer, selectedLanguage, selectedLabelMode } = this.state;
     const source = await (selectedTileLayer.getVectorStyleSheet());
     const mlMap = this._map._maplibreMap;
 
@@ -260,11 +273,31 @@ export class App extends Component {
     if (selectedLanguage) {
       const langKey = selectedLanguage;
       const lang = supportedLanguages.find(l => l.key === langKey);
+      const labelMode = selectedLabelMode;
 
       try {
         this._map.waitForStyleLoaded(async () => {
+          const defaultStyle = await this.state.selectedTileLayer.getVectorStyleSheet();
+          
+          // Reset the map layers to the default visibility
+          source.layers.forEach(layer => {
+            const defaultVisibility = defaultStyle.layers.find((dl) => dl.id == layer.id )?.visibility || 'visible';
+            mlMap.setLayoutProperty(layer.id, 'visibility', defaultVisibility);
+          });
+          // Set the visibility of layers based on the selected label mode
+          if (labelMode === 'only') {
+            source.layers.filter(layer => layer.type !== 'symbol' && layer.type !== 'background').forEach(layer => {
+              mlMap.setLayoutProperty(layer.id, 'visibility', 'none');
+            });
+          }
+          else if (labelMode === 'hide') {
+            source.layers.filter(layer => layer.type === 'symbol').forEach(layer => {
+              mlMap.setLayoutProperty(layer.id, 'visibility', 'none');
+            });
+          }
+
+          // Set the language property for each layer
           if (langKey === 'default') {
-            const defaultStyle = await this.state.selectedTileLayer.getVectorStyleSheet();
             source.layers.forEach(layer => {
               const textField = defaultStyle?.layers.find(l => l.id === layer.id)?.layout?.['text-field'];
               if (textField) {
@@ -388,8 +421,10 @@ export class App extends Component {
                   title="Tile Layer"
                   layerConfig={this.state.selectedTileLayer}
                   onLanguageChange={this._selectLanguage}
+                  onLabelModeChange={this._selectLabelMode}
                   onColorChange={this._changeColor}
                   language={this.state.selectedLanguage}
+                  labelMode={this.state.selectedLabelMode}
                   color={this.state.selectedColor}
                 />
               </EuiPanel>
