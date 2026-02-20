@@ -76,7 +76,9 @@ function flushAllBrowserLogs() {
   }
 }
 
-// Helper to wait for map idle with timeout fallback for older versions
+// Helper to wait for map idle with timeout fallback for older versions.
+// Checks the data-map-idle attribute first so we don't miss events that
+// already fired before the listener was attached.
 async function waitForMapIdle(page: import('@playwright/test').Page, timeoutInMs: number = 5000) {
   await page.evaluate((timeoutMs) => {
     return new Promise<void>((resolve, reject) => {
@@ -86,8 +88,13 @@ async function waitForMapIdle(page: import('@playwright/test').Page, timeoutInMs
         return;
       }
 
+      if (mapContainer.hasAttribute('data-map-idle')) {
+        resolve();
+        return;
+      }
+
       const timeout = setTimeout(() => {
-        console.warn('map:idle event not received - this version may not support it');
+        console.warn('map:idle event not received within timeout');
         resolve();
       }, timeoutMs);
 

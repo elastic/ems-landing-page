@@ -63,10 +63,20 @@ export class Map extends Component {
     this._maplibreMap.dragRotate.disable();
     this._maplibreMap.touchZoomRotate.disableRotation();
 
-    // Dispatch a custom event when the map becomes idle (for testing purposes)
+    // Track map idle state on the DOM for testing: data-map-idle is present when
+    // the map has finished rendering, removed when a new render cycle begins.
     this._maplibreMap.on('idle', () => {
-      this._mapRef.current?.dispatchEvent(new CustomEvent('map:idle', { bubbles: true }));
+      const el = this._mapRef.current;
+      if (el) {
+        el.setAttribute('data-map-idle', '');
+        el.dispatchEvent(new CustomEvent('map:idle', { bubbles: true }));
+      }
     });
+    for (const evt of ['movestart', 'zoomstart', 'sourcedata', 'styledata']) {
+      this._maplibreMap.on(evt, () => {
+        this._mapRef.current?.removeAttribute('data-map-idle');
+      });
+    }
 
     this._maplibreMap.on('click', this._overlayFillLayerId, (e) => {
       this._highlightFeature(e.features[0], e.lngLat);
