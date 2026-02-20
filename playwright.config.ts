@@ -19,8 +19,8 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  /* Use one worker in CI; also when PLAYWRIGHT_VERBOSE=1 so browser log is flushed once at the end instead of interleaved per worker. */
+  workers: process.env.CI || process.env.PLAYWRIGHT_VERBOSE === '1' ? 1 : undefined,
   // Concise 'dot' for CI, default 'list' when running locally
   reporter: process.env.CI ? 'dot' : 'list',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -46,27 +46,32 @@ export default defineConfig({
   /* Directory for storing screenshot snapshots */
   snapshotDir: './tests/snapshots',
 
+  /* Print browser logs after all reporter output (see tests/playwright-global-teardown.ts) */
+  globalTeardown: './tests/playwright-global-teardown.ts',
+
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        /* Use system chromium in CI (Docker container) */
-        ...(process.env.CI && {
+        /* Use system chromium in CI (Docker container) if PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH is set */
+        ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH && {
           launchOptions: {
-            executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || '/usr/bin/chromium',
+            executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
           },
         }),
       },
     },
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'yarn dev',
-    url: 'http://localhost:8080',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
-  },
+  /* Run your local dev server before starting the tests (skip when testing remote URLs) */
+  webServer: process.env.PLAYWRIGHT_BASE_URL
+    ? undefined
+    : {
+        command: 'yarn dev',
+        url: 'http://localhost:8080',
+        reuseExistingServer: !process.env.CI,
+        timeout: 120 * 1000,
+      },
 });

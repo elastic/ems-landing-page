@@ -79,7 +79,9 @@
     "serverless": "node .buildkite/scripts/serverless.mjs",
     "prepare": "husky",
     "test": "playwright test",
-    "test:update-snapshots": "playwright test --update-snapshots"
+    "test:update-snapshots": "playwright test --update-snapshots",
+    "test:staging": "node scripts/test-remote.mjs --base-url https://maps-staging.elastic.co",
+    "test:production": "node scripts/test-remote.mjs --base-url https://maps.elastic.co"
   },
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
