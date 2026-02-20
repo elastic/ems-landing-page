@@ -51,7 +51,9 @@ export class LayerDetails extends PureComponent {
           layerConfig={this.props.layerConfig}
           onLanguageChange={this.props.onLanguageChange}
           onColorChange={this.props.onColorChange}
+          onLabelModeChange={this.props.onLabelModeChange}
           language={this.props.language}
+          labelMode={this.props.labelMode}
           color={this.props.color}
         />
       </div>
