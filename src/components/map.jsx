@@ -6,7 +6,6 @@
  */
 
 import maplibre from 'maplibre-gl';
-import mbRtlPlugin from '@mapbox/mapbox-gl-rtl-text/mapbox-gl-rtl-text.min.js';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 import React, { Component } from 'react';
@@ -14,8 +13,15 @@ import chroma from 'chroma-js';
 
 import { eui } from './theme';
 
-maplibre.setRTLTextPlugin(mbRtlPlugin);
+// Load the RTL text plugin from public directory
+const rtlTextPluginUrl =
+  typeof import.meta !== 'undefined' &&
+  import.meta.env &&
+  typeof import.meta.env.BASE_URL === 'string'
+    ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}/mapbox-gl-rtl-text.js`
+    : '/mapbox-gl-rtl-text.js';
 
+maplibre.setRTLTextPlugin(rtlTextPluginUrl);
 export class Map extends Component {
 
   static isSupported() {
@@ -219,8 +225,6 @@ export class Map extends Component {
       }
     }
     
-
-
     this._maplibreMap.setStyle(newStyle, { diff: false });
 
     if (callback) {
@@ -254,7 +258,7 @@ export class Map extends Component {
       source: this._overlaySourceId,
       type: 'fill',
       paint: {
-        'fill-color': fill.css(),
+        'fill-color': fill.hex(),
         'fill-opacity': 0.6,
       },
     }, firstSymbol?.id);
@@ -264,7 +268,7 @@ export class Map extends Component {
       source: this._overlaySourceId,
       type: 'line',
       paint: {
-        'line-color': border.css(),
+        'line-color': border.hex(),
         'line-width': 1,
       },
     }, firstSymbol?.id);
@@ -275,7 +279,7 @@ export class Map extends Component {
       type: 'fill',
       layout: {},
       paint: {
-        'fill-color': highlight.css(),
+        'fill-color': highlight.hex(),
         'fill-opacity': 1,
       },
       filter: ['==', 'name', ''],
