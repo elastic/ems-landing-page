@@ -15,7 +15,7 @@ Please carefully review the `CONTRIBUTING.md` document before submitting any pul
 
 `yarn` is used as the dependency manager and script runner for this project. Ensure both `node` and `yarn` are installed on your system.
 
-`webpack` is used for JavaScript transpilation.
+`vite` is used for development server and production builds.
 
 To use the recommended node version for running the development and compile tasks, you can use [`nvm`](https://github.com/nvm-sh/nvm) with:
 
@@ -33,20 +33,49 @@ nvm use
 yarn install
 ```
 
-#### Start the babel compilation and watch task
+#### Start the development server
 
 
 ```bash
 yarn dev
 ```
 
-Keep this running. The JavaScript/CSS will be automatically recompiled when files change.
+This starts the Vite development server at `http://localhost:8080`. The page will automatically reload when files change.
 
-#### Open the page
+### Running tests
 
-Open `public/index.html`
+The project uses [Playwright](https://playwright.dev/) for end-to-end testing with visual snapshot comparisons.
 
-You can run the page either from the file-system or any web-server.
+```bash
+# Run tests against local dev server
+yarn test
+
+# Update snapshots after intentional visual changes
+yarn test:update-snapshots
+
+# Run tests against staging
+yarn test:staging
+
+# Run tests against production
+yarn test:production
+
+# Test specific versions
+yarn test:staging --versions v9.4,v9.3
+```
+
+Visual snapshot tests are automatically skipped when testing against remote URLs.
+
+#### Browser console and errors
+
+When tests run in CI (or when `PLAYWRIGHT_VERBOSE=1` is set), browser console messages (errors and warnings) and uncaught JavaScript errors are collected during the run and displayed all together, grouped by test.
+
+To see this output when running locally (e.g. to debug app or dependency errors):
+
+```bash
+PLAYWRIGHT_VERBOSE=1 yarn test
+```
+
+**Note:** When browser console output is enabled (CI or `PLAYWRIGHT_VERBOSE=1`), tests run with a single worker so that the log is printed once at the end. This makes the run slower than the default parallel execution.
 
 ## Packaging
 
