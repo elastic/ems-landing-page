@@ -102,6 +102,3 @@ export class CustomizeTMS extends PureComponent {
     );
   }
 }
-
-
-
