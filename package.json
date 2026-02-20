@@ -61,8 +61,8 @@
     "chroma-js": "3.2.0",
     "maplibre-gl": "5.17.0",
     "moment": "2.30.1",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "url-parse": "1.5.10",
     "whatwg-fetch": "3.6.20"
   },
@@ -79,7 +79,9 @@
     "serverless": "node .buildkite/scripts/serverless.mjs",
     "prepare": "husky",
     "test": "playwright test",
-    "test:update-snapshots": "playwright test --update-snapshots"
+    "test:update-snapshots": "playwright test --update-snapshots",
+    "test:staging": "node scripts/test-remote.mjs --base-url https://maps-staging.elastic.co",
+    "test:production": "node scripts/test-remote.mjs --base-url https://maps.elastic.co"
   },
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
