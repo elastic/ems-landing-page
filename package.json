@@ -5,7 +5,7 @@
   "main": "main.js",
   "devDependencies": {
     "@playwright/test": "1.58.2",
-    "@types/node": "24.10.12",
+    "@types/node": "24.10.13",
     "@babel/cli": "7.28.6",
     "@babel/core": "7.29.0",
     "@babel/eslint-parser": "7.28.6",
@@ -45,7 +45,7 @@
     "resolve-url-loader": "5.0.0",
     "style-loader": "4.0.0",
     "url": "0.11.4",
-    "webpack": "5.105.0",
+    "webpack": "5.105.1",
     "webpack-cli": "6.0.1",
     "webpack-dev-server": "5.2.3",
     "webpack-merge": "6.0.1"
@@ -60,7 +60,7 @@
     "@turf/bbox": "7.3.4",
     "@turf/center": "7.3.4",
     "chroma-js": "3.2.0",
-    "maplibre-gl": "5.17.0",
+    "maplibre-gl": "5.18.0",
     "moment": "2.30.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
