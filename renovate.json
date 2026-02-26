@@ -9,7 +9,6 @@
     "master",
     "v9.3",
     "v9.2",
-    "v9.1",
     "v8.19",
     "v8.18"
   ],
@@ -88,16 +87,6 @@
       "labels": [
         "dependencies",
         "v9.2"
-      ]
-    },
-    {
-      "description": "Add branch-specific label for v9.1",
-      "matchBaseBranches": [
-        "v9.1"
-      ],
-      "labels": [
-        "dependencies",
-        "v9.1"
       ]
     },
     {
