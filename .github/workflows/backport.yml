@@ -4,7 +4,6 @@ on:
   pull_request_target:
     types: ["labeled", "closed"]
     branches-ignore:
-      - v8.18
       - v8.19
       - v9.2
       - v9.3

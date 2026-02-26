@@ -9,8 +9,7 @@
     "master",
     "v9.3",
     "v9.2",
-    "v8.19",
-    "v8.18"
+    "v8.19"
   ],
   "labels": [
     "dependencies"
@@ -40,8 +39,7 @@
     {
       "description": "Pin EUI to 107.x for v8 branches",
       "matchBaseBranches": [
-        "v8.19",
-        "v8.18"
+        "v8.19"
       ],
       "matchPackageNames": [
         "@elastic/eui"
@@ -51,8 +49,7 @@
     {
       "description": "Pin EUI theme to 3.x for v8 branches (compatible with EUI 107)",
       "matchBaseBranches": [
-        "v8.19",
-        "v8.18"
+        "v8.19"
       ],
       "matchPackageNames": [
         "@elastic/eui-theme-borealis"
@@ -97,16 +94,6 @@
       "labels": [
         "dependencies",
         "v8.19"
-      ]
-    },
-    {
-      "description": "Add branch-specific label for v8.18",
-      "matchBaseBranches": [
-        "v8.18"
-      ],
-      "labels": [
-        "dependencies",
-        "v8.18"
       ]
     }
   ]
