@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "devDependencies": {
-    "@playwright/test": "1.58.1",
+    "@playwright/test": "1.58.2",
     "@types/node": "24.10.11",
     "@babel/cli": "7.28.6",
     "@babel/core": "7.29.0",
