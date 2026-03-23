@@ -21,7 +21,7 @@
     "@eslint/compat": "2.0.2",
     "@eslint/eslintrc": "3.3.4",
     "@eslint/js": "10.0.1",
-    "babel-loader": "10.0.0",
+    "babel-loader": "10.1.1",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-inline-react-svg": "2.0.2",
     "babel-plugin-react-docgen": "4.2.1",
