@@ -18,7 +18,7 @@
     "@babel/preset-env": "7.29.0",
     "@babel/preset-react": "7.28.5",
     "@emotion/react": "11.14.0",
-    "@eslint/compat": "2.0.2",
+    "@eslint/compat": "2.0.3",
     "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "10.0.1",
     "babel-loader": "10.1.1",
