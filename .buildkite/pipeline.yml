@@ -1,12 +1,12 @@
 agents:
-  image: "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node22:1771594567@sha256:88bf3be943d134a6d67615808dfa2f1d1dd2c4ab05b80da3cda54d3562d2618b"
+  image: "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node24:1771594567@sha256:7df2fec0e6b90a6d61e83456694de455a544ccd4f4240731d35bbfd9f47b2ea4"  
   cpu: "2"
   memory: "4G"
 
 steps:
   - key: e2e-test
     label: ":playwright: E2E Test"
-    command: "yarn install --frozen-lockfile && yarn test -x"
+    command: "yarn install --frozen-lockfile --ignore-engines && yarn test -x"
     env:
       CI: "true"
     artifact_paths: 
