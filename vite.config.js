@@ -37,7 +37,7 @@ export default defineConfig({
     sourcemap: true,
     target: 'esnext',
     // Increase limit since EUI is inherently large (~2.3 MB)
-    chunkSizeWarningLimit: 2500,
+    chunkSizeWarningLimit: 3200,
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
