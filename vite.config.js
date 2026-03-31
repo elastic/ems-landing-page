@@ -43,28 +43,16 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
       },
       output: {
-        // Split vendor chunks for better caching
-        manualChunks: {
-          // MapLibre is the largest dependency
-          maplibre: ['maplibre-gl'],
-          // EUI and related Elastic packages (react/react-dom left to default to avoid empty chunk)
-          eui: ['@elastic/eui', '@elastic/eui-theme-borealis', '@emotion/react', '@emotion/css'],
+        manualChunks(id) {
+          if (id.includes('node_modules/maplibre-gl')) return 'maplibre';
+          if (
+            id.includes('node_modules/@elastic/eui') ||
+            id.includes('node_modules/@elastic/eui-theme-borealis') ||
+            id.includes('node_modules/@emotion/react') ||
+            id.includes('node_modules/@emotion/css')
+          ) return 'eui';
         },
       },
-    },
-  },
-
-  // Use native class fields so MapLibre's web worker doesn't need the
-  // __publicField helper (which is unavailable inside blob-URL workers).
-  // - build.target: controls the production minification target
-  // - esbuild.target: controls the dev/transform esbuild target
-  // - optimizeDeps.esbuildOptions: covers the dev server pre-bundling
-  esbuild: {
-    target: 'esnext',
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      target: 'esnext',
     },
   },
 

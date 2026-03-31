@@ -13,13 +13,13 @@
     "@eslint/js": "9.39.2",
     "@playwright/test": "1.58.1",
     "@types/node": "24.10.11",
-    "@vitejs/plugin-react": "4.5.1",
+    "@vitejs/plugin-react": "6.0.1",
     "eslint": "9.39.2",
     "eslint-plugin-react": "7.37.5",
     "globals": "17.3.0",
     "husky": "9.1.7",
     "node-fetch": "3.3.2",
-    "vite": "6.3.5"
+    "vite": "8.0.3"
   },
   "dependencies": {
     "@elastic/datemath": "5.0.3",
