@@ -6,7 +6,7 @@ agents:
 steps:
   - key: e2e-test
     label: ":playwright: E2E Test"
-    command: "yarn install --frozen-lockfile && yarn test -x"
+    command: "yarn install --frozen-lockfile && yarn build-unsafe && yarn test -x"
     env:
       CI: "true"
     artifact_paths: 
