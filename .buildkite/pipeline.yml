@@ -12,7 +12,7 @@ steps:
     artifact_paths: 
       - "test-results/**/*.png"
     agents:
-      image: "docker.elastic.co/ci-agent-images/ems/playwright:1769698582-x86_64@sha256:44e9e62564e6e9725655528d2bfc502ea53d662ab2ba13a344760d6c29f4d95d"
+      image: "docker.elastic.co/ci-agent-images/ems/playwright:1774869959-x86_64@sha256:39adeaea22f1e72999068499756f323196c0ab173e4f591597c0996bc661b61d"
       cpu: "2"
       memory: "4G"
 
