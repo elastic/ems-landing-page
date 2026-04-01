@@ -68,8 +68,14 @@
     "whatwg-fetch": "3.6.20"
   },
   "resolutions": {
+<<<<<<< HEAD
     "**/yaml": "^2.7.1",
     "**/semver": "^7.7.1"
+=======
+    "**/yaml": "^2.8.0",
+    "**/semver": "^7.7.2",
+    "**/lodash": "^4.17.23"
+>>>>>>> 9b107ba (Upgrade resolution for lodash to ^4.17.23 (#3343))
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
