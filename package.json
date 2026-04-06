@@ -56,7 +56,7 @@
     "@elastic/eui": "113.3.0",
     "@elastic/eui-theme-borealis": "6.2.0",
     "@emotion/css": "11.13.5",
-    "@mapbox/mapbox-gl-rtl-text": "0.3.0",
+    "@mapbox/mapbox-gl-rtl-text": "0.4.0",
     "@turf/bbox": "7.3.4",
     "@turf/center": "7.3.4",
     "chroma-js": "3.2.0",
