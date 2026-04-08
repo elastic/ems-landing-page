@@ -3,12 +3,13 @@
   "repoName": "ems-landing-page",
   "targetBranchChoices": [
     "master",
+    "v9.4",
     "v9.3",
     "v9.2",
     "v8.19"
   ],
   "branchLabelMapping": {
-    "^v9.4$": "master",
+    "^v9.5$": "master",
     "^v(\\d+).(\\d+)$": "v$1.$2"
   },
   "targetPRLabels": ["backport"],
