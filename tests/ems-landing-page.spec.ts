@@ -156,13 +156,9 @@ test.describe('EMS Landing Page', () => {
     await page.getByRole('button', { name: classicMap, exact: true }).click();
     await page.getByRole('button', { name: darkMap }).click();
 
-<<<<<<< HEAD
-    await expect(page).toHaveScreenshot('ems-landing-page-dark.png');
-=======
     if (!skipVisualTests) {
-      await expect(page).toHaveScreenshot('ems-landing-page-dark-blue.png');
+      await expect(page).toHaveScreenshot('ems-landing-page-dark.png');
     }
->>>>>>> 474fa63 (test: enhance e2e tests with remote testing, browser logging, and new test cases (#3158))
   });
 
   test('Load a dataset', async ({ page }) => {
@@ -230,7 +226,7 @@ test.describe('EMS Landing Page', () => {
     await page.waitForLoadState('networkidle');
 
     // Find and click the color picker input to open the popover
-    const colorPickerInput = page.getByRole('textbox', { name: /color options/i });
+    const colorPickerInput = page.getByRole('textbox', { name: /pick a color/i });
     await expect(colorPickerInput).toBeVisible();
     await colorPickerInput.click();
 
