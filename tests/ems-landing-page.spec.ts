@@ -59,6 +59,36 @@ test.describe('EMS Landing Page', () => {
       });
     });
 
+<<<<<<< HEAD
     await expect(page).toHaveScreenshot('ems-landing-page-load-data.png');
+=======
+  test('Apply color filter to basemap', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+
+    // Find and click the color picker input to open the popover
+    const colorPickerInput = page.getByRole('textbox', { name: /pick a color/i });
+    await expect(colorPickerInput).toBeVisible();
+    await colorPickerInput.click();
+
+    // Wait for the color picker popover to appear and select a color swatch
+    // The swatches are buttons with names like "Select #16C5C0 as the color"
+    const colorSwatch = page.getByRole('button', { name: /Select #.+ as the color/ }).first();
+    await expect(colorSwatch).toBeVisible();
+
+    // Click on the color swatch to apply a color filter
+    await colorSwatch.click();
+
+    // Close the popover by pressing Escape
+    await page.keyboard.press('Escape');
+
+    // Wait for the map to update with the color filter
+    await waitForMapIdle(page, 10000);
+
+    // Take a screenshot to verify the color filter is applied
+    if (!skipVisualTests) {
+      await expect(page).toHaveScreenshot('ems-landing-page-color-filter.png');
+    }
+>>>>>>> 5f7b3f3 (fix(test): update color picker selector to match EUI v114 accessible name (#3396))
   });
 });
