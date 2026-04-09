@@ -226,7 +226,7 @@ test.describe('EMS Landing Page', () => {
     await page.waitForLoadState('networkidle');
 
     // Find and click the color picker input to open the popover
-    const colorPickerInput = page.getByRole('textbox', { name: /color options/i });
+    const colorPickerInput = page.getByRole('textbox', { name: /pick a color/i });
     await expect(colorPickerInput).toBeVisible();
     await colorPickerInput.click();
 
