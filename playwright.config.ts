@@ -55,12 +55,14 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        /* Use system chromium in CI (Docker container) if PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH is set */
-        ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH && {
-          launchOptions: {
+        launchOptions: {
+          /* SwiftShader provides software WebGL rendering so tests work in headless
+             mode on machines without GPU access (e.g. macOS, CI containers). */
+          args: ['--use-gl=angle', '--use-angle=swiftshader'],
+          ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH && {
             executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
-          },
-        }),
+          }),
+        },
       },
     },
   ],
