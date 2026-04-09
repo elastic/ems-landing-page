@@ -14,7 +14,7 @@
  *
  * Options:
  *   --base-url <url>      Base URL (required)
- *   --versions <list>     Comma-separated list of versions (default: v9.4,v9.3,v8.19)
+ *   --versions <list>     Comma-separated list of versions (default: derived from .backportrc.json)
  *   --stop-on-failure     Stop execution if any version fails
  *   --                    Pass remaining args to Playwright
  *
@@ -25,12 +25,28 @@
  */
 
 import { execSync } from 'child_process';
+import { readFileSync } from 'fs';
 import { parseArgs } from 'util';
+
+function getDefaultVersions() {
+  const backportrc = JSON.parse(readFileSync(new URL('../.backportrc.json', import.meta.url), 'utf8'));
+  const versions = ['master'];
+
+  for (const branch of backportrc.targetBranchChoices) {
+    if (branch !== 'master') {
+      versions.push(branch);
+    }
+  }
+
+  return versions;
+}
+
+const defaultVersions = getDefaultVersions();
 
 const { values, positionals } = parseArgs({
   options: {
     'base-url': { type: 'string' },
-    versions: { type: 'string', default: 'v9.4,v9.3,v8.19' },
+    versions: { type: 'string' },
     'stop-on-failure': { type: 'boolean', default: false },
     help: { type: 'boolean', short: 'h', default: false },
   },
@@ -44,9 +60,11 @@ Usage: node scripts/test-remote.mjs [options] [-- playwright-args]
 
 Options:
   --base-url <url>      Base URL (required)
-  --versions <list>     Comma-separated list of versions (default: v9.4,v9.3,v8.19)
+  --versions <list>     Comma-separated list of versions (default: derived from .backportrc.json)
   --stop-on-failure     Stop execution if any version fails
   -h, --help            Show this help message
+
+Current default versions: ${defaultVersions.join(', ')}
 
 Examples:
   node scripts/test-remote.mjs --base-url https://maps.elastic.co
@@ -63,7 +81,7 @@ if (!values['base-url']) {
 }
 
 const baseUrl = values['base-url'];
-const versions = values.versions.split(',').map((v) => v.trim());
+const versions = values.versions ? values.versions.split(',').map((v) => v.trim()) : defaultVersions;
 const stopOnFailure = values['stop-on-failure'];
 const playwrightArgs = positionals.join(' ');
 
@@ -81,7 +99,7 @@ console.log('');
 const results = [];
 
 for (const version of versions) {
-  const testUrl = `${baseUrl}/${version}`;
+  const testUrl = version === 'master' ? baseUrl : `${baseUrl}/${version}`;
   console.log('─'.repeat(64));
   console.log(`Testing: ${testUrl}`);
   console.log('─'.repeat(64));

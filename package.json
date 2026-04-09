@@ -1,6 +1,6 @@
 {
   "name": "ems_landing_page",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "",
   "main": "main.js",
   "type": "module",
@@ -15,7 +15,7 @@
     "@playwright/test": "1.58.2",
     "@types/node": "24.12.0",
     "@vitejs/plugin-react": "6.0.1",
-    "eslint": "10.0.3",
+    "eslint": "10.1.0",
     "eslint-plugin-react": "7.37.5",
     "globals": "17.4.0",
     "husky": "9.1.7",
@@ -25,15 +25,15 @@
   "dependencies": {
     "@elastic/datemath": "5.0.3",
     "@elastic/ems-client": "8.6.3",
-    "@elastic/eui": "113.2.1",
-    "@elastic/eui-theme-borealis": "6.1.0",
+    "@elastic/eui": "114.0.0",
+    "@elastic/eui-theme-borealis": "7.0.0",
     "@emotion/css": "11.13.5",
     "@emotion/react": "11.14.0",
-    "@mapbox/mapbox-gl-rtl-text": "0.3.0",
+    "@mapbox/mapbox-gl-rtl-text": "0.4.0",
     "@turf/bbox": "7.3.4",
     "@turf/center": "7.3.4",
     "chroma-js": "3.2.0",
-    "maplibre-gl": "5.20.1",
+    "maplibre-gl": "5.21.0",
     "moment": "2.30.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -42,7 +42,9 @@
   },
   "resolutions": {
     "**/yaml": "^2.8.0",
-    "**/semver": "^7.7.2"
+    "**/semver": "^7.7.2",
+    "**/lodash": "^4.17.23",
+    "**/@babel/runtime": "^7.26.10"
   },
   "scripts": {
     "dev": "vite",
