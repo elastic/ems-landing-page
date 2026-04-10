@@ -8,7 +8,7 @@
 set -eu
 
 echo "--- :yarn:  Installing dependencies"
-yarn install
+yarn install --ignore-engines
 
 echo "--- :gear: Building"
 
