@@ -6,14 +6,26 @@
  */
 
 import maplibre from 'maplibre-gl';
-import mbRtlPlugin from '@mapbox/mapbox-gl-rtl-text/mapbox-gl-rtl-text.min.js';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 import React, { Component } from 'react';
 import chroma from 'chroma-js';
 
+<<<<<<< HEAD:public/js/components/map.js
 maplibre.setRTLTextPlugin(mbRtlPlugin);
+=======
+import { eui } from './theme';
 
+// Load the RTL text plugin from public directory
+const rtlTextPluginUrl =
+  typeof import.meta !== 'undefined' &&
+  import.meta.env &&
+  typeof import.meta.env.BASE_URL === 'string'
+    ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}/mapbox-gl-rtl-text.js`
+    : '/mapbox-gl-rtl-text.js';
+>>>>>>> 277eb6a (build: migrate from Webpack to Vite (#3159)):src/components/map.jsx
+
+maplibre.setRTLTextPlugin(rtlTextPluginUrl);
 export class Map extends Component {
 
   static isSupported() {
@@ -198,7 +210,37 @@ export class Map extends Component {
     // We must persist the overlay layers and overlay source by creating a new style from
     // the incoming source and the overlay layers.
     const newStyle = this._persistOverlayLayers(source);
+<<<<<<< HEAD:public/js/components/map.js
 
+=======
+    
+    const prevStyle = this._maplibreMap.getStyle();
+
+    // Switch to mercator if previous style was mercator
+    if (prevStyle.projection && prevStyle.projection.type === 'mercator') {
+      newStyle.projection = prevStyle.projection;
+    } else {
+      newStyle.projection = { type: 'globe' };
+    }
+
+    // Set background color depending on the style name
+    // taking the EUI token based on the color mode
+    if (source) {
+      const styleName = newStyle.name || '';
+      const colorMode = this._colorMode == 'light' ? 'LIGHT' : 'DARK';
+
+      const backgroundColor = styleName.startsWith('Dark')
+        ? eui.theme.colors['LIGHT'].darkestShade
+        : styleName.startsWith('Light')
+          ? eui.theme.colors[colorMode].lightShade
+          : eui.theme.colors[colorMode].lightestShade;
+
+      if (this._mapRef.current && this._mapRef.current.style) {
+        this._mapRef.current.style.backgroundColor = backgroundColor;
+      }
+    }
+    
+>>>>>>> 277eb6a (build: migrate from Webpack to Vite (#3159)):src/components/map.jsx
     this._maplibreMap.setStyle(newStyle, { diff: false });
 
     if (callback) {
@@ -232,7 +274,7 @@ export class Map extends Component {
       source: this._overlaySourceId,
       type: 'fill',
       paint: {
-        'fill-color': fill.css(),
+        'fill-color': fill.hex(),
         'fill-opacity': 0.6,
       },
     }, firstSymbol?.id);
@@ -242,7 +284,7 @@ export class Map extends Component {
       source: this._overlaySourceId,
       type: 'line',
       paint: {
-        'line-color': border.css(),
+        'line-color': border.hex(),
         'line-width': 1,
       },
     }, firstSymbol?.id);
@@ -253,7 +295,7 @@ export class Map extends Component {
       type: 'fill',
       layout: {},
       paint: {
-        'fill-color': highlight.css(),
+        'fill-color': highlight.hex(),
         'fill-opacity': 1,
       },
       filter: ['==', 'name', ''],
