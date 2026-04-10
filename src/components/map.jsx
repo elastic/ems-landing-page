@@ -11,9 +11,6 @@ import turfCenter from '@turf/center';
 import React, { Component } from 'react';
 import chroma from 'chroma-js';
 
-<<<<<<< HEAD:public/js/components/map.js
-maplibre.setRTLTextPlugin(mbRtlPlugin);
-=======
 import { eui } from './theme';
 
 // Load the RTL text plugin from public directory
@@ -23,7 +20,6 @@ const rtlTextPluginUrl =
   typeof import.meta.env.BASE_URL === 'string'
     ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}/mapbox-gl-rtl-text.js`
     : '/mapbox-gl-rtl-text.js';
->>>>>>> 277eb6a (build: migrate from Webpack to Vite (#3159)):src/components/map.jsx
 
 maplibre.setRTLTextPlugin(rtlTextPluginUrl);
 export class Map extends Component {
@@ -210,10 +206,7 @@ export class Map extends Component {
     // We must persist the overlay layers and overlay source by creating a new style from
     // the incoming source and the overlay layers.
     const newStyle = this._persistOverlayLayers(source);
-<<<<<<< HEAD:public/js/components/map.js
 
-=======
-    
     const prevStyle = this._maplibreMap.getStyle();
 
     // Switch to mercator if previous style was mercator
@@ -239,8 +232,7 @@ export class Map extends Component {
         this._mapRef.current.style.backgroundColor = backgroundColor;
       }
     }
-    
->>>>>>> 277eb6a (build: migrate from Webpack to Vite (#3159)):src/components/map.jsx
+
     this._maplibreMap.setStyle(newStyle, { diff: false });
 
     if (callback) {

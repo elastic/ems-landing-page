@@ -25,18 +25,6 @@ import {
   EuiToolTip,
 } from '@elastic/eui';
 
-<<<<<<< HEAD:public/js/components/app.js
-import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
-import { icon as EuiIconAlert } from '@elastic/eui/lib/components/icon/assets/alert';
-import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
-import { icon as EuiIconBug } from '@elastic/eui/lib/components/icon/assets/bug';
-import { icon as EuiIconDocuments } from '@elastic/eui/lib/components/icon/assets/documents';
-import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
-import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
-import { icon as EuiIconStop } from '@elastic/eui/lib/components/icon/assets/stop';
-
-=======
->>>>>>> 277eb6a (build: migrate from Webpack to Vite (#3159)):src/components/app.jsx
 import React, { Component } from 'react';
 import URL from 'url-parse';
 import chroma from 'chroma-js';
@@ -53,20 +41,6 @@ const colorMode = window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ?
 document.body.setAttribute('data-eui-theme', eui.name);
 document.body.setAttribute('data-eui-mode', colorMode);
 
-<<<<<<< HEAD:public/js/components/app.js
-// One or more icons are passed in as an object of iconKey (string): IconComponent
-appendIconComponentCache({
-  emsApp: EuiIconEmsApp,
-  alert: EuiIconAlert,
-  logoGithub: EuiIconGithub,
-  logoElastic: EuiIconElastic,
-  bug: EuiIconBug,
-  documents: EuiIconDocuments,
-  stop: EuiIconStop
-});
-
-=======
->>>>>>> 277eb6a (build: migrate from Webpack to Vite (#3159)):src/components/app.jsx
 export const supportedLanguages = [
   { key: 'default', label: 'Default' },
   { key: 'ar', label: 'العربية' },
