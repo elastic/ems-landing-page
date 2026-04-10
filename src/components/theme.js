@@ -5,11 +5,20 @@
  * 2.0.
  */
 
+import { EuiThemeAmsterdam } from '@elastic/eui';
 import { EuiThemeBorealis } from '@elastic/eui-theme-borealis';
 
+const DEFAULT_EUI_THEME = 'amsterdam';
+
+const themes = {
+  amsterdam: EuiThemeAmsterdam,
+  borealis: EuiThemeBorealis,
+};
+
+// eslint-disable-next-line no-undef
+const EUI_THEME = process.env?.EUI_THEME || DEFAULT_EUI_THEME;
+
 export const eui = {
-  name: 'borealis',
-  theme: EuiThemeBorealis,
-  light_style: 'road_map_desaturated_v9',
-  dark_style: 'dark_map_v9'
+  name: EUI_THEME,
+  theme: themes[EUI_THEME],
 };

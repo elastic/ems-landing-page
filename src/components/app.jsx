@@ -41,6 +41,7 @@ const colorMode = window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ?
 document.body.setAttribute('data-eui-theme', eui.name);
 document.body.setAttribute('data-eui-mode', colorMode);
 
+
 export const supportedLanguages = [
   { key: 'default', label: 'Default' },
   { key: 'ar', label: 'العربية' },
@@ -169,8 +170,7 @@ export class App extends Component {
       return;
     }
 
-    const baseLayerStyle =
-      colorMode === 'light' ? eui.light_style : eui.dark_style;
+    const baseLayerStyle = colorMode === 'light' ? 'road_map_desaturated' : 'dark_map';
     const baseLayer = this.props.layers.tms.find((service) => {
       return service.getId() === baseLayerStyle;
     });
@@ -182,14 +182,6 @@ export class App extends Component {
       this._map.waitForStyleLoaded(() => {
         this._selectFileLayer(vectorLayerSelection.config);
         this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
-      });
-    } else {
-      // If no file layer is selected, adjust the zoom level
-      this._map.waitForStyleLoaded(() => {
-        const isStyleLoaded = this._map._maplibreMap.isStyleLoaded();
-        if (isStyleLoaded) {
-          this._map._maplibreMap.setZoom(1.8);
-        }
       });
     }
   }
@@ -300,7 +292,7 @@ export class App extends Component {
       return (<EuiToast
         title="Your browser does not support WebGL. Please turn on WebGL in order to use this application."
         color="danger"
-        iconType="warning"
+        iconType="alert"
       />);
     }
 
@@ -360,7 +352,7 @@ export class App extends Component {
           <EuiPageBody>
             <EuiPageSection className="mainContent">
               <EuiPanel paddingSize="none">
-                <Map ref={setMap} colorMode={colorMode}/>
+                <Map ref={setMap} />
               </EuiPanel>
               <EuiSpacer size="l" />
               <EuiPanel>

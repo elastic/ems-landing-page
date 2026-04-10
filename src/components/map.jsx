@@ -11,9 +11,6 @@ import turfCenter from '@turf/center';
 import React, { Component } from 'react';
 import chroma from 'chroma-js';
 
-import { eui } from './theme';
-
-// Load the RTL text plugin from public directory
 const rtlTextPluginUrl =
   typeof import.meta !== 'undefined' &&
   import.meta.env &&
@@ -22,6 +19,7 @@ const rtlTextPluginUrl =
     : '/mapbox-gl-rtl-text.js';
 
 maplibre.setRTLTextPlugin(rtlTextPluginUrl);
+
 export class Map extends Component {
 
   static isSupported() {
@@ -47,7 +45,6 @@ export class Map extends Component {
     this._tmsSourceId = 'vector-tms-source';
     this._tmsLayerId = 'vector-tms-layer';
     this._mapRef = React.createRef();
-    this._colorMode = props.colorMode || 'light';
   }
 
   componentDidMount() {
@@ -64,7 +61,6 @@ export class Map extends Component {
     });
 
     this._maplibreMap.addControl(new maplibre.FullscreenControl());
-    this._maplibreMap.addControl(new maplibre.GlobeControl());
 
     this._maplibreMap.dragRotate.disable();
     this._maplibreMap.touchZoomRotate.disableRotation();
@@ -208,33 +204,7 @@ export class Map extends Component {
     // We must persist the overlay layers and overlay source by creating a new style from
     // the incoming source and the overlay layers.
     const newStyle = this._persistOverlayLayers(source);
-    
-    const prevStyle = this._maplibreMap.getStyle();
 
-    // Switch to mercator if previous style was mercator
-    if (prevStyle.projection && prevStyle.projection.type === 'mercator') {
-      newStyle.projection = prevStyle.projection;
-    } else {
-      newStyle.projection = { type: 'globe' };
-    }
-
-    // Set background color depending on the style name
-    // taking the EUI token based on the color mode
-    if (source) {
-      const styleName = newStyle.name || '';
-      const colorMode = this._colorMode == 'light' ? 'LIGHT' : 'DARK';
-
-      const backgroundColor = styleName.startsWith('Dark')
-        ? eui.theme.colors['LIGHT'].darkestShade
-        : styleName.startsWith('Light')
-          ? eui.theme.colors[colorMode].lightShade
-          : eui.theme.colors[colorMode].lightestShade;
-
-      if (this._mapRef.current && this._mapRef.current.style) {
-        this._mapRef.current.style.backgroundColor = backgroundColor;
-      }
-    }
-    
     this._maplibreMap.setStyle(newStyle, { diff: false });
 
     if (callback) {
