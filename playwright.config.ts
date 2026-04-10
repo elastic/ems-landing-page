@@ -55,21 +55,23 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        /* Use system chromium in CI (Docker container) if PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH is set */
-        ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH && {
-          launchOptions: {
+        launchOptions: {
+          /* SwiftShader provides software WebGL rendering so tests work in headless
+             mode on machines without GPU access (e.g. macOS, CI containers). */
+          args: ['--use-gl=angle', '--use-angle=swiftshader'],
+          ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH && {
             executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
-          },
-        }),
+          }),
+        },
       },
     },
   ],
 
-  /* Run your local dev server before starting the tests (skip when testing remote URLs) */
+  /* Serve the production build before starting the tests (skip when testing remote URLs) */
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined
     : {
-        command: 'yarn dev',
+        command: 'yarn preview',
         url: 'http://localhost:8080',
         reuseExistingServer: !process.env.CI,
         timeout: 120 * 1000,
