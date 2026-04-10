@@ -157,7 +157,7 @@ test.describe('EMS Landing Page', () => {
     await page.getByRole('button', { name: darkMap }).click();
 
     if (!skipVisualTests) {
-      await expect(page).toHaveScreenshot('ems-landing-page-dark-blue.png');
+      await expect(page).toHaveScreenshot('ems-landing-page-dark.png');
     }
   });
 
