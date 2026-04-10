@@ -25,15 +25,6 @@ import {
   EuiToolTip,
 } from '@elastic/eui';
 
-import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
-import { icon as EuiIconAlert } from '@elastic/eui/lib/components/icon/assets/alert';
-import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
-import { icon as EuiIconBug } from '@elastic/eui/lib/components/icon/assets/bug';
-import { icon as EuiIconDocuments } from '@elastic/eui/lib/components/icon/assets/documents';
-import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
-import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
-import { icon as EuiIconStop } from '@elastic/eui/lib/components/icon/assets/stop';
-
 import React, { Component } from 'react';
 import URL from 'url-parse';
 import chroma from 'chroma-js';
@@ -50,16 +41,6 @@ const colorMode = window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ?
 document.body.setAttribute('data-eui-theme', eui.name);
 document.body.setAttribute('data-eui-mode', colorMode);
 
-// One or more icons are passed in as an object of iconKey (string): IconComponent
-appendIconComponentCache({
-  emsApp: EuiIconEmsApp,
-  alert: EuiIconAlert,
-  logoGithub: EuiIconGithub,
-  logoElastic: EuiIconElastic,
-  bug: EuiIconBug,
-  documents: EuiIconDocuments,
-  stop: EuiIconStop
-});
 
 export const supportedLanguages = [
   { key: 'default', label: 'Default' },

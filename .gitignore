@@ -2,6 +2,7 @@ node_modules/
 .idea/
 public/*.bundle.js
 public/*.bundle.js.map
+public/mapbox-gl-rtl-text.js
 *.iml
 npm-debug.log
 yarn-error.log
