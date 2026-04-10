@@ -5,12 +5,11 @@
  * 2.0.
  */
 
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+import { EuiThemeBorealis } from '@elastic/eui-theme-borealis';
 
-
-module.exports = merge(common, {
-  mode: 'production',
-  devtool: 'source-map',
-  plugins: [],
-});
+export const eui = {
+  name: 'borealis',
+  theme: EuiThemeBorealis,
+  light_style: 'road_map_desaturated_v9',
+  dark_style: 'dark_map_v9'
+};

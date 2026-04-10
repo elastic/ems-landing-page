@@ -25,15 +25,6 @@ import {
   EuiToolTip,
 } from '@elastic/eui';
 
-import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
-import { icon as EuiIconAlert } from '@elastic/eui/lib/components/icon/assets/alert';
-import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
-import { icon as EuiIconBug } from '@elastic/eui/lib/components/icon/assets/bug';
-import { icon as EuiIconDocuments } from '@elastic/eui/lib/components/icon/assets/documents';
-import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
-import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
-import { icon as EuiIconStop } from '@elastic/eui/lib/components/icon/assets/stop';
-
 import React, { Component } from 'react';
 import URL from 'url-parse';
 import chroma from 'chroma-js';
@@ -49,17 +40,6 @@ const colorMode = window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ?
 
 document.body.setAttribute('data-eui-theme', eui.name);
 document.body.setAttribute('data-eui-mode', colorMode);
-
-// One or more icons are passed in as an object of iconKey (string): IconComponent
-appendIconComponentCache({
-  emsApp: EuiIconEmsApp,
-  alert: EuiIconAlert,
-  logoGithub: EuiIconGithub,
-  logoElastic: EuiIconElastic,
-  bug: EuiIconBug,
-  documents: EuiIconDocuments,
-  stop: EuiIconStop
-});
 
 export const supportedLanguages = [
   { key: 'default', label: 'Default' },
@@ -189,7 +169,8 @@ export class App extends Component {
       return;
     }
 
-    const baseLayerStyle = colorMode === 'light' ? 'road_map_desaturated' : 'dark_map';
+    const baseLayerStyle =
+      colorMode === 'light' ? eui.light_style : eui.dark_style;
     const baseLayer = this.props.layers.tms.find((service) => {
       return service.getId() === baseLayerStyle;
     });
@@ -201,6 +182,14 @@ export class App extends Component {
       this._map.waitForStyleLoaded(() => {
         this._selectFileLayer(vectorLayerSelection.config);
         this._toc.selectItem(vectorLayerSelection.path, vectorLayerSelection.config);
+      });
+    } else {
+      // If no file layer is selected, adjust the zoom level
+      this._map.waitForStyleLoaded(() => {
+        const isStyleLoaded = this._map._maplibreMap.isStyleLoaded();
+        if (isStyleLoaded) {
+          this._map._maplibreMap.setZoom(1.8);
+        }
       });
     }
   }
@@ -311,7 +300,7 @@ export class App extends Component {
       return (<EuiToast
         title="Your browser does not support WebGL. Please turn on WebGL in order to use this application."
         color="danger"
-        iconType="alert"
+        iconType="warning"
       />);
     }
 
@@ -371,7 +360,7 @@ export class App extends Component {
           <EuiPageBody>
             <EuiPageSection className="mainContent">
               <EuiPanel paddingSize="none">
-                <Map ref={setMap} />
+                <Map ref={setMap} colorMode={colorMode}/>
               </EuiPanel>
               <EuiSpacer size="l" />
               <EuiPanel>
