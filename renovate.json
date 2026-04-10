@@ -7,6 +7,7 @@
   ],
   "baseBranches": [
     "master",
+    "v9.4",
     "v9.3",
     "v9.2",
     "v8.19"
@@ -57,9 +58,19 @@
       "allowedVersions": "3.x"
     },
     {
-      "description": "Add branch-specific label for master/v9.4",
+      "description": "Add branch-specific label for master/v9.5",
       "matchBaseBranches": [
         "master"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.5"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v9.4",
+      "matchBaseBranches": [
+        "v9.4"
       ],
       "labels": [
         "dependencies",
@@ -67,7 +78,7 @@
       ]
     },
     {
-      "description": "Add branch-specific label for v9.2",
+      "description": "Add branch-specific label for v9.3",
       "matchBaseBranches": [
         "v9.3"
       ],
