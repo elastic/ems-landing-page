@@ -6,11 +6,7 @@ agents:
 steps:
   - key: e2e-test
     label: ":playwright: E2E Test"
-<<<<<<< HEAD
-    command: "yarn install --frozen-lockfile && yarn test -x"
-=======
     command: "yarn install --frozen-lockfile --ignore-engines && yarn build-unsafe && yarn test -x"
->>>>>>> d63b11d (Upgrade to Node 24 (#3312))
     env:
       CI: "true"
     artifact_paths: 
