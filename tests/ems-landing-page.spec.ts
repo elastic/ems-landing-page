@@ -152,7 +152,7 @@ test.describe('EMS Landing Page', () => {
     await expect(page.getByLabel('Map', { exact: true })).toBeVisible();
 
     const classicMap = 'Classic';
-    const darkMap = 'Dark';
+    const darkMap = /^Dark( Blue)?$/;
     await page.getByRole('button', { name: classicMap, exact: true }).click();
     await page.getByRole('button', { name: darkMap }).click();
 
@@ -226,7 +226,7 @@ test.describe('EMS Landing Page', () => {
     await page.waitForLoadState('networkidle');
 
     // Find and click the color picker input to open the popover
-    const colorPickerInput = page.getByRole('textbox', { name: /color options/i });
+    const colorPickerInput = page.getByRole('textbox', { name: /pick a color|color options/i });
     await expect(colorPickerInput).toBeVisible();
     await colorPickerInput.click();
 
