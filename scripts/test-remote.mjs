@@ -32,8 +32,17 @@ function getDefaultVersions() {
   const backportrc = JSON.parse(readFileSync(new URL('../.backportrc.json', import.meta.url), 'utf8'));
   const versions = ['master'];
 
+  if (backportrc.branchLabelMapping) {
+    for (const [pattern, target] of Object.entries(backportrc.branchLabelMapping)) {
+      const match = pattern.match(/^\^(v\d+\.\d+)\$$/);
+      if (match && !versions.includes(match[1])) {
+        versions.push(match[1]);
+      }
+    }
+  }
+
   for (const branch of backportrc.targetBranchChoices) {
-    if (branch !== 'master') {
+    if (branch !== 'master' && !versions.includes(branch)) {
       versions.push(branch);
     }
   }
