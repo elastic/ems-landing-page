@@ -99,7 +99,8 @@ console.log('');
 const results = [];
 
 for (const version of versions) {
-  const testUrl = version === 'master' ? baseUrl : `${baseUrl}/${version}`;
+  const url = version === 'master' ? baseUrl : `${baseUrl}/${version}`;
+  const testUrl = url.endsWith('/') ? url : `${url}/`;
   console.log('─'.repeat(64));
   console.log(`Testing: ${testUrl}`);
   console.log('─'.repeat(64));
