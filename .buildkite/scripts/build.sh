@@ -23,6 +23,11 @@ else
   echo "Using 🌠 Borealis 🌠 theme"
 fi
 
+if [[ "${BUILDKITE_BRANCH}" != "${BUILDKITE_PIPELINE_DEFAULT_BRANCH}" ]] ; then
+  export ASSET_PATH="/${BUILDKITE_BRANCH}/"
+  echo "Asset base path: ${ASSET_PATH}"
+fi
+
 if [[ -n ${BUILDKITE+x} ]] ; then
   yarn build
 else
