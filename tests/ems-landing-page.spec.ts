@@ -123,20 +123,20 @@ test.describe('EMS Landing Page', () => {
   });
 
   test('Page loads successfully', async ({ page }) => {
-    const response = await page.goto('/');
+    const response = await page.goto('./');
 
     expect(response?.status()).toBe(200);
   });
 
   test('Has title', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await expect(page).toHaveTitle(/Elastic Maps Service/i);
   });
 
   test('Visual comparison of the initial full page', async ({ page }) => {
     test.skip(skipVisualTests, 'Visual tests skipped for remote/staging URLs');
 
-    await page.goto('/');
+    await page.goto('./');
 
     // Wait for the page to be fully loaded
     await page.waitForLoadState('networkidle');
@@ -148,7 +148,7 @@ test.describe('EMS Landing Page', () => {
   });
   
   test('Switch between basemaps', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await expect(page.getByLabel('Map', { exact: true })).toBeVisible();
 
     const classicMap = 'Classic';
@@ -162,7 +162,7 @@ test.describe('EMS Landing Page', () => {
   });
 
   test('Load a dataset', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await page.getByRole('button', { name: 'Brazil States' }).click();
 
     await page.getByText('BR-AM').click();
@@ -178,7 +178,7 @@ test.describe('EMS Landing Page', () => {
   });
 
   test('Change basemap language', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Wait for the page to be fully loaded
     await page.waitForLoadState('networkidle');
@@ -222,7 +222,7 @@ test.describe('EMS Landing Page', () => {
   });
 
   test('Apply color filter to basemap', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await page.waitForLoadState('networkidle');
 
     // Find and click the color picker input to open the popover
