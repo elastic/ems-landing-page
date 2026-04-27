@@ -553,10 +553,10 @@
   resolved "https://registry.yarnpkg.com/@maplibre/geojson-vt/-/geojson-vt-5.0.4.tgz#c5f301a5d227cecf0bf4d1ab9239b8b0b13e78fe"
   integrity sha512-KGg9sma45S+stfH9vPCJk1J0lSDLWZgCT9Y8u8qWZJyjFlP8MNP1WGTxIMYJZjDvVT3PDn05kN1C95Sut1HpgQ==
 
-"@maplibre/geojson-vt@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@maplibre/geojson-vt/-/geojson-vt-6.0.4.tgz#f028fa633594c067b4c24030c1c282c0dd6cc835"
-  integrity sha512-HYv3POhMRCdhP3UPPATM/hfcy6/WuVIf5FKboH8u/ZuFMTnAIcSVlq5nfOqroLokd925w2QtE7YwquFOIacwVQ==
+"@maplibre/geojson-vt@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@maplibre/geojson-vt/-/geojson-vt-6.1.0.tgz#c59a2b63a90e6214b2095358837b60f46c172e95"
+  integrity sha512-2eIY4gZxeKIVOZVNkAMb+5NgXhgsMQpOveTQAvnp53LYqHGJZDidk7Ew0Tged9PThidpbS+NFTh0g4zivhPDzQ==
   dependencies:
     kdbush "^4.0.2"
 
@@ -3039,10 +3039,10 @@ lru-cache@11.2.6:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-11.2.6.tgz#356bf8a29e88a7a2945507b31f6429a65a192c58"
   integrity sha512-ESL2CrkS/2wTPfuend7Zhkzo2u0daGJ/A2VucJOgQ/C48S/zB8MMeMHSGKYpXhIjbPxfuezITkaBH1wqv00DDQ==
 
-maplibre-gl@5.22.0:
-  version "5.22.0"
-  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-5.22.0.tgz#b61a7f3add4e8e85077a5b585009dc7868b1c6fe"
-  integrity sha512-nc8YA+YSEioMZg5W0cb6Cf3wQ8aJge66dsttyBgpOArOnlmFJO1Kc5G32kYVPeUYhLpBja83T99uanmJvYAIyQ==
+maplibre-gl@5.23.0:
+  version "5.23.0"
+  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-5.23.0.tgz#a72d4cda848d93072b9a2334c0ea3beb11a92ea1"
+  integrity sha512-aou8YBNFS8uVtDWFWt0W/6oorfl18wt+oIA8fnXk1kivjkbtXi9gGrQvflTpwrR3hG13aWdIdbYWeN0NFMV7ag==
   dependencies:
     "@mapbox/jsonlint-lines-primitives" "^2.0.2"
     "@mapbox/point-geometry" "^1.1.0"
@@ -3050,7 +3050,7 @@ maplibre-gl@5.22.0:
     "@mapbox/unitbezier" "^0.0.1"
     "@mapbox/vector-tile" "^2.0.4"
     "@mapbox/whoots-js" "^3.1.0"
-    "@maplibre/geojson-vt" "^6.0.4"
+    "@maplibre/geojson-vt" "^6.1.0"
     "@maplibre/maplibre-gl-style-spec" "^24.8.1"
     "@maplibre/mlt" "^1.1.8"
     "@maplibre/vt-pbf" "^4.3.0"
