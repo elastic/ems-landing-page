@@ -4,7 +4,6 @@
   "targetBranchChoices": [
     "master",
     "v9.3",
-    "v9.2",
     "v8.19"
   ],
   "branchLabelMapping": {
