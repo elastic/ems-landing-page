@@ -43,7 +43,8 @@
   "resolutions": {
     "**/yaml": "^2.8.0",
     "**/semver": "^7.7.2",
-    "**/@babel/runtime": "^7.26.10"
+    "**/@babel/runtime": "^7.26.10",
+    "**/protocol-buffers-schema": "^3.6.1"
   },
   "scripts": {
     "dev": "vite",
