@@ -41,9 +41,9 @@
     "whatwg-fetch": "3.6.20"
   },
   "resolutions": {
-    "**/yaml": "^2.8.0",
-    "**/semver": "^7.7.2",
-    "**/@babel/runtime": "^7.26.10",
+    "**/yaml": "^2.8.4",
+    "**/semver": "^7.7.4",
+    "**/@babel/runtime": "^7.29.2",
     "**/protocol-buffers-schema": "^3.6.1"
   },
   "scripts": {
