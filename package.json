@@ -20,7 +20,7 @@
     "globals": "17.5.0",
     "husky": "9.1.7",
     "node-fetch": "3.3.2",
-    "vite": "8.0.9"
+    "vite": "8.0.10"
   },
   "dependencies": {
     "@elastic/datemath": "5.0.3",
