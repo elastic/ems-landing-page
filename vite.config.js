@@ -14,12 +14,20 @@ export default defineConfig({
 
   // Polyfill Node built-ins needed by @elastic/ems-client and deps (e.g. lru-cache uses util)
   resolve: {
-    alias: {
-      buffer: 'buffer',
-      process: 'process/browser.js',
-      url: 'url',
-      util: 'util',
-    },
+    alias: [
+      { find: 'buffer', replacement: 'buffer' },
+      { find: 'process', replacement: 'process/browser.js' },
+      { find: 'url', replacement: 'url' },
+      { find: 'util', replacement: 'util' },
+      // @babel/runtime v8 dropped the public "helpers/esm/*" subpath from its
+      // exports map, but several deps (emotion, react-redux, react-focus-lock,
+      // react-window, redux, ...) still deep-import that path from their
+      // precompiled ESM output. Resolve straight to the file on disk.
+      {
+        find: /^@babel\/runtime\/helpers\/esm\/(.+)$/,
+        replacement: resolve(__dirname, 'node_modules/@babel/runtime/helpers/esm/$1.js'),
+      },
+    ],
   },
   // Set base path from environment variable (for CDN deployments)
   base: process.env.ASSET_PATH || '/',
