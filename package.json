@@ -15,7 +15,7 @@
     "@playwright/test": "1.60.0",
     "@types/node": "24.12.4",
     "@vitejs/plugin-react": "6.0.3",
-    "eslint": "10.4.0",
+    "eslint": "10.6.0",
     "eslint-plugin-react": "7.37.5",
     "globals": "17.6.0",
     "husky": "9.1.7",
