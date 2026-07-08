@@ -1,5 +1,5 @@
 agents:
-  image: "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node24:1771594567@sha256:7df2fec0e6b90a6d61e83456694de455a544ccd4f4240731d35bbfd9f47b2ea4"  
+  image: "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node24:1783438567@sha256:24f8a6deec508b11e4e0748df2af4439f888d9d616eabd3beb0891b9184c8edf"
   cpu: "2"
   memory: "4G"
 
@@ -13,7 +13,7 @@ steps:
       - "test-results/**/*.png"
       - "test-results/**/*.zip"
     agents:
-      image: "docker.elastic.co/ci-agent-images/ems/playwright:1774869959-x86_64@sha256:39adeaea22f1e72999068499756f323196c0ab173e4f591597c0996bc661b61d"
+      image: "docker.elastic.co/ci-agent-images/ems/playwright:1783443162-x86_64@sha256:57e6496f7bd2b56c0ffae0eb21a9f46d34875081caf8d2566ba5240e1133f088"
       cpu: "2"
       memory: "4G"
 
