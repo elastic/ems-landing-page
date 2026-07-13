@@ -24,12 +24,15 @@ else
 fi
 
 # On tag builds BUILDKITE_BRANCH is the tag itself (e.g. "v9.5-2026-07-13"),
-# not the plain branch name. Strip the date suffix so ASSET_PATH matches the
-# directory upload.sh actually deploys to (see BRANCH in upload.sh).
+# not the plain branch name, so an absolute ASSET_PATH derived from it can
+# mismatch the directory upload.sh deploys to. Use a relative base instead:
+# it resolves correctly against whatever path the build ends up served from,
+# regardless of branch/tag naming. Default (unset ASSET_PATH) branch builds
+# are untouched, since other consumers rely on vite's default absolute base.
 BRANCH_NAME=$(echo "${BUILDKITE_BRANCH}" | cut -d "-" -f 1)
 
 if [[ "${BRANCH_NAME}" != "${BUILDKITE_PIPELINE_DEFAULT_BRANCH}" ]] ; then
-  export ASSET_PATH="/${BRANCH_NAME}/"
+  export ASSET_PATH="./"
   echo "Asset base path: ${ASSET_PATH}"
 fi
 
