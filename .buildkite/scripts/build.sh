@@ -23,8 +23,13 @@ else
   echo "Using 🌠 Borealis 🌠 theme"
 fi
 
-if [[ "${BUILDKITE_BRANCH}" != "${BUILDKITE_PIPELINE_DEFAULT_BRANCH}" ]] ; then
-  export ASSET_PATH="/${BUILDKITE_BRANCH}/"
+# On tag builds BUILDKITE_BRANCH is the tag itself (e.g. "v9.5-2026-07-13"),
+# not the plain branch name. Strip the date suffix so ASSET_PATH matches the
+# directory upload.sh actually deploys to (see BRANCH in upload.sh).
+BRANCH_NAME=$(echo "${BUILDKITE_BRANCH}" | cut -d "-" -f 1)
+
+if [[ "${BRANCH_NAME}" != "${BUILDKITE_PIPELINE_DEFAULT_BRANCH}" ]] ; then
+  export ASSET_PATH="/${BRANCH_NAME}/"
   echo "Asset base path: ${ASSET_PATH}"
 fi
 
