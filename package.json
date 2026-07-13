@@ -6,7 +6,7 @@
   "type": "module",
   "devDependencies": {
     "@eslint/compat": "2.1.0",
-    "@eslint/eslintrc": "3.3.5",
+    "@eslint/eslintrc": "3.3.6",
     "buffer": "6.0.3",
     "process": "0.11.10",
     "url": "0.11.4",
