@@ -34,6 +34,24 @@ Deploy the changes to production by doing the following steps per each affected 
 1. Push it to the Elastic remote `git push --tags`
 1. A new deploy job will be triggered in Buildkite with a blocking step that needs to be accepted by a member of the team
 1. Wait for the job to finish and review the changes in production at <https://maps.elastic.co>` or `https://maps.elastic.co/{some-release-branch}/` (ex. [7.2](https://maps.elastic.co/v7.2))
+1. If the site is not yet updated, the CDN cache may need manual invalidation. This applies to all deployed branch paths, including `master` (root) and versioned branches (e.g. `/v9.5/`).
+
+    Invalidate a specific branch:
+    ```bash
+    BRANCH=v9.5  # or master
+    gcloud compute url-maps invalidate-cdn-cache elastic-apps-ems-prod \
+      --path "/${BRANCH}/*" \
+      --project elastic-ems-prod \
+      --global
+    ```
+
+    Invalidate everything (root + all branches):
+    ```bash
+    gcloud compute url-maps invalidate-cdn-cache elastic-apps-ems-prod \
+      --path "/*" \
+      --project elastic-ems-prod \
+      --global
+    ```
 
 **Note**: The Buildkite deploy job does not take any assets from staging. It builds all the assets from the source code and syncs with the production bucket, removing old assets if necessary.
 
