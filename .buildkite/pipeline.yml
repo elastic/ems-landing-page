@@ -31,7 +31,9 @@ steps:
   - key: deploy-staging
     label: ":rocket: Stage"
     if: build.tag == null && ( build.branch == "master"  || build.branch =~ /^v\d{1,2}\.\d{1,2}$$/ )
-    depends_on: build
+    depends_on:
+      - build
+      - e2e-test
     command: ".buildkite/scripts/upload.sh"
     env:
       EMS_ENVIRONMENT: "staging"
@@ -39,7 +41,9 @@ steps:
   - key: should-deploy
     block: ":one-does-not-simply: Deploy"
     if: build.tag =~ /(master|v\d{1,2}\.\d{1,2})-\d{4}-\d{2}-\d{2}/
-    depends_on: build
+    depends_on:
+      - build
+      - e2e-test
 
   - key: deploy-production
     label: ":shipit: Deploy"
