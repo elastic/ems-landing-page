@@ -37,6 +37,15 @@
       "minimumReleaseAge": "3 days"
     },
     {
+      "groupName": "React",
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "/^react-/",
+        "/^@types/react/"
+      ]
+    },
+    {
       "description": "Pin EUI to 107.x for v8 branches",
       "matchBaseBranches": [
         "v8.19"
