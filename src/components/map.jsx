@@ -5,7 +5,8 @@
  * 2.0.
  */
 
-import maplibre from 'maplibre-gl';
+import * as maplibre from 'maplibre-gl';
+import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 import React, { Component } from 'react';
@@ -21,17 +22,15 @@ const rtlTextPluginUrl =
     ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}/mapbox-gl-rtl-text.js`
     : '/mapbox-gl-rtl-text.js';
 
+maplibre.setWorkerUrl(maplibreWorkerUrl);
 maplibre.setRTLTextPlugin(rtlTextPluginUrl);
 export class Map extends Component {
 
   static isSupported() {
     try {
       const canvas = document.createElement('canvas');
-      const contextIds = ['webgl', 'experimental-webgl'];
-      return contextIds.some( (c) => { 
-        const ctx = canvas.getContext(c); 
-        return ctx && ctx instanceof WebGLRenderingContext;
-      });
+      const ctx = canvas.getContext('webgl2');
+      return ctx instanceof WebGL2RenderingContext;
     } catch (error) { //eslint-disable-line no-unused-vars
       return false;
     }
