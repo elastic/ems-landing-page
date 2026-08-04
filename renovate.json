@@ -46,6 +46,14 @@
       ]
     },
     {
+      "description": "Pin React to <19 until @elastic/eui supports React 19",
+      "matchPackageNames": [
+        "react",
+        "react-dom"
+      ],
+      "allowedVersions": "<19.0.0"
+    },
+    {
       "description": "Pin EUI to 107.x for v8 branches",
       "matchBaseBranches": [
         "v8.19"
