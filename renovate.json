@@ -5,8 +5,9 @@
   "extends": [
     "github>elastic/renovate-config"
   ],
-  "baseBranches": [
+  "baseBranchPatterns": [
     "master",
+    "v9.5",
     "v9.4",
     "v8.19"
   ],
@@ -56,9 +57,19 @@
       "allowedVersions": "3.x"
     },
     {
-      "description": "Add branch-specific label for master/v9.5",
+      "description": "Add branch-specific label for master/v9.6",
       "matchBaseBranches": [
         "master"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.6"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v9.5",
+      "matchBaseBranches": [
+        "v9.5"
       ],
       "labels": [
         "dependencies",
