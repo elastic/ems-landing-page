@@ -941,10 +941,10 @@
   resolved "https://registry.yarnpkg.com/@types/use-sync-external-store/-/use-sync-external-store-0.0.3.tgz#b6725d5f4af24ace33b36fafd295136e75509f43"
   integrity sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==
 
-"@vitejs/plugin-react@6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@vitejs/plugin-react/-/plugin-react-6.0.4.tgz#a35834ba6e468bcad685ec8d04a53bf0cebcc2ff"
-  integrity sha512-XcCQz0TBpBgljhj0gMuuDj49i6Ytqh5q1osT/Gp5uAVJUCTWxyskk/l1jwYYiu2xcNHHipdMz40EGfM1VdamVg==
+"@vitejs/plugin-react@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@vitejs/plugin-react/-/plugin-react-6.0.5.tgz#48ee7951093ff9054952cff9d64e874355cde372"
+  integrity sha512-BOVzne/NL162sMdResB25mUv+vWMF5NoAjNf09TeGlE7ZpszZWSD3winycicLJw72yeVsoCn/2kOhEuCvEShMA==
   dependencies:
     "@rolldown/pluginutils" "^1.0.1"
 
