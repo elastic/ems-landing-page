@@ -103,7 +103,7 @@ export class TableOfContents extends Component {
       id: 'file',
       name: 'Vector Layers',
       title: 'Vector Layers',
-      icon: <EuiIcon type="vector" />,
+      icon: <EuiIcon type="vectorTriangle" />,
       items: fileItems,
     };
 
