@@ -28,13 +28,13 @@ import { icon as EuiIconSortUp } from '@elastic/eui/es/components/icon/assets/so
 import { icon as EuiIconSortDown } from '@elastic/eui/es/components/icon/assets/sort_down';
 
 // Table of contents icons
-import { icon as EuiIconArrowDown } from '@elastic/eui/es/components/icon/assets/arrow_down';
-import { icon as EuiIconArrowLeft } from '@elastic/eui/es/components/icon/assets/arrow_left';
-import { icon as EuiIconArrowRight } from '@elastic/eui/es/components/icon/assets/arrow_right';
-import { icon as EuiIconVector } from '@elastic/eui/es/components/icon/assets/vector';
+import { icon as EuiIconChevronSingleDown } from '@elastic/eui/es/components/icon/assets/chevron_single_down';
+import { icon as EuiIconChevronSingleLeft } from '@elastic/eui/es/components/icon/assets/chevron_single_left';
+import { icon as EuiIconChevronSingleRight } from '@elastic/eui/es/components/icon/assets/chevron_single_right';
+import { icon as EuiIconVectorTriangle } from '@elastic/eui/es/components/icon/assets/vector_triangle';
 import { icon as EuiIconGrid } from '@elastic/eui/es/components/icon/assets/grid';
 import { icon as EuiIconGlobe } from '@elastic/eui/es/components/icon/assets/globe';
-import { icon as EuiIconSearch } from '@elastic/eui/es/components/icon/assets/search';
+import { icon as EuiIconMagnify } from '@elastic/eui/es/components/icon/assets/magnify';
 
 // ComboBox icons
 import { icon as EuiIconEmpty } from '@elastic/eui/es/components/icon/assets/empty';
@@ -62,13 +62,13 @@ appendIconComponentCache({
   sortDown: EuiIconSortDown,
   
   // Table of contents icons
-  arrowDown: EuiIconArrowDown,
-  arrowLeft: EuiIconArrowLeft,
-  arrowRight: EuiIconArrowRight,
-  vector: EuiIconVector,
+  chevronSingleDown: EuiIconChevronSingleDown,
+  chevronSingleLeft: EuiIconChevronSingleLeft,
+  chevronSingleRight: EuiIconChevronSingleRight,
+  vectorTriangle: EuiIconVectorTriangle,
   grid: EuiIconGrid,
   globe: EuiIconGlobe,
-  search: EuiIconSearch,
+  search: EuiIconMagnify,
   
   // ComboBox icons
   empty: EuiIconEmpty,
