@@ -5,7 +5,7 @@
   "main": "main.js",
   "type": "module",
   "devDependencies": {
-    "@elastic/eslint-plugin-eui": "^3.0.0",
+    "@elastic/eslint-plugin-eui": "3.0.0",
     "@eslint/compat": "2.1.0",
     "@eslint/eslintrc": "3.3.6",
     "@eslint/js": "10.0.1",
