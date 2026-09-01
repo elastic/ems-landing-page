@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
 import { fixupConfigRules } from "@eslint/compat";
+import euiPlugin from "@elastic/eslint-plugin-eui";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,6 +15,10 @@ const compat = new FlatCompat({
 });
 
 export default [...fixupConfigRules(compat.extends("eslint:recommended", "plugin:react/recommended")), {
+    plugins: {
+        "@elastic/eui": euiPlugin,
+    },
+}, {
 
     languageOptions: {
         globals: {
@@ -43,5 +48,6 @@ export default [...fixupConfigRules(compat.extends("eslint:recommended", "plugin
         semi: ["error", "always"],
         "react/prop-types": "off",
         "react/no-string-refs": "off",
+        "@elastic/eui/no-deprecated-icon-aliases": "warn",
     }
 }];
