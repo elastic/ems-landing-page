@@ -6,7 +6,7 @@
   "type": "module",
   "devDependencies": {
     "@elastic/eslint-plugin-eui": "3.0.0",
-    "@eslint/compat": "2.1.0",
+    "@eslint/compat": "2.1.1",
     "@eslint/eslintrc": "3.3.6",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.62.1",
