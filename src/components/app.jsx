@@ -13,8 +13,8 @@ import {
   EuiHeader,
   EuiHeaderLink,
   EuiHeaderLinks,
-  EuiHeaderLogo,
   EuiHeaderSectionItem,
+  EuiIcon,
   EuiPage,
   EuiPageBody,
   EuiPageSection,
@@ -334,9 +334,14 @@ export class App extends Component {
           <EuiHeaderSectionItem border="right">
             <EuiToolTip delay="long" 
               content={`EMS version: ${this.props.client._emsVersion}`}>
-              <EuiHeaderLogo href={logoLink} aria-label={`${this.props.serviceName} home`} iconType="emsApp" >
-                {this.props.serviceName}
-              </EuiHeaderLogo>
+              <a
+                href={logoLink}
+                className="euiHeaderLogo"
+                aria-label={`${this.props.serviceName} home`}
+              >
+                <EuiIcon type="emsApp" size="l" className="euiHeaderLogo__icon" />
+                <span className="euiHeaderLogo__text">{this.props.serviceName}</span>
+              </a>
             </EuiToolTip>
           </EuiHeaderSectionItem>
           <EuiHeaderSectionItem border="none">
