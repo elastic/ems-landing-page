@@ -12,8 +12,8 @@
 
 import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
 
-// App icons
-import { icon as EuiIconEmsApp } from '@elastic/eui/es/components/icon/assets/app_ems';
+// App icons — emsApp icon removed from EUI in v121, use local copy
+import { icon as EuiIconEmsApp } from './ems_app_icon';
 import { icon as EuiIconWarning } from '@elastic/eui/es/components/icon/assets/warning';
 import { icon as EuiIconGithub } from '@elastic/eui/es/components/icon/assets/logo_github';
 import { icon as EuiIconElastic } from '@elastic/eui/es/components/icon/assets/logo_elastic';

@@ -24,6 +24,14 @@ body {
     margin-left: 10px; 
 }
 
+/* Header logo text — EuiHeaderLogo dropped children/iconType in EUI v121 */
+.euiHeaderLogo__text {
+    padding-inline-start: 1rem;
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+}
+
 /* The following will need to be fixed in EUI too */
 
 
