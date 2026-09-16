@@ -14,19 +14,16 @@ import {
   EuiHeaderLink,
   EuiHeaderLinks,
   EuiHeaderSectionItem,
-  EuiIcon,
   EuiPage,
   EuiPageBody,
   EuiPageSection,
   EuiPanel,
   EuiProvider,
   EuiSpacer,
-  EuiTextColor,
   EuiToast,
-  EuiToolTip,
-  RenderWithEuiTheme,
 } from '@elastic/eui';
-import { css } from '@emotion/react';
+
+import { EmsHeaderLogo } from './ems_header_logo';
 
 import React, { Component } from 'react';
 import URL from 'url-parse';
@@ -335,27 +332,11 @@ export class App extends Component {
       <EuiProvider theme={eui.theme} colorMode={colorMode}>
         <EuiHeader>
           <EuiHeaderSectionItem border="right">
-            <RenderWithEuiTheme>
-              {({ euiTheme }) => (
-                <EuiToolTip delay="long"
-                  content={`EMS version: ${this.props.client._emsVersion}`}>
-                  <a
-                    href={logoLink}
-                    className="euiHeaderLogo"
-                    aria-label={`${this.props.serviceName} home`}
-                    css={css`
-                      &:hover { background-color: ${euiTheme.components.buttons.backgroundEmptyTextHover}; }
-                      &:active { background-color: ${euiTheme.components.buttons.backgroundEmptyTextActive}; }
-                    `}
-                  >
-                    <EuiIcon type="emsApp" size="l" className="euiHeaderLogo__icon" />
-                    <EuiTextColor color="default" className="euiHeaderLogo__text">
-                      {this.props.serviceName}
-                    </EuiTextColor>
-                  </a>
-                </EuiToolTip>
-              )}
-            </RenderWithEuiTheme>
+            <EmsHeaderLogo
+              href={logoLink}
+              serviceName={this.props.serviceName}
+              emsVersion={this.props.client._emsVersion}
+            />
           </EuiHeaderSectionItem>
           <EuiHeaderSectionItem border="none">
             <EuiHeaderLinks gutterSize="xs">
