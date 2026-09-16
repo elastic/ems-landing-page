@@ -31,9 +31,9 @@ body {
     position: relative;
     display: inline-flex;
     align-items: center;
-    height: 2rem;          /* euiTheme.size.xxl (childHeight) */
-    line-height: 2rem;
-    min-width: 2rem;
+    height: 2.5rem;        /* euiTheme.size.xxl (childHeight) */
+    line-height: 2.5rem;
+    min-width: 2.5rem;
     padding-inline: 0.5rem; /* euiTheme.size.s */
     white-space: nowrap;
     text-decoration: none;
