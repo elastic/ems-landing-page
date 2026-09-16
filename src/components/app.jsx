@@ -13,7 +13,6 @@ import {
   EuiHeader,
   EuiHeaderLink,
   EuiHeaderLinks,
-  EuiHeaderLogo,
   EuiHeaderSectionItem,
   EuiPage,
   EuiPageBody,
@@ -22,8 +21,9 @@ import {
   EuiProvider,
   EuiSpacer,
   EuiToast,
-  EuiToolTip,
 } from '@elastic/eui';
+
+import { EmsHeaderLogo } from './ems_header_logo';
 
 import React, { Component } from 'react';
 import URL from 'url-parse';
@@ -332,12 +332,11 @@ export class App extends Component {
       <EuiProvider theme={eui.theme} colorMode={colorMode}>
         <EuiHeader>
           <EuiHeaderSectionItem border="right">
-            <EuiToolTip delay="long" 
-              content={`EMS version: ${this.props.client._emsVersion}`}>
-              <EuiHeaderLogo href={logoLink} aria-label={`${this.props.serviceName} home`} iconType="emsApp" >
-                {this.props.serviceName}
-              </EuiHeaderLogo>
-            </EuiToolTip>
+            <EmsHeaderLogo
+              href={logoLink}
+              serviceName={this.props.serviceName}
+              emsVersion={this.props.client._emsVersion}
+            />
           </EuiHeaderSectionItem>
           <EuiHeaderSectionItem border="none">
             <EuiHeaderLinks gutterSize="xs">

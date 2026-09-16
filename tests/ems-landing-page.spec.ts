@@ -133,6 +133,13 @@ test.describe('EMS Landing Page', () => {
     await expect(page).toHaveTitle(/Elastic Maps Service/i);
   });
 
+  test('Has header logo with service name', async ({ page }) => {
+    await page.goto('./');
+    const header = page.locator('.euiHeaderLogo__text');
+    await expect(header).toBeVisible();
+    await expect(header).toHaveText('Elastic Maps Service');
+  });
+
   test('Visual comparison of the initial full page', async ({ page }) => {
     test.skip(skipVisualTests, 'Visual tests skipped for remote/staging URLs');
 
