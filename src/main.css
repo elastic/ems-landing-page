@@ -40,6 +40,11 @@ body {
     border-radius: 0.25rem; /* euiTheme.border.radius.small */
 }
 
+@media (max-width: 575px) {
+    .euiHeaderLogo { padding-inline: 0.25rem; }
+    .euiHeaderLogo__text { padding-inline-start: 0.5rem; }
+}
+
 .euiHeaderLogo:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 2px;
