@@ -27,6 +27,7 @@ body {
 /* Header logo — EuiHeaderLogo dropped children/iconType in EUI v121.
    Emotion styles are no longer injected; replicate the layout here. */
 .euiHeaderLogo {
+    position: relative;
     display: inline-flex;
     align-items: center;
     height: 2rem;          /* euiTheme.size.xxl (childHeight) */
@@ -35,6 +36,20 @@ body {
     padding-inline: 0.5rem; /* euiTheme.size.s */
     white-space: nowrap;
     text-decoration: none;
+    border-radius: 0.25rem; /* euiTheme.border.radius.small */
+}
+
+.euiHeaderLogo:hover {
+    background-color: rgba(255, 255, 255, 0.12); /* backgroundEmptyTextHover */
+}
+
+.euiHeaderLogo:active {
+    background-color: rgba(255, 255, 255, 0.16); /* backgroundEmptyTextActive */
+}
+
+.euiHeaderLogo:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
 }
 
 .euiHeaderLogo__text {
