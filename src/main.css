@@ -26,7 +26,7 @@ body {
 
 /* Header logo — EuiHeaderLogo dropped children/iconType in EUI v121.
    Layout emotion styles are no longer injected; replicate them here.
-   Hover/active colors come from euiTheme.components.buttons via RenderWithEuiTheme + emotion css prop. */
+   Hover/active colors come from euiTheme.components.buttons in EmsHeaderLogo via useEuiTheme + emotion css prop. */
 .euiHeaderLogo {
     position: relative;
     display: inline-flex;
