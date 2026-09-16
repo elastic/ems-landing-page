@@ -24,12 +24,23 @@ body {
     margin-left: 10px; 
 }
 
-/* Header logo text — EuiHeaderLogo dropped children/iconType in EUI v121 */
+/* Header logo — EuiHeaderLogo dropped children/iconType in EUI v121.
+   Emotion styles are no longer injected; replicate the layout here. */
+.euiHeaderLogo {
+    display: inline-flex;
+    align-items: center;
+    height: 2rem;          /* euiTheme.size.xxl (childHeight) */
+    line-height: 2rem;
+    min-width: 2rem;
+    padding-inline: 0.5rem; /* euiTheme.size.s */
+    white-space: nowrap;
+    text-decoration: none;
+}
+
 .euiHeaderLogo__text {
     padding-inline-start: 1rem;
     font-weight: 600;
     font-size: 14px;
-    color: white;
 }
 
 /* The following will need to be fixed in EUI too */

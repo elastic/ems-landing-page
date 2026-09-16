@@ -21,6 +21,7 @@ import {
   EuiPanel,
   EuiProvider,
   EuiSpacer,
+  EuiTextColor,
   EuiToast,
   EuiToolTip,
 } from '@elastic/eui';
@@ -340,7 +341,9 @@ export class App extends Component {
                 aria-label={`${this.props.serviceName} home`}
               >
                 <EuiIcon type="emsApp" size="l" className="euiHeaderLogo__icon" />
-                <span className="euiHeaderLogo__text">{this.props.serviceName}</span>
+                <EuiTextColor color="default" className="euiHeaderLogo__text">
+                  {this.props.serviceName}
+                </EuiTextColor>
               </a>
             </EuiToolTip>
           </EuiHeaderSectionItem>
