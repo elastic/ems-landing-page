@@ -11,12 +11,9 @@
  */
 
 import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
-import { typeToPathMap } from '@elastic/eui/es/components/icon/icon_map';
 
-// emsApp removed from EUI v121 — add it back so isEuiIconType/getIsAppIcon work
-// (required for icon resolution AND two-color app-icon styling via euiIcon__fillSecondary)
-import { icon as EuiIconEmsApp } from './ems_app_icon';
-typeToPathMap['emsApp'] = () => Promise.resolve({ icon: EuiIconEmsApp });
+// App icons
+import { icon as EuiIconEmsApp } from '@elastic/eui/es/components/icon/assets/app_ems';
 import { icon as EuiIconWarning } from '@elastic/eui/es/components/icon/assets/warning';
 import { icon as EuiIconGithub } from '@elastic/eui/es/components/icon/assets/logo_github';
 import { icon as EuiIconElastic } from '@elastic/eui/es/components/icon/assets/logo_elastic';
