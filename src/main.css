@@ -24,7 +24,7 @@ body {
     margin-left: 10px; 
 }
 
-/* Header logo — EuiHeaderLogo dropped children/iconType in EUI v121.
+/* Header logo — EuiHeaderLogo no longer accepts iconType/children props.
    Layout emotion styles are no longer injected; replicate them here.
    Hover/active colors come from euiTheme.components.buttons in EmsHeaderLogo via useEuiTheme + emotion css prop. */
 .euiHeaderLogo {
