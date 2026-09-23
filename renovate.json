@@ -37,14 +37,51 @@
       "minimumReleaseAge": "3 days"
     },
     {
-      "description": "GitHub Actions digest updates have no release timestamp, so the stability check never passes without this",
-      "matchManagers": [
-        "github-actions"
-      ],
+      "description": "Skip minimumReleaseAge for digest updates (GitHub Actions and Docker digests have no release timestamp, so the stability check never passes)",
       "matchUpdateTypes": [
         "digest"
       ],
+      "minimumReleaseAge": "0 days"
+    },
+    {
+      "description": "docker.elastic.co images have no release timestamp; without this their updates are held back indefinitely",
+      "matchPackageNames": [
+        "docker.elastic.co/**"
+      ],
       "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
+      "description": "Use numeric versioning for EMS Buildkite agent (tag is a build number, not semver); skip release age since it is an internal CI image",
+      "matchPackageNames": [
+        "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node24"
+      ],
+      "versioning": "numeric",
+      "minimumReleaseAge": "0 days"
+    },
+    {
+      "description": "Use numeric versioning for EMS Playwright E2E image (tag is a build number, not semver); skip release age since it is an internal CI image",
+      "matchPackageNames": [
+        "docker.elastic.co/ci-agent-images/ems/playwright"
+      ],
+      "versioning": "numeric",
+      "minimumReleaseAge": "0 days"
+    },
+    {
+      "description": "Disable major version bumps for yarn resolutions",
+      "matchDepTypes": [
+        "resolutions"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Group all yarn resolution overrides into one PR per branch to reduce noise",
+      "matchDepTypes": [
+        "resolutions"
+      ],
+      "groupName": "yarn resolutions"
     },
     {
       "groupName": "React",
