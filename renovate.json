@@ -37,6 +37,16 @@
       "minimumReleaseAge": "3 days"
     },
     {
+      "description": "GitHub Actions digest updates have no release timestamp, so the stability check never passes without this",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
       "groupName": "React",
       "matchPackageNames": [
         "react",
