@@ -13,7 +13,7 @@ steps:
       - "test-results/**/*.png"
       - "test-results/**/*.zip"
     agents:
-      image: "docker.elastic.co/ci-agent-images/ems/playwright:1783443162-x86_64@sha256:57e6496f7bd2b56c0ffae0eb21a9f46d34875081caf8d2566ba5240e1133f088"
+      image: "docker.elastic.co/ci-agent-images/ems/playwright:21163@sha256:571e783a54fd2d2f01031964919210a0098c77dfa2cf0cf8e4be4d92987dc393"
       cpu: "2"
       memory: "4G"
 
