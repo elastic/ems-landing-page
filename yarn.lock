@@ -3239,10 +3239,10 @@ maplibre-gl@5.3.0:
     tinyqueue "^3.0.0"
     vt-pbf "^3.1.3"
 
-maplibre-gl@6.11.0:
-  version "6.11.0"
-  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-6.11.0.tgz#f16c9998c3a14d57d1b3b1421f5f18145c2bcecf"
-  integrity sha512-BWf1V0eKEK7NpIyjVSFrTWjF2CE9zhVvS0JLvyAS19lR0HnHtvPFRS5M9QVJeLcoMT1WyCU0Sm9vj53BBxtWYg==
+maplibre-gl@6.11.1:
+  version "6.11.1"
+  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-6.11.1.tgz#e3704011f0557590bb546c9452a883731471f4a1"
+  integrity sha512-PaWLwfxWs6EddrPEsncrnPAyHNN0vm7KpQtoPWN1AQimJ7qwY/7GrwBeI+cB+YlSrw5sCyVKc2ZAbTwJ4MHUdA==
   dependencies:
     "@mapbox/point-geometry" "^1.1.0"
     "@mapbox/tiny-sdf" "^2.2.0"
