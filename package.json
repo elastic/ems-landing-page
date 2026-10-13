@@ -30,7 +30,7 @@
     "@elastic/eui-theme-borealis": "8.1.0",
     "@emotion/css": "11.13.5",
     "@emotion/react": "11.14.0",
-    "@mapbox/mapbox-gl-rtl-text": "0.4.0",
+    "@mapbox/mapbox-gl-rtl-text": "1.0.0",
     "@turf/bbox": "7.4.0",
     "@turf/center": "7.4.0",
     "chroma-js": "3.2.0",
