@@ -571,10 +571,10 @@
   resolved "https://registry.yarnpkg.com/@mapbox/jsonlint-lines-primitives/-/jsonlint-lines-primitives-2.0.3.tgz#7d7b0b971fbaf6d60953272db4df03020d3fb004"
   integrity sha512-0SElaV0uMxEnxzBhhX9WTuPyUeMsAN/SS0i16tjuba4/mio63MG9khjC1a0JAiPGXAwvwm4UfHJURCN7nyudQg==
 
-"@mapbox/mapbox-gl-rtl-text@0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-rtl-text/-/mapbox-gl-rtl-text-0.4.0.tgz#eb02e379aac1bffb91c83489658e6077b683bf47"
-  integrity sha512-WNSgEFxXd2a15Eh2GwZNWBiV7Z8leq8JEGcoHpfrgaBDmFQMW4a1MO5Ol9BNv6APqTbHZ8uq7L8H5q2KCVt1kg==
+"@mapbox/mapbox-gl-rtl-text@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-rtl-text/-/mapbox-gl-rtl-text-1.0.0.tgz#063a5be4e405c26ca211b9aa51d6752fb45678fe"
+  integrity sha512-x2Ktc+H/QdHB2sG9DY+8Y0NTVxO4qOfQQvXdBQFAjN8dzTTQnZq3qalBtkgWx2e1f80vhFlxV5Of2jczcu0QUQ==
 
 "@mapbox/point-geometry@0.1.0", "@mapbox/point-geometry@^0.1.0", "@mapbox/point-geometry@~0.1.0":
   version "0.1.0"
