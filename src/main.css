@@ -24,6 +24,38 @@ body {
     margin-left: 10px; 
 }
 
+/* Header logo — EuiHeaderLogo dropped children/iconType in EUI v121.
+   Layout emotion styles are no longer injected; replicate them here.
+   Hover/active colors come from euiTheme.components.buttons in EmsHeaderLogo via useEuiTheme + emotion css prop. */
+.euiHeaderLogo {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 2.5rem;        /* euiTheme.size.xxl (childHeight) */
+    line-height: 2.5rem;
+    min-width: 2.5rem;
+    padding-inline: 0.5rem; /* euiTheme.size.s */
+    white-space: nowrap;
+    text-decoration: none;
+    border-radius: 0.25rem; /* euiTheme.border.radius.small */
+}
+
+@media (max-width: 575px) {
+    .euiHeaderLogo { padding-inline: 0.25rem; }
+    .euiHeaderLogo__text { padding-inline-start: 0.5rem; }
+}
+
+.euiHeaderLogo:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.euiHeaderLogo__text {
+    padding-inline-start: 1rem;
+    font-weight: 600;
+    font-size: 14px;
+}
+
 /* The following will need to be fixed in EUI too */
 
 
