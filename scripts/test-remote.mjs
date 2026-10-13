@@ -105,6 +105,11 @@ if (playwrightArgs) {
 }
 console.log('');
 
+// yarn v1 exports its settings as npm_config_* vars; npx warns on the unknown ones
+const baseEnv = Object.fromEntries(
+  Object.entries(process.env).filter(([key]) => !key.startsWith('npm_config_'))
+);
+
 const results = [];
 
 for (const version of versions) {
@@ -121,7 +126,7 @@ for (const version of versions) {
     execSync(`npx playwright test ${playwrightArgs}`, {
       stdio: 'inherit',
       env: {
-        ...process.env,
+        ...baseEnv,
         PLAYWRIGHT_BASE_URL: testUrl,
         PLAYWRIGHT_SKIP_VISUAL_TESTS: 'true',
       },
