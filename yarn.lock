@@ -1643,10 +1643,10 @@ earcut@^3.0.1:
   resolved "https://registry.yarnpkg.com/earcut/-/earcut-3.0.2.tgz#d478a29aaf99acf418151493048aa197d0512248"
   integrity sha512-X7hshQbLyMJ/3RPhyObLARM2sNxxmRALLKx1+NVFFnQ9gKzmCrxm9+uLIAdBcvc8FNLpctqlQ2V6AE92Ol9UDQ==
 
-earcut@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/earcut/-/earcut-3.2.3.tgz#74aec19555a7e28773429826729d2e4bfeb19022"
-  integrity sha512-vnS4AVwp1KHAF13i1vp1/2D5evWy3k5u/iW/B81QVsUZtV8cv2tU0b2VNFlqvh4kYwrFMDdjPCfAmfyJW9y14Q==
+earcut@^3.2.4:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/earcut/-/earcut-3.2.4.tgz#a030635fbb9a639984ce0e319b0f16e17e6e15ad"
+  integrity sha512-FHc6yNpnTORB0tM5kmZ03iD2mDuNakDE2lvf4Hw1XkfxtEHIGVi01B/GqUSwx+NcC1WGjidAfpTXzeALtPtfpg==
 
 emoticon@^3.2.0:
   version "3.2.0"
@@ -3220,10 +3220,10 @@ maplibre-gl@5.3.0:
     tinyqueue "^3.0.0"
     vt-pbf "^3.1.3"
 
-maplibre-gl@6.11.2:
-  version "6.11.2"
-  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-6.11.2.tgz#25f1266666c16f6b935cabccba554c238a3cf394"
-  integrity sha512-Xh06pxoipjX/Ad1sUPGhiNh9go9naCNGZZ1IJm3sIeqK1kYGuMaMDSTIGDQ2igOLfVyukJU7kvEOA089VO7Z7g==
+maplibre-gl@6.12.0:
+  version "6.12.0"
+  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-6.12.0.tgz#90b84c56e68df7e0ae290c057d0919c152c54408"
+  integrity sha512-DwgganVi2BhNxOpD7ob3lJC0dQQz4HfJfuQQV3XxCY3XdOzFrMqp9ylMXhRzryRsOnIezdZcklWXIIs/Q8JPjA==
   dependencies:
     "@mapbox/point-geometry" "^1.1.0"
     "@mapbox/tiny-sdf" "^2.2.0"
@@ -3235,7 +3235,7 @@ maplibre-gl@6.11.2:
     "@maplibre/vt-pbf" "^4.3.2"
     "@types/geojson" "^7946.0.16"
     bidi-js "^1.1.0"
-    earcut "^3.2.3"
+    earcut "^3.2.4"
     gl-matrix "^3.4.4"
     kdbush "^4.1.0"
     murmurhash-js "^1.0.0"
