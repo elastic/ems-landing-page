@@ -1,9 +1,22 @@
 agents:
-  image: "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node22:1744205490@sha256:10148c596ae1639a8b0af87800a7d306d1f06eb9d124a91ff5dce7e687fee5d8"
+  image: "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node24:1783438567@sha256:24f8a6deec508b11e4e0748df2af4439f888d9d616eabd3beb0891b9184c8edf"
   cpu: "2"
   memory: "4G"
 
 steps:
+  - key: e2e-test
+    label: ":playwright: E2E Test"
+    command: "yarn install --frozen-lockfile --ignore-engines && yarn build-unsafe && yarn test -x"
+    env:
+      CI: "true"
+    artifact_paths: 
+      - "test-results/**/*.png"
+      - "test-results/**/*.zip"
+    agents:
+      image: "docker.elastic.co/ci-agent-images/ems/playwright:21163@sha256:571e783a54fd2d2f01031964919210a0098c77dfa2cf0cf8e4be4d92987dc393"
+      cpu: "2"
+      memory: "4G"
+
   - key: build
     label: ":hammer_and_wrench: Build"
     command: ".buildkite/scripts/build.sh"
@@ -12,10 +25,15 @@ steps:
       cpu: "2"
       memory: "4G"
 
+  # Wait for e2e test to finish
+  - wait: ~
+
   - key: deploy-staging
     label: ":rocket: Stage"
     if: build.tag == null && ( build.branch == "master"  || build.branch =~ /^v\d{1,2}\.\d{1,2}$$/ )
-    depends_on: build
+    depends_on:
+      - build
+      - e2e-test
     command: ".buildkite/scripts/upload.sh"
     env:
       EMS_ENVIRONMENT: "staging"
@@ -23,7 +41,9 @@ steps:
   - key: should-deploy
     block: ":one-does-not-simply: Deploy"
     if: build.tag =~ /(master|v\d{1,2}\.\d{1,2})-\d{4}-\d{2}-\d{2}/
-    depends_on: build
+    depends_on:
+      - build
+      - e2e-test
 
   - key: deploy-production
     label: ":shipit: Deploy"

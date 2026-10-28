@@ -5,8 +5,8 @@
  * 2.0.
  */
 
-import maplibre from 'maplibre-gl';
-import mbRtlPlugin from '@mapbox/mapbox-gl-rtl-text/mapbox-gl-rtl-text.min.js';
+import * as maplibre from 'maplibre-gl';
+import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import turfBbox from '@turf/bbox';
 import turfCenter from '@turf/center';
 import React, { Component } from 'react';
@@ -14,18 +14,23 @@ import chroma from 'chroma-js';
 
 import { eui } from './theme';
 
-maplibre.setRTLTextPlugin(mbRtlPlugin);
+// Load the RTL text plugin from public directory
+const rtlTextPluginUrl =
+  typeof import.meta !== 'undefined' &&
+  import.meta.env &&
+  typeof import.meta.env.BASE_URL === 'string'
+    ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}/mapbox-gl-rtl-text.js`
+    : '/mapbox-gl-rtl-text.js';
 
+maplibre.setWorkerUrl(maplibreWorkerUrl);
+maplibre.setRTLTextPlugin(rtlTextPluginUrl);
 export class Map extends Component {
 
   static isSupported() {
     try {
       const canvas = document.createElement('canvas');
-      const contextIds = ['webgl', 'experimental-webgl'];
-      return contextIds.some( (c) => { 
-        const ctx = canvas.getContext(c); 
-        return ctx && ctx instanceof WebGLRenderingContext;
-      });
+      const ctx = canvas.getContext('webgl2');
+      return ctx instanceof WebGL2RenderingContext;
     } catch (error) { //eslint-disable-line no-unused-vars
       return false;
     }
@@ -62,6 +67,21 @@ export class Map extends Component {
 
     this._maplibreMap.dragRotate.disable();
     this._maplibreMap.touchZoomRotate.disableRotation();
+
+    // Track map idle state on the DOM for testing: data-map-idle is present when
+    // the map has finished rendering, removed when a new render cycle begins.
+    this._maplibreMap.on('idle', () => {
+      const el = this._mapRef.current;
+      if (el) {
+        el.setAttribute('data-map-idle', '');
+        el.dispatchEvent(new CustomEvent('map:idle', { bubbles: true }));
+      }
+    });
+    for (const evt of ['movestart', 'zoomstart', 'sourcedata', 'styledata']) {
+      this._maplibreMap.on(evt, () => {
+        this._mapRef.current?.removeAttribute('data-map-idle');
+      });
+    }
 
     this._maplibreMap.on('click', this._overlayFillLayerId, (e) => {
       this._highlightFeature(e.features[0], e.lngLat);
@@ -214,8 +234,6 @@ export class Map extends Component {
       }
     }
     
-
-
     this._maplibreMap.setStyle(newStyle, { diff: false });
 
     if (callback) {
@@ -249,7 +267,7 @@ export class Map extends Component {
       source: this._overlaySourceId,
       type: 'fill',
       paint: {
-        'fill-color': fill.css(),
+        'fill-color': fill.hex(),
         'fill-opacity': 0.6,
       },
     }, firstSymbol?.id);
@@ -259,7 +277,7 @@ export class Map extends Component {
       source: this._overlaySourceId,
       type: 'line',
       paint: {
-        'line-color': border.css(),
+        'line-color': border.hex(),
         'line-width': 1,
       },
     }, firstSymbol?.id);
@@ -270,7 +288,7 @@ export class Map extends Component {
       type: 'fill',
       layout: {},
       paint: {
-        'fill-color': highlight.css(),
+        'fill-color': highlight.hex(),
         'fill-opacity': 1,
       },
       filter: ['==', 'name', ''],

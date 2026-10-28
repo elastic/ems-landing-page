@@ -13,7 +13,6 @@ import {
   EuiHeader,
   EuiHeaderLink,
   EuiHeaderLinks,
-  EuiHeaderLogo,
   EuiHeaderSectionItem,
   EuiPage,
   EuiPageBody,
@@ -22,17 +21,9 @@ import {
   EuiProvider,
   EuiSpacer,
   EuiToast,
-  EuiToolTip,
 } from '@elastic/eui';
 
-import { appendIconComponentCache } from '@elastic/eui/es/components/icon/icon';
-import { icon as EuiIconAlert } from '@elastic/eui/lib/components/icon/assets/alert';
-import { icon as EuiIconEmsApp } from '@elastic/eui/lib/components/icon/assets/app_ems';
-import { icon as EuiIconBug } from '@elastic/eui/lib/components/icon/assets/bug';
-import { icon as EuiIconDocuments } from '@elastic/eui/lib/components/icon/assets/documents';
-import { icon as EuiIconElastic } from '@elastic/eui/lib/components/icon/assets/logo_elastic';
-import { icon as EuiIconGithub } from '@elastic/eui/lib/components/icon/assets/logo_github';
-import { icon as EuiIconStop } from '@elastic/eui/lib/components/icon/assets/stop';
+import { EmsHeaderLogo } from './ems_header_logo';
 
 import React, { Component } from 'react';
 import URL from 'url-parse';
@@ -49,17 +40,6 @@ const colorMode = window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ?
 
 document.body.setAttribute('data-eui-theme', eui.name);
 document.body.setAttribute('data-eui-mode', colorMode);
-
-// One or more icons are passed in as an object of iconKey (string): IconComponent
-appendIconComponentCache({
-  emsApp: EuiIconEmsApp,
-  alert: EuiIconAlert,
-  logoGithub: EuiIconGithub,
-  logoElastic: EuiIconElastic,
-  bug: EuiIconBug,
-  documents: EuiIconDocuments,
-  stop: EuiIconStop
-});
 
 export const supportedLanguages = [
   { key: 'default', label: 'Default' },
@@ -353,7 +333,7 @@ export class App extends Component {
       return (<EuiToast
         title="Your browser does not support WebGL. Please turn on WebGL in order to use this application."
         color="danger"
-        iconType="alert"
+        iconType="warning"
       />);
     }
 
@@ -385,12 +365,11 @@ export class App extends Component {
       <EuiProvider theme={eui.theme} colorMode={colorMode}>
         <EuiHeader>
           <EuiHeaderSectionItem border="right">
-            <EuiToolTip delay="long" 
-              content={`EMS version: ${this.props.client._emsVersion}`}>
-              <EuiHeaderLogo href={logoLink} aria-label={`${this.props.serviceName} home`} iconType="emsApp" >
-                {this.props.serviceName}
-              </EuiHeaderLogo>
-            </EuiToolTip>
+            <EmsHeaderLogo
+              href={logoLink}
+              serviceName={this.props.serviceName}
+              emsVersion={this.props.client._emsVersion}
+            />
           </EuiHeaderSectionItem>
           <EuiHeaderSectionItem border="none">
             <EuiHeaderLinks gutterSize="xs">

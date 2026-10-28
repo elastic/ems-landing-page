@@ -1,17 +1,21 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabled": true,
+  "minimumReleaseAge": "14 days",
+  "lockFileMaintenance": {
+    "enabled": false
+  },
   "extends": [
     "github>elastic/renovate-config"
   ],
+  "baseBranchPatterns": [
+    "master",
+    "v9.5",
+    "v9.4",
+    "v8.19"
+  ],
   "labels": [
-    "dependencies",
-    "v9.2",
-    "v9.1",
-    "v9.0",
-    "v8.19",
-    "v8.18",
-    "v8.17",
-    "v7.17"
+    "dependencies"
   ],
   "packageRules": [
     {
@@ -30,7 +34,133 @@
     {
       "groupName": "Elastic EUI",
       "matchPackageNames": [
-        "/elastic/eui/"
+        "@elastic/eui",
+        "@elastic/eui-theme-borealis"
+      ],
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "description": "Skip minimumReleaseAge for digest updates (GitHub Actions and Docker digests have no release timestamp, so the stability check never passes)",
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "minimumReleaseAge": "0 days"
+    },
+    {
+      "description": "docker.elastic.co images have no release timestamp; without this their updates are held back indefinitely",
+      "matchPackageNames": [
+        "docker.elastic.co/**"
+      ],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
+      "description": "Use numeric versioning for EMS Buildkite agent (tag is a build number, not semver); skip release age since it is an internal CI image",
+      "matchPackageNames": [
+        "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node24"
+      ],
+      "versioning": "numeric",
+      "minimumReleaseAge": "0 days"
+    },
+    {
+      "description": "Use numeric versioning for EMS Playwright E2E image (tag is a build number, not semver); skip release age since it is an internal CI image",
+      "matchPackageNames": [
+        "docker.elastic.co/ci-agent-images/ems/playwright"
+      ],
+      "versioning": "numeric",
+      "minimumReleaseAge": "0 days"
+    },
+    {
+      "description": "Disable major version bumps for yarn resolutions",
+      "matchDepTypes": [
+        "resolutions"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Group all yarn resolution overrides into one PR per branch to reduce noise",
+      "matchDepTypes": [
+        "resolutions"
+      ],
+      "groupName": "yarn resolutions"
+    },
+    {
+      "groupName": "React",
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "/^react-/",
+        "/^@types/react/"
+      ]
+    },
+    {
+      "description": "Pin React to <19 until @elastic/eui supports React 19",
+      "matchPackageNames": [
+        "react",
+        "react-dom"
+      ],
+      "allowedVersions": "<19.0.0"
+    },
+    {
+      "description": "Pin EUI to 107.x for v8 branches",
+      "matchBaseBranches": [
+        "v8.19"
+      ],
+      "matchPackageNames": [
+        "@elastic/eui"
+      ],
+      "allowedVersions": "107.x"
+    },
+    {
+      "description": "Pin EUI theme to 3.x for v8 branches (compatible with EUI 107)",
+      "matchBaseBranches": [
+        "v8.19"
+      ],
+      "matchPackageNames": [
+        "@elastic/eui-theme-borealis"
+      ],
+      "allowedVersions": "3.x"
+    },
+    {
+      "description": "Add branch-specific label for master/v9.6",
+      "matchBaseBranches": [
+        "master"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.6"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v9.5",
+      "matchBaseBranches": [
+        "v9.5"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.5"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v9.4",
+      "matchBaseBranches": [
+        "v9.4"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.4"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v8.19",
+      "matchBaseBranches": [
+        "v8.19"
+      ],
+      "labels": [
+        "dependencies",
+        "v8.19"
       ]
     }
   ]

@@ -12,7 +12,6 @@ import {
   EuiInMemoryTable,
 } from '@elastic/eui';
 
-
 export class FeatureTable extends Component {
   constructor(props) {
     super(props);
