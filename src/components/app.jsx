@@ -57,10 +57,10 @@ export const supportedLanguages = [
   { key: 'zh-cn', label: '简体中文' },
 ];
 
-export const supportedlabelModes = [
-  { key: 'default', label: 'Show all layers' },
-  { key: 'only', label: 'Only show label layers' },
-  { key: 'hide', label: 'Hide label layers' },
+export const supportedLabelModes = [
+  { key: 'default', label: 'Basemap and labels' },
+  { key: 'only', label: 'Labels only' },
+  { key: 'hide', label: 'Basemap only' },
 ];
 
 export class App extends Component {
@@ -235,6 +235,17 @@ export class App extends Component {
     window.location.hash = `file/${layerConfig.getId()}`;
   }
 
+  // Symbol layers hold the labels (and icons); every other layer is the basemap itself
+  _applyLabelMode(mlMap, source, defaultStyle, mode) {
+    source.layers.forEach(layer => {
+      const defaultVisibility = defaultStyle?.layers.find(dl => dl.id === layer.id)?.layout?.visibility ?? 'visible';
+      const isLabel = layer.type === 'symbol';
+      const isBackground = layer.type === 'background';
+      const hidden = (mode === 'only' && !isLabel && !isBackground) || (mode === 'hide' && isLabel);
+      mlMap.setLayoutProperty(layer.id, 'visibility', hidden ? 'none' : defaultVisibility);
+    });
+  }
+
   async _updateMap() {
     if (!this?.state) {
       return;
@@ -242,10 +253,15 @@ export class App extends Component {
 
     // Getting the necessary data to update the map
     const { selectedTileLayer, selectedLanguage, selectedLabelMode } = this.state;
-    const source = await (selectedTileLayer.getVectorStyleSheet());
     const mlMap = this._map._maplibreMap;
 
-    if (!selectedTileLayer || !source || !mlMap) {
+    if (!selectedTileLayer || !mlMap) {
+      return;
+    }
+
+    const source = await selectedTileLayer.getVectorStyleSheet();
+
+    if (!source) {
       return;
     }
 
@@ -253,28 +269,12 @@ export class App extends Component {
     if (selectedLanguage) {
       const langKey = selectedLanguage;
       const lang = supportedLanguages.find(l => l.key === langKey);
-      const labelMode = selectedLabelMode;
 
       try {
         this._map.waitForStyleLoaded(async () => {
           const defaultStyle = await this.state.selectedTileLayer.getVectorStyleSheet();
-          
-          // Reset the map layers to the default visibility
-          source.layers.forEach(layer => {
-            const defaultVisibility = defaultStyle.layers.find((dl) => dl.id == layer.id )?.visibility || 'visible';
-            mlMap.setLayoutProperty(layer.id, 'visibility', defaultVisibility);
-          });
-          // Set the visibility of layers based on the selected label mode
-          if (labelMode === 'only') {
-            source.layers.filter(layer => layer.type !== 'symbol' && layer.type !== 'background').forEach(layer => {
-              mlMap.setLayoutProperty(layer.id, 'visibility', 'none');
-            });
-          }
-          else if (labelMode === 'hide') {
-            source.layers.filter(layer => layer.type === 'symbol').forEach(layer => {
-              mlMap.setLayoutProperty(layer.id, 'visibility', 'none');
-            });
-          }
+
+          this._applyLabelMode(mlMap, source, defaultStyle, selectedLabelMode);
 
           // Set the language property for each layer
           if (langKey === 'default') {

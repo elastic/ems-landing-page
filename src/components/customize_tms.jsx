@@ -6,7 +6,7 @@
  */
 
 import { TMSService } from '@elastic/ems-client/target/node';
-import React, { PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import {
   EuiFlexGroup,
   EuiFlexItem,
@@ -17,7 +17,7 @@ import {
   EuiPanel,
 } from '@elastic/eui';
 
-import { supportedLanguages, supportedlabelModes } from './app';
+import { supportedLanguages, supportedLabelModes } from './app';
 
 export class CustomizeTMS extends PureComponent {
   constructor(props) {
@@ -38,9 +38,7 @@ export class CustomizeTMS extends PureComponent {
         this.props.onLabelModeChange(mode.key);
       }
     };
-
   }
-
 
   render() {
     const config = this.props?.layerConfig;
@@ -50,8 +48,7 @@ export class CustomizeTMS extends PureComponent {
     }
 
     const selectedLangOptions = supportedLanguages.filter(l => l.key === this.props.language);
-    const selectedLabelOptions = supportedlabelModes.filter(l => l.key === this.props.labelMode);
-
+    const selectedLabelOptions = supportedLabelModes.filter(l => l.key === this.props.labelMode);
 
     return (
       <EuiForm component="form">
@@ -71,13 +68,13 @@ export class CustomizeTMS extends PureComponent {
             </EuiPanel>
           </EuiFlexItem>
           <EuiFlexItem>
-            <EuiPanel hasShadow={false} hasBorder paddingSize='m'>
-              <EuiFormRow label="Select mode" helpText="Select the mode for the basemap labels, which can be either normal, only labels, or no labels.">
+            <EuiPanel hasShadow={false} hasBorder paddingSize="m">
+              <EuiFormRow label="Label display" helpText="Show the basemap with labels, labels only, or the basemap without labels.">
                 <EuiComboBox
                   compressed
                   isClearable={false}
                   singleSelection={{ asPlainText: true }}
-                  options={supportedlabelModes}
+                  options={supportedLabelModes}
                   selectedOptions={selectedLabelOptions}
                   onChange={this._onLabelChange}
                 />

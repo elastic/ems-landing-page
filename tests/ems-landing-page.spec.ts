@@ -256,4 +256,29 @@ test.describe('EMS Landing Page', () => {
       await expect(page).toHaveScreenshot('ems-landing-page-color-filter.png');
     }
   });
+
+  for (const mode of [
+    { name: 'Labels only', file: 'ems-landing-page-labels-only.png' },
+    { name: 'Basemap only', file: 'ems-landing-page-basemap-only.png' },
+  ]) {
+    test(`Change label display to "${mode.name}"`, async ({ page }) => {
+      await page.goto('./');
+      await page.waitForLoadState('networkidle');
+
+      const labelCombobox = page.getByRole('combobox', { name: 'Label display' });
+      await expect(labelCombobox).toBeVisible();
+      await labelCombobox.click();
+
+      const listbox = page.getByRole('listbox');
+      await expect(listbox).toBeVisible();
+      await listbox.getByRole('option', { name: mode.name }).click();
+
+      await expect(labelCombobox).toHaveValue(mode.name);
+      await waitForMapIdle(page);
+
+      if (!skipVisualTests) {
+        await expect(page).toHaveScreenshot(mode.file);
+      }
+    });
+  }
 });
