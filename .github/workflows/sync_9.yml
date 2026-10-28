@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
-          node-version: 24
+          node-version: 26
       - name: Opening pull request
         id: pull
         uses: tretuna/sync-branches@ea58ab6e406fd3ad016a064b31270bbb41127f41 # 1.4.0
