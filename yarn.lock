@@ -170,15 +170,15 @@
     semver "7.8.5"
     topojson-client "^3.1.0"
 
-"@elastic/eslint-plugin-eui@3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eslint-plugin-eui/-/eslint-plugin-eui-3.2.0.tgz#2cbece0726e30d5590f2777c6fa975c782162c26"
-  integrity sha512-EBj9vs7XsxzGhHPe+w6nMsPT8PIToRp7myZ3DOlSkZudYmdbPqKqd69QyS6X5yHu126yf90/0uHyco7ObPVogA==
+"@elastic/eslint-plugin-eui@3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eslint-plugin-eui/-/eslint-plugin-eui-3.3.0.tgz#f442e9109d127d7d076cd631b8abbd2ac69fbbb3"
+  integrity sha512-Gj0Vw5IW4tt6+tR2LGglIZ44WWRul0vFxTOdcyjT3koDgLydTPUY0xG5zi4jMR6xA7fTyUkVRzc+gErgZOJ2vQ==
   dependencies:
     "@typescript-eslint/typescript-estree" "^8.64.0"
     "@typescript-eslint/utils" "^8.64.0"
     cssstyle "^4.2.1"
-    picomatch "^2.3.1"
+    picomatch "^2.3.2"
 
 "@elastic/eui-theme-borealis@3.6.0":
   version "3.6.0"
@@ -2782,7 +2782,7 @@ picocolors@^1.1.1:
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
   integrity sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==
 
-picomatch@^2.3.1:
+picomatch@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.2.tgz#5a942915e26b372dc0f0e6753149a16e6b1c5601"
   integrity sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==
