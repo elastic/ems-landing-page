@@ -19,13 +19,15 @@ export default defineConfig({
       { find: 'process', replacement: 'process/browser.js' },
       { find: 'url', replacement: 'url' },
       { find: 'util', replacement: 'util' },
+      // @elastic/ems-client imports "querystring" but never calls it
+      { find: 'querystring', replacement: resolve(import.meta.dirname, 'scripts/empty-module.js') },
       // @babel/runtime v8 dropped the public "helpers/esm/*" subpath from its
       // exports map, but several deps (emotion, react-redux, react-focus-lock,
       // react-window, redux, ...) still deep-import that path from their
       // precompiled ESM output. Resolve straight to the file on disk.
       {
         find: /^@babel\/runtime\/helpers\/esm\/(.+)$/,
-        replacement: resolve(__dirname, 'node_modules/@babel/runtime/helpers/esm/$1.js'),
+        replacement: resolve(import.meta.dirname, 'node_modules/@babel/runtime/helpers/esm/$1.js'),
       },
     ],
   },
@@ -48,7 +50,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 3200,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
+        main: resolve(import.meta.dirname, 'index.html'),
       },
       output: {
         manualChunks(id) {
