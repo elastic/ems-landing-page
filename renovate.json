@@ -47,19 +47,13 @@
       "minimumReleaseAge": "0 days"
     },
     {
-      "description": "docker.elastic.co images have no release timestamp; without this their updates are held back indefinitely",
-      "matchPackageNames": [
-        "docker.elastic.co/**"
-      ],
-      "minimumReleaseAgeBehaviour": "timestamp-optional"
-    },
-    {
       "description": "Use numeric versioning for EMS Buildkite agent (tag is a build number, not semver); skip release age since it is an internal CI image",
       "matchPackageNames": [
         "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node24"
       ],
       "versioning": "numeric",
-      "minimumReleaseAge": "0 days"
+      "minimumReleaseAge": "0 days",
+      "automerge": true
     },
     {
       "description": "Use numeric versioning for EMS Playwright E2E image (tag is a build number, not semver); skip release age since it is an internal CI image",
@@ -67,7 +61,8 @@
         "docker.elastic.co/ci-agent-images/ems/playwright"
       ],
       "versioning": "numeric",
-      "minimumReleaseAge": "0 days"
+      "minimumReleaseAge": "0 days",
+      "automerge": true
     },
     {
       "description": "Disable major version bumps for yarn resolutions",
