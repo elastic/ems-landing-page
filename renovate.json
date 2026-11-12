@@ -63,7 +63,7 @@
     {
       "description": "Use numeric versioning for EMS Buildkite agent (tag is a build number, not semver); skip release age since it is an internal CI image",
       "matchPackageNames": [
-        "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node24"
+        "docker.elastic.co/ci-agent-images/ems/buildkite-agent-node26"
       ],
       "versioning": "numeric",
       "minimumReleaseAge": "0 days",
