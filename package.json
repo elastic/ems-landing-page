@@ -66,7 +66,7 @@
   "author": "Elastic",
   "license": "SEE LICENSE IN LICENSE.txt",
   "engines": {
-    "node": ">=26"
+    "node": ">=24"
   },
   "packageManager": "yarn@1.22.22"
 }
