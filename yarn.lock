@@ -170,10 +170,10 @@
     semver "7.8.5"
     topojson-client "^3.1.0"
 
-"@elastic/eslint-plugin-eui@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eslint-plugin-eui/-/eslint-plugin-eui-3.3.0.tgz#f442e9109d127d7d076cd631b8abbd2ac69fbbb3"
-  integrity sha512-Gj0Vw5IW4tt6+tR2LGglIZ44WWRul0vFxTOdcyjT3koDgLydTPUY0xG5zi4jMR6xA7fTyUkVRzc+gErgZOJ2vQ==
+"@elastic/eslint-plugin-eui@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eslint-plugin-eui/-/eslint-plugin-eui-4.0.0.tgz#72dbf8c948245db1a3954e47bf32925050189023"
+  integrity sha512-SSYLv4l57YoRXgufdk9ZwVNYCR79ZgkH2h8DiGtmQSp85JHuD16o+5hbIaHb2hAHjgIpLrN57Uo3lK5Jn6Fu8Q==
   dependencies:
     "@typescript-eslint/typescript-estree" "^8.64.0"
     "@typescript-eslint/utils" "^8.64.0"
