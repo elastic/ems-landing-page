@@ -42,6 +42,20 @@ yarn dev
 
 This starts the Vite development server at `http://localhost:8080`. The page will automatically reload when files change.
 
+### URL parameters
+
+The page reads these query parameters:
+
+| Parameter | Description |
+| --- | --- |
+| `manifest` | Deployment to use: `production` (default), `staging` or `testing`. |
+| `locale` | Language of the basemaps and datasets, for example `es`. |
+| `my_app_version` | Manifest version to load. A semver value like `9.6.0` (the client turns it into `v9.6`) or a date version like `2024-01-01` (latest manifest). Any other value is ignored. |
+
+If the manifest for `my_app_version` cannot be loaded, or lacks a basemap the page can use, the page retries with the `emsVersion` set in `config.json`.
+
+Example: `/?my_app_version=9.6.0&locale=en#file/world_countries`
+
 ### Running tests
 
 The project uses [Playwright](https://playwright.dev/) for end-to-end testing with visual snapshot comparisons.

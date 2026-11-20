@@ -256,4 +256,90 @@ test.describe('EMS Landing Page', () => {
       await expect(page).toHaveScreenshot('ems-landing-page-color-filter.png');
     }
   });
+
+  test.describe('Manifest version URL parameter', () => {
+    /** Collects the version path segment of every file manifest request. */
+    function trackManifestVersions(page: import('@playwright/test').Page) {
+      const versions: string[] = [];
+      page.on('request', (request) => {
+        const match = new URL(request.url()).pathname.match(/\/([^/]+)\/manifest$/);
+        if (match && request.url().includes('vector')) versions.push(match[1]);
+      });
+      return versions;
+    }
+
+    test('Valid semver version requests the matching minor manifest', async ({ page }) => {
+      const versions = trackManifestVersions(page);
+      await page.goto('./?my_app_version=9.5.0');
+      await expect(page.getByRole('button', { name: 'Brazil States' })).toBeVisible();
+      expect(versions).toContain('v9.5');
+    });
+
+    test('Date version requests the manifest for that date', async ({ page }) => {
+      const versions = trackManifestVersions(page);
+      await page.goto('./?my_app_version=2024-01-01');
+      await expect(page.getByRole('button', { name: 'Brazil States' })).toBeVisible();
+      // Date versions resolve to the latest manifest
+      expect(versions).toContain('latest');
+    });
+
+    // Basemap names and datasets differ between manifests:
+    // - the pre-9.0 basemaps were renamed in 8.0 and the "blue" ones were added in 9.0
+    // - "Spain Autonomous Communities" was added to the file manifest in 8.0
+    const renderedVersions = [
+      {
+        version: '7.17.0',
+        manifest: 'v7.17',
+        basemaps: ['Road map', 'Road map - desaturated', 'Road map - dark'],
+        hasSpainAutonomousCommunities: false,
+      },
+      {
+        version: '8.19.4',
+        manifest: 'v8.19',
+        basemaps: ['Classic', 'Light', 'Dark'],
+        hasSpainAutonomousCommunities: true,
+      },
+      {
+        version: '9.6.0',
+        manifest: 'v9.6',
+        basemaps: ['Classic', 'Light', 'Dark', 'Light blue', 'Dark blue'],
+        hasSpainAutonomousCommunities: true,
+      },
+    ];
+
+    for (const { version, manifest, basemaps, hasSpainAutonomousCommunities } of renderedVersions) {
+      test(`Renders the basemaps and datasets of ${version}`, async ({ page }) => {
+        const versions = trackManifestVersions(page);
+        await page.goto(`./?my_app_version=${version}`);
+        await expect(page.getByRole('button', { name: 'Brazil States' })).toBeVisible();
+
+        const allBasemaps = new Set(renderedVersions.flatMap((v) => v.basemaps));
+        for (const name of allBasemaps) {
+          await expect(page.getByRole('button', { name, exact: true })).toHaveCount(
+            basemaps.includes(name) ? 1 : 0,
+          );
+        }
+        await expect(
+          page.getByRole('button', { name: 'Spain Autonomous Communities' }),
+        ).toHaveCount(hasSpainAutonomousCommunities ? 1 : 0);
+        // No fallback to the default version
+        expect(versions).toEqual([manifest]);
+      });
+    }
+
+    test('Invalid value is ignored', async ({ page }) => {
+      const versions = trackManifestVersions(page);
+      await page.goto('./?my_app_version=not-a-version');
+      await expect(page.getByRole('button', { name: 'Brazil States' })).toBeVisible();
+      expect(versions).toEqual(['latest']);
+    });
+
+    test('Version without a manifest falls back to the default version', async ({ page }) => {
+      const versions = trackManifestVersions(page);
+      await page.route('**/v99.9/manifest*', (route) => route.fulfill({ status: 404 }));
+      await page.goto('./?my_app_version=99.9.0');
+      await expect(page.getByRole('button', { name: 'Brazil States' })).toBeVisible();
+      expect(versions).toEqual(['v99.9', 'latest']);
+    });
+  });
 });

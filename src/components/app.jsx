@@ -34,7 +34,7 @@ import { LayerDetails } from './layer_details';
 import { Map } from './map';
 import { TableOfContents } from './table_of_contents';
 
-import { eui } from './theme';
+import { eui, findBaseStyle } from './theme';
 
 const colorMode = window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ? 'dark' :  'light';
 
@@ -169,11 +169,7 @@ export class App extends Component {
       return;
     }
 
-    const baseLayerStyle =
-      colorMode === 'light' ? eui.light_style : eui.dark_style;
-    const baseLayer = this.props.layers.tms.find((service) => {
-      return service.getId() === baseLayerStyle;
-    });
+    const baseLayer = findBaseStyle(this.props.layers.tms, colorMode);
     this._toc.selectItem(`tms/${baseLayer.getId()}`, baseLayer);
 
     const vectorLayerSelection = this._readFileRoute();
