@@ -12,18 +12,11 @@ If multiple releases are affected:
 
 ## New Releases
 
-New releases of EMS Landing Page match minor releases of the Elastic Stack.
+New Stack minors no longer need their own release branch. Clients select the manifest version with the `my_app_version` URL parameter (see the README), and `emsVersion` in `public/config.json` is a date version, so the default build always uses the latest manifest.
 
-To add a new release:
-1. Open a PR with the following changes:
-    1. Change the `EMS_VERSION` in config.json.
-    1. Upgrade the `@elastic/ems-client` dependency, if necessary.
-    1. Bump the version in `package.json`.
-    1. Update `.backportrc.json` adding the new release and removing any inactive branch.
-1. After the PR is merged, create the new release branch from the `master` branch.
-1. Check in staging that the new branch is deployed
-1. Add the new release branch to the Snyk project.
-1. Deploy the branch (next section)
+Existing release branches (`v9.x` and older) stay in place and keep their fixed `emsVersion`.
+
+When a new version of `@elastic/ems-client` is required, upgrade the dependency in a PR to `master`.
 
 ## Deployment to production
 
