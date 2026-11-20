@@ -10,6 +10,7 @@
   ],
   "baseBranchPatterns": [
     "master",
+    "v9.6",
     "v9.5",
     "v9.4",
     "v8.19"
@@ -133,9 +134,19 @@
       "allowedVersions": "3.x"
     },
     {
-      "description": "Add branch-specific label for master/v9.6",
+      "description": "Add branch-specific label for master/v9.7",
       "matchBaseBranches": [
         "master"
+      ],
+      "labels": [
+        "dependencies",
+        "v9.7"
+      ]
+    },
+    {
+      "description": "Add branch-specific label for v9.6",
+      "matchBaseBranches": [
+        "v9.6"
       ],
       "labels": [
         "dependencies",
