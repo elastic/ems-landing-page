@@ -22,6 +22,10 @@ import 'whatwg-fetch';
 import { EMSClient } from '@elastic/ems-client/target/node';
 
 import { App } from './components/app';
+import { findBaseStyle } from './components/theme';
+
+const SEMVER_REGEX = /^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/;
+const DATE_VERSION_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
 start();
 
@@ -35,18 +39,34 @@ async function start() {
     return;
   }
   const urlTokens = new URL(window.location, true);
-  const emsClient = await getEmsClient(config, urlTokens.query.manifest, urlTokens.query.locale);
+  const { manifest, locale, my_app_version: requestedVersion } = urlTokens.query;
+  const configVersion = config.SUPPORTED_EMS.emsVersion ?? null;
+  const urlVersion = parseEmsVersion(requestedVersion);
 
+  let emsClient;
+  let emsLayers;
+  if (urlVersion && urlVersion !== configVersion) {
+    try {
+      emsClient = getEmsClient(config, manifest, locale, urlVersion);
+      emsLayers = await loadLayers(emsClient);
+    } catch (e) {
+      console.warn(
+        `Cannot load the manifest for version "${urlVersion}", using "${configVersion}" instead`,
+        e,
+      );
+      emsClient = undefined;
+    }
+  }
   if (!emsClient) {
-    console.error(`Cannot load the required manifest for "${urlTokens.query.manifest}"`);
-    return;
-  } else {
-    console.info(`EMS Client ${emsClient._emsVersion} loaded`);
-  } 
-  const emsLayers = {
-    file: await emsClient.getFileLayers(),
-    tms: await emsClient.getTMSServices(),
-  };
+    try {
+      emsClient = getEmsClient(config, manifest, locale, configVersion);
+      emsLayers = await loadLayers(emsClient);
+    } catch (e) {
+      console.error(`Cannot load the required manifest for "${manifest}"`, e);
+      return;
+    }
+  }
+  console.info(`EMS Client ${emsClient._emsVersion} loaded`);
 
   const serviceName = config.serviceName || 'Elastic Maps Service';
   const container = document.getElementById('wrapper');
@@ -55,6 +75,29 @@ async function start() {
   root.render(
     <App client={emsClient} serviceName={serviceName} layers={emsLayers} />,
   );
+}
+
+// Returns the value if it is a semver (`9.6.0`) or a date version (`YYYY-MM-DD`), otherwise null
+function parseEmsVersion(value) {
+  if (typeof value !== 'string') {
+    return null;
+  }
+  const version = value.trim();
+  return SEMVER_REGEX.test(version) || DATE_VERSION_REGEX.test(version) ? version : null;
+}
+
+async function loadLayers(emsClient) {
+  const layers = {
+    file: await emsClient.getFileLayers(),
+    tms: await emsClient.getTMSServices(),
+  };
+  // The app cannot render without a basemap for each color mode
+  for (const colorMode of ['light', 'dark']) {
+    if (!findBaseStyle(layers.tms, colorMode)) {
+      throw new Error(`No ${colorMode} basemap found in the ${emsClient._emsVersion} manifest`);
+    }
+  }
+  return layers;
 }
 
 function fetchFunction(...args) {
@@ -68,8 +111,7 @@ function relativeToAbsolute(url) {
   return a.href;
 }
 
-async function getEmsClient(config, deployment, locale) {
-  const emsVersion = config.SUPPORTED_EMS.hasOwnProperty('emsVersion') ? config.SUPPORTED_EMS['emsVersion'] : null;
+function getEmsClient(config, deployment, locale, emsVersion) {
   const manifest = config.SUPPORTED_EMS.manifest.hasOwnProperty(deployment)
     ? config.SUPPORTED_EMS.manifest[deployment]
     : config.SUPPORTED_EMS.manifest[config.default];
